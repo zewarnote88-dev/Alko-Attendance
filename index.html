@@ -2,6 +2,7 @@
 <html lang="ckb" dir="rtl">
 <head>
 <meta charset="utf-8">
+<meta name="color-scheme" content="only light">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <title>غیابا کرێکاران</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800&family=Noto+Sans+Arabic:wght@400;600;700&display=swap">
@@ -322,6 +323,21 @@ td.hn::after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:7
 .tile[data-k="1"],.tile[data-k="6"]{background:linear-gradient(135deg,var(--ac),var(--ac2))!important;color:#fff!important;border:0!important}
 .tile[data-k="1"] small,.tile[data-k="6"] small{color:rgba(255,255,255,.85)}
 @media (max-width:700px){.tiles{grid-template-columns:1fr 1fr}.tile{padding:14px 12px}.tile .ti{font-size:24px}.tile b{font-size:14px}}
+.top{background:linear-gradient(120deg,var(--g1,#1e3a8a) 0%,var(--g2,#2563eb) 55%,var(--g3,#0ea5e9) 100%)!important;box-shadow:0 10px 30px color-mix(in srgb,var(--g2,#2563eb) 28%,transparent)!important}
+#login{background:linear-gradient(135deg,var(--g1,#1e3a8a),var(--g2,#2563eb) 55%,var(--g3,#0ea5e9))!important}
+:root,:root[data-theme="light"]{color-scheme:only light}
+:root[data-theme="dark"]{color-scheme:only dark}
+#cpop{position:fixed;z-index:50;top:70px;inset-inline-end:16px;width:min(320px,calc(100vw - 24px));background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:18px;padding:14px;box-shadow:0 18px 50px rgba(0,0,0,.28)}
+#cpop.hide{display:none}
+#cpop small{display:block;margin-top:10px;color:var(--mu);font-size:11.5px}
+.cph{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.cph button{padding:2px 9px}
+.csw{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.cs{height:54px;border-radius:14px!important;border:2px solid transparent!important;padding:0!important;display:flex;align-items:flex-end;justify-content:center;box-shadow:none!important}
+.cs span{font-size:10.5px;color:#fff;font-weight:700;padding-bottom:4px;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+.cs.on{border-color:var(--tx)!important;outline:2px solid var(--card);outline-offset:-4px}
+.cmd{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cmd button.on{background:linear-gradient(135deg,var(--ac),var(--ac2))!important;color:#fff!important;border-color:transparent!important}
 </style>
 </head>
 <body class="locked">
@@ -337,7 +353,7 @@ td.hn::after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:7
 </form></div>
 <main>
 <header class="top"><div class="brand"><div class="logo">⏱️</div><div><h1>غیابا کرێکاران ب کاتژمێر</h1><p class="sub">غیاب، کاتژمێرێن زێدە و ڕێکخستنا هەفتیێ ل ئێک جهی</p></div></div>
-<div class="ub"><span id="net"></span><span id="who"></span><button id="th" class="ghost thb" type="button">🌙</button><button id="lo" class="ghost">🚪 دەرکەتن</button></div></header>
+<div class="ub"><span id="net"></span><span id="who"></span><button id="cbt" class="ghost" type="button" title="ڕەنگ و دیزاین">🎨</button><button id="th" class="ghost thb" type="button">🌙</button><button id="lo" class="ghost">🚪 دەرکەتن</button></div></header>
 <div class="tabs"><button id="t0" class="off">🏠</button><button id="t1">📝 ڕۆژانە</button><button id="t2" class="off">📅 مانگانە</button><button id="t3" class="off">👷 کرێکار</button><button id="t4" class="off">🧭 ڕێکخستنا هەفتیێ</button><button id="t5" class="off">📊 کورتکرنا هەفتیێ</button><button id="t6" class="off">📋 غیابا هەفتیێ</button><button id="t7" class="off hide">🔐 بەکارهێنەر</button></div>
 <div class="srch hide"><span>🔍</span><input id="q" type="search" autocomplete="off" placeholder="گەڕیان ب ناڤ یان کۆد ..."><button id="qx" class="off hide" title="پاقژکرن">✕</button><small id="qn"></small></div>
 <div id="msg"></div>
@@ -448,6 +464,7 @@ td.hn::after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:7
  <div class="card"><b>گوهۆڕینا پەیڤا نهێنی یا ئەدمینی (zewar)</b>
   <div class="bar" style="margin-top:8px"><input id="ap" type="password" placeholder="پەیڤا نهێنی یا نوی" autocomplete="new-password" dir="ltr"><input id="ap2" type="password" placeholder="دووبارە بنڤیسە" autocomplete="new-password" dir="ltr"><button id="apb">گوهۆڕین</button></div></div>
 </section>
+<div id="cpop" class="hide"><div class="cph"><b>🎨 ڕەنگێ پرۆگرامی</b><button id="cpx" class="off" type="button">✕</button></div><div id="csw" class="csw"></div><div class="cph" style="margin-top:12px"><b>ڕەنگێ پاشبنەمێ</b></div><div class="cmd"><button type="button" class="sec" data-m="light">☀️ ڕۆناهی</button><button type="button" class="sec" data-m="dark">🌙 تاری</button></div><small>ئەڤ هەلبژارتنە تنێ بۆ تە یە و ل سەر ڤی ئامێری دمینیت.</small></div>
 <div id="pr"></div>
 </main>
 <script>
@@ -571,7 +588,31 @@ $("bkf").onchange=async e=>{
   Object.assign(S,n);msg("داتا دهێتە ئینان... چاڤەڕێ بە");await save();all();renderU();msg("داتا ب سەرکەفتی هاتە ئینان: "+S.workers.length+" کرێکار")}
  catch(err){console.error(err);msg("ئەڤ فایلە نە دورستە")}
 };
-function setTheme(t){document.documentElement.dataset.theme=t;try{localStorage.setItem("absTheme",t)}catch(e){}document.querySelectorAll(".thb").forEach(b=>{b.textContent=t==="dark"?"☀️ ڕۆناهی":"🌙 تاری";b.title=t==="dark"?"گوهۆڕین بۆ ڕەنگێ ڕۆناهی":"گوهۆڕین بۆ ڕەنگێ تاری"})}
+const PAL={
+ blue:["شین",["#2563eb","#4f46e5"],["#60a5fa","#818cf8"],["#1e3a8a","#2563eb","#0ea5e9"]],
+ green:["کەسک",["#059669","#0d9488"],["#34d399","#2dd4bf"],["#064e3b","#059669","#14b8a6"]],
+ teal:["شینێ ئاسمانی",["#0891b2","#0284c7"],["#22d3ee","#38bdf8"],["#164e63","#0891b2","#06b6d4"]],
+ purple:["مۆر",["#7c3aed","#c026d3"],["#a78bfa","#e879f9"],["#4c1d95","#7c3aed","#c026d3"]],
+ rose:["سۆر",["#e11d48","#db2777"],["#fb7185","#f472b6"],["#881337","#e11d48","#f472b6"]],
+ orange:["پرتەقالی",["#ea580c","#d97706"],["#fb923c","#fbbf24"],["#7c2d12","#ea580c","#f59e0b"]],
+ slate:["خۆلەمێشی",["#475569","#334155"],["#94a3b8","#cbd5e1"],["#0f172a","#334155","#64748b"]]
+};
+const ckey=()=>"absColor"+(ME&&ME.u?":"+ME.u:"");
+function getColor(){try{return localStorage.getItem(ckey())||localStorage.getItem("absColor")||"blue"}catch(e){return"blue"}}
+function applyColor(c){
+ c=PAL[c]?c:getColor();const P=PAL[c]||PAL.blue,dk=document.documentElement.dataset.theme==="dark",a=dk?P[2]:P[1],st=document.documentElement.style;
+ st.setProperty("--ac",a[0]);st.setProperty("--ac2",a[1]);st.setProperty("--g1",P[3][0]);st.setProperty("--g2",P[3][1]);st.setProperty("--g3",P[3][2]);
+ const m=document.querySelector('meta[name="theme-color"]')||document.head.appendChild(Object.assign(document.createElement("meta"),{name:"theme-color"}));m.content=P[3][1];
+ const sw=$("csw");if(sw)sw.innerHTML=Object.entries(PAL).map(([k,v])=>`<button type="button" class="cs${k===c?" on":""}" data-c="${k}" style="background:linear-gradient(135deg,${v[3][1]},${v[3][2]})" title="${v[0]}"><span>${v[0]}</span></button>`).join("");
+ document.querySelectorAll("#cpop [data-m]").forEach(b=>b.classList.toggle("on",b.dataset.m===(dk?"dark":"light")));
+}
+function setTheme(t){document.documentElement.dataset.theme=t;try{applyColor()}catch(e){}try{localStorage.setItem("absTheme",t)}catch(e){}document.querySelectorAll(".thb").forEach(b=>{b.textContent=t==="dark"?"☀️ ڕۆناهی":"🌙 تاری";b.title=t==="dark"?"گوهۆڕین بۆ ڕەنگێ ڕۆناهی":"گوهۆڕین بۆ ڕەنگێ تاری"})}
+$("cbt").onclick=e=>{e.stopPropagation();$("cpop").classList.toggle("hide");applyColor()};
+$("cpx").onclick=()=>$("cpop").classList.add("hide");
+$("cpop").addEventListener("click",e=>{e.stopPropagation();const c=e.target.closest("[data-c]"),m=e.target.closest("[data-m]");
+ if(c){try{localStorage.setItem(ckey(),c.dataset.c);localStorage.setItem("absColor",c.dataset.c)}catch(x){}applyColor(c.dataset.c)}
+ if(m)setTheme(m.dataset.m)});
+document.addEventListener("click",()=>$("cpop").classList.add("hide"));
 document.querySelectorAll(".thb").forEach(b=>b.onclick=()=>setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark"));
 setTheme(document.documentElement.dataset.theme||"light");
 if(innerWidth>700)document.querySelectorAll("details.help").forEach(x=>x.open=true);
@@ -614,6 +655,7 @@ $("lb").onclick=async()=>{
 };
 $("lo").onclick=()=>{ses("");ME=null;renderAW();$("lu").value="";showLogin()};
 function enter(){
+ applyColor();
  document.body.classList.remove("locked");
  ["1","2","3","4","5","6","7"].forEach(k=>$("t"+k).classList.toggle("hide",!can(k)));
  $("who").textContent="👤 "+ME.u+(ME.admin?" (ئەدمین)":"");
