@@ -2,7 +2,7 @@
 <html lang="ckb" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <title>غیابا کرێکاران</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800&family=Noto+Sans+Arabic:wght@400;600;700&display=swap">
 <style>
@@ -258,6 +258,49 @@ details.help>div{line-height:1.9}
 </style>
 <script>try{document.documentElement.dataset.theme=localStorage.getItem("absTheme")||"light"}catch(e){document.documentElement.dataset.theme="light"}</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style id="mobile-compact">
+@media (max-width:700px){
+ body{font-size:13px;line-height:1.55}
+ main{padding:8px 8px 24px}
+ .top{padding:10px 12px;margin-bottom:10px;border-radius:16px}
+ .logo{width:36px;height:36px;font-size:19px;border-radius:12px}
+ main .top h1{font-size:15px}
+ #who,#net,.ghost{font-size:11.5px!important;padding:4px 9px!important}
+ .tabs{padding:4px;border-radius:14px}
+ .tabs button{padding:7px 10px;font-size:12px}
+ button{font-size:13px;padding:7px 11px}
+ input,select,textarea{font-size:14px;padding:7px 9px}
+ details.help{padding:7px 12px;font-size:12px}
+ .srch input{font-size:14px;padding:6px 2px}
+ .dbar button{padding:7px 8px;font-size:12px}
+ .dbar input{font-size:14px}
+ .dfl{padding:8px 10px;gap:6px}
+ .fll{font-size:11px}
+ .sg{padding:5px 11px;font-size:12px}
+ .sg i{font-size:10.5px;line-height:16px}
+ .sgb{font-size:10px;line-height:16px}
+ #dtb tbody tr{gap:8px;padding:10px;border-radius:14px;margin-bottom:8px}
+ #dtb .wn{font-size:14px}
+ #dtb .mo{font-size:11px}
+ #dtb .rb{font-size:9.5px;line-height:16px;padding:0 7px}
+ #dtb .abt{font-size:13px;padding:8px 10px;gap:8px;border-radius:11px}
+ #dtb .abt input,#dtb .lvt input{width:20px;height:20px}
+ #dtb .lvt{font-size:12.5px;padding:7px 9px;gap:6px;border-radius:10px}
+ #dtb td[data-l]::before{font-size:10.5px;margin-bottom:3px}
+ #dtb input.h{font-size:14px;padding:7px}
+ #dtb td.c-lw input.lwh{width:60px;font-size:13px}
+ #dtb .lwn{font-size:10.5px}
+ #dtb tfoot tr{padding:8px 12px;border-radius:13px}
+ #dtb tfoot th{font-size:12px}
+ #dnx button{padding:9px 16px;font-size:13px}
+ .kpi{padding:10px}.kpi b{font-size:20px}.kpi span{font-size:11px}
+ table{font-size:12px}th{font-size:11px}th,td{padding:6px 7px}
+ .card{padding:10px}
+ .warnbox,.amok{font-size:12px;padding:8px 11px}
+ #msg{font-size:12px}
+ .lgc{padding:24px 18px}.lgc h2{font-size:19px}
+}
+</style>
 </head>
 <body class="locked">
 <div id="login"><form class="lgc" onsubmit="return false">
