@@ -8,7 +8,7 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script>try{var _s=localStorage.getItem("absStyle");if(_s)document.documentElement.dataset.style=_s}catch(e){}</script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <title>غیابا کرێکاران</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800&family=Noto+Sans+Arabic:wght@400;600;700&display=swap">
@@ -263,7 +263,7 @@ details.help>div{line-height:1.9}
  #dnx button{width:100%}
 }
 </style>
-<script>try{document.documentElement.dataset.theme=localStorage.getItem("absTheme")||"light"}catch(e){document.documentElement.dataset.theme="light"}</script>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("absTheme")||"light";var _s=localStorage.getItem("absStyle")||"alko";document.documentElement.dataset.style=_s;if(_s==="alko")document.documentElement.dataset.theme="dark"}catch(e){document.documentElement.dataset.theme="light"}</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style id="mobile-compact">
 @media (max-width:700px){
@@ -448,7 +448,7 @@ body.fru .dbar{grid-template-columns:1fr!important;display:grid}
 :root[data-style="glass"][data-theme="dark"]{--card:rgba(17,24,39,.48);--bg2:rgba(255,255,255,.07);--thbg:rgba(255,255,255,.06);--bd:rgba(255,255,255,.14);--sh:0 8px 32px rgba(0,0,0,.35);--gsolid:rgba(17,24,39,.92);--gin:rgba(255,255,255,.08)}
 html[data-style="glass"]{background:#e9edf8}
 html[data-style="glass"][data-theme="dark"]{background:#0b1020}
-html[data-style="glass"] body{background:transparent!important;background-image:none!important}
+html:is([data-style="glass"],[data-style="alko"]) body{background:transparent!important;background-image:none!important}
 html[data-style="glass"] body::before{content:"";position:fixed;inset:-10%;z-index:-1;pointer-events:none;
  background:radial-gradient(38% 32% at 12% 18%,color-mix(in srgb,var(--g3,#0ea5e9) 70%,transparent),transparent 70%),
  radial-gradient(42% 38% at 88% 28%,color-mix(in srgb,var(--ac2) 60%,transparent),transparent 70%),
@@ -460,19 +460,19 @@ html[data-style="glass"][data-theme="dark"] body::before{
  radial-gradient(42% 38% at 88% 28%,color-mix(in srgb,var(--ac2) 40%,transparent),transparent 70%),
  radial-gradient(48% 42% at 45% 92%,color-mix(in srgb,var(--g2,#2563eb) 40%,transparent),transparent 70%),
  linear-gradient(160deg,#0b1020,#111827 60%,#0b1020)}
-html[data-style="glass"] :where(.card,.tabs,.srch,.kpi,.tile,details.help,#dtb tbody tr,#dtb tfoot tr,.dfl,#cpop,.ntbox,.lgc,.warnbox,.amok,.xact){
+html:is([data-style="glass"],[data-style="alko"]) :where(.card,.tabs,.srch,.kpi,.tile,details.help,#dtb tbody tr,#dtb tfoot tr,.dfl,#cpop,.ntbox,.lgc,.warnbox,.amok,.xact){
  background:var(--card)!important;border:1px solid var(--bd)!important;box-shadow:var(--sh)!important;
  -webkit-backdrop-filter:blur(18px) saturate(170%);backdrop-filter:blur(18px) saturate(170%)}
-html[data-style="glass"] .top{background:linear-gradient(120deg,color-mix(in srgb,var(--g1,#1e3a8a) 78%,transparent),color-mix(in srgb,var(--g2,#2563eb) 70%,transparent) 55%,color-mix(in srgb,var(--g3,#0ea5e9) 62%,transparent))!important;
+html:is([data-style="glass"],[data-style="alko"]) .top{background:linear-gradient(120deg,color-mix(in srgb,var(--g1,#1e3a8a) 78%,transparent),color-mix(in srgb,var(--g2,#2563eb) 70%,transparent) 55%,color-mix(in srgb,var(--g3,#0ea5e9) 62%,transparent))!important;
  border:1px solid rgba(255,255,255,.35);-webkit-backdrop-filter:blur(18px) saturate(170%);backdrop-filter:blur(18px) saturate(170%)}
-html[data-style="glass"] :is(input,select,textarea):not([type=checkbox]):not([type=radio]){background:var(--gin)!important;border-color:var(--bd)!important}
-html[data-style="glass"] .srch input{background:transparent!important}
-html[data-style="glass"] table,html[data-style="glass"] td{background-color:transparent}
-html[data-style="glass"] th{background:var(--thbg)!important;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
-html[data-style="glass"] .tabs button.off,html[data-style="glass"] button.sec,html[data-style="glass"] button.off{background:rgba(255,255,255,.18)}
-html[data-style="glass"] #atb td.nm,html[data-style="glass"] #xtb td.nm{background:var(--gsolid)!important}
-html[data-style="glass"] .tile[data-k="1"],html[data-style="glass"] .tile[data-k="6"]{background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 85%,transparent),color-mix(in srgb,var(--ac2) 80%,transparent))!important;border:1px solid rgba(255,255,255,.35)!important}
-html[data-style="glass"] #ntp{background:rgba(0,0,0,.25);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+html:is([data-style="glass"],[data-style="alko"]) :is(input,select,textarea):not([type=checkbox]):not([type=radio]){background:var(--gin)!important;border-color:var(--bd)!important}
+html:is([data-style="glass"],[data-style="alko"]) .srch input{background:transparent!important}
+html:is([data-style="glass"],[data-style="alko"]) table,html:is([data-style="glass"],[data-style="alko"]) td{background-color:transparent}
+html:is([data-style="glass"],[data-style="alko"]) th{background:var(--thbg)!important;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+html:is([data-style="glass"],[data-style="alko"]) .tabs button.off,html:is([data-style="glass"],[data-style="alko"]) button.sec,html:is([data-style="glass"],[data-style="alko"]) button.off{background:rgba(255,255,255,.18)}
+html:is([data-style="glass"],[data-style="alko"]) #atb td.nm,html:is([data-style="glass"],[data-style="alko"]) #xtb td.nm{background:var(--gsolid)!important}
+html:is([data-style="glass"],[data-style="alko"]) .tile[data-k="1"],html:is([data-style="glass"],[data-style="alko"]) .tile[data-k="6"]{background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 85%,transparent),color-mix(in srgb,var(--ac2) 80%,transparent))!important;border:1px solid rgba(255,255,255,.35)!important}
+html:is([data-style="glass"],[data-style="alko"]) #ntp{background:rgba(0,0,0,.25);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
 /* ===== ALKO login ===== */
 #login{position:relative;overflow:hidden;background:radial-gradient(120% 90% at 50% 0%,#1d1450 0%,#0d0b24 55%,#07061a 100%)!important;color:#eef0ff;color-scheme:dark}
 #login .lgbg{position:absolute;inset:0;pointer-events:none}
@@ -518,6 +518,25 @@ html[data-style="glass"] #ntp{background:rgba(0,0,0,.25);-webkit-backdrop-filter
 #login #le{color:#fca5a5;min-height:18px}
 #login .lgf{color:#6f73a8;font-size:11.5px;margin-top:4px;letter-spacing:.3px}
 @media (max-width:700px){#login .lgc{padding:28px 20px 18px!important}#login .bm{width:56px;height:56px}#login h2{font-size:21px}}
+/* ===== ALKO style (dark brand, like the login) ===== */
+:root[data-style="alko"]{--bg:#0d0b24;--bg2:rgba(255,255,255,.06);--card:rgba(30,24,72,.58);--tx:#eef0ff;--mu:#a5a8d6;--bd:rgba(255,255,255,.09);--thbg:rgba(255,255,255,.05);
+ --sh:0 10px 30px rgba(0,0,0,.35);--gsolid:rgba(22,18,52,.97);--gin:rgba(10,9,30,.55);--hl:#4a2340;color-scheme:only dark}
+html[data-style="alko"]{background:#07061a}
+html[data-style="alko"] body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+ background:radial-gradient(520px 420px at 8% -5%,rgba(124,58,237,.42),transparent 70%),radial-gradient(520px 420px at 100% 105%,rgba(37,99,235,.32),transparent 70%),
+ radial-gradient(380px 300px at 85% 35%,rgba(219,39,119,.13),transparent 70%),radial-gradient(120% 90% at 50% 0%,#1d1450 0%,#0d0b24 55%,#07061a 100%)}
+html[data-style="alko"] .top{background:linear-gradient(120deg,rgba(124,58,237,.42),rgba(79,70,229,.30) 55%,rgba(59,130,246,.30))!important;border:1px solid rgba(255,255,255,.10)!important;box-shadow:0 14px 40px rgba(0,0,0,.4)!important}
+html[data-style="alko"] .top::after{background:rgba(168,85,247,.10)}
+html[data-style="alko"] :is(input,select,textarea):not([type=checkbox]):not([type=radio]):focus{border-color:#8b5cf6!important;box-shadow:0 0 0 3px rgba(139,92,246,.22)!important;outline:none}
+html[data-style="alko"] input[type=checkbox]{accent-color:var(--ac)}
+.logo.bml{transform:rotate(45deg);border-radius:13px;background:linear-gradient(135deg,#a855f7,#6366f1 55%,#3b82f6)!important;box-shadow:0 6px 18px rgba(124,58,237,.45),inset 0 1px 0 rgba(255,255,255,.35)}
+.logo.bml span{transform:rotate(-45deg);font:900 22px/1 system-ui,-apple-system,"Segoe UI",sans-serif;color:#fff}
+.alkot{letter-spacing:2px;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+@media (max-width:700px){.logo.bml{width:30px!important;height:30px!important;border-radius:9px}.logo.bml span{font-size:16px}.top .sub{display:none}}
+.cmd.c3{grid-template-columns:repeat(3,1fr)}
+html[data-style="alko"] td.lvc,html[data-style="alko"] .lvc{background:rgba(250,204,21,.16)!important;color:#fde68a!important}
+html[data-style="alko"] td.lvc .byl{color:#e7d9a0}
+html[data-style="alko"] td.a{background:rgba(248,113,113,.16)!important}
 </style>
 </head>
 <body class="locked">
@@ -534,7 +553,7 @@ html[data-style="glass"] #ntp{background:rgba(0,0,0,.25);-webkit-backdrop-filter
  <div class="lgf">غیابا کرێکاران · © ALKO Company</div>
 </form></div>
 <main>
-<header class="top"><div class="brand"><div class="logo">⏱️</div><div><h1>غیابا کرێکاران ب کاتژمێر</h1><p class="sub">غیاب، کاتژمێرێن زێدە و ڕێکخستنا هەفتیێ ل ئێک جهی</p></div></div>
+<header class="top"><div class="brand"><div class="logo bml"><span>A</span></div><div><h1>غیابا کرێکاران</h1><p class="sub"><b class="alkot">ALKO</b> Company · غیاب، زێدە و ڕێکخستنا هەفتیێ</p></div></div>
 <div class="ub"><span id="net"></span><span id="who"></span><button id="cbt" class="ghost" type="button" title="ڕەنگ و دیزاین">🎨</button><button id="th" class="ghost thb" type="button">🌙</button><button id="lo" class="ghost">🚪<span class="dl"> دەرکەتن</span></button></div></header>
 <div class="tabs"><button id="t0" class="off">🏠</button><button id="t1">📝 ڕۆژانە</button><button id="t2" class="off">📅 مانگانە</button><button id="t3" class="off">👷 کرێکار</button><button id="t4" class="off">🧭 ڕێکخستنا هەفتیێ</button><button id="t5" class="off">📊 کورتکرنا هەفتیێ</button><button id="t6" class="off">📋 غیابا هەفتیێ</button><button id="t7" class="off hide">🔐 بەکارهێنەر</button></div>
 <div class="srch hide"><span>🔍</span><input id="q" type="search" autocomplete="off" placeholder="گەڕیان ب ناڤ یان کۆد ..."><button id="qx" class="off hide" title="پاقژکرن">✕</button><small id="qn"></small></div>
@@ -649,7 +668,7 @@ html[data-style="glass"] #ntp{background:rgba(0,0,0,.25);-webkit-backdrop-filter
  <div class="card"><b>گوهۆڕینا پەیڤا نهێنی یا ئەدمینی (zewar)</b>
   <div class="bar" style="margin-top:8px"><input id="ap" type="password" placeholder="پەیڤا نهێنی یا نوی" autocomplete="new-password" dir="ltr"><input id="ap2" type="password" placeholder="دووبارە بنڤیسە" autocomplete="new-password" dir="ltr"><button id="apb">گوهۆڕین</button></div></div>
 </section>
-<div id="cpop" class="hide"><div class="cph"><b>🎨 ڕەنگێ پرۆگرامی</b><button id="cpx" class="off" type="button">✕</button></div><div id="csw" class="csw"></div><div class="cph" style="margin-top:12px"><b>ڕەنگێ پاشبنەمێ</b></div><div class="cmd"><button type="button" class="sec" data-m="light">☀️ ڕۆناهی</button><button type="button" class="sec" data-m="dark">🌙 تاری</button></div><div class="cph" style="margin-top:12px"><b>شێوە</b></div><div class="cmd"><button type="button" class="sec" data-s="flat">▢ ئاسایی</button><button type="button" class="sec" data-s="glass">🔮 شووشە</button></div><small>ئەڤ هەلبژارتنە تنێ بۆ تە یە و ل سەر ڤی ئامێری دمینیت.</small></div>
+<div id="cpop" class="hide"><div class="cph"><b>🎨 ڕەنگێ پرۆگرامی</b><button id="cpx" class="off" type="button">✕</button></div><div id="csw" class="csw"></div><div class="cph" style="margin-top:12px"><b>ڕەنگێ پاشبنەمێ</b></div><div class="cmd"><button type="button" class="sec" data-m="light">☀️ ڕۆناهی</button><button type="button" class="sec" data-m="dark">🌙 تاری</button></div><div class="cph" style="margin-top:12px"><b>شێوە</b></div><div class="cmd c3"><button type="button" class="sec" data-s="alko">✦ ALKO</button><button type="button" class="sec" data-s="glass">🔮 شووشە</button><button type="button" class="sec" data-s="flat">▢ ئاسایی</button></div><small>ئەڤ هەلبژارتنە تنێ بۆ تە یە و ل سەر ڤی ئامێری دمینیت.</small></div>
 <div id="ntp" class="hide"><div class="ntbox"><b>💬 بۆچی نەهاتیە؟</b><small id="ntt"></small><input id="nti" maxlength="200" autocomplete="off" placeholder="وەک: نەخۆش بوو"><div class="bar" style="margin:0"><button id="nts" type="button">پاشەکەفتکرن</button><button id="ntc" type="button" class="off">بەتالکرن</button></div></div></div>
 <div id="pr"></div>
 </main>
@@ -780,6 +799,7 @@ $("bkf").onchange=async e=>{
  catch(err){console.error(err);msg("ئەڤ فایلە نە دورستە")}
 };
 const PAL={
+ alko:["ALKO",["#7c3aed","#4f46e5"],["#8b5cf6","#3b82f6"],["#7c3aed","#6366f1","#3b82f6"]],
  blue:["شین",["#2563eb","#4f46e5"],["#60a5fa","#818cf8"],["#1e3a8a","#2563eb","#0ea5e9"]],
  green:["کەسک",["#059669","#0d9488"],["#34d399","#2dd4bf"],["#064e3b","#059669","#14b8a6"]],
  teal:["شینێ ئاسمانی",["#0891b2","#0284c7"],["#22d3ee","#38bdf8"],["#164e63","#0891b2","#06b6d4"]],
@@ -790,26 +810,28 @@ const PAL={
 };
 const ckey=()=>"absColor"+(ME&&ME.u?":"+ME.u:"");
 const skey=()=>"absStyle"+(ME&&ME.u?":"+ME.u:"");
-function getStyle(){try{return localStorage.getItem(skey())||localStorage.getItem("absStyle")||"flat"}catch(e){return"flat"}}
-function getColor(){try{return localStorage.getItem(ckey())||localStorage.getItem("absColor")||"blue"}catch(e){return"blue"}}
+function setStyle(v){try{localStorage.setItem(skey(),v);localStorage.setItem("absStyle",v)}catch(x){}}
+function getStyle(){try{return localStorage.getItem(skey())||localStorage.getItem("absStyle")||"alko"}catch(e){return"alko"}}
+function getColor(){try{return localStorage.getItem(ckey())||localStorage.getItem("absColor")||"alko"}catch(e){return"alko"}}
 function applyColor(c){
- c=PAL[c]?c:getColor();const P=PAL[c]||PAL.blue,dk=document.documentElement.dataset.theme==="dark",a=dk?P[2]:P[1],st=document.documentElement.style;
+ const sy=getStyle();document.documentElement.dataset.style=sy;if(sy==="alko")document.documentElement.dataset.theme="dark";
+ c=PAL[c]?c:getColor();const P=PAL[c]||PAL.alko,dk=document.documentElement.dataset.theme==="dark",a=dk?P[2]:P[1],st=document.documentElement.style;
  st.setProperty("--ac",a[0]);st.setProperty("--ac2",a[1]);st.setProperty("--g1",P[3][0]);st.setProperty("--g2",P[3][1]);st.setProperty("--g3",P[3][2]);
  const m=document.querySelector('meta[name="theme-color"]')||document.head.appendChild(Object.assign(document.createElement("meta"),{name:"theme-color"}));m.content=P[3][1];
  const sw=$("csw");if(sw)sw.innerHTML=Object.entries(PAL).map(([k,v])=>`<button type="button" class="cs${k===c?" on":""}" data-c="${k}" style="background:linear-gradient(135deg,${v[3][1]},${v[3][2]})" title="${v[0]}"><span>${v[0]}</span></button>`).join("");
- document.querySelectorAll("#cpop [data-m]").forEach(b=>b.classList.toggle("on",b.dataset.m===(dk?"dark":"light")));
- const sy=getStyle();document.documentElement.dataset.style=sy;document.querySelectorAll("#cpop [data-s]").forEach(b=>b.classList.toggle("on",b.dataset.s===sy));
+ document.querySelectorAll("#cpop [data-m]").forEach(b=>b.classList.toggle("on",sy!=="alko"&&b.dataset.m===(dk?"dark":"light")));
+ document.querySelectorAll("#cpop [data-s]").forEach(b=>b.classList.toggle("on",b.dataset.s===sy));
 }
-function setTheme(t){document.documentElement.dataset.theme=t;try{applyColor()}catch(e){}try{localStorage.setItem("absTheme",t)}catch(e){}document.querySelectorAll(".thb").forEach(b=>{b.textContent=t==="dark"?"☀️ ڕۆناهی":"🌙 تاری";b.title=t==="dark"?"گوهۆڕین بۆ ڕەنگێ ڕۆناهی":"گوهۆڕین بۆ ڕەنگێ تاری"})}
+function setTheme(t,keep){document.documentElement.dataset.theme=t;try{applyColor()}catch(e){}if(!keep)try{localStorage.setItem("absTheme",t)}catch(e){}document.querySelectorAll(".thb").forEach(b=>{b.textContent=t==="dark"?"☀️ ڕۆناهی":"🌙 تاری";b.title=t==="dark"?"گوهۆڕین بۆ ڕەنگێ ڕۆناهی":"گوهۆڕین بۆ ڕەنگێ تاری"})}
 $("cbt").onclick=e=>{e.stopPropagation();$("cpop").classList.toggle("hide");applyColor()};
 $("cpx").onclick=()=>$("cpop").classList.add("hide");
 $("cpop").addEventListener("click",e=>{e.stopPropagation();const c=e.target.closest("[data-c]"),m=e.target.closest("[data-m]");
  if(c){try{localStorage.setItem(ckey(),c.dataset.c);localStorage.setItem("absColor",c.dataset.c)}catch(x){}applyColor(c.dataset.c)}
- if(m)setTheme(m.dataset.m);
- const sb=e.target.closest("[data-s]");if(sb){try{localStorage.setItem(skey(),sb.dataset.s);localStorage.setItem("absStyle",sb.dataset.s)}catch(x){}applyColor()}});
+ if(m){if(getStyle()==="alko")setStyle("flat");setTheme(m.dataset.m)}
+ const sb=e.target.closest("[data-s]");if(sb){const was=getStyle();setStyle(sb.dataset.s);if(was==="alko"&&sb.dataset.s!=="alko"){let t="light";try{t=localStorage.getItem("absTheme")||"light"}catch(x){}setTheme(t)}else applyColor()}});
 document.addEventListener("click",()=>$("cpop").classList.add("hide"));
-document.querySelectorAll(".thb").forEach(b=>b.onclick=()=>setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark"));
-setTheme(document.documentElement.dataset.theme||"light");
+document.querySelectorAll(".thb").forEach(b=>b.onclick=()=>{if(getStyle()==="alko"){setStyle("flat");setTheme("light");return}setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark")});
+setTheme(document.documentElement.dataset.theme||"light",true);
 if(innerWidth>700)document.querySelectorAll("details.help").forEach(x=>x.open=true);
 const PERMS=[["1","📝 ڕۆژانە"],["2","📅 مانگانە"],["3","👷 کرێکار"],["4","🧭 ڕێکخستنا هەفتیێ"],["5","📊 کورتکرنا هەفتیێ"],["6","📋 غیابا هەفتیێ"]];
 const ADM="zewar";
