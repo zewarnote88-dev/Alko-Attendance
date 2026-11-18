@@ -344,6 +344,43 @@ td.hn::after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:7
 #ntp.hide{display:none}
 .ntbox{background:var(--card);border-radius:18px;padding:16px;width:min(380px,100%);display:flex;flex-direction:column;gap:10px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
 .ntbox small{color:var(--mu)}
+.dm,.mxb{display:none}
+.dtl{display:flex;align-items:center;gap:8px;margin:-4px 2px 10px;font-size:13px;color:var(--mu)}
+.dtl .tdy{background:color-mix(in srgb,var(--ac) 14%,transparent);color:var(--ac);font-weight:700;border-radius:999px;padding:0 10px;font-size:12px}
+.dtl button{padding:3px 10px;font-size:12px}
+@media (max-width:700px){
+ .top{flex-wrap:nowrap;padding:8px 10px;gap:8px;border-radius:14px;margin-bottom:8px}
+ .brand{gap:8px;min-width:0;flex:1}
+ .brand>div{min-width:0}
+ main .top h1{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .logo{width:32px;height:32px;font-size:17px;border-radius:10px}
+ .ub{gap:4px;flex-wrap:nowrap;flex:none}
+ .ub em,.dl,#th{display:none!important}
+ .dm{display:inline}
+ #who,#net,.ghost{padding:5px 8px!important}
+ #who b{max-width:70px;display:inline-block;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom}
+ .tabs{margin-bottom:8px}
+ #p1>details.help{display:none}
+ .dbar{margin-bottom:6px}
+ .dbar button{min-width:44px;font-size:18px;padding:4px 12px;line-height:1}
+ .dtl{margin:0 2px 8px}
+ .dfl{padding:6px 8px;gap:4px;margin-bottom:8px}
+ .fl{flex-direction:row!important;align-items:center!important;gap:6px!important}
+ .fll{min-width:46px;font-size:10.5px}
+ #p1>.bar[style]{margin-bottom:6px}
+ #qa{padding:5px 12px;font-size:12px}
+ #dtb tbody tr{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:6px 8px;padding:10px 10px 8px;align-items:center}
+ #dtb td.c-nm{grid-column:1;min-width:0}
+ #dtb td.c-ab{display:contents}
+ #dtb .abt{grid-column:2;grid-row:1;justify-content:center!important;padding:10px 8px!important;font-size:13.5px!important;width:auto!important;align-self:center}
+ #dtb .abt small{display:none}
+ #dtb input.nt,#dtb .byl{grid-column:1/-1;margin-top:0}
+ #dtb .wn{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .mxb{display:inline-block;margin-top:4px;padding:1px 10px!important;font-size:11px!important;border-radius:999px!important;background:var(--bg)!important;color:var(--mu)!important;border:1px solid var(--bd)!important;box-shadow:none!important}
+ #dtb tr:not(.open) td.c-h,#dtb tr:not(.open) td.c-ot,#dtb tr:not(.open) td.c-lv,#dtb tr:not(.open) td.c-lw,#dtb tr:not(.open) .lvw{display:none}
+ #dtb .lvw{float:none;margin-top:4px}
+ #p1 .srch{margin:0 0 8px!important;padding:2px 10px!important}
+}
 </style>
 </head>
 <body class="locked">
@@ -359,7 +396,7 @@ td.hn::after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:7
 </form></div>
 <main>
 <header class="top"><div class="brand"><div class="logo">⏱️</div><div><h1>غیابا کرێکاران ب کاتژمێر</h1><p class="sub">غیاب، کاتژمێرێن زێدە و ڕێکخستنا هەفتیێ ل ئێک جهی</p></div></div>
-<div class="ub"><span id="net"></span><span id="who"></span><button id="cbt" class="ghost" type="button" title="ڕەنگ و دیزاین">🎨</button><button id="th" class="ghost thb" type="button">🌙</button><button id="lo" class="ghost">🚪 دەرکەتن</button></div></header>
+<div class="ub"><span id="net"></span><span id="who"></span><button id="cbt" class="ghost" type="button" title="ڕەنگ و دیزاین">🎨</button><button id="th" class="ghost thb" type="button">🌙</button><button id="lo" class="ghost">🚪<span class="dl"> دەرکەتن</span></button></div></header>
 <div class="tabs"><button id="t0" class="off">🏠</button><button id="t1">📝 ڕۆژانە</button><button id="t2" class="off">📅 مانگانە</button><button id="t3" class="off">👷 کرێکار</button><button id="t4" class="off">🧭 ڕێکخستنا هەفتیێ</button><button id="t5" class="off">📊 کورتکرنا هەفتیێ</button><button id="t6" class="off">📋 غیابا هەفتیێ</button><button id="t7" class="off hide">🔐 بەکارهێنەر</button></div>
 <div class="srch hide"><span>🔍</span><input id="q" type="search" autocomplete="off" placeholder="گەڕیان ب ناڤ یان کۆد ..."><button id="qx" class="off hide" title="پاقژکرن">✕</button><small id="qn"></small></div>
 <div id="msg"></div>
@@ -369,15 +406,17 @@ td.hn::after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:7
 
 <section id="p1"><details class="help"><summary>💡 ڕێنمایی</summary><div>هەمی کرێکار ب شێوەیەکێ ئاسایی <b>ئامادەنە</b>. بۆ ئەوێ نەهاتی تەنێ «نەهاتیە» چێک بکە، کاتژمێرێن دەواما وی ب خۆ دهێنە حسابکرن (کرێکار: 8 کاتژمێر، هۆستا و مراقب 12 کاتژمێر). ئەگەر هندەک کاتژمێران نەهاتبیت، ب دەستی بنڤیسە وەک 4 یان 2:30.<br>ئەگەر ل ڕۆژا مۆلەتا خۆ هاتبیتە کاری، «ل ڕۆژا مۆلەتێ هاتیە» چێک بکە: کاتژمێرێن وێ ڕۆژێ ×1.5 دبنە زێدە (8 → 12). بۆ کرێکاران: ئەگەر د وێ هەفتیێ دا غیاب هەبن، ڕۆژا مۆلەتێ یا ئێکێ ل بەرانبەر غیابێ دچیت و ناهێتە حسابکرن، و یا دووێ ×1.5 دهێتە حسابکرن؛ بۆ هۆستا و مراقبان هەردەم ×1.5.</div></details>
  <div class="bar dbar">
-  <button class="sec" id="dp">ڕۆژا بەری</button>
+  <button class="sec" id="dp" title="ڕۆژا بەری"><span class="dl">ڕۆژا بەری</span><span class="dm">→</span></button>
   <input type="date" id="dt">
-  <button class="sec" id="dn">ڕۆژا پاشی</button>
+  <button class="sec" id="dn" title="ڕۆژا پاشی"><span class="dl">ڕۆژا پاشی</span><span class="dm">←</span></button>
  </div>
+ <div id="dtl" class="dtl"></div>
  <div class="card dfl">
   <div class="fl"><span class="fll">دەوام</span><div class="seg" id="dsh"></div></div>
   <div class="fl"><span class="fll">جهێ کاری</span><div class="seg" id="dpl"></div></div>
+  <div class="fl"><span class="fll">بار</span><div class="seg" id="dst"></div></div>
  </div>
- <div class="bar" style="justify-content:flex-start"><button id="qa" class="sec">➕ زێدەکرنا کرێکارەکێ نوی</button></div>
+ <div class="bar" style="justify-content:flex-start"><button id="qa" class="sec">➕<span class="dl"> زێدەکرنا</span> کرێکارەکێ نوی</button></div>
  <div id="qaf" class="card hide">
   <b>کرێکارەکێ نوی</b> <small id="qai"></small>
   <div class="grid" style="margin-top:8px">
@@ -535,7 +574,7 @@ async function load(){
  }
  startLive();
 }
-function netInfo(){const n=$("net");if(n){n.textContent=DB?"🟢 ئۆنلاین":"💾 تەنێ ل سەر ڤی ئامێری";n.title=DB?"داتا ل سەر ئینتەرنێتێ دهێتە پاشکەفتکرن و هەمی بەکارهێنەر دبینن":"داتا تەنێ د ڤی براوسەری دا دهێتە پاشکەفتکرن"}}
+function netInfo(){const n=$("net");if(n){n.innerHTML=DB?"🟢<em> ئۆنلاین</em>":"💾<em> تەنێ ل سەر ڤی ئامێری</em>";n.title=DB?"داتا ل سەر ئینتەرنێتێ دهێتە پاشکەفتکرن و هەمی بەکارهێنەر دبینن":"داتا تەنێ د ڤی براوسەری دا دهێتە پاشکەفتکرن"}}
 function startLive(){
  const got={c:0,d:0,w:0};
  let FAILED=false;const tm=setTimeout(()=>{if(!READY&&!FAILED)$("lgt").textContent="هێشتا پەیوەندی ب داتایێ ڤە نەبوویە. ئینتەرنێتێ پشکنە."},10000);
@@ -665,7 +704,7 @@ function enter(){
  applyColor();
  document.body.classList.remove("locked");
  ["1","2","3","4","5","6","7"].forEach(k=>$("t"+k).classList.toggle("hide",!can(k)));
- $("who").textContent="👤 "+ME.u+(ME.admin?" (ئەدمین)":"");
+ $("who").innerHTML="👤 <b dir=\"ltr\">"+esc(ME.u)+"</b>"+(ME.admin?"<em> (ئەدمین)</em>":"");
  const nP=["1","2","3","4","5","6","7"].filter(can).length,first=innerWidth<=700&&nP>=2?"0":["1","2","3","4","5","6","7"].find(can);
  document.querySelector(".tabs").classList.toggle("hide",["1","2","3","4","5","6","7"].filter(can).length<2);
  if(first){show(first);msg("")}else{["1","2","3","4","5","6","7"].forEach(k=>$("p"+k).classList.add("hide"));msg("هێشتا چ دەستهەلات بۆ تە نەهاتینە دان. پەیوەندیێ ب ئەدمینی بکە.")}
@@ -713,7 +752,7 @@ function qInfo(){const q=$("q").value.trim();$("qx").classList.toggle("hide",!q)
 function renderW(){
  $("wl").innerHTML=S.workers.map((w,i)=>!qm(w)?"":`<tr><td>${i+1}</td><td><input class="ed edc" data-i="${i}" data-f="code" value="${esc(w.code||"").replace(/"/g,"&quot;")}" title="کلیک بکە بۆ گوهۆڕینێ"></td><td class="nm"><input class="ed edn" data-i="${i}" data-f="name" value="${esc(w.name).replace(/"/g,"&quot;")}" title="کلیک بکە بۆ گوهۆڕینێ"></td><td><select class="rl2" data-i="${i}">${ROLES.map(r=>`<option${r===roleOf(w)?" selected":""}>${r}</option>`).join("")}</select></td><td><input type="date" class="dd" data-i="${i}" data-f="start" value="${w.start||""}"></td><td><input type="date" class="dd" data-i="${i}" data-f="end" value="${w.end||""}"></td><td><button class="off" data-d="${i}">ژێبرن</button></td></tr>`).join("")||(S.workers.length?'<tr><td colspan="7">چ ئەنجام بۆ گەڕیانێ نینن</td></tr>':'')||'<tr><td colspan="7">هێشتا چ کرێکار نەهاتینە زێدەکرن</td></tr>';
 }
-let DSH="",DPL="";try{DSH=localStorage.getItem("absDSh")||"";DPL=localStorage.getItem("absDPl")||""}catch(e){}
+let DSH="",DPL="",DST="";const OPN=new Set();try{DSH=localStorage.getItem("absDSh")||"";DPL=localStorage.getItem("absDPl")||""}catch(e){}
 const keepDF=()=>{try{localStorage.setItem("absDSh",DSH);localStorage.setItem("absDPl",DPL)}catch(e){}};
 const asgOf=(w,d)=>S.asg[weekOf(d)+"_"+w.id]||["","",""];
 const isPool=p=>/ح[ەو]?[وۆ]?[ضزظذ]|hawz|hawd/i.test(p||"");
@@ -728,9 +767,10 @@ function dItems(d){
  const nn=pc("");if(nn.length&&it.length>1)it.push(["*none","بێ جه",nn]);
  return it;
 }
-function dList(d){
+function dList(d,noSt){
  let L=dBase(d);
  if(DPL)L=L.filter(w=>{const p=asgOf(w,d)[1]||"";return DPL==="*none"?!p:p===DPL});
+ if(DST&&!noSt)L=L.filter(w=>{const x=!outside(w,d)&&absOf(w,d)>0;return DST==="a"?x:!x&&!outside(w,d)});
  if(DSH||DPL)L.sort((x,y)=>(+asgOf(x,d)[0]||1e9)-(+asgOf(y,d)[0]||1e9));
  return L;
 }
@@ -742,13 +782,16 @@ function renderDFil(d){
  if(DPL&&!it.some(x=>x[0]===DPL)){DPL="";keepDF()}
  const ab=L=>L.filter(w=>!outside(w,d)&&absOf(w,d)>0).length;
  $("dpl").innerHTML=it.length>1?it.map(([v,t,L])=>{const a=ab(L);return`<button class="sg${v===DPL?" on":""}" data-v="${esc(v)}">${esc(t)}<i>${L.length}</i>${a?`<b class="sgb" title="نەهاتی">${a}</b>`:""}</button>`}).join(""):'<small>بۆ ڤێ هەفتیێ جهێ کاری نەهاتیە دیارکرن (پەرەیا «ڕێکخستنا هەفتیێ»)</small>';
+ {let L=dBase(d);if(DPL)L=L.filter(w=>{const p=asgOf(w,d)[1]||"";return DPL==="*none"?!p:p===DPL});L=L.filter(w=>!outside(w,d));const na=L.filter(w=>absOf(w,d)>0).length;
+  $("dst").innerHTML=[["","هەمی",L.length],["a","❌ نەهاتی",na],["p","✅ ئامادە",L.length-na]].map(([v,t,n])=>`<button class="sg${v===DST?" on":""}" data-v="${v}">${t}<i>${n}</i></button>`).join("")}
+ const td0=iso(new Date());$("dtl").innerHTML=`<b>${DN[new Date(d+"T00:00:00").getDay()]}</b>`+(d===td0?' <span class="tdy">ئەڤرۆ</span>':` <button type="button" class="sec" id="dtd">↩ بزڤڕە بۆ ئەڤرۆ</button>`);
  const on=document.querySelector("#dpl .sg.on");if(on)on.scrollIntoView({block:"nearest",inline:"center"});
  return it;
 }
 function renderD(){
  const d=$("dt").value;const it=renderDFil(d);renderDF();renderWarn();
  const L=dList(d);
- $("dl").innerHTML=L.map(w=>{const out=outside(w,d),av=absOf(w,d),a=asgOf(w,d),sub=[a[0]?"#"+a[0]:"",w.code?"کۆد "+w.code:"",a[1],a[2]].filter(Boolean).map(esc).join(" · ");return`<tr class="${out?"outr":av?"absr":""}"><td class="c-sq">${esc(a[0]||"")}</td><td class="c-cd">${esc(w.code||"")}</td><td class="nm c-nm"><span class="wn">${esc(w.name)}${rb(w)}</span>${sub?`<span class="mo">${sub}</span>`:""}${out?` <small>(ل ڤێ ڕۆژێ ل کار نینە، ${dayH(w)}:00 دهێتە حسابکرن)</small>`:""}${out?"":`<button type="button" class="off lvw" data-id="${w.id}" title="ئەڤ کرێکارە کار هێلا">🚪 کار هێلا</button>`}</td><td class="c-pl">${esc(a[1]||"")}${a[2]?` <small>${esc(a[2])}</small>`:""}</td><td class="c-ab"><label class="abt"><input type="checkbox" class="ab" data-id="${w.id}" title="نەهاتیە = ${dayH(w)} کاتژمێر"${!out&&av>=dayH(w)?" checked":""}><span>نەهاتیە <small>(${dayH(w)} کاتژمێر)</small></span></label>${out?"":`<input type="text" class="nt" data-id="${w.id}" maxlength="200" autocomplete="off" placeholder="💬 بۆچی نەهاتیە؟" value="${esc(S.nt[w.id+"_"+d]||"").replace(/"/g,"&quot;")}">${av&&S.by[w.id+"_"+d]?`<span class="byl">👤 تۆمارکر: ${esc(S.by[w.id+"_"+d])}</span>`:""}`}</td><td class="c-h" data-l="کاتژمێرێن نەهاتنێ"><input type="text" inputmode="decimal" class="h" data-id="${w.id}" value="${fh(av)}" placeholder="0:00"></td><td class="c-ot" data-l="کاتژمێرێن زێدە"><input type="text" inputmode="decimal" class="h ot" data-id="${w.id}" value="${fh(S.ot[w.id+"_"+d])}" placeholder="0:00"></td><td class="c-lv"><label class="lvt"><input type="checkbox" class="lv" data-id="${w.id}"${S.lv[w.id+"_"+d]?" checked":""}><span>مۆلەت</span></label></td><td class="c-lw" data-l="ل ڕۆژا مۆلەتێ هاتیە (×1.5)">${lwCell(w,d)}</td></tr>`}).join("")||(S.workers.length?'<tr><td colspan="9" class="emp">چ کرێکار د ڤی دەوامی و ڤی جهی دا نینن</td></tr>':'<tr><td colspan="9" class="emp">پێشیێ کرێکاران زێدە بکە (پەرەیا «کرێکار»)</td></tr>');
+ $("dl").innerHTML=L.map(w=>{const out=outside(w,d),av=absOf(w,d),a=asgOf(w,d),sub=[a[0]?"#"+a[0]:"",w.code?"کۆد "+w.code:"",a[1],a[2]].filter(Boolean).map(esc).join(" · ");const k0=w.id+"_"+d,ex=!out&&((av>0&&av<dayH(w))||S.ot[k0]||S.lv[k0]||S.lw[k0]),op=OPN.has(w.id)||ex;return`<tr data-w="${w.id}" class="${out?"outr":av?"absr":""}${op?" open":""}"><td class="c-sq">${esc(a[0]||"")}</td><td class="c-cd">${esc(w.code||"")}</td><td class="nm c-nm"><span class="wn">${esc(w.name)}${rb(w)}</span>${sub?`<span class="mo">${sub}</span>`:""}${out?"":`<button type="button" class="mxb" data-id="${w.id}">${op?"▴ کێمتر":"⋯ زێدەتر"}</button>`}${out?` <small>(ل ڤێ ڕۆژێ ل کار نینە، ${dayH(w)}:00 دهێتە حسابکرن)</small>`:""}${out?"":`<button type="button" class="off lvw" data-id="${w.id}" title="ئەڤ کرێکارە کار هێلا">🚪 کار هێلا</button>`}</td><td class="c-pl">${esc(a[1]||"")}${a[2]?` <small>${esc(a[2])}</small>`:""}</td><td class="c-ab"><label class="abt"><input type="checkbox" class="ab" data-id="${w.id}" title="نەهاتیە = ${dayH(w)} کاتژمێر"${!out&&av>=dayH(w)?" checked":""}><span>نەهاتیە <small>(${dayH(w)} کاتژمێر)</small></span></label>${out?"":`<input type="text" class="nt" data-id="${w.id}" maxlength="200" autocomplete="off" placeholder="💬 بۆچی نەهاتیە؟" value="${esc(S.nt[w.id+"_"+d]||"").replace(/"/g,"&quot;")}">${av&&S.by[w.id+"_"+d]?`<span class="byl">👤 تۆمارکر: ${esc(S.by[w.id+"_"+d])}</span>`:""}`}</td><td class="c-h" data-l="کاتژمێرێن نەهاتنێ"><input type="text" inputmode="decimal" class="h" data-id="${w.id}" value="${fh(av)}" placeholder="0:00"></td><td class="c-ot" data-l="کاتژمێرێن زێدە"><input type="text" inputmode="decimal" class="h ot" data-id="${w.id}" value="${fh(S.ot[w.id+"_"+d])}" placeholder="0:00"></td><td class="c-lv"><label class="lvt"><input type="checkbox" class="lv" data-id="${w.id}"${S.lv[w.id+"_"+d]?" checked":""}><span>مۆلەت</span></label></td><td class="c-lw" data-l="ل ڕۆژا مۆلەتێ هاتیە (×1.5)">${lwCell(w,d)}</td></tr>`}).join("")||(S.workers.length?'<tr><td colspan="9" class="emp">چ کرێکار د ڤی دەوامی و ڤی جهی دا نینن</td></tr>':'<tr><td colspan="9" class="emp">پێشیێ کرێکاران زێدە بکە (پەرەیا «کرێکار»)</td></tr>');
  const pl=it.slice(1),i=pl.findIndex(x=>x[0]===DPL);
  $("dnx").innerHTML=DPL&&pl[i+1]?`<button id="dnb">جهێ پاشی: ${esc(pl[i+1][1])} ⬅</button>`:"";
 }
@@ -768,9 +811,12 @@ $("qas").onclick=()=>{
  save();all();msg("کرێکار «"+n+"» هاتە زێدەکرن");
 };
 $("dsh").addEventListener("click",e=>{const b=e.target.closest(".sg");if(!b)return;DSH=b.dataset.v;DPL="";keepDF();renderD()});
+$("dst").addEventListener("click",e=>{const b=e.target.closest(".sg");if(!b)return;DST=b.dataset.v;renderD()});
+$("dtl").addEventListener("click",e=>{if(e.target.closest("#dtd")){$("dt").value=iso(new Date());renderD()}});
 $("dpl").addEventListener("click",e=>{const b=e.target.closest(".sg");if(!b)return;DPL=b.dataset.v;keepDF();renderD()});
 $("dnx").addEventListener("click",e=>{if(!e.target.closest("#dnb"))return;const pl=dItems($("dt").value).slice(1),i=pl.findIndex(x=>x[0]===DPL);if(pl[i+1]){DPL=pl[i+1][0];keepDF();renderD();$("dsh").scrollIntoView({behavior:"smooth",block:"start"})}});
 $("dl").addEventListener("click",e=>{
+ const mx=e.target.closest(".mxb");if(mx){const tr=mx.closest("tr"),o=!tr.classList.contains("open");tr.classList.toggle("open",o);o?OPN.add(mx.dataset.id):OPN.delete(mx.dataset.id);mx.textContent=o?"▴ کێمتر":"⋯ زێدەتر";return}
  const b=e.target.closest(".lvw");if(!b)return;
  const w=S.workers.find(x=>x.id===b.dataset.id),d=$("dt").value;if(!w)return;
  if(!b.dataset.a){
@@ -1262,7 +1308,7 @@ function renderAW(){
  el.innerHTML=L.length?`<div class="warnbox">🚨 <b>تەنێ بۆ ئەدمینی:</b> ئەڤ کرێکارە د هەفتیا ${w0} هەتا ${DS[6]} دا 2 ڕۆژ یان پتر نەهاتینە:<br>${L.map(x=>`<span class="awn" data-q="${esc(x.w.code||x.w.name)}" title="کلیک = دیتنا داتایێن وی">${esc(x.w.name)}${x.w.code?" ("+esc(x.w.code)+")":""} — ${x.n} ڕۆژ</span>`).join("")}</div>`:"";
 }
 $("aw").addEventListener("click",e=>{const b=e.target.closest(".awn");if(!b)return;$("q").value=b.dataset.q;all()});
-function renderDF(){renderAW();const d=$("dt").value;let a=0,o=0,n=0;const L=dList(d);L.forEach(w=>{const x=absOf(w,d);a+=x;if(x&&!outside(w,d))n++;o+=otOf(w,d)});const act=L.filter(w=>!outside(w,d)).length;$("df").innerHTML=L.length?`<tr><th colspan="4" class="f-t">کۆما ڕۆژێ — ئامادە: <span class="ok">${act-n}</span> ، نەهاتی: <span class="bad">${n}</span></th><th class="bad f-n">${n}</th><th class="bad f-a" data-l="غیاب">${r2(a)}</th><th class="ok f-o" data-l="زێدە">${r2(o)}</th><th class="f-e"></th><th class="f-e"></th></tr>`:""}
+function renderDF(){renderAW();const d=$("dt").value;let a=0,o=0,n=0;const L=dList(d,1);L.forEach(w=>{const x=absOf(w,d);a+=x;if(x&&!outside(w,d))n++;o+=otOf(w,d)});const act=L.filter(w=>!outside(w,d)).length;$("df").innerHTML=L.length?`<tr><th colspan="4" class="f-t">کۆما ڕۆژێ — ئامادە: <span class="ok">${act-n}</span> ، نەهاتی: <span class="bad">${n}</span></th><th class="bad f-n">${n}</th><th class="bad f-a" data-l="غیاب">${r2(a)}</th><th class="ok f-o" data-l="زێدە">${r2(o)}</th><th class="f-e"></th><th class="f-e"></th></tr>`:""}
 function setOt(id,v){const k=id+"_"+$("dt").value;if(!(v>0))delete S.ot[k];else S.ot[k]=Math.min(v,24);renderDF();save();renderM();renderS()}
 function renderS(){
  const w0=$("sw").value;if(!w0)return;
