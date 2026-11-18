@@ -387,6 +387,46 @@ td.hn::after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:7
 td.lkc{color:var(--mu);background:repeating-linear-gradient(45deg,transparent 0 6px,color-mix(in srgb,var(--bd) 35%,transparent) 6px 12px)}
 .lrm{flex-direction:row!important;align-items:center;gap:8px!important;font-weight:600;font-size:13px;color:var(--mu);cursor:pointer;justify-content:flex-start}
 .lrm input{width:18px;height:18px;padding:0;accent-color:var(--ac)}
+/* compact weekly tables */
+#atb th,#atb td,#xtb th,#xtb td{padding:5px 6px}
+#atb th.dh,#xtb th.dh{min-width:0;font-size:12px}
+th.tdh{color:var(--ac)!important;box-shadow:inset 0 -3px 0 var(--ac)}
+.dshort{display:none}
+#atb input.sq{width:46px;padding:5px 2px;text-align:center}
+#atb select{padding:5px 4px;font-size:12.5px;max-width:110px}
+#atb td:last-child{white-space:normal;min-width:60px;font-size:12px}
+#atb input.lv{width:20px;height:20px}
+#xtb input.xc{width:48px;padding:5px 2px;font-size:12.5px;text-align:center}
+#atb td.nm,#xtb td.nm{white-space:normal;min-width:100px;max-width:180px;line-height:1.35}
+#atb .rb,#xtb .rb{font-size:9.5px;padding:0 6px;line-height:15px}
+@media (max-width:700px){
+ .dfull{display:none}.dshort{display:inline}
+ #atb th,#atb td,#xtb th,#xtb td{padding:4px 3px;font-size:11.5px}
+ #atb tr>*:nth-child(2),#atb tr>*:last-child,#xtb tr>*:nth-child(2),#xtb tr>*:nth-child(4){display:none}
+ #atb .rb,#xtb .rb{display:none}
+ #atb td.nm,#xtb td.nm{min-width:78px;max-width:96px;font-size:12px;position:sticky;right:0;z-index:2;background:var(--card)!important;box-shadow:-2px 0 4px rgba(0,0,0,.06)}
+ #atb tr>th:nth-child(3),#xtb tr>th:nth-child(3){position:sticky;right:0;z-index:3}
+ #atb input.sq{width:32px;padding:4px 1px;font-size:12px}
+ #atb select{max-width:64px;font-size:11px;padding:4px 2px}
+ #atb input.lv{width:18px;height:18px}
+ #xtb input.xc{width:30px;padding:4px 0;font-size:11px;border-radius:7px}
+ #xtb input.xc::placeholder{color:transparent}
+ #xtb tr>*:first-child{display:none}
+ #xtb th,#xtb td{padding:4px 2px}
+ #xtb td.nm{min-width:70px;max-width:84px}
+ #atb th,#atb td{padding:4px 2px}
+ #atb td.nm{min-width:70px;max-width:84px}
+ #atb select{max-width:52px;-webkit-appearance:none;appearance:none;text-align:center;padding:4px 2px}
+ #atb input.lv{width:16px;height:16px;margin:0}
+ #atb input.sq{width:28px}
+ #atb th.dh,#atb td:has(> input.alv){padding:4px 1px}
+ #p4 .card.scroll,#p6 .card.scroll{padding:0!important}
+ #atb td.nm,#xtb td.nm{max-width:78px}
+ #xtb .ntb{max-width:40px;font-size:10px!important;padding:0 4px!important}
+ #xtb .byl{display:none}
+ #xtb td.lvc{font-size:10px}
+ #xtb tfoot th[colspan]{text-align:start}
+}
 </style>
 </head>
 <body class="locked">
@@ -912,7 +952,7 @@ $("am").addEventListener("click",e=>{if(e.target.closest("#amt")){onlyMiss=!only
 function renderA(){
  const w0=$("ws").value;if(!w0)return;
  const DS=wkIds(w0);
- $("ah").innerHTML='<tr><th>ژمارا ڕێزێ</th><th>کۆد</th><th>ناڤ</th><th>جهێ کاری</th><th>دەوام</th>'+DS.map(d=>`<th>${dn(d)}<br>${d.slice(5)}</th>`).join("")+'<th>ڕۆژا مۆلەتێ</th></tr>';
+ $("ah").innerHTML='<tr><th><span class="dfull">ژمارا ڕێزێ</span><span class="dshort">ڕێز</span></th><th>کۆد</th><th>ناڤ</th><th>جهێ کاری</th><th>دەوام</th>'+DS.map(dhd).join("")+'<th>ڕۆژا مۆلەتێ</th></tr>';
  const e=new Date(w0+"T00:00:00");e.setDate(e.getDate()+6);
  $("wr").textContent="هەفتی ژ "+w0+" هەتا "+iso(e);
  fillPf();const f=$("pf").value;
@@ -977,7 +1017,7 @@ function renderX(){
  let L=W().map(w=>({w,a:S.asg[w0+"_"+w.id]||["",""]}));
  if(f==="*none")L=L.filter(x=>!x.a[1]);else if(f)L=L.filter(x=>x.a[1]===f);
  L.sort((x,y)=>(+x.a[0]||1e9)-(+y.a[0]||1e9));
- $("xh").innerHTML='<tr><th>ڕێز</th><th>کۆد</th><th>ناڤ</th><th>جهێ کاری</th>'+DS.map(d=>`<th>${dn(d)}<br>${d.slice(5)}</th>`).join("")+'<th>کۆم</th></tr>';
+ $("xh").innerHTML='<tr><th>ڕێز</th><th>کۆد</th><th>ناڤ</th><th>جهێ کاری</th>'+DS.map(dhd).join("")+'<th>کۆم</th></tr>';
  let G=0;
  $("xb").innerHTML=L.map(({w,a})=>{
   const t=DS.reduce((z,d)=>z+xv(w,d,mode),0);G+=t;
@@ -985,7 +1025,7 @@ function renderX(){
    const k=w.id+"_"+d;
    if(outside(w,d))return`<td class="outc">${mode==="abs"?fh(dayH(w)):""}</td>`;
    if(lockD(d)){const v=mode==="abs"?(S.lv[k]?"مۆلەت":fh(S.abs[k]||0)):fh(otOf(w,d));const nn=mode==="abs"&&S.abs[k]?S.nt[k]:"";return`<td class="lkc${S.lv[k]&&mode==="abs"?" lvc":""}${nn?" hn":""}"${nn?` title="${esc(nn).replace(/"/g,"&quot;")}"`:""}>${v}</td>`}
-   if(mode==="abs"&&S.lv[k])return`<td class="lvc lvx" data-id="${w.id}" data-d="${d}" style="cursor:pointer" title="کلیک = لابرنا مۆلەتێ">مۆلەت ✕</td>`;
+   if(mode==="abs"&&S.lv[k])return`<td class="lvc lvx" data-id="${w.id}" data-d="${d}" style="cursor:pointer" title="کلیک = لابرنا مۆلەتێ"><span class="dfull">مۆلەت ✕</span><span class="dshort">م</span></td>`;
    const nn=mode==="abs"&&S.abs[k]?S.nt[k]:"";return`<td${nn?` class="hn" title="${esc(nn).replace(/"/g,"&quot;")}"`:""}><input type="text" inputmode="decimal" class="h xc" data-id="${w.id}" data-d="${d}" value="${fh((mode==="ot"?S.ot:S.abs)[k]||0)}" placeholder="0:00">${mode==="abs"&&S.abs[k]?`<button type="button" class="ntb${S.nt[k]?" has":""}" data-id="${w.id}" data-d="${d}" title="${S.nt[k]?esc(S.nt[k]).replace(/"/g,"&quot;"):"تێبینی: بۆچی نەهاتیە؟"}">💬${S.nt[k]?" "+esc(S.nt[k].length>14?S.nt[k].slice(0,14)+"…":S.nt[k]):""}</button>`:""}${mode==="abs"&&S.abs[k]&&S.by[k]?`<span class="byl">👤 ${esc(S.by[k])}</span>`:""}${mode==="ot"&&S.lw[k]?`<span class="lwn ok">+${fh(lwOf(w,d))} مۆلەت</span>`:""}</td>`;
   }).join("");
   return`<tr data-id="${w.id}"><td>${esc(a[0])}</td><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td><td>${esc(a[1])}</td>${c}<td class="tt"><b>${r2(t)}</b></td></tr>`;
@@ -1027,6 +1067,8 @@ $("xp").onclick=()=>mx(-7);$("xn").onclick=()=>mx(7);
 $("xw").onchange=()=>{if(!$("xw").value)return;$("xw").value=weekOf($("xw").value);renderX()};
 $("xf").onchange=renderX;$("xm").onchange=renderX;
 const dn=d=>DN[new Date(d+"T00:00:00").getDay()];
+const DNS=["یەک","دوو","سێ","چار","پێنج","ئەینی","شەمبی"];
+const dhd=d=>`<th class="dh${d===wtoday()?" tdh":""}" title="${d}"><span class="dfull">${dn(d)}</span><span class="dshort">${DNS[new Date(d+"T00:00:00").getDay()]}</span></th>`;
 function sheetHtml(place,w0){
  const DS=wkIds(w0);
  const L=S.workers.map(w=>({w,a:S.asg[w0+"_"+w.id]||["",""]})).filter(x=>x.a[1]===place).sort((x,y)=>(+x.a[0]||1e9)-(+y.a[0]||1e9));
@@ -1069,7 +1111,7 @@ function tableToXlsx(tbl,name,sheet,meta){
  const c=tbl.cloneNode(true);
  const src=tbl.querySelectorAll("input,select"),dst=c.querySelectorAll("input,select");
  dst.forEach((el,i)=>{const s=src[i];el.replaceWith(document.createTextNode(s.type==="checkbox"?(s.checked?"م":""):s.value))});
- c.querySelectorAll("button,.lwn,.byl,.ntb").forEach(b=>b.remove());
+ c.querySelectorAll("button,.lwn,.byl,.ntb,.dshort").forEach(b=>b.remove());
  c.querySelectorAll("br").forEach(b=>b.replaceWith(" "));
  const txt=el=>el.textContent.replace(/\s+/g," ").trim();
  const rowsOf=sel=>[...c.querySelectorAll(sel)];
