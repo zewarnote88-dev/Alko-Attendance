@@ -303,6 +303,11 @@ details.help>div{line-height:1.9}
 .lvw{display:inline-block;margin-inline-start:8px;padding:2px 9px!important;font-size:11.5px!important;border-radius:999px!important;vertical-align:middle}
 .lvw.cf{background:var(--bad)!important;color:#fff!important;border-color:var(--bad)!important}
 @media (max-width:700px){#dtb .lvw{float:left;margin:0;font-size:11px!important;padding:3px 9px!important}}
+input.nt{display:block;width:100%;min-width:150px;box-sizing:border-box;margin-top:6px;font-size:13px;padding:6px 9px;border-color:color-mix(in srgb,var(--bad) 45%,var(--bd))}
+tr:not(.absr) input.nt{display:none}
+td.hn{position:relative;cursor:help}
+td.hn::after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:7px;height:7px;border-radius:50%;background:var(--ac)}
+@media (max-width:700px){#dtb input.nt{font-size:14px;padding:8px 10px}}
 </style>
 </head>
 <body class="locked">
@@ -435,11 +440,11 @@ const p2=n=>String(n).padStart(2,"0");
 const iso=d=>d.getFullYear()+"-"+p2(d.getMonth()+1)+"-"+p2(d.getDate());
 const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const msg=t=>{$("msg").textContent=t};
-let READY=false,ME=null,S={workers:[],abs:{},ot:{},lv:{},lw:{},asg:{},places:[],users:[],admin:null},sortA=false;
+let READY=false,ME=null,S={workers:[],abs:{},ot:{},lv:{},lw:{},nt:{},asg:{},places:[],users:[],admin:null},sortA=false;
 
-const pick=d=>({workers:d.workers||[],abs:d.abs||{},ot:d.ot||{},lv:d.lv||{},lw:d.lw||{},asg:d.asg||{},places:d.places||[],users:d.users||[],admin:d.admin||null});
+const pick=d=>({workers:d.workers||[],abs:d.abs||{},ot:d.ot||{},lv:d.lv||{},lw:d.lw||{},nt:d.nt||{},asg:d.asg||{},places:d.places||[],users:d.users||[],admin:d.admin||null});
 let DB=null,BASE=null,PEND=false,WQ=Promise.resolve();
-const KEYS=["abs","ot","lv","lw"];
+const KEYS=["abs","ot","lv","lw","nt"];
 const clone=o=>JSON.parse(JSON.stringify(o));
 const cfgOf=s=>({workers:s.workers,places:s.places,users:s.users,admin:s.admin});
 const SB_URL="https://bkusrcbotmboazzhdwxo.supabase.co";
@@ -668,7 +673,7 @@ function renderDFil(d){
 function renderD(){
  const d=$("dt").value;const it=renderDFil(d);renderDF();renderWarn();
  const L=dList(d);
- $("dl").innerHTML=L.map(w=>{const out=outside(w,d),av=absOf(w,d),a=asgOf(w,d),sub=[a[0]?"#"+a[0]:"",w.code?"کۆد "+w.code:"",a[1],a[2]].filter(Boolean).map(esc).join(" · ");return`<tr class="${out?"outr":av?"absr":""}"><td class="c-sq">${esc(a[0]||"")}</td><td class="c-cd">${esc(w.code||"")}</td><td class="nm c-nm"><span class="wn">${esc(w.name)}${rb(w)}</span>${sub?`<span class="mo">${sub}</span>`:""}${out?` <small>(ل ڤێ ڕۆژێ ل کار نینە، ${dayH(w)}:00 دهێتە حسابکرن)</small>`:""}${out?"":`<button type="button" class="off lvw" data-id="${w.id}" title="ئەڤ کرێکارە کار هێلا">🚪 کار هێلا</button>`}</td><td class="c-pl">${esc(a[1]||"")}${a[2]?` <small>${esc(a[2])}</small>`:""}</td><td class="c-ab"><label class="abt"><input type="checkbox" class="ab" data-id="${w.id}" title="نەهاتیە = ${dayH(w)} کاتژمێر"${!out&&av>=dayH(w)?" checked":""}><span>نەهاتیە <small>(${dayH(w)} کاتژمێر)</small></span></label></td><td class="c-h" data-l="کاتژمێرێن نەهاتنێ"><input type="text" inputmode="decimal" class="h" data-id="${w.id}" value="${fh(av)}" placeholder="0:00"></td><td class="c-ot" data-l="کاتژمێرێن زێدە"><input type="text" inputmode="decimal" class="h ot" data-id="${w.id}" value="${fh(S.ot[w.id+"_"+d])}" placeholder="0:00"></td><td class="c-lv"><label class="lvt"><input type="checkbox" class="lv" data-id="${w.id}"${S.lv[w.id+"_"+d]?" checked":""}><span>مۆلەت</span></label></td><td class="c-lw" data-l="ل ڕۆژا مۆلەتێ هاتیە (×1.5)">${lwCell(w,d)}</td></tr>`}).join("")||(S.workers.length?'<tr><td colspan="9" class="emp">چ کرێکار د ڤی دەوامی و ڤی جهی دا نینن</td></tr>':'<tr><td colspan="9" class="emp">پێشیێ کرێکاران زێدە بکە (پەرەیا «کرێکار»)</td></tr>');
+ $("dl").innerHTML=L.map(w=>{const out=outside(w,d),av=absOf(w,d),a=asgOf(w,d),sub=[a[0]?"#"+a[0]:"",w.code?"کۆد "+w.code:"",a[1],a[2]].filter(Boolean).map(esc).join(" · ");return`<tr class="${out?"outr":av?"absr":""}"><td class="c-sq">${esc(a[0]||"")}</td><td class="c-cd">${esc(w.code||"")}</td><td class="nm c-nm"><span class="wn">${esc(w.name)}${rb(w)}</span>${sub?`<span class="mo">${sub}</span>`:""}${out?` <small>(ل ڤێ ڕۆژێ ل کار نینە، ${dayH(w)}:00 دهێتە حسابکرن)</small>`:""}${out?"":`<button type="button" class="off lvw" data-id="${w.id}" title="ئەڤ کرێکارە کار هێلا">🚪 کار هێلا</button>`}</td><td class="c-pl">${esc(a[1]||"")}${a[2]?` <small>${esc(a[2])}</small>`:""}</td><td class="c-ab"><label class="abt"><input type="checkbox" class="ab" data-id="${w.id}" title="نەهاتیە = ${dayH(w)} کاتژمێر"${!out&&av>=dayH(w)?" checked":""}><span>نەهاتیە <small>(${dayH(w)} کاتژمێر)</small></span></label>${out?"":`<input type="text" class="nt" data-id="${w.id}" maxlength="200" autocomplete="off" placeholder="💬 بۆچی نەهاتیە؟" value="${esc(S.nt[w.id+"_"+d]||"").replace(/"/g,"&quot;")}">`}</td><td class="c-h" data-l="کاتژمێرێن نەهاتنێ"><input type="text" inputmode="decimal" class="h" data-id="${w.id}" value="${fh(av)}" placeholder="0:00"></td><td class="c-ot" data-l="کاتژمێرێن زێدە"><input type="text" inputmode="decimal" class="h ot" data-id="${w.id}" value="${fh(S.ot[w.id+"_"+d])}" placeholder="0:00"></td><td class="c-lv"><label class="lvt"><input type="checkbox" class="lv" data-id="${w.id}"${S.lv[w.id+"_"+d]?" checked":""}><span>مۆلەت</span></label></td><td class="c-lw" data-l="ل ڕۆژا مۆلەتێ هاتیە (×1.5)">${lwCell(w,d)}</td></tr>`}).join("")||(S.workers.length?'<tr><td colspan="9" class="emp">چ کرێکار د ڤی دەوامی و ڤی جهی دا نینن</td></tr>':'<tr><td colspan="9" class="emp">پێشیێ کرێکاران زێدە بکە (پەرەیا «کرێکار»)</td></tr>');
  const pl=it.slice(1),i=pl.findIndex(x=>x[0]===DPL);
  $("dnx").innerHTML=DPL&&pl[i+1]?`<button id="dnb">جهێ پاشی: ${esc(pl[i+1][1])} ⬅</button>`:"";
 }
@@ -716,17 +721,17 @@ function renderM(){
  h+="<th>کۆما غیابێ</th><th>کۆما زێدە</th><th>مۆلەت</th></tr>";
  W().forEach(w=>{
   let t=0,o=0,n2=0,r=`<tr><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td>`;
-  for(let d=1;d<=n;d++){const ds2=y+"-"+p2(m)+"-"+p2(d),out=outside(w,ds2),v=out?dayH(w):S.abs[w.id+"_"+ds2];if(v)t+=v;o+=otOf(w,ds2);const l=S.lv[w.id+"_"+y+"-"+p2(m)+"-"+p2(d)];if(l)n2++;r+=`<td class="${out?"outc":v?"a":l?"lvc":""}">${v?fh(v):l?"م":""}</td>`}
+  for(let d=1;d<=n;d++){const ds2=y+"-"+p2(m)+"-"+p2(d),out=outside(w,ds2),v=out?dayH(w):S.abs[w.id+"_"+ds2];if(v)t+=v;o+=otOf(w,ds2);const l=S.lv[w.id+"_"+y+"-"+p2(m)+"-"+p2(d)];if(l)n2++;const nn=S.nt[w.id+"_"+ds2];r+=`<td class="${out?"outc":v?"a":l?"lvc":""}${nn&&v&&!out?" hn":""}"${nn&&v&&!out?` title="${esc(nn).replace(/"/g,"&quot;")}"`:""}>${v?fh(v):l?"م":""}</td>`}
   h+=r+`<td class="${t?"bad":""}"><b>${fh(t)||"0:00"}</b></td><td class="ok"><b>${fh(o)||"0:00"}</b></td><td><b>${n2}</b></td></tr>`;
  });
  $("mt").innerHTML=h;
 }
 function setAbs(id,v){
  const k=id+"_"+$("dt").value;
- if(!(v>0))delete S.abs[k];else S.abs[k]=Math.min(v,24);renderDF();renderWarn();
+ if(!(v>0)){delete S.abs[k];delete S.nt[k]}else S.abs[k]=Math.min(v,24);renderDF();renderWarn();
  save();renderM();
 }
-$("dl").addEventListener("change",e=>{const t=e.target,c=t.classList;if(t.closest("tr.outr"))return;if(c.contains("lw")||c.contains("lwh")){const w=S.workers.find(x=>x.id===t.dataset.id),k=t.dataset.id+"_"+$("dt").value;if(c.contains("lw")){if(t.checked){S.lw[k]=dayH(w);S.lv[k]=1;delete S.abs[k]}else delete S.lw[k]}else{const v=Math.min(ph(t.value),24);if(v>0)S.lw[k]=v;else delete S.lw[k]}save();renderD();renderM();renderS();return}if(c.contains("lv")&&!c.contains("lw")){const k=t.dataset.id+"_"+$("dt").value;if(t.checked)S.lv[k]=1;else delete S.lv[k];save();renderM();renderS();renderWarn();return}const w=S.workers.find(x=>x.id===t.dataset.id);if(c.contains("ab")){setAbs(t.dataset.id,t.checked&&w?dayH(w):0);renderD();return}if(!c.contains("h"))return;const v=Math.min(ph(t.value),24);if(c.contains("ot"))setOt(t.dataset.id,v);else{setAbs(t.dataset.id,v);const tr=t.closest("tr");tr.querySelector(".ab").checked=!!w&&v>=dayH(w);tr.classList.toggle("absr",v>0)}t.value=fh(v)});
+$("dl").addEventListener("change",e=>{const t=e.target,c=t.classList;if(t.closest("tr.outr"))return;if(c.contains("nt")){const k=t.dataset.id+"_"+$("dt").value,v=t.value.trim();if(v)S.nt[k]=v;else delete S.nt[k];save();renderM();renderS();renderX();return}if(c.contains("lw")||c.contains("lwh")){const w=S.workers.find(x=>x.id===t.dataset.id),k=t.dataset.id+"_"+$("dt").value;if(c.contains("lw")){if(t.checked){S.lw[k]=dayH(w);S.lv[k]=1;delete S.abs[k]}else delete S.lw[k]}else{const v=Math.min(ph(t.value),24);if(v>0)S.lw[k]=v;else delete S.lw[k]}save();renderD();renderM();renderS();return}if(c.contains("lv")&&!c.contains("lw")){const k=t.dataset.id+"_"+$("dt").value;if(t.checked)S.lv[k]=1;else delete S.lv[k];save();renderM();renderS();renderWarn();return}const w=S.workers.find(x=>x.id===t.dataset.id);if(c.contains("ab")){const on=t.checked;setAbs(t.dataset.id,on&&w?dayH(w):0);renderD();if(on){const n=$("dl").querySelector(`.nt[data-id="${t.dataset.id}"]`);if(n)n.focus()}return}if(!c.contains("h"))return;const v=Math.min(ph(t.value),24);if(c.contains("ot"))setOt(t.dataset.id,v);else{setAbs(t.dataset.id,v);const tr=t.closest("tr");tr.querySelector(".ab").checked=!!w&&v>=dayH(w);tr.classList.toggle("absr",v>0)}t.value=fh(v)});
 $("add").onclick=()=>{
  const n=$("nm").value.trim();if(!n){msg("ناڤێ کرێکاری بنڤیسە");return}
  S.workers.push({id:Date.now().toString(36),code:$("cd").value.trim(),name:n,role:$("rl").value,start:$("sd").value,end:$("ed").value});
@@ -839,7 +844,7 @@ function renderX(){
    const k=w.id+"_"+d;
    if(outside(w,d))return`<td class="outc">${mode==="abs"?fh(dayH(w)):""}</td>`;
    if(mode==="abs"&&S.lv[k])return`<td class="lvc lvx" data-id="${w.id}" data-d="${d}" style="cursor:pointer" title="کلیک = لابرنا مۆلەتێ">مۆلەت ✕</td>`;
-   return`<td><input type="text" inputmode="decimal" class="h xc" data-id="${w.id}" data-d="${d}" value="${fh((mode==="ot"?S.ot:S.abs)[k]||0)}" placeholder="0:00">${mode==="ot"&&S.lw[k]?`<span class="lwn ok">+${fh(lwOf(w,d))} مۆلەت</span>`:""}</td>`;
+   const nn=mode==="abs"&&S.abs[k]?S.nt[k]:"";return`<td${nn?` class="hn" title="${esc(nn).replace(/"/g,"&quot;")}"`:""}><input type="text" inputmode="decimal" class="h xc" data-id="${w.id}" data-d="${d}" value="${fh((mode==="ot"?S.ot:S.abs)[k]||0)}" placeholder="0:00">${mode==="ot"&&S.lw[k]?`<span class="lwn ok">+${fh(lwOf(w,d))} مۆلەت</span>`:""}</td>`;
   }).join("");
   return`<tr data-id="${w.id}"><td>${esc(a[0])}</td><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td><td>${esc(a[1])}</td>${c}<td class="tt"><b>${r2(t)}</b></td></tr>`;
  }).join("")||'<tr><td colspan="13">چ کرێکار نینن</td></tr>';
@@ -856,6 +861,7 @@ $("xb").addEventListener("change",e=>{
  [...$("xb").rows].forEach(r=>{const w=S.workers.find(x=>x.id===r.dataset.id);if(!w)return;const z=DS.reduce((q,d)=>q+xv(w,d,mode),0);r.querySelector(".tt").innerHTML="<b>"+r2(z)+"</b>";G+=z});
  $("xt").innerHTML=`<tr><th colspan="11">کۆما گشتی</th><th>${r2(G)}</th></tr>`;
 });
+$("dl").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.classList.contains("nt")){e.preventDefault();e.target.blur()}});
 $("xb").addEventListener("keydown",e=>{
  if(e.key!=="Enter"||!e.target.classList.contains("xc"))return;
  e.preventDefault();
@@ -1181,7 +1187,7 @@ function renderS(){
  let h='<tr><th>کۆد</th><th>ناڤ</th><th>جهێ کاری</th>'+ds.map(d=>`<th>${DN[d.getDay()]}<br>${iso(d).slice(5)}</th>`).join("")+'<th>کۆما زێدە</th><th>کۆما غیابێ</th><th>ڕۆژێن مۆلەتێ</th></tr>',TO=0,TA=0,BAD=0;
  W().forEach(w=>{
   let o=0,a=0,L=0;
-  const c=ds.map(d=>{const k=w.id+"_"+iso(d),x=otOf(w,iso(d)),y=absOf(w,iso(d)),out=outside(w,iso(d)),l=S.lv[k];o+=x;a+=y;if(l)L++;return`<td class="${out?"outc":l?"lvc":""}">${l?"مۆلەت ":""}${x?'<span class="ok">+'+fh(x)+'</span> ':""}${y?'<span class="bad">−'+fh(y)+'</span>':""}${!l&&!x&&!y?'<span class="tk" title="ئامادە">✓</span>':""}</td>`});
+  const c=ds.map(d=>{const k=w.id+"_"+iso(d),x=otOf(w,iso(d)),y=absOf(w,iso(d)),out=outside(w,iso(d)),l=S.lv[k];o+=x;a+=y;if(l)L++;const nn=S.nt[k];return`<td class="${out?"outc":l?"lvc":""}${nn&&y&&!out?" hn":""}"${nn&&y&&!out?` title="${esc(nn).replace(/"/g,"&quot;")}"`:""}>${l?"مۆلەت ":""}${x?'<span class="ok">+'+fh(x)+'</span> ':""}${y?'<span class="bad">−'+fh(y)+'</span>':""}${!l&&!x&&!y?'<span class="tk" title="ئامادە">✓</span>':""}</td>`});
   TO+=o;TA+=a;
   const bad=!L&&!a;if(bad)BAD++;h+=`<tr><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td><td>${esc(plc(w.id,iso(ds[0])))}</td>`+c.join("")+`<td class="ok"><b>${r2(o)}</b></td><td class="bad"><b>${r2(a)}</b></td><td><b>${L}</b></td></tr>`;
  });
