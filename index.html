@@ -263,7 +263,7 @@ details.help>div{line-height:1.9}
  #dnx button{width:100%}
 }
 </style>
-<script>try{document.documentElement.dataset.theme=localStorage.getItem("absTheme")||"light";var _s=localStorage.getItem("absStyle")||"dash";document.documentElement.dataset.style=_s;if(_s==="alko")document.documentElement.dataset.theme="dark";if(_s==="dash")document.documentElement.dataset.theme="light"}catch(e){document.documentElement.dataset.theme="light"}</script>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("absTheme")||"light";var _s=localStorage.getItem("absStyle")||"alko";if(_s==="dash")_s="alko";document.documentElement.dataset.style=_s;if(_s==="alko")document.documentElement.dataset.theme="dark";if(_s==="dash")document.documentElement.dataset.theme="light"}catch(e){document.documentElement.dataset.theme="light"}</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style id="mobile-compact">
 @media (max-width:700px){
@@ -801,7 +801,7 @@ html[data-style="dash"] #dtb tfoot th{background:transparent!important;border:0!
  <div class="card"><b>گوهۆڕینا پەیڤا نهێنی یا ئەدمینی (zewar)</b>
   <div class="bar" style="margin-top:8px"><input id="ap" type="password" placeholder="پەیڤا نهێنی یا نوی" autocomplete="new-password" dir="ltr"><input id="ap2" type="password" placeholder="دووبارە بنڤیسە" autocomplete="new-password" dir="ltr"><button id="apb">گوهۆڕین</button></div></div>
 </section>
-<div id="cpop" class="hide"><div class="cph"><b>🎨 ڕەنگێ پرۆگرامی</b><button id="cpx" class="off" type="button">✕</button></div><div id="csw" class="csw"></div><div class="cph" style="margin-top:12px"><b>ڕەنگێ پاشبنەمێ</b></div><div class="cmd"><button type="button" class="sec" data-m="light">☀️ ڕۆناهی</button><button type="button" class="sec" data-m="dark">🌙 تاری</button></div><div class="cph" style="margin-top:12px"><b>شێوە</b></div><div class="cmd c2"><button type="button" class="sec" data-s="dash">▦ داشبۆرد</button><button type="button" class="sec" data-s="alko">✦ ALKO</button><button type="button" class="sec" data-s="glass">🔮 شووشە</button><button type="button" class="sec" data-s="flat">▢ ئاسایی</button></div><small>ئەڤ هەلبژارتنە تنێ بۆ تە یە و ل سەر ڤی ئامێری دمینیت.</small></div>
+<div id="cpop" class="hide"><div class="cph"><b>🎨 ڕەنگێ پرۆگرامی</b><button id="cpx" class="off" type="button">✕</button></div><div id="csw" class="csw"></div><div class="cph" style="margin-top:12px"><b>ڕەنگێ پاشبنەمێ</b></div><div class="cmd"><button type="button" class="sec" data-m="light">☀️ ڕۆناهی</button><button type="button" class="sec" data-m="dark">🌙 تاری</button></div><div class="cph" style="margin-top:12px"><b>شێوە</b></div><div class="cmd c3"><button type="button" class="sec" data-s="alko">✦ ALKO</button><button type="button" class="sec" data-s="glass">🔮 شووشە</button><button type="button" class="sec" data-s="flat">▢ ئاسایی</button></div><small>ئەڤ هەلبژارتنە تنێ بۆ تە یە و ل سەر ڤی ئامێری دمینیت.</small></div>
 <div id="ntp" class="hide"><div class="ntbox"><b>💬 بۆچی نەهاتیە؟</b><small id="ntt"></small><input id="nti" maxlength="200" autocomplete="off" placeholder="وەک: نەخۆش بوو"><div class="bar" style="margin:0"><button id="nts" type="button">پاشەکەفتکرن</button><button id="ntc" type="button" class="off">بەتالکرن</button></div></div></div>
 <div id="pr"></div>
 </main>
@@ -944,7 +944,7 @@ const PAL={
 const ckey=()=>"absColor"+(ME&&ME.u?":"+ME.u:"");
 const skey=()=>"absStyle"+(ME&&ME.u?":"+ME.u:"");
 function setStyle(v){try{localStorage.setItem(skey(),v);localStorage.setItem("absStyle",v)}catch(x){}}
-function getStyle(){try{return localStorage.getItem(skey())||localStorage.getItem("absStyle")||"dash"}catch(e){return"dash"}}
+function getStyle(){let v="alko";try{v=localStorage.getItem(skey())||localStorage.getItem("absStyle")||"alko"}catch(e){}return v==="dash"?"alko":v}
 function getColor(){try{return localStorage.getItem(ckey())||localStorage.getItem("absColor")||"alko"}catch(e){return"alko"}}
 function applyColor(c){
  const sy=getStyle();document.documentElement.dataset.style=sy;if(sy==="alko")document.documentElement.dataset.theme="dark";if(sy==="dash")document.documentElement.dataset.theme="light";
