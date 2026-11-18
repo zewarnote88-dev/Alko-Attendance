@@ -473,19 +473,65 @@ html[data-style="glass"] .tabs button.off,html[data-style="glass"] button.sec,ht
 html[data-style="glass"] #atb td.nm,html[data-style="glass"] #xtb td.nm{background:var(--gsolid)!important}
 html[data-style="glass"] .tile[data-k="1"],html[data-style="glass"] .tile[data-k="6"]{background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 85%,transparent),color-mix(in srgb,var(--ac2) 80%,transparent))!important;border:1px solid rgba(255,255,255,.35)!important}
 html[data-style="glass"] #ntp{background:rgba(0,0,0,.25);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+/* ===== ALKO login ===== */
+#login{position:relative;overflow:hidden;background:radial-gradient(120% 90% at 50% 0%,#1d1450 0%,#0d0b24 55%,#07061a 100%)!important;color:#eef0ff;color-scheme:dark}
+#login .lgbg{position:absolute;inset:0;pointer-events:none}
+#login .lgbg i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55}
+#login .lgbg i:nth-child(1){width:340px;height:340px;background:#7c3aed;top:-90px;inset-inline-start:-80px}
+#login .lgbg i:nth-child(2){width:300px;height:300px;background:#2563eb;bottom:-100px;inset-inline-end:-70px;opacity:.45}
+#login .lgbg i:nth-child(3){width:220px;height:220px;background:#db2777;top:40%;inset-inline-end:10%;opacity:.25}
+#login .lgc{position:relative;max-width:390px;padding:34px 28px 22px!important;gap:14px;border-radius:26px!important;text-align:center;
+ background:linear-gradient(160deg,rgba(40,32,90,.72),rgba(18,16,44,.78))!important;border:1px solid rgba(255,255,255,.09)!important;
+ box-shadow:0 30px 80px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.06)!important;-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);color:#eef0ff}
+#login .brandmark{display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:4px}
+#login .bm{width:64px;height:64px;border-radius:20px;display:grid;place-items:center;transform:rotate(45deg);
+ background:linear-gradient(135deg,#a855f7,#6366f1 55%,#3b82f6);box-shadow:0 10px 30px rgba(124,58,237,.55),inset 0 1px 0 rgba(255,255,255,.35)}
+#login .bm span{transform:rotate(-45deg);font:900 30px/1 system-ui,-apple-system,"Segoe UI",sans-serif;color:#fff;letter-spacing:-1px;text-shadow:0 2px 6px rgba(0,0,0,.25)}
+#login .bw{display:flex;flex-direction:column;align-items:center;line-height:1;margin-top:6px}
+#login .bw b{font:800 22px/1 system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:7px;color:#fff;margin-inline-start:7px}
+#login .bw small{font:600 10px/1 system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:5.5px;color:#a5a8d6;margin-top:6px;margin-inline-start:5.5px}
+#login h2.lgh{position:relative;font-size:25px;font-weight:800;margin:8px 0 12px;padding-bottom:12px;
+ background:linear-gradient(90deg,#c4b5fd,#ffffff 45%,#93c5fd);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:.2px}
+#login h2.lgh::after{content:"";position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:46px;height:4px;border-radius:999px;
+ background:linear-gradient(90deg,#a855f7,#6366f1,#3b82f6);box-shadow:0 0 14px rgba(139,92,246,.7)}
+#login #lgt{color:#a5a8d6;font-size:13px;margin:-4px 0 6px}
+#login .lf.hide{display:none}
+#login .lf{display:flex;flex-direction:column;gap:7px;text-align:start;color:#d7d9f5;font-size:13px;font-weight:600}
+#login .fld{position:relative;display:flex;align-items:center}
+#login .fld .fi{position:absolute;inset-inline-start:14px;width:18px;height:18px;fill:none;stroke:#8b8fc7;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+#login .fld input{width:100%;padding:13px 46px!important;font-size:15px!important;border-radius:14px!important;color:#fff!important;
+ background:rgba(10,9,30,.55)!important;border:1px solid rgba(255,255,255,.1)!important;box-shadow:none!important;text-align:start;transition:border-color .15s,box-shadow .15s}
+#login .fld input::placeholder{color:#6f73a8}
+#login .fld input:focus{outline:none;border-color:#8b5cf6!important;box-shadow:0 0 0 4px rgba(139,92,246,.22)!important}
+#login .fld input:focus~.fi,#login .fld:focus-within .fi{stroke:#c4b5fd}
+#login .fld input[readonly]{opacity:.8}
+#login .eye{position:absolute;inset-inline-end:8px;width:34px;height:34px;padding:0!important;border-radius:10px!important;background:transparent!important;border:0!important;box-shadow:none!important;display:grid;place-items:center;cursor:pointer}
+#login .eye svg{width:19px;height:19px;fill:none;stroke:#8b8fc7;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#login .eye.on svg{stroke:#c4b5fd}
+#login .lrm{color:#a5a8d6!important;font-size:12.5px!important;margin-top:2px}
+#login .lrm input{accent-color:#8b5cf6}
+#login #lb{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:6px;padding:14px!important;font-size:16px!important;font-weight:800;border-radius:14px!important;border:0!important;color:#fff!important;
+ background:linear-gradient(90deg,#7c3aed,#6366f1 50%,#3b82f6)!important;box-shadow:0 12px 30px rgba(99,102,241,.45)!important;transition:transform .12s,box-shadow .15s,filter .15s}
+#login #lb:hover{filter:brightness(1.08);box-shadow:0 14px 36px rgba(99,102,241,.6)!important}
+#login #lb:active{transform:translateY(1px)}
+#login #lb b{font-size:18px;transition:transform .15s}#login #lb:hover b{transform:translateX(-4px)}
+#login #le{color:#fca5a5;min-height:18px}
+#login .lgf{color:#6f73a8;font-size:11.5px;margin-top:4px;letter-spacing:.3px}
+@media (max-width:700px){#login .lgc{padding:28px 20px 18px!important}#login .bm{width:56px;height:56px}#login h2{font-size:21px}}
 </style>
 </head>
 <body class="locked">
-<div id="login"><form class="lgc" onsubmit="return false">
- <div class="lgi">⏱️</div><h2>غیابا کرێکاران</h2>
+<div id="login"><div class="lgbg"><i></i><i></i><i></i></div><form class="lgc" onsubmit="return false">
+ <div class="brandmark"><div class="bm"><span>A</span></div><div class="bw"><b>ALKO</b><small>COMPANY</small></div></div>
+ <h2 class="lgh">بخێرهاتی</h2>
  <p id="lgt">بۆ چوونەژوورێ ناڤ و پەیڤا نهێنی بنڤیسە</p>
- <label>ناڤێ بەکارهێنەری<input id="lu" name="ghiyab-user" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="ناڤێ خۆ بنڤیسە" dir="ltr"></label>
- <label>پەیڤا نهێنی<input id="lp" name="ghiyab-pass" type="password" autocomplete="new-password" placeholder="••••" dir="ltr"></label>
- <label id="lp2w" class="hide">دووبارە پەیڤا نهێنی بنڤیسە<input id="lp2" type="password" autocomplete="new-password" dir="ltr"></label>
+ <label class="lf"><span class="lft">ناڤێ بەکارهێنەری</span><span class="fld"><svg viewBox="0 0 24 24" class="fi"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><input id="lu" name="ghiyab-user" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="ناڤێ خۆ بنڤیسە" dir="ltr"></span></label>
+ <label class="lf"><span class="lft">پەیڤا نهێنی</span><span class="fld"><svg viewBox="0 0 24 24" class="fi"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><input id="lp" name="ghiyab-pass" type="password" autocomplete="new-password" placeholder="••••••" dir="ltr"><button type="button" class="eye" data-for="lp" title="نیشاندان"><svg viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></span></label>
+ <label id="lp2w" class="lf hide"><span class="lft">دووبارە پەیڤا نهێنی بنڤیسە</span><span class="fld"><svg viewBox="0 0 24 24" class="fi"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><input id="lp2" type="password" autocomplete="new-password" placeholder="••••••" dir="ltr"><button type="button" class="eye" data-for="lp2" title="نیشاندان"><svg viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></span></label>
  <label class="lrm"><input type="checkbox" id="lrm" checked> ل سەر ڤی ئامێری بمینە (هەتا دەرکەتنێ)</label>
- <button id="lb" type="submit">چوونەژوور</button>
+ <button id="lb" type="submit"><span>چوونەژوور</span><b>←</b></button>
  <div id="le" class="bad"></div>
- <button class="ghost thb" type="button">🌙</button>
+ <div class="lgf">غیابا کرێکاران · © ALKO Company</div>
 </form></div>
 <main>
 <header class="top"><div class="brand"><div class="logo">⏱️</div><div><h1>غیابا کرێکاران ب کاتژمێر</h1><p class="sub">غیاب، کاتژمێرێن زێدە و ڕێکخستنا هەفتیێ ل ئێک جهی</p></div></div>
@@ -789,7 +835,7 @@ function showLogin(){
  $("lp2w").classList.toggle("hide",!setup);
  $("lgt").textContent=!READY?"چاڤەڕێ بە...":setup?"جارا ئێکێ: پەیڤەکا نهێنی بۆ ئەدمینی (zewar) دابنە (4 پیت یان پتر).":"بۆ چوونەژوورێ ناڤ و پەیڤا نهێنی بنڤیسە";
  const clr=()=>{if(setup){$("lu").value=ADM;$("lu").readOnly=true}else{$("lu").readOnly=false;$("lu").value=""}$("lp").value="";$("lp2").value=""};clr();setTimeout(clr,300);
- $("lb").textContent=setup?"دانان و چوونەژوور":"چوونەژوور";
+ $("lb").innerHTML="<span>"+(setup?"دانان و چوونەژوور":"چوونەژوور")+"</span><b>←</b>";
  setTimeout(()=>(setup?$("lp"):$("lu")).focus(),50);
 }
 $("lb").onclick=async()=>{
@@ -1455,6 +1501,7 @@ setInterval(()=>{if(ME&&FRU()){const fw=fwin();if(FWS!==undefined&&fw!==FWS)ente
  [["ws",renderA],["sw",renderS],["xw",renderX]].forEach(([id,f])=>{if($(id).value===weekOf(old)&&weekOf(t)!==weekOf(old)){$(id).value=weekOf(t);if(!typing())f()}});
  if($("mo").value===old.slice(0,7)&&t.slice(0,7)!==old.slice(0,7)){$("mo").value=t.slice(0,7);renderM()}
  renderHome()},30000);
+document.querySelectorAll("#login .eye").forEach(b=>b.onclick=()=>{const i=$(b.dataset.for),v=i.type==="password";i.type=v?"text":"password";b.classList.toggle("on",v);i.focus()});
 showLogin();all();load();
 if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
 </script>
