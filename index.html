@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="ckb" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>غیابا کرێکاران</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800&family=Noto+Sans+Arabic:wght@400;600;700&display=swap">
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--tx:#1b1f24;--mu:#5b6573;--bd:#d9dde3;--ac:#1f6feb;--bad:#c62828;--hl:#fde2e0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171b;--card:#1d2127;--tx:#e8eaed;--mu:#9aa4b0;--bd:#343b44;--ac:#58a6ff;--bad:#ff7b72;--hl:#4a2626;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14171b;--card:#1d2127;--tx:#e8eaed;--mu:#9aa4b0;--bd:#343b44;--ac:#58a6ff;--bad:#ff7b72;--hl:#4a2626;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.6 "Segoe UI",Tahoma,Arial,sans-serif}
+main{max-width:1100px;margin:0 auto;padding:16px}
+h1{font-size:20px;margin:4px 0 12px}
+.tabs,.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+label{display:flex;flex-direction:column;gap:4px;font-weight:600;font-size:13px}
+small{color:var(--mu);font-weight:400}
+input,textarea{font:inherit;padding:8px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx)}
+input.h{width:80px;text-align:center}
+button{font:inherit;font-weight:600;padding:7px 12px;border:1px solid var(--ac);border-radius:8px;background:var(--ac);color:#fff;cursor:pointer}
+button.sec{background:transparent;color:var(--ac)}
+button.off{background:transparent;color:var(--mu);border-color:var(--bd)}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;text-align:center;font-size:13px}
+th,td{border:1px solid var(--bd);padding:5px 7px;white-space:nowrap}
+th{background:var(--bg)}
+.nm{text-align:start;font-weight:600}
+td.a{background:var(--hl);font-weight:700}
+.bad{color:var(--bad)}
+#msg{color:var(--mu);font-size:13px;min-height:20px}
+.hide{display:none}
+.ok{color:#1a7f37}
+:root[data-theme="dark"] .ok{color:#56d364}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ok{color:#56d364}}
+.chip{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--bd);border-radius:14px;padding:2px 4px 2px 10px}
+.chip button{padding:0 8px}
+select{font:inherit;padding:7px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx)}
+body{font-family:"Noto Kufi Arabic","Noto Sans Arabic","Segoe UI",Tahoma,Arial,sans-serif;font-size:14.5px;line-height:1.75}
+h1,h2,.tabs button,button,th,.kpi b{font-family:"Noto Kufi Arabic","Noto Sans Arabic",Tahoma,sans-serif}
+.help{line-height:1.9}
+main>h1{background:linear-gradient(135deg,#1e3a8a,#0ea5e9);color:#fff;border-radius:18px;padding:18px 22px;margin:0 0 6px;font-size:22px;box-shadow:0 6px 18px rgba(14,100,200,.25)}
+.sub{margin:0 0 14px;color:var(--mu);font-size:13px}
+.tabs{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:6px;gap:6px;overflow-x:auto;flex-wrap:nowrap}
+.tabs button{flex:1 0 auto;border:0;border-radius:10px;padding:10px 14px;font-size:14px;background:transparent;color:var(--mu);white-space:nowrap}
+.tabs button:not(.off){background:var(--ac);color:#fff;box-shadow:0 2px 8px rgba(31,111,235,.35)}
+.card{border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.06);padding:16px}
+.help{margin:0 0 12px;padding:10px 14px;border-radius:12px;background:color-mix(in srgb,var(--ac) 10%,transparent);font-size:13.5px}
+input,select,textarea{padding:10px;border-radius:10px}
+input:focus,select:focus,textarea:focus{outline:0;border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 25%,transparent)}
+button{border-radius:10px;padding:9px 14px}
+button:hover{filter:brightness(1.08)}
+table{font-size:14px}
+th{font-weight:700;color:var(--mu);font-size:12.5px}
+:where(.scroll>table tbody tr:nth-child(even)) td{background:color-mix(in srgb,var(--bd) 22%,transparent)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:12px}
+.kpi{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px;text-align:center}
+.kpi span{display:block;font-size:12.5px;color:var(--mu)}
+.kpi b{font-size:24px}
+#pr{position:absolute;left:-10000px;top:0;width:1000px;background:#fff;color:#111}
+#pr .pg{padding:18px;background:#fff;color:#111}
+#pr h2{margin:0 0 4px;font-size:20px}
+#pr p{margin:0 0 10px;color:#555}
+#pr table{border-collapse:collapse;width:100%;font-size:14px;text-align:center}
+#pr th,#pr td{border:1px solid #999;padding:6px 8px;color:#111}
+#pr th{background:#eef1f5}
+#pr td.lvc{background:#fde68a!important;color:#6b4a00!important}
+#pr td.nm{text-align:start;font-weight:700}
+#pr .pt td{height:38px}
+#pr td.gry{background:#e2e2e2}
+input.xc{width:66px;padding:7px 4px}
+.outr td{background:color-mix(in srgb,#888 20%,transparent)!important;color:var(--mu)}
+.outr .q,.outr input{pointer-events:none;opacity:.6}
+td.outc{background:color-mix(in srgb,#888 28%,transparent)!important;color:var(--mu)}
+input.lv{width:22px;height:22px;padding:0;accent-color:#d99a00}
+td.lvc{background:#fde68a!important;color:#6b4a00;font-weight:700}
+tr.warn td{background:color-mix(in srgb,#e53935 16%,transparent)!important}
+tr.warn td.nm{color:var(--bad)}
+.rb{display:inline-block;font-size:11px;font-weight:700;padding:0 8px;border-radius:10px;margin-inline-start:6px;vertical-align:middle;line-height:18px}
+.r-k{background:rgba(31,111,235,.14);color:#1f5fc4}.r-h{background:rgba(230,126,0,.18);color:#a65a00}.r-m{background:rgba(130,60,200,.16);color:#7a3cc0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .r-k{color:#79b4ff}:root:not([data-theme="light"]) .r-h{color:#ffb35c}:root:not([data-theme="light"]) .r-m{color:#c9a0ff}}
+#pr .r-k{color:#1f5fc4}#pr .r-h{color:#a65a00}#pr .r-m{color:#7a3cc0}
+tr.absr td{background:rgba(229,57,53,.10)!important}
+input.lwh{width:60px;padding:6px 4px;text-align:center}.lwn{display:block;font-size:11.5px;font-weight:700}
+input.ab{width:22px;height:22px;accent-color:#e53935}
+.srch{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:6px 12px;margin:8px 0 4px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.srch input{flex:1;min-width:0;border:0;background:transparent;font-size:15px;padding:8px 4px}.srch input:focus{box-shadow:none}
+.srch #qn{white-space:nowrap;font-weight:600}.srch button{padding:4px 10px}
+body.locked main{display:none}body:not(.locked) #login{display:none}
+#login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px;background:linear-gradient(135deg,#1e3a8a,#0ea5e9)}
+.lgc{background:var(--card);border-radius:20px;padding:28px 24px;width:100%;max-width:360px;display:flex;flex-direction:column;gap:12px;box-shadow:0 20px 50px rgba(0,0,0,.25);text-align:center}
+.lgc h2{margin:0;font-size:22px}.lgc p{margin:0;color:var(--mu);font-size:13px}.lgc label{text-align:start}.lgi{font-size:40px;line-height:1}
+.lgc button{padding:12px;font-size:16px}#le{min-height:20px;font-size:13px}
+.ub{display:flex;justify-content:flex-end;align-items:center;gap:10px;margin:-2px 0 8px;font-size:13px;color:var(--mu)}.ub button{padding:5px 12px;font-size:13px}
+.pm{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--bd);border-radius:10px;padding:4px 10px;font-weight:600;font-size:13px;flex-direction:row}
+.pm input{width:18px;height:18px}
+.awn{cursor:pointer;display:inline-block;margin:2px 4px;padding:1px 10px;border-radius:10px;background:rgba(229,57,53,.15);font-weight:700}
+.awn:hover{background:rgba(229,57,53,.28)}
+.warnbox{background:color-mix(in srgb,#e53935 14%,transparent);border:1px solid #e53935;border-radius:12px;padding:10px 14px;margin-bottom:12px;font-size:13.5px}
+</style>
+<style id="theme">
+/* ===== Design refresh ===== */
+:root,:root[data-theme="light"]{--bg:#e4e8ef;--bg2:#d9dfe8;--card:#f5f7fa;--tx:#0f172a;--mu:#5b6678;--bd:#cfd6e1;--ac:#2563eb;--ac2:#4f46e5;--bad:#dc2626;--okc:#15803d;--hl:#fde4e4;--sh:0 1px 2px rgba(15,23,42,.04),0 4px 16px rgba(15,23,42,.06);--rowalt:#edf0f5;--thbg:#e2e7ef;color-scheme:light}
+:root[data-theme="dark"]{--bg:#0b1120;--bg2:#0f172a;--card:#131c2f;--tx:#e6eaf2;--mu:#94a3b8;--bd:#22304a;--ac:#60a5fa;--ac2:#818cf8;--bad:#f87171;--okc:#4ade80;--hl:#3f1d22;--sh:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25);--rowalt:#162036;--thbg:#18233a;color-scheme:dark}
+body{background:var(--bg);background-image:radial-gradient(1200px 400px at 100% -10%,color-mix(in srgb,var(--ac) 10%,transparent),transparent),radial-gradient(900px 300px at 0% 0%,color-mix(in srgb,var(--ac2) 8%,transparent),transparent);background-attachment:fixed;transition:background-color .2s,color .2s}
+main{max-width:1240px;padding:18px 16px 40px}
+.ok{color:var(--okc)!important}.bad{color:var(--bad)}
+/* header */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:linear-gradient(120deg,#1e3a8a 0%,#2563eb 55%,#0ea5e9 100%);color:#fff;border-radius:22px;padding:16px 20px;margin-bottom:14px;box-shadow:0 10px 30px rgba(37,99,235,.28);position:relative;overflow:hidden}
+.top::after{content:"";position:absolute;inset:auto -60px -80px auto;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.08);pointer-events:none}
+.brand{display:flex;align-items:center;gap:14px;min-width:0}
+.logo{width:50px;height:50px;border-radius:16px;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:26px;flex:none;backdrop-filter:blur(4px)}
+main .top h1{background:none;box-shadow:none;padding:0;margin:0;font-size:21px;font-weight:800;color:#fff;border-radius:0}
+.top .sub{margin:2px 0 0;color:rgba(255,255,255,.82);font-size:12.5px}
+.ub{margin:0;gap:8px;color:#fff;z-index:1}
+#who{background:rgba(255,255,255,.16);padding:6px 12px;border-radius:999px;font-weight:600;font-size:13px}
+.ghost{background:rgba(255,255,255,.14)!important;border:1px solid rgba(255,255,255,.3)!important;color:#fff!important;padding:6px 12px!important;border-radius:999px!important;font-size:13px}
+.ghost:hover{background:rgba(255,255,255,.26)!important}
+/* tabs */
+.tabs{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:6px;gap:4px;box-shadow:var(--sh);scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{border-radius:13px;padding:10px 16px;font-weight:600;color:var(--mu);transition:background .15s,color .15s}
+.tabs button.off:hover{background:var(--bg2);color:var(--tx);filter:none}
+.tabs button:not(.off){background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;box-shadow:0 4px 14px color-mix(in srgb,var(--ac) 40%,transparent)}
+/* search */
+.srch{border-radius:16px;box-shadow:var(--sh);margin:10px 0 6px;padding:4px 14px;backdrop-filter:blur(8px);background:color-mix(in srgb,var(--card) 92%,transparent)}
+.srch input{background:transparent!important;border:0!important}
+#msg{padding:2px 4px}
+/* cards & help */
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;box-shadow:var(--sh);padding:18px}
+.help{border:1px solid color-mix(in srgb,var(--ac) 22%,transparent);background:color-mix(in srgb,var(--ac) 7%,var(--card));border-radius:14px;padding:12px 16px;color:var(--tx);position:relative;padding-inline-start:40px}
+.help::before{content:"💡";position:absolute;inset-inline-start:13px;top:11px}
+.bar{gap:8px}
+/* controls */
+input,select,textarea{background:var(--bg);border:1px solid var(--bd);border-radius:11px;color:var(--tx);transition:border-color .15s,box-shadow .15s}
+input:hover,select:hover,textarea:hover{border-color:color-mix(in srgb,var(--ac) 40%,var(--bd))}
+input[type=checkbox]{cursor:pointer}
+button{border-radius:11px;font-weight:600;transition:transform .08s,filter .15s,background .15s;background:linear-gradient(135deg,var(--ac),var(--ac2));border:0;box-shadow:0 2px 8px color-mix(in srgb,var(--ac) 30%,transparent)}
+button:active{transform:translateY(1px)}
+button.sec{background:var(--card);color:var(--ac);border:1px solid color-mix(in srgb,var(--ac) 45%,var(--bd));box-shadow:none}
+button.sec:hover{background:color-mix(in srgb,var(--ac) 8%,var(--card));filter:none}
+button.off{background:var(--card);color:var(--mu);border:1px solid var(--bd);box-shadow:none}
+button.off:hover{color:var(--bad);border-color:var(--bad);filter:none}
+/* tables */
+.scroll{padding:0;overflow:auto}
+.card.scroll>table{border:0}
+table{border-collapse:separate;border-spacing:0;font-size:13.5px}
+th,td{border:0;border-bottom:1px solid var(--bd);border-inline-start:1px solid color-mix(in srgb,var(--bd) 55%,transparent);padding:8px 10px}
+th{background:var(--thbg);color:var(--mu);font-weight:700;font-size:12px;letter-spacing:.1px;position:sticky;top:0;z-index:1}
+thead tr:first-child th:first-child,table>tr:first-child th:first-child,table>tbody:first-child>tr:first-child th:first-child{border-start-start-radius:18px}
+:where(.scroll>table tbody tr:nth-child(even)) td{background:var(--rowalt)}
+tbody tr:hover td{background:color-mix(in srgb,var(--ac) 6%,var(--card))}
+tfoot th,tfoot td{background:var(--thbg);color:var(--tx);font-size:13px;border-bottom:0}
+td.nm{font-weight:600}
+td.a{background:var(--hl);color:var(--bad)}
+tr.absr td{background:color-mix(in srgb,var(--bad) 9%,var(--card))!important}
+/* role badges */
+.rb{border-radius:999px;padding:0 9px;font-size:10.5px}
+:root[data-theme="dark"] .r-k{color:#93c5fd}:root[data-theme="dark"] .r-h{color:#fdba74}:root[data-theme="dark"] .r-m{color:#d8b4fe}
+/* kpis */
+.kpis{gap:12px}
+.kpi{border-radius:18px;padding:16px;box-shadow:var(--sh);text-align:start;position:relative;overflow:hidden}
+.kpi::before{content:"";position:absolute;inset-inline-start:0;top:0;bottom:0;width:4px;background:linear-gradient(var(--ac),var(--ac2))}
+.kpi span{font-size:12.5px;margin-bottom:4px}
+.kpi b{font-size:28px;font-weight:800}
+/* warn */
+.warnbox{border-radius:14px;border:1px solid color-mix(in srgb,var(--bad) 45%,transparent);background:color-mix(in srgb,var(--bad) 9%,var(--card))}
+.chip{background:var(--bg);border-radius:999px}
+.pm{background:var(--bg);border-radius:12px}
+/* login */
+#login{background:linear-gradient(135deg,#1e3a8a,#2563eb 55%,#0ea5e9)}
+.lgc{border-radius:24px;padding:32px 26px;border:1px solid var(--bd)}
+.lgi{width:64px;height:64px;margin:0 auto 4px;border-radius:20px;display:grid;place-items:center;background:linear-gradient(135deg,var(--ac),var(--ac2));font-size:32px;box-shadow:0 8px 22px color-mix(in srgb,var(--ac) 40%,transparent)}
+.lgc .ghost{color:var(--mu)!important;background:var(--bg)!important;border-color:var(--bd)!important;align-self:center}
+@media (max-width:640px){main{padding:10px 10px 30px}.top{border-radius:18px;padding:14px}.logo{width:42px;height:42px;font-size:22px}main .top h1{font-size:17px}.top .sub{display:none}.card{padding:12px;border-radius:16px}.tabs button{padding:9px 12px;font-size:13px}}
+
+.fbtn{display:inline-flex;flex-direction:row;align-items:center;cursor:pointer;padding:9px 14px;border-radius:11px;border:1px solid color-mix(in srgb,var(--ac) 45%,var(--bd));color:var(--ac);font-weight:600;font-size:15px}
+#net{font-size:12px;font-weight:600;background:rgba(255,255,255,.16);padding:6px 10px;border-radius:999px}
+.tk{color:var(--okc);font-weight:800;font-size:15px}
+input.ed{border:1px solid transparent;background:transparent;padding:6px 8px;border-radius:8px;width:100%;min-width:70px;box-sizing:border-box;font-weight:inherit;cursor:text}
+input.edc{width:90px;text-align:center}input.edn{min-width:150px}
+input.ed:hover{border-color:var(--bd);background:var(--bg)}
+input.ed:focus{border-color:var(--ac);background:var(--bg)}
+:root[data-theme="light"] input,:root[data-theme="light"] select,:root[data-theme="light"] textarea{background:#eef1f5}
+:root[data-theme="light"] .lgc{background:#f5f7fa}
+tr.inc td{background:color-mix(in srgb,#f59e0b 13%,var(--card))!important}
+.amh{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.amh button{padding:6px 12px;font-size:13px}
+.aml{max-height:180px;overflow:auto}
+.aml .awn small{font-weight:500;opacity:.85}
+.amok{padding:10px 14px;border-radius:14px;margin-bottom:12px;background:color-mix(in srgb,var(--okc) 12%,var(--card));border:1px solid color-mix(in srgb,var(--okc) 40%,transparent);color:var(--okc);font-weight:700;font-size:13.5px}
+.srch{position:static!important;margin:0 0 10px!important;box-shadow:none!important;border:1.5px solid color-mix(in srgb,var(--ac) 30%,var(--bd))!important;background:var(--card)!important}
+.srch:focus-within{border-color:var(--ac)!important;box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 18%,transparent)!important}
+#q::-webkit-search-cancel-button{display:none;-webkit-appearance:none}
+/* ===== daily filters + mobile ===== */
+details.help{padding:10px 16px}
+details.help::before{content:none}
+details.help summary{cursor:pointer;font-weight:700;list-style:none;color:var(--ac)}
+details.help summary::-webkit-details-marker{display:none}
+details.help[open] summary{margin-bottom:6px}
+details.help>div{line-height:1.9}
+.dfl{padding:10px 14px;display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.fl{display:flex;align-items:center;gap:10px;min-width:0}
+.fll{font-size:12px;color:var(--mu);font-weight:700;min-width:64px;flex:none}
+.seg{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;flex:1;padding:3px 2px;min-width:0}
+.seg::-webkit-scrollbar{display:none}
+.sg{flex:none;background:var(--bg);color:var(--tx);border:1px solid var(--bd);box-shadow:none;border-radius:999px;padding:7px 14px;font-size:13px;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+.sg:hover{filter:none;border-color:var(--ac)}
+.sg i{font-style:normal;color:var(--mu);font-size:11.5px;background:var(--bg2);border-radius:999px;padding:0 7px;line-height:18px}
+.sg.on{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;border-color:transparent;box-shadow:0 3px 10px color-mix(in srgb,var(--ac) 35%,transparent)}
+.sg.on i{background:rgba(255,255,255,.25);color:#fff}
+.sgb{background:var(--bad);color:#fff;border-radius:999px;font-size:11px;padding:0 7px;line-height:18px}
+#dtb .mo{display:none}
+#dtb .abt span,#dtb .lvt span{display:none}
+#dtb .abt,#dtb .lvt{display:inline-flex;flex-direction:row;align-items:center;justify-content:center;cursor:pointer;font-weight:600}
+#dnx{justify-content:center;margin-top:4px}
+#dnx button{padding:12px 22px;font-size:15px}
+@media (max-width:700px){
+ body{font-size:14px}
+ .srch{margin:8px 0 4px}
+ .dbar{display:grid;grid-template-columns:auto 1fr auto;gap:6px}
+ .dbar button{padding:9px 10px;font-size:13px}
+ .dbar input{min-width:0;font-size:15px}
+ .fl{flex-direction:column;align-items:stretch;gap:4px}
+ .seg{margin:0 -4px}
+ #p1 .dtw{background:transparent;border:0;box-shadow:none;padding:0;overflow:visible}
+ #dtb,#dtb tbody,#dtb tfoot{display:block;width:100%}
+ #dtb thead{display:none}
+ #dtb tbody tr{display:grid;grid-template-columns:1fr 1fr;gap:10px;background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:14px;margin-bottom:10px;box-shadow:var(--sh)}
+ #dtb tbody tr.absr{border-color:color-mix(in srgb,var(--bad) 55%,transparent);background:color-mix(in srgb,var(--bad) 6%,var(--card))}
+ #dtb tbody tr.absr td{background:none!important}
+ #dtb tbody td{display:block;border:0;padding:0;background:none!important;text-align:start;white-space:normal;position:static}
+ #dtb td.emp{grid-column:1/-1;text-align:center;color:var(--mu);padding:10px}
+ #dtb td.c-sq,#dtb td.c-cd,#dtb td.c-pl{display:none}
+ #dtb td.c-nm{grid-column:1/-1}
+ #dtb .wn{font-size:16px;font-weight:700}
+ #dtb .mo{display:block;font-size:12px;color:var(--mu);font-weight:500;margin-top:2px}
+ #dtb td.c-ab{grid-column:1/-1}
+ #dtb .abt{display:flex;flex-direction:row;justify-content:flex-start;width:100%;font-size:15px;gap:10px;padding:12px;border:1.5px dashed var(--bd);border-radius:14px;font-weight:700;color:var(--mu);box-sizing:border-box}
+ #dtb .abt span,#dtb .lvt span{display:inline}
+ #dtb .abt:has(input:checked){border-style:solid;border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,transparent);color:var(--bad)}
+ #dtb .abt input,#dtb .lvt input{width:24px;height:24px}
+ #dtb td[data-l]::before{content:attr(data-l);display:block;font-size:11.5px;color:var(--mu);font-weight:600;margin-bottom:4px}
+ #dtb input.h{width:100%;box-sizing:border-box;font-size:16px;padding:10px}
+ #dtb .lvt{display:flex;flex-direction:row;justify-content:flex-start;align-items:center;gap:8px;padding:10px;border:1px solid var(--bd);border-radius:12px;height:100%;box-sizing:border-box;font-weight:600}
+ #dtb .lvt:has(input:checked){border-color:#d99a00;background:rgba(253,230,138,.25)}
+ #dtb td.c-lw input.lwh{width:70px;font-size:15px}
+ #dtb tfoot{position:sticky;bottom:10px;z-index:4}
+ #dtb tfoot tr{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 14px;background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:10px 14px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+ #dtb tfoot th{display:block;border:0;background:none;padding:0;position:static;font-size:13px}
+ #dtb tfoot th.f-t{flex-basis:100%;text-align:start}
+ #dtb tfoot th.f-n,#dtb tfoot th.f-e{display:none}
+ #dtb tfoot th[data-l]::before{content:attr(data-l) ": ";color:var(--mu);font-weight:600}
+ #dnx button{width:100%}
+}
+</style>
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("absTheme")||"light"}catch(e){document.documentElement.dataset.theme="light"}</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="locked">
+<div id="login"><form class="lgc" onsubmit="return false">
+ <div class="lgi">⏱️</div><h2>غیابا کرێکاران</h2>
+ <p id="lgt">بۆ چوونەژوورێ ناڤ و پەیڤا نهێنی بنڤیسە</p>
+ <label>ناڤێ بەکارهێنەری<input id="lu" autocomplete="username" dir="ltr"></label>
+ <label>پەیڤا نهێنی<input id="lp" type="password" autocomplete="current-password" dir="ltr"></label>
+ <label id="lp2w" class="hide">دووبارە پەیڤا نهێنی بنڤیسە<input id="lp2" type="password" autocomplete="new-password" dir="ltr"></label>
+ <button id="lb" type="submit">چوونەژوور</button>
+ <div id="le" class="bad"></div>
+ <button class="ghost thb" type="button">🌙</button>
+</form></div>
+<main>
+<header class="top"><div class="brand"><div class="logo">⏱️</div><div><h1>غیابا کرێکاران ب کاتژمێر</h1><p class="sub">غیاب، کاتژمێرێن زێدە و ڕێکخستنا هەفتیێ ل ئێک جهی</p></div></div>
+<div class="ub"><span id="net"></span><span id="who"></span><button id="th" class="ghost thb" type="button">🌙</button><button id="lo" class="ghost">🚪 دەرکەتن</button></div></header>
+<div class="tabs"><button id="t1">📝 ڕۆژانە</button><button id="t2" class="off">📅 مانگانە</button><button id="t3" class="off">👷 کرێکار</button><button id="t4" class="off">🧭 ڕێکخستنا هەفتیێ</button><button id="t5" class="off">📊 کورتکرنا هەفتیێ</button><button id="t6" class="off">📋 غیابا هەفتیێ</button><button id="t7" class="off hide">🔐 بەکارهێنەر</button></div>
+<div class="srch hide"><span>🔍</span><input id="q" type="search" autocomplete="off" placeholder="گەڕیان ب ناڤ یان کۆد ..."><button id="qx" class="off hide" title="پاقژکرن">✕</button><small id="qn"></small></div>
+<div id="msg"></div>
+<div id="aw"></div>
+
+<section id="p1"><details class="help"><summary>💡 ڕێنمایی</summary><div>هەمی کرێکار ب شێوەیەکێ ئاسایی <b>ئامادەنە</b>. بۆ ئەوێ نەهاتی تەنێ «نەهاتیە» چێک بکە، کاتژمێرێن دەواما وی ب خۆ دهێنە حسابکرن (کرێکار: 8 کاتژمێر، هۆستا و مراقب 12 کاتژمێر). ئەگەر هندەک کاتژمێران نەهاتبیت، ب دەستی بنڤیسە وەک 4 یان 2:30.<br>ئەگەر ل ڕۆژا مۆلەتا خۆ هاتبیتە کاری، «ل ڕۆژا مۆلەتێ هاتیە» چێک بکە: کاتژمێرێن وێ ڕۆژێ ×1.5 دبنە زێدە (8 → 12). بۆ کرێکاران: ئەگەر د وێ هەفتیێ دا غیاب هەبن، ڕۆژا مۆلەتێ یا ئێکێ ل بەرانبەر غیابێ دچیت و ناهێتە حسابکرن، و یا دووێ ×1.5 دهێتە حسابکرن؛ بۆ هۆستا و مراقبان هەردەم ×1.5.</div></details>
+ <div class="bar dbar">
+  <button class="sec" id="dp">ڕۆژا بەری</button>
+  <input type="date" id="dt">
+  <button class="sec" id="dn">ڕۆژا پاشی</button>
+ </div>
+ <div class="card dfl">
+  <div class="fl"><span class="fll">دەوام</span><div class="seg" id="dsh"></div></div>
+  <div class="fl"><span class="fll">جهێ کاری</span><div class="seg" id="dpl"></div></div>
+ </div>
+ <div class="bar" style="justify-content:flex-start"><button id="qa" class="sec">➕ زێدەکرنا کرێکارەکێ نوی</button></div>
+ <div id="qaf" class="card hide">
+  <b>کرێکارەکێ نوی</b> <small id="qai"></small>
+  <div class="grid" style="margin-top:8px">
+   <label>کۆد<input id="qac" autocomplete="off"></label>
+   <label>ناڤ<input id="qan" autocomplete="off"></label>
+   <label>جۆر<select id="qar"><option>کرێکار</option><option>هۆستا</option><option>مراقب</option></select></label>
+  </div>
+  <div class="bar" style="margin-top:10px"><button id="qas">زێدەکرن</button><button id="qax" class="off">بەتالکرن</button></div>
+ </div>
+ <div id="wb"></div>
+ <div class="card scroll dtw"><table id="dtb"><thead><tr><th>ڕێز</th><th>کۆد</th><th>ناڤ</th><th>جهێ کاری</th><th>نەهاتیە</th><th>کاتژمێرێن نەهاتنێ<br><small>ب دەستی: 4 یان 2:30</small></th><th>کاتژمێرێن زێدە</th><th>مۆلەت</th><th>ل ڕۆژا مۆلەتێ هاتیە<br><small>×1.5</small></th></tr></thead><tbody id="dl"></tbody><tfoot id="df"></tfoot></table></div>
+ <div id="dnx" class="bar"></div>
+</section>
+
+<section id="p2" class="hide"><details class="help"><summary>💡 ڕێنمایی</summary><div>خشتەیێ هەمی ڕۆژێن مانگێ. خانێن سۆر ئەو ڕۆژن یێن کرێکار تێدا نەهاتی، و ل دووماهیێ کۆما غیابێ و یا زێدە دیار دبن.</div></details>
+ <div class="bar"><label>مانگ<input type="month" id="mo"></label><button id="xlM">📥 ئێکسل</button></div>
+ <div class="card scroll"><table id="mt"></table></div>
+</section>
+
+<section id="p3" class="hide"><details class="help"><summary>💡 ڕێنمایی</summary><div>کرێکاران ل ڤێرێ زێدە بکە (کۆد و ناڤ). پشتی وێ، هەمی پەرەیێن دی بەردەستن. بۆ گوهۆڕینا کۆد یان ناڤێ کرێکارەکی، ل لیستا خوارێ کلیکێ ل سەر بکە، بنڤیسە و Enter لێ بدە.</div></details>
+ <div class="card">
+  <div class="grid">
+   <label>کۆدا کرێکاری<input id="cd"></label>
+   <label>ناڤ<input id="nm"></label>
+   <label>جۆرێ کرێکاری<select id="rl"><option>کرێکار</option><option>هۆستا</option><option>مراقب</option></select><small>کرێکار = 8 کاتژمێر، هۆستا و مراقب = 12 کاتژمێر</small></label>
+   <label>ڕۆژا دەستپێکرنا کاری<input type="date" id="sd"></label>
+   <label>ڕۆژا دەرکەتنێ <small>(نە پێدڤییە)</small><input type="date" id="ed"></label>
+  </div>
+  <div class="bar" style="margin-top:12px"><button id="add">زێدەکرن</button></div>
+  <label>زێدەکرنا چەند کرێکاران ب جارەکێ <small>(ل هەر دێڕەکێ ئێک کرێکار: کۆد | ناڤ | جۆر — جۆر نە پێدڤییە)</small><textarea id="bulk" rows="4"></textarea></label>
+  <div class="bar" style="margin-top:8px"><button id="addb" class="sec">زێدەکرنا هەمیان</button></div>
+ </div>
+ <div class="card scroll"><table><thead><tr><th>#</th><th>کۆد</th><th>ناڤ</th><th>جۆر</th><th>دەستپێکا کاری</th><th>دەرکەتن ژ کاری</th><th></th></tr></thead><tbody id="wl"></tbody></table></div>
+</section>
+
+<section id="p4" class="hide"><details class="help"><summary>💡 ڕێنمایی</summary><div>بۆ هەر هەفتیەکێ، ژمارا ڕێزێ و جهێ کاری یێ هەر کرێکارەکی دیار بکە. بۆ دیتنا تەنێ جهەکی، فلتەرێ ب کار بینە. ڕۆژێن مۆلەتێ ب کلیکێ ل سەر ڕۆژێ دیار بکە، و بۆ چاپکرنێ دوگما «PDF بۆ جهی» ب کار بینە.</div></details>
+ <div class="bar">
+  <button class="sec" id="wp">هەفتیا بەری</button>
+  <input type="date" id="ws">
+  <button class="sec" id="wn">هەفتیا پاشی</button>
+  <button class="sec" id="wc">کۆپیکرن ژ هەفتیا بەری</button>
+  <select id="so" title="ڕێزکرنا لیستێ"><option value="">↕ ڕێزکرن: ئاسایی</option><option value="seq">↕ ڕێزکرن: ژمارا ڕێزێ</option><option value="name">↕ ڕێزکرن: ناڤ (ئەلف بێ)</option><option value="code">↕ ڕێزکرن: کۆد</option></select>
+  <select id="pf"></select>
+  <select id="sf"><option value="">هەمی دەوامان</option><option value="سپێدە">سپێدە</option><option value="ئێڤار">ئێڤار</option><option value="شەڤ">شەڤ</option><option value="*none">بێ دەوام</option></select>
+  <button id="pp">PDF بۆ جهی</button>
+  <button id="xlA">📥 ئێکسل</button>
+ </div>
+ <div class="card"><div><b>جهێن کاری</b> <small>(وەک جهاز-١ یان حوض)</small></div>
+  <div class="bar" style="margin-top:8px"><input id="pn" placeholder="ناڤێ جهێ کاری"><button id="pa">زێدەکرنا جهی</button></div>
+  <div id="pc2" class="bar"></div></div>
+ <div id="am"></div>
+ <div id="wr" style="margin-bottom:8px;color:var(--mu)"></div>
+ <div class="card scroll"><table id="atb"><thead id="ah"></thead><tbody id="al"></tbody></table></div>
+ <datalist id="pl"></datalist>
+</section>
+
+<section id="p5" class="hide"><details class="help"><summary>💡 ڕێنمایی</summary><div>کورتیا هەفتیێ: چەند زێدە و چەند غیاب هەیە بۆ هەر کرێکارەکی و بۆ هەمیان. ڕۆژێن چ تێدا نەهاتیە داخلکرن ب نیشانا ✓ دیار دبن (ئامادە).</div></details>
+ <div class="bar">
+  <button class="sec" id="sp">هەفتیا بەری</button>
+  <input type="date" id="sw">
+  <button class="sec" id="sn">هەفتیا پاشی</button>
+  <button id="xlS">📥 ئێکسل</button>
+ </div>
+ <div id="kp" class="kpis"></div>
+ <div id="sr" style="margin-bottom:8px;color:var(--mu)"></div>
+ <div class="card scroll"><table id="stt"></table></div>
+</section>
+
+<section id="p6" class="hide"><details class="help"><summary>💡 ڕێنمایی</summary><div>غیابا هەمی ٧ ڕۆژان ب جارەکێ ل ڤێرێ بنڤیسە. جهەکی هەلبژێرە دا تەنێ کرێکارێن وی جهی ببینی؛ ئەو وەک خشتەیێ چاپکرنێ ل دویڤ ژمارا ڕێزێ دهێنە ڕێزکرن. ڕۆژێن مۆلەتێ ب زەر و ڕۆژێن کرێکار تێدا ل کار نەبووی ب خۆلەمێشی دیار دبن. Enter = خانا پاشی. بۆ غیابا ڕۆژەکا تەمام بنڤیسە «غ». بۆ دانانا مۆلەتێ ل خانەکێ بنڤیسە «م»، و بۆ لابرنا مۆلەتێ کلیکێ ل خانا زەرد بکە.</div></details>
+ <div class="bar">
+  <button class="sec" id="xp">هەفتیا بەری</button>
+  <input type="date" id="xw">
+  <button class="sec" id="xn">هەفتیا پاشی</button>
+  <select id="xf"></select>
+  <select id="xm"><option value="abs">غیاب (کاتژمێرێن نەهاتنێ)</option><option value="ot">کاتژمێرێن زێدە</option></select>
+  <button id="xlX">📥 ئێکسل</button>
+ </div>
+ <div class="card scroll"><table id="xtb"><thead id="xh"></thead><tbody id="xb"></tbody><tfoot id="xt"></tfoot></table></div>
+</section>
+<section id="p7" class="hide"><details class="help"><summary>💡 ڕێنمایی</summary><div>ل ڤێرێ بەکارهێنەران زێدە بکە و دیار بکە هەر ئێک دشێت کیژان بەشان ببینیت و کار تێدا بکەت. نموونە: بۆ ئەوێ تەنێ غیابا ڕۆژانە داخل دکەت، تەنێ «ڕۆژانە» چێک بکە. ئەڤ بەشە تەنێ بۆ ئەدمینی (zewar) دیار دبیت.</div></details>
+ <div class="card"><b>بەکارهێنەرەکێ نوی</b>
+  <div class="grid" style="margin-top:8px"><label>ناڤێ بەکارهێنەری<input id="nu" autocomplete="off" dir="ltr"></label><label>پەیڤا نهێنی<input id="np" autocomplete="new-password" dir="ltr"></label></div>
+  <div style="margin-top:10px"><b>دەستهەلات:</b><div id="npm" class="bar" style="margin-top:6px"></div></div>
+  <div class="bar"><button id="nadd">زێدەکرنا بەکارهێنەری</button></div></div>
+ <div class="card scroll"><table><thead id="uh"></thead><tbody id="ul"></tbody></table></div>
+ <div class="card"><b>پاشکەفت (Backup) و ڤەگوهاستنا داتایێ</b>
+  <p style="margin:6px 0 10px;color:var(--mu);font-size:13px">بۆ ڤەگوهاستنا داتایێن کەڤن بۆ ڤێ ڤەشانێ: ل ئامێرێ کەڤن «دانلۆدکرنا پاشکەفتێ» بکە، پاشی ل ڤێرێ «ئینانا پاشکەفتێ» بکە.</p>
+  <div class="bar"><button id="bkx" class="sec">📤 دانلۆدکرنا پاشکەفتێ</button><label class="sec fbtn">📥 ئینانا پاشکەفتێ<input type="file" id="bkf" accept=".json,application/json" hidden></label></div></div>
+ <div class="card"><b>گوهۆڕینا پەیڤا نهێنی یا ئەدمینی (zewar)</b>
+  <div class="bar" style="margin-top:8px"><input id="ap" type="password" placeholder="پەیڤا نهێنی یا نوی" autocomplete="new-password" dir="ltr"><input id="ap2" type="password" placeholder="دووبارە بنڤیسە" autocomplete="new-password" dir="ltr"><button id="apb">گوهۆڕین</button></div></div>
+</section>
+<div id="pr"></div>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const DN=["یەکشەمب","دووشەمب","سێشەمب","چارشەمب","پێنجشەمب","ئەینی","شەمبی"];
+const p2=n=>String(n).padStart(2,"0");
+const iso=d=>d.getFullYear()+"-"+p2(d.getMonth()+1)+"-"+p2(d.getDate());
+const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+const msg=t=>{$("msg").textContent=t};
+let READY=false,ME=null,S={workers:[],abs:{},ot:{},lv:{},lw:{},asg:{},places:[],users:[],admin:null},sortA=false;
+
+const pick=d=>({workers:d.workers||[],abs:d.abs||{},ot:d.ot||{},lv:d.lv||{},lw:d.lw||{},asg:d.asg||{},places:d.places||[],users:d.users||[],admin:d.admin||null});
+let DB=null,BASE=null,PEND=false,WQ=Promise.resolve();
+const KEYS=["abs","ot","lv","lw"];
+const clone=o=>JSON.parse(JSON.stringify(o));
+const cfgOf=s=>({workers:s.workers,places:s.places,users:s.users,admin:s.admin});
+const SB_URL="https://bkusrcbotmboazzhdwxo.supabase.co";
+const SB_KEY="sb_publishable_0LrbeEfUoZLZdArhHPIRZw_ogxJlu9T";
+const isObj=v=>v&&typeof v==="object"&&!Array.isArray(v);
+const dmerge=(a,b)=>{if(!isObj(a)||!isObj(b))return b;const r=Object.assign({},a);for(const k in b)r[k]=dmerge(a[k],b[k]);return r};
+function sbDB(sb){
+ const cache=new Map(),subs=[];
+ const colOf=p=>p.slice(0,p.lastIndexOf("/")),idOf=p=>p.slice(p.lastIndexOf("/")+1);
+ const docSnap=p=>({exists:cache.has(p),data:()=>cache.get(p)});
+ const colSnap=c=>({docs:[...cache].filter(([p])=>colOf(p)===c).map(([p,d])=>({id:idOf(p),data:()=>d}))});
+ const notify=p=>subs.forEach(x=>{if(x.t==="d"&&x.k===p)x.cb(docSnap(p));else if(x.t==="c"&&x.k===colOf(p))x.cb(colSnap(x.k))});
+ let ready=null;
+ const init=()=>ready||(ready=(async()=>{
+  sb.channel("docs-live").on("postgres_changes",{event:"*",schema:"public",table:"docs"},pl=>{
+   if(pl.eventType==="DELETE"){const p=pl.old&&pl.old.path;if(p&&cache.has(p)){cache.delete(p);notify(p)}return}
+   const r=pl.new;if(!r||!r.path)return;cache.set(r.path,r.data);notify(r.path);
+  }).subscribe();
+  const {data,error}=await sb.from("docs").select("path,data");
+  if(error)throw error;
+  data.forEach(r=>cache.set(r.path,r.data));
+ })());
+ const chk=({error})=>{if(error)throw error};
+ const doc=p=>({
+  onSnapshot(cb,fail){subs.push({t:"d",k:p,cb});init().then(()=>cb(docSnap(p)),fail)},
+  async get(){await init();return docSnap(p)},
+  async set(data,o){
+   if(o&&o.merge){cache.set(p,dmerge(cache.get(p)||{},data));notify(p);chk(await sb.rpc("merge_doc",{p_path:p,p_data:data}))}
+   else{cache.set(p,data);notify(p);chk(await sb.from("docs").upsert({path:p,data,updated_at:new Date().toISOString()}))}
+  }
+ });
+ return{doc,collection:c=>({onSnapshot(cb,fail){subs.push({t:"c",k:c,cb});init().then(()=>cb(colSnap(c)),fail)}})};
+}
+async function sbInit(){
+ if(!window.supabase)throw{code:"no-sdk"};
+ const sb=supabase.createClient(SB_URL,SB_KEY);
+ const {data:{session}}=await sb.auth.getSession();
+ if(!session){const {error}=await sb.auth.signInAnonymously();if(error)throw error}
+ return sbDB(sb);
+}
+async function load(){
+ try{DB=await sbInit()}catch(e){
+  console.error(e);
+  const c=e&&(e.code||e.message)||"";
+  $("lgt").textContent=c==="no-sdk"?"ئینتەرنێت نینە. ئینتەرنێتێ پشکنە و پەیجێ دووبارە ڤەکە.":/anonymous/i.test(c)?"ل Supabase «Allow anonymous sign-ins» چالاک نەکریە.":"پەیوەندی ب Supabase ڤە سەرنەکەفت ("+c+"). پەیجێ دووبارە ڤەکە.";
+  return;
+ }
+ startLive();
+}
+function netInfo(){const n=$("net");if(n){n.textContent=DB?"🟢 ئۆنلاین":"💾 تەنێ ل سەر ڤی ئامێری";n.title=DB?"داتا ل سەر ئینتەرنێتێ دهێتە پاشکەفتکرن و هەمی بەکارهێنەر دبینن":"داتا تەنێ د ڤی براوسەری دا دهێتە پاشکەفتکرن"}}
+function startLive(){
+ const got={c:0,d:0,w:0};
+ const tm=setTimeout(()=>{if(!READY)$("lgt").textContent="هێشتا پەیوەندی ب داتایێ ڤە نەبوویە. ئینتەرنێتێ پشکنە."},10000);
+ const fail=e=>{console.error(e);const t=e&&(e.code==="42501"||e.code==="42P01")?"خشتەیێ docs یان دەستهەلات ل Supabase نە دروستن. کۆدا SQL دووبارە Run بکە.":"پەیوەندی ب داتایێ ڤە هاتە بڕین. پەیجێ دووبارە ڤەکە.";msg(t);$("lgt").textContent=t};
+ const after=()=>{
+  if(!READY){if(got.c&&got.d&&got.w){clearTimeout(tm);READY=true;BASE=clone(S);netInfo();all();gate()}return}
+  refreshMe();rerender();
+ };
+ DB.doc("app/config").onSnapshot(s=>{
+  const d=s.exists?s.data():{};
+  S.workers=clone(d.workers||[]);S.places=clone(d.places||[]);S.users=clone(d.users||[]);S.admin=d.admin?clone(d.admin):null;
+  if(BASE)Object.assign(BASE,clone(cfgOf(S)));got.c=1;after();
+ },fail);
+ DB.collection("days").onSnapshot(q=>{
+  KEYS.forEach(k=>S[k]={});
+  q.docs.forEach(doc=>{const d=doc.data()||{},dt=doc.id;KEYS.forEach(k=>{const m=d[k]||{};for(const wid in m)if(m[wid]!=null&&m[wid]!==0)S[k][wid+"_"+dt]=m[wid]})});
+  if(BASE)KEYS.forEach(k=>BASE[k]=clone(S[k]));got.d=1;after();
+ },fail);
+ DB.collection("weeks").onSnapshot(q=>{
+  S.asg={};
+  q.docs.forEach(doc=>{const a=(doc.data()||{}).a||{};for(const wid in a)if(a[wid])S.asg[doc.id+"_"+wid]=a[wid]});
+  if(BASE)BASE.asg=clone(S.asg);got.w=1;after();
+ },fail);
+}
+function refreshMe(){
+ if(!ME)return;
+ if(ME.admin){if(!S.admin){ses("");ME=null;showLogin()}return}
+ const x=S.users.find(v=>v.u===ME.u);
+ if(!x){ses("");ME=null;showLogin();return}
+ const ch=JSON.stringify(x.perms)!==JSON.stringify(ME.perms);ME=x;if(ch)enter();
+}
+const typing=()=>{const a=document.activeElement;return a&&a.closest&&a.closest("main")&&/^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName)&&a.id!=="q"};
+function rerender(){if(typing()){PEND=true;return}PEND=false;all();if(ME&&ME.admin)renderU()}
+document.addEventListener("focusout",()=>setTimeout(()=>{if(PEND&&!typing())rerender()},50));
+const wq=fn=>(WQ=WQ.then(fn).catch(e=>{console.error(e);msg(e&&e.code==="quota_exceeded"?"جهێ داتایێ تژی بوویە، پەیوەندیێ ب ئەدمینی بکە":"پاشکەفتکرن سەرنەکەفت، دووبارە هەول بدە")}));
+async function upsert(path,data){await DB.doc(path).set(data,{merge:true})}
+function save(){
+ if(!DB){try{localStorage.setItem("absApp",JSON.stringify(S))}catch(e){msg("پاشکەفتکرن سەرنەکەفت")}return Promise.resolve()}
+ if(!BASE)return Promise.resolve();
+ let p=WQ;
+ if(JSON.stringify(cfgOf(S))!==JSON.stringify(cfgOf(BASE))){const cc=clone(cfgOf(S));p=wq(()=>DB.doc("app/config").set(cc))}
+ const days={};
+ KEYS.forEach(k=>{const a=S[k],b=BASE[k]||{};new Set([...Object.keys(a),...Object.keys(b)]).forEach(key=>{if(a[key]!==b[key]){const i=key.indexOf("_"),wid=key.slice(0,i),dt=key.slice(i+1);if(!/^\d{4}-\d{2}-\d{2}$/.test(dt))return;const D=days[dt]=days[dt]||{};(D[k]=D[k]||{})[wid]=a[key]==null?null:a[key]}})});
+ for(const dt in days){const u=days[dt];p=wq(()=>upsert("days/"+dt,u))}
+ const wk={},A=S.asg,B=BASE.asg||{};
+ new Set([...Object.keys(A),...Object.keys(B)]).forEach(key=>{if(JSON.stringify(A[key])!==JSON.stringify(B[key])){const w=key.slice(0,10),wid=key.slice(11);if(!/^\d{4}-\d{2}-\d{2}$/.test(w))return;((wk[w]=wk[w]||{a:{}}).a)[wid]=A[key]?A[key].slice():null}});
+ for(const w in wk){const u=wk[w];p=wq(()=>upsert("weeks/"+w,u))}
+ BASE=clone(S);
+ return p;
+}
+$("bkx").onclick=async()=>{try{await saveFile("backup-"+iso(new Date())+".json",new Blob([JSON.stringify(S)],{type:"application/json"}));msg("پاشکەفت هاتە دروستکرن")}catch(e){if(!(e&&e.code==="declined"))msg("پاشکەفت نەهاتە دروستکرن")}};
+$("bkf").onchange=async e=>{
+ const f=e.target.files[0];e.target.value="";if(!f)return;
+ try{const d=JSON.parse(await f.text());if(!d||!Array.isArray(d.workers))throw 0;
+  const keepAdmin=S.admin,keepUsers=S.users;const n=pick(d);
+  if(!n.admin)n.admin=keepAdmin;if(!n.users.length)n.users=keepUsers;
+  Object.assign(S,n);msg("داتا دهێتە ئینان... چاڤەڕێ بە");await save();all();renderU();msg("داتا ب سەرکەفتی هاتە ئینان: "+S.workers.length+" کرێکار")}
+ catch(err){console.error(err);msg("ئەڤ فایلە نە دورستە")}
+};
+function setTheme(t){document.documentElement.dataset.theme=t;try{localStorage.setItem("absTheme",t)}catch(e){}document.querySelectorAll(".thb").forEach(b=>{b.textContent=t==="dark"?"☀️ ڕۆناهی":"🌙 تاری";b.title=t==="dark"?"گوهۆڕین بۆ ڕەنگێ ڕۆناهی":"گوهۆڕین بۆ ڕەنگێ تاری"})}
+document.querySelectorAll(".thb").forEach(b=>b.onclick=()=>setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark"));
+setTheme(document.documentElement.dataset.theme||"light");
+if(innerWidth>700)document.querySelectorAll("details.help").forEach(x=>x.open=true);
+const PERMS=[["1","📝 ڕۆژانە"],["2","📅 مانگانە"],["3","👷 کرێکار"],["4","🧭 ڕێکخستنا هەفتیێ"],["5","📊 کورتکرنا هەفتیێ"],["6","📋 غیابا هەفتیێ"]];
+const ADM="zewar";
+const can=k=>!!ME&&(ME.admin||(k!=="7"&&(ME.perms||[]).includes(k)));
+const rnd=()=>{try{return[...crypto.getRandomValues(new Uint8Array(16))].map(x=>x.toString(16).padStart(2,"0")).join("")}catch(e){return Math.random().toString(36).slice(2)+Date.now().toString(36)}};
+async function hsh(salt,pw){const t=new TextEncoder().encode(salt+":"+pw);try{const b=await crypto.subtle.digest("SHA-256",t);return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}catch(e){let h=2166136261;for(const c of t){h^=c;h=Math.imul(h,16777619)>>>0}return"f"+h.toString(16)}}
+const ses=(v)=>{try{if(v===undefined)return sessionStorage.getItem("absUser");if(v)sessionStorage.setItem("absUser",v);else sessionStorage.removeItem("absUser")}catch(e){return null}};
+function gate(){
+ const u=ses();
+ ME=u===ADM&&S.admin?{u:ADM,admin:true}:(S.users.find(x=>x.u===u)||null);
+ if(ME)enter();else showLogin();
+}
+function showLogin(){
+ document.body.classList.add("locked");
+ const setup=!S.admin;
+ $("lp2w").classList.toggle("hide",!setup);
+ $("lgt").textContent=!READY?"چاڤەڕێ بە...":setup?"جارا ئێکێ: پەیڤەکا نهێنی بۆ ئەدمینی (zewar) دابنە (4 پیت یان پتر).":"بۆ چوونەژوورێ ناڤ و پەیڤا نهێنی بنڤیسە";
+ if(setup){$("lu").value=ADM;$("lu").readOnly=true}else $("lu").readOnly=false;
+ $("lb").textContent=setup?"دانان و چوونەژوور":"چوونەژوور";
+ setTimeout(()=>(setup?$("lp"):$("lu")).focus(),50);
+}
+$("lb").onclick=async()=>{
+ if(!READY)return;
+ const u=$("lu").value.trim().toLowerCase(),p=$("lp").value,er=t=>{$("le").textContent=t};er("");
+ if(!S.admin){
+  if(p.length<4)return er("پەیڤا نهێنی دڤێت 4 پیت یان پتر بن");
+  if(p!==$("lp2").value)return er("هەردوو پەیڤێن نهێنی نە وەک ئێکن");
+  const salt=rnd();S.admin={salt,h:await hsh(salt,p)};await save();ME={u:ADM,admin:true};
+ }else if(u===ADM){
+  if(await hsh(S.admin.salt,p)!==S.admin.h)return er("ناڤ یان پەیڤا نهێنی خەلەتە");
+  ME={u:ADM,admin:true};
+ }else{
+  const x=S.users.find(v=>v.u===u);
+  if(!x||await hsh(x.salt,p)!==x.h)return er("ناڤ یان پەیڤا نهێنی خەلەتە");
+  ME=x;
+ }
+ ses(ME.u);$("lp").value="";$("lp2").value="";enter();
+};
+$("lo").onclick=()=>{ses("");ME=null;renderAW();$("lu").value="";showLogin()};
+function enter(){
+ document.body.classList.remove("locked");
+ ["1","2","3","4","5","6","7"].forEach(k=>$("t"+k).classList.toggle("hide",!can(k)));
+ $("who").textContent="👤 "+ME.u+(ME.admin?" (ئەدمین)":"");
+ const first=["1","2","3","4","5","6","7"].find(can);
+ document.querySelector(".tabs").classList.toggle("hide",["1","2","3","4","5","6","7"].filter(can).length<2);
+ if(first){show(first);msg("")}else{["1","2","3","4","5","6","7"].forEach(k=>$("p"+k).classList.add("hide"));msg("هێشتا چ دەستهەلات بۆ تە نەهاتینە دان. پەیوەندیێ ب ئەدمینی بکە.")}
+ if(ME.admin)renderU();
+ renderAW();
+}
+function renderU(){
+ if(!ME||!ME.admin)return;
+ if(!$("npm").childElementCount)$("npm").innerHTML=PERMS.map(([k,t])=>`<label class="pm"><input type="checkbox" class="npk" value="${k}"${k==="1"?" checked":""}>${t}</label>`).join("");
+ $("uh").innerHTML="<tr><th>ناڤێ بەکارهێنەری</th>"+PERMS.map(([k,t])=>`<th>${t}</th>`).join("")+"<th>پەیڤا نهێنی یا نوی</th><th></th></tr>";
+ $("ul").innerHTML=S.users.map((x,i)=>`<tr><td class="nm" dir="ltr">${esc(x.u)}</td>`+PERMS.map(([k])=>`<td><input type="checkbox" class="upk lv" data-i="${i}" value="${k}"${(x.perms||[]).includes(k)?" checked":""}></td>`).join("")+`<td><input class="upw" data-i="${i}" placeholder="••••" style="width:110px" dir="ltr"> <button class="sec" data-pw="${i}">گوهۆڕین</button></td><td><button class="off" data-du="${i}">ژێبرن</button></td></tr>`).join("")||`<tr><td colspan="${PERMS.length+3}">هێشتا چ بەکارهێنەر نەهاتینە زێدەکرن</td></tr>`;
+}
+$("nadd").onclick=async()=>{
+ const u=$("nu").value.trim().toLowerCase(),p=$("np").value;
+ if(!u)return msg("ناڤێ بەکارهێنەری بنڤیسە");
+ if(!/^[a-z0-9._\-]{2,30}$/.test(u))return msg("ناڤێ بەکارهێنەری ب پیتێن ئینگلیزی یان ژمارەیان بنڤیسە (بێ بۆشایی)");
+ if(u===ADM||S.users.some(x=>x.u===u))return msg("ئەڤ ناڤە بەری نوکە هەیە");
+ if(p.length<4)return msg("پەیڤا نهێنی دڤێت 4 پیت یان پتر بن");
+ const perms=[...document.querySelectorAll(".npk:checked")].map(x=>x.value),salt=rnd();
+ S.users.push({u,salt,h:await hsh(salt,p),perms});
+ $("nu").value="";$("np").value="";msg("بەکارهێنەر «"+u+"» هاتە زێدەکرن");save();renderU();
+};
+$("ul").addEventListener("change",e=>{const t=e.target;if(!t.classList.contains("upk"))return;const x=S.users[+t.dataset.i],P=new Set(x.perms||[]);t.checked?P.add(t.value):P.delete(t.value);x.perms=PERMS.map(p=>p[0]).filter(k=>P.has(k));save()});
+$("ul").addEventListener("click",async e=>{
+ const pw=e.target.closest("[data-pw]"),du=e.target.closest("[data-du]");
+ if(pw){const i=+pw.dataset.pw,inp=$("ul").querySelector(`.upw[data-i="${i}"]`),p=inp.value;if(p.length<4)return msg("پەیڤا نهێنی دڤێت 4 پیت یان پتر بن");const x=S.users[i];x.salt=rnd();x.h=await hsh(x.salt,p);inp.value="";save();msg("پەیڤا نهێنی یا «"+x.u+"» هاتە گوهۆڕین")}
+ if(du){if(du.dataset.a){S.users.splice(+du.dataset.du,1);save();renderU()}else{du.dataset.a=1;du.textContent="تو پشتڕاستی؟"}}
+});
+$("apb").onclick=async()=>{const p=$("ap").value;if(p.length<4)return msg("پەیڤا نهێنی دڤێت 4 پیت یان پتر بن");if(p!==$("ap2").value)return msg("هەردوو پەیڤێن نهێنی نە وەک ئێکن");const salt=rnd();S.admin={salt,h:await hsh(salt,p)};$("ap").value="";$("ap2").value="";await save();msg("پەیڤا نهێنی یا ئەدمینی هاتە گوهۆڕین")};
+const nq=x=>String(x||"").replace(/[٠-٩]/g,c=>c.charCodeAt(0)-1632).replace(/[۰-۹]/g,c=>c.charCodeAt(0)-1776).replace(/ي/g,"ی").replace(/ك/g,"ک").replace(/ة/g,"ە").replace(/[\u064B-\u065F\u200c\u200d]/g,"").toLowerCase().trim();
+const qm=w=>{const q=nq($("q").value);if(!q)return true;return nq(w.code).includes(q)||nq(w.name).includes(q)};
+const W=()=>S.workers.filter(qm);
+const all=()=>{qInfo();renderW();renderD();renderM();renderA();renderS();renderX()};
+
+function qInfo(){const q=$("q").value.trim();$("qx").classList.toggle("hide",!q);$("qn").textContent=q?W().length+" ژ "+S.workers.length+" کرێکاران":""}
+function renderW(){
+ $("wl").innerHTML=S.workers.map((w,i)=>!qm(w)?"":`<tr><td>${i+1}</td><td><input class="ed edc" data-i="${i}" data-f="code" value="${esc(w.code||"").replace(/"/g,"&quot;")}" title="کلیک بکە بۆ گوهۆڕینێ"></td><td class="nm"><input class="ed edn" data-i="${i}" data-f="name" value="${esc(w.name).replace(/"/g,"&quot;")}" title="کلیک بکە بۆ گوهۆڕینێ"></td><td><select class="rl2" data-i="${i}">${ROLES.map(r=>`<option${r===roleOf(w)?" selected":""}>${r}</option>`).join("")}</select></td><td><input type="date" class="dd" data-i="${i}" data-f="start" value="${w.start||""}"></td><td><input type="date" class="dd" data-i="${i}" data-f="end" value="${w.end||""}"></td><td><button class="off" data-d="${i}">ژێبرن</button></td></tr>`).join("")||(S.workers.length?'<tr><td colspan="7">چ ئەنجام بۆ گەڕیانێ نینن</td></tr>':'')||'<tr><td colspan="7">هێشتا چ کرێکار نەهاتینە زێدەکرن</td></tr>';
+}
+let DSH="",DPL="";try{DSH=localStorage.getItem("absDSh")||"";DPL=localStorage.getItem("absDPl")||""}catch(e){}
+const keepDF=()=>{try{localStorage.setItem("absDSh",DSH);localStorage.setItem("absDPl",DPL)}catch(e){}};
+const asgOf=(w,d)=>S.asg[weekOf(d)+"_"+w.id]||["","",""];
+const isPool=p=>/ح[ەو]?[وۆ]?[ضزظذ]|hawz|hawd/i.test(p||"");
+const isSvc=p=>/خ[ەا]?د[ەا]?م[اە]ت|خزم[ەا]ت|service/i.test(p||"");
+const dBase=d=>W().filter(w=>{const a=asgOf(w,d);return !DSH||a[2]===DSH||isSvc(a[1])});
+function dItems(d){
+ const B=dBase(d),pc=p=>B.filter(w=>(asgOf(w,d)[1]||"")===p);
+ const extra=[...new Set(B.map(w=>asgOf(w,d)[1]).filter(p=>p&&!S.places.includes(p)))];
+ const it=[["","هەمی جهان",B]];
+ [...S.places,...extra].forEach(p=>{const L=pc(p);if(L.length)it.push([p,p,L])});
+ const nn=pc("");if(nn.length&&it.length>1)it.push(["*none","بێ جه",nn]);
+ return it;
+}
+function dList(d){
+ let L=dBase(d);
+ if(DPL)L=L.filter(w=>{const p=asgOf(w,d)[1]||"";return DPL==="*none"?!p:p===DPL});
+ if(DSH||DPL)L.sort((x,y)=>(+asgOf(x,d)[0]||1e9)-(+asgOf(y,d)[0]||1e9));
+ return L;
+}
+function renderDFil(d){
+ const shs=[["","هەمی"],["سپێدە","☀️ سپێدە"],["ئێڤار","🌇 ئێڤار"],["شەڤ","🌙 شەڤ"]];
+ const cnt=sh=>W().filter(w=>!sh||asgOf(w,d)[2]===sh).length;
+ $("dsh").innerHTML=shs.map(([v,t])=>`<button class="sg${v===DSH?" on":""}" data-v="${v}">${t}<i>${cnt(v)}</i></button>`).join("");
+ const it=dItems(d);
+ if(DPL&&!it.some(x=>x[0]===DPL)){DPL="";keepDF()}
+ const ab=L=>L.filter(w=>!outside(w,d)&&absOf(w,d)>0).length;
+ $("dpl").innerHTML=it.length>1?it.map(([v,t,L])=>{const a=ab(L);return`<button class="sg${v===DPL?" on":""}" data-v="${esc(v)}">${esc(t)}<i>${L.length}</i>${a?`<b class="sgb" title="نەهاتی">${a}</b>`:""}</button>`}).join(""):'<small>بۆ ڤێ هەفتیێ جهێ کاری نەهاتیە دیارکرن (پەرەیا «ڕێکخستنا هەفتیێ»)</small>';
+ const on=document.querySelector("#dpl .sg.on");if(on)on.scrollIntoView({block:"nearest",inline:"center"});
+ return it;
+}
+function renderD(){
+ const d=$("dt").value;const it=renderDFil(d);renderDF();renderWarn();
+ const L=dList(d);
+ $("dl").innerHTML=L.map(w=>{const out=outside(w,d),av=absOf(w,d),a=asgOf(w,d),sub=[a[0]?"#"+a[0]:"",w.code?"کۆد "+w.code:"",a[1],a[2]].filter(Boolean).map(esc).join(" · ");return`<tr class="${out?"outr":av?"absr":""}"><td class="c-sq">${esc(a[0]||"")}</td><td class="c-cd">${esc(w.code||"")}</td><td class="nm c-nm"><span class="wn">${esc(w.name)}${rb(w)}</span>${sub?`<span class="mo">${sub}</span>`:""}${out?` <small>(ل ڤێ ڕۆژێ ل کار نینە، ${dayH(w)}:00 دهێتە حسابکرن)</small>`:""}</td><td class="c-pl">${esc(a[1]||"")}${a[2]?` <small>${esc(a[2])}</small>`:""}</td><td class="c-ab"><label class="abt"><input type="checkbox" class="ab" data-id="${w.id}" title="نەهاتیە = ${dayH(w)} کاتژمێر"${!out&&av>=dayH(w)?" checked":""}><span>نەهاتیە <small>(${dayH(w)} کاتژمێر)</small></span></label></td><td class="c-h" data-l="کاتژمێرێن نەهاتنێ"><input type="text" inputmode="decimal" class="h" data-id="${w.id}" value="${fh(av)}" placeholder="0:00"></td><td class="c-ot" data-l="کاتژمێرێن زێدە"><input type="text" inputmode="decimal" class="h ot" data-id="${w.id}" value="${fh(S.ot[w.id+"_"+d])}" placeholder="0:00"></td><td class="c-lv"><label class="lvt"><input type="checkbox" class="lv" data-id="${w.id}"${S.lv[w.id+"_"+d]?" checked":""}><span>مۆلەت</span></label></td><td class="c-lw" data-l="ل ڕۆژا مۆلەتێ هاتیە (×1.5)">${lwCell(w,d)}</td></tr>`}).join("")||(S.workers.length?'<tr><td colspan="9" class="emp">چ کرێکار د ڤی دەوامی و ڤی جهی دا نینن</td></tr>':'<tr><td colspan="9" class="emp">پێشیێ کرێکاران زێدە بکە (پەرەیا «کرێکار»)</td></tr>');
+ const pl=it.slice(1),i=pl.findIndex(x=>x[0]===DPL);
+ $("dnx").innerHTML=DPL&&pl[i+1]?`<button id="dnb">جهێ پاشی: ${esc(pl[i+1][1])} ⬅</button>`:"";
+}
+function qaInfo(){const pl=DPL&&DPL!=="*none"?DPL:"",parts=["دەست ب کاری دکەت ژ "+$("dt").value];if(pl)parts.push("جه: "+pl);if(DSH)parts.push("دەوام: "+DSH);$("qai").textContent="("+parts.join(" · ")+")"}
+$("qa").onclick=()=>{const h=$("qaf").classList.toggle("hide");if(!h){qaInfo();$("qac").focus()}};
+$("qax").onclick=()=>{$("qaf").classList.add("hide");$("qac").value="";$("qan").value=""};
+$("qan").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();$("qas").click()}});
+$("qas").onclick=()=>{
+ const n=$("qan").value.trim(),c=$("qac").value.trim(),d=$("dt").value;
+ if(!n){msg("ناڤێ کرێکاری بنڤیسە");$("qan").focus();return}
+ if(c&&S.workers.some(x=>(x.code||"")===c)){msg("کۆدا «"+c+"» بەری نوکە هەیە بۆ کرێکارەکێ دی");$("qac").focus();return}
+ const id=Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+ S.workers.push({id,code:c,name:n,role:$("qar").value,start:d,end:""});
+ const pl=DPL&&DPL!=="*none"?DPL:"";
+ if(pl||DSH)S.asg[weekOf(d)+"_"+id]=["",pl,DSH||""];
+ $("qac").value="";$("qan").value="";$("qaf").classList.add("hide");
+ save();all();msg("کرێکار «"+n+"» هاتە زێدەکرن");
+};
+$("dsh").addEventListener("click",e=>{const b=e.target.closest(".sg");if(!b)return;DSH=b.dataset.v;DPL="";keepDF();renderD()});
+$("dpl").addEventListener("click",e=>{const b=e.target.closest(".sg");if(!b)return;DPL=b.dataset.v;keepDF();renderD()});
+$("dnx").addEventListener("click",e=>{if(!e.target.closest("#dnb"))return;const pl=dItems($("dt").value).slice(1),i=pl.findIndex(x=>x[0]===DPL);if(pl[i+1]){DPL=pl[i+1][0];keepDF();renderD();$("dsh").scrollIntoView({behavior:"smooth",block:"start"})}});
+function lwCell(w,d){
+ const k=w.id+"_"+d,h=S.lw[k];
+ let t=`<input type="checkbox" class="lw lv" data-id="${w.id}"${h?" checked":""}>`;
+ if(h){const m=lwMul(w,d);t+=` <input type="text" inputmode="decimal" class="lwh" data-id="${w.id}" value="${fh(h)}" title="کاتژمێرێن کارکری"><span class="lwn ${m>1?"ok":"bad"}">${m>1?"= +"+fh(h*m)+" (×1.5)":"= 0 (ل بەرانبەر غیابا ڤێ هەفتیێ)"}</span>`}
+ return t;
+}
+function renderM(){
+ const [y,m]=$("mo").value.split("-").map(Number),n=new Date(y,m,0).getDate();
+ let h='<tr><th>کۆد</th><th>ناڤ</th>';
+ for(let d=1;d<=n;d++)h+=`<th>${DN[new Date(y,m-1,d).getDay()]}<br>${d}</th>`;
+ h+="<th>کۆما غیابێ</th><th>کۆما زێدە</th><th>مۆلەت</th></tr>";
+ W().forEach(w=>{
+  let t=0,o=0,n2=0,r=`<tr><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td>`;
+  for(let d=1;d<=n;d++){const ds2=y+"-"+p2(m)+"-"+p2(d),out=outside(w,ds2),v=out?dayH(w):S.abs[w.id+"_"+ds2];if(v)t+=v;o+=otOf(w,ds2);const l=S.lv[w.id+"_"+y+"-"+p2(m)+"-"+p2(d)];if(l)n2++;r+=`<td class="${out?"outc":v?"a":l?"lvc":""}">${v?fh(v):l?"م":""}</td>`}
+  h+=r+`<td class="${t?"bad":""}"><b>${fh(t)||"0:00"}</b></td><td class="ok"><b>${fh(o)||"0:00"}</b></td><td><b>${n2}</b></td></tr>`;
+ });
+ $("mt").innerHTML=h;
+}
+function setAbs(id,v){
+ const k=id+"_"+$("dt").value;
+ if(!(v>0))delete S.abs[k];else S.abs[k]=Math.min(v,24);renderDF();renderWarn();
+ save();renderM();
+}
+$("dl").addEventListener("change",e=>{const t=e.target,c=t.classList;if(t.closest("tr.outr"))return;if(c.contains("lw")||c.contains("lwh")){const w=S.workers.find(x=>x.id===t.dataset.id),k=t.dataset.id+"_"+$("dt").value;if(c.contains("lw")){if(t.checked){S.lw[k]=dayH(w);S.lv[k]=1;delete S.abs[k]}else delete S.lw[k]}else{const v=Math.min(ph(t.value),24);if(v>0)S.lw[k]=v;else delete S.lw[k]}save();renderD();renderM();renderS();return}if(c.contains("lv")&&!c.contains("lw")){const k=t.dataset.id+"_"+$("dt").value;if(t.checked)S.lv[k]=1;else delete S.lv[k];save();renderM();renderS();renderWarn();return}const w=S.workers.find(x=>x.id===t.dataset.id);if(c.contains("ab")){setAbs(t.dataset.id,t.checked&&w?dayH(w):0);renderD();return}if(!c.contains("h"))return;const v=Math.min(ph(t.value),24);if(c.contains("ot"))setOt(t.dataset.id,v);else{setAbs(t.dataset.id,v);const tr=t.closest("tr");tr.querySelector(".ab").checked=!!w&&v>=dayH(w);tr.classList.toggle("absr",v>0)}t.value=fh(v)});
+$("add").onclick=()=>{
+ const n=$("nm").value.trim();if(!n){msg("ناڤێ کرێکاری بنڤیسە");return}
+ S.workers.push({id:Date.now().toString(36),code:$("cd").value.trim(),name:n,role:$("rl").value,start:$("sd").value,end:$("ed").value});
+ $("nm").value="";$("cd").value="";$("sd").value="";$("ed").value="";msg("");save();all();
+};
+$("addb").onclick=()=>{
+ $("bulk").value.split("\n").map(x=>x.trim()).filter(Boolean).forEach((l,i)=>{
+  const p=l.split("|"),c=p.length>1;
+  S.workers.push({id:Date.now().toString(36)+i,code:c?p[0].trim():"",name:(c?p[1]:p[0]).trim(),role:ROLES.includes((p[2]||"").trim())?p[2].trim():$("rl").value,start:$("sd").value,end:$("ed").value});
+ });
+ $("bulk").value="";save();all();
+};
+$("wl").addEventListener("click",e=>{
+ const b=e.target.closest("[data-d]");if(!b)return;
+ if(b.dataset.a){S.workers.splice(+b.dataset.d,1);save();all()}else{b.dataset.a=1;b.textContent="تو پشتڕاستی؟"}
+});
+const show=n=>{["1","2","3","4","5","6","7"].forEach(k=>{$("p"+k).classList.toggle("hide",k!==n);$("t"+k).classList.toggle("off",k!==n)});placeQ(n)};
+function placeQ(n){const sr=document.querySelector(".srch"),card=n==="7"?null:$("p"+n).querySelector(".card.scroll");if(card){card.before(sr);sr.classList.remove("hide")}else sr.classList.add("hide")}
+["1","2","3","4","5","6","7"].forEach(k=>$("t"+k).onclick=()=>{if(!can(k))return;show(k);renderS();renderX();if(k==="7")renderU()});
+const mv=n=>{const d=new Date($("dt").value+"T00:00:00");d.setDate(d.getDate()+n);$("dt").value=iso(d);renderD()};
+$("dp").onclick=()=>mv(-1);$("dn").onclick=()=>mv(1);
+$("q").addEventListener("input",all);$("qx").onclick=()=>{$("q").value="";all();$("q").focus()};
+$("dt").onchange=renderD;$("mo").onchange=renderM;
+const weekOf=s=>{const x=new Date(s+"T00:00:00");x.setDate(x.getDate()-(x.getDay()+1)%7);return iso(x)};
+const plc=(id,d)=>{const a=S.asg[weekOf(d)+"_"+id];return a&&a[1]||""};
+function fillPl(){$("pc2").innerHTML=S.places.map((p,i)=>`<span class="chip">${esc(p)} <button class="off" data-p="${i}">×</button></span>`).join("")||"<small>هێشتا جهەک نەهاتیە زێدەکرن</small>"}
+let onlyMiss=false;
+const missA=(w,a,DS)=>{if(!DS.some(d=>!outside(w,d)))return[];const m=[];if(!a[0])m.push("ژمارا ڕێزێ");if(!a[1])m.push("جه");if(!a[2]&&!isSvc(a[1]))m.push("دەوام");return m};
+function renderAM(){
+ const w0=$("ws").value;if(!w0)return;const DS=wkIds(w0);
+ const M=S.workers.map(w=>({w,m:missA(w,S.asg[w0+"_"+w.id]||["","",""],DS)})).filter(x=>x.m.length);
+ const put=h=>{const el=$("am");if(el._h!==h){el._h=h;el.innerHTML=h}};
+ if(!M.length){onlyMiss=false;put(S.workers.length?'<div class="amok">✅ داتایێن هەمی کرێکاران بۆ ڤێ هەفتیێ هاتینە داخلکرن</div>':"");return}
+ put(`<div class="warnbox amb"><div class="amh"><b>⚠ ${M.length} کرێکار هێشتا داتایێن وان بۆ ڤێ هەفتیێ نە تەمامن</b><button id="amt" class="sec">${onlyMiss?"نیشاندانا هەمیان":"تەنێ ئەوان نیشان بدە"}</button></div><div class="aml">${M.map(x=>`<span class="awn" data-q="${esc(x.w.code||x.w.name)}" title="کلیک = گەڕیان ل سەر ڤی کرێکاری">${esc(x.w.name)}${x.w.code?" ("+esc(x.w.code)+")":""}<small> — کێم: ${x.m.join("، ")}</small></span>`).join("")}</div></div>`);
+}
+$("am").addEventListener("click",e=>{if(e.target.closest("#amt")){onlyMiss=!onlyMiss;renderA();return}const b=e.target.closest(".awn");if(b){$("q").value=b.dataset.q;all()}});
+function renderA(){
+ const w0=$("ws").value;if(!w0)return;
+ const DS=wkIds(w0);
+ $("ah").innerHTML='<tr><th>ژمارا ڕێزێ</th><th>کۆد</th><th>ناڤ</th><th>جهێ کاری</th><th>دەوام</th>'+DS.map(d=>`<th>${dn(d)}<br>${d.slice(5)}</th>`).join("")+'<th>ڕۆژا مۆلەتێ</th></tr>';
+ const e=new Date(w0+"T00:00:00");e.setDate(e.getDate()+6);
+ $("wr").textContent="هەفتی ژ "+w0+" هەتا "+iso(e);
+ fillPf();const f=$("pf").value;
+ let L=W().map(w=>({w,a:S.asg[w0+"_"+w.id]||["","",""]}));
+ if(f==="*none")L=L.filter(x=>!x.a[1]);else if(f)L=L.filter(x=>x.a[1]===f);
+ const sf=$("sf").value;if(sf==="*none")L=L.filter(x=>!x.a[2]);else if(sf)L=L.filter(x=>x.a[2]===sf);
+ if(onlyMiss)L=L.filter(x=>missA(x.w,x.a,DS).length);
+ const so=$("so").value;
+ if(so==="name")L.sort((x,y)=>COLL.compare(x.w.name,y.w.name));
+ else if(so==="code")L.sort((x,y)=>(!x.w.code)-(!y.w.code)||COLL.compare(x.w.code||"",y.w.code||""));
+ else if(so==="seq"||f||sf)L.sort((x,y)=>(+x.a[0]||1e9)-(+y.a[0]||1e9));
+ renderAM();
+ $("al").innerHTML=L.map(({w,a})=>`<tr class="${missA(w,a,DS).length?"inc":""}"><td><input type="number" class="h sq" min="1" data-id="${w.id}" value="${esc(a[0])}"></td><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td><td><select class="pc" data-id="${w.id}">${opts(a[1])}</select></td><td><select class="sh" data-id="${w.id}">${shopts(a[2]||"")}</select></td>${DS.map(d=>`<td><input type="checkbox" class="alv lv" data-id="${w.id}" data-d="${d}"${S.lv[w.id+"_"+d]?" checked":""}${outside(w,d)?" disabled":""}></td>`).join("")}<td>${DS.filter(d=>S.lv[w.id+"_"+d]).map(dn).join("، ")}</td></tr>`).join("")||'<tr><td colspan="4">پێشیێ کرێکاران زێدە بکە</td></tr>';
+ fillPl();$("wr").textContent+=" — ژمارا کرێکاران: "+L.length;
+}
+$("al").addEventListener("change",e=>{
+ const t=e.target,id=t.dataset.id;if(!id)return;if(t.classList.contains("alv")){const kk=id+"_"+t.dataset.d;if(t.checked)S.lv[kk]=1;else delete S.lv[kk];save();renderA();renderM();renderS();renderD();return}
+ const k=$("ws").value+"_"+id,a=(S.asg[k]||["","",""]).slice();
+ if(a.length<3)a[2]="";
+ if(t.classList.contains("sq"))a[0]=t.value;else if(t.classList.contains("sh"))a[2]=t.value;else a[1]=t.value.trim();
+ if(a[0]===""&&a[1]===""&&!a[2])delete S.asg[k];else S.asg[k]=a;
+ save();fillPl();renderD();renderAM();{const w=S.workers.find(x=>x.id===id),tr=t.closest("tr");if(w&&tr)tr.classList.toggle("inc",missA(w,a,wkIds($("ws").value)).length>0)}
+});
+const mw=n=>{const d=new Date($("ws").value+"T00:00:00");d.setDate(d.getDate()+n);$("ws").value=iso(d);sortA=false;renderA()};
+$("wp").onclick=()=>mw(-7);$("wn").onclick=()=>mw(7);
+$("ws").onchange=()=>{if(!$("ws").value)return;$("ws").value=weekOf($("ws").value);sortA=false;renderA()};
+const COLL=new Intl.Collator(["ckb","ar"],{numeric:true,sensitivity:"base"});
+try{$("so").value=localStorage.getItem("absSortA")||""}catch(e){}
+$("so").onchange=()=>{try{localStorage.setItem("absSortA",$("so").value)}catch(e){}renderA()};
+function fillPf(){const s=$("pf"),cur=s.value;s.innerHTML='<option value="">هەمی جهان</option>'+S.places.map(p=>`<option value="${esc(p)}">${esc(p)}</option>`).join("")+'<option value="*none">بێ جه</option>';s.value=[...s.options].some(o=>o.value===cur)?cur:""}
+$("pf").onchange=()=>{sortA=false;renderA()};
+$("sf").onchange=()=>{sortA=false;renderA()};
+const opts=cur=>["",...S.places,...(cur&&!S.places.includes(cur)?[cur]:[])].map(p=>`<option value="${esc(p)}"${p===cur?" selected":""}>${esc(p)||"—"}</option>`).join("");
+$("pa").onclick=()=>{const p=$("pn").value.trim();if(!p||S.places.includes(p))return;S.places.push(p);$("pn").value="";save();renderA()};
+$("pc2").addEventListener("click",e=>{const b=e.target.closest("[data-p]");if(!b)return;S.places.splice(+b.dataset.p,1);save();renderA()});
+$("wc").onclick=()=>{
+ const c=$("ws").value,d=new Date(c+"T00:00:00");d.setDate(d.getDate()-7);const p=iso(d);
+ S.workers.forEach(w=>{const a=S.asg[p+"_"+w.id];if(a)S.asg[c+"_"+w.id]=a.slice()});
+ save();renderA();renderD();
+};
+const fh=h=>{if(!h)return"";const m=Math.round(h*60);return Math.floor(m/60)+":"+String(m%60).padStart(2,"0")};
+const ph=s=>{s=String(s).replace(/[٠-٩]/g,c=>c.charCodeAt(0)-1632).replace(/[۰-۹]/g,c=>c.charCodeAt(0)-1776).replace(/[،,]/g,".").replace(/[٫٬]/g,".").trim();if(!s)return 0;if(s.includes(":")){const p=s.split(":");return Math.max(0,(+p[0]||0)+(+p[1]||0)/60)}return Math.max(0,parseFloat(s)||0)};
+const r2=n=>fh(n)||"0:00";
+const ROLES=["کرێکار","هۆستا","مراقب"];
+const roleOf=w=>ROLES.includes(w&&w.role)?w.role:"کرێکار";
+const dayH=w=>roleOf(w)==="کرێکار"?8:12;
+const RC={"کرێکار":"r-k","هۆستا":"r-h","مراقب":"r-m"};
+const noAbsWk=(w,d)=>!wkIds(weekOf(d)).some(x=>!outside(w,x)&&S.abs[w.id+"_"+x]>0);
+const lwMul=(w,d)=>{if(roleOf(w)!=="کرێکار"||noAbsWk(w,d))return 1.5;const f=wkIds(weekOf(d)).find(x=>S.lw[w.id+"_"+x]);return f===d?0:1.5};
+const lwOf=(w,d)=>{const h=S.lw[w.id+"_"+d];return h?h*lwMul(w,d):0};
+const otOf=(w,d)=>(S.ot[w.id+"_"+d]||0)+lwOf(w,d);
+const rb=w=>`<span class="rb ${RC[roleOf(w)]}">${roleOf(w)}</span>`;
+const SH=["سپێدە","ئێڤار","شەڤ"];
+const shopts=cur=>["",...SH].map(x=>`<option value="${x}"${x===cur?" selected":""}>${x||"—"}</option>`).join("");
+const xv=(w,d,mode)=>outside(w,d)?(mode==="abs"?dayH(w):0):(mode==="abs"&&S.lv[w.id+"_"+d]?0:((mode==="ot"?otOf(w,d):(S.abs[w.id+"_"+d]||0))));
+function renderX(){
+ const w0=$("xw").value;if(!w0)return;
+ const DS=wkIds(w0),mode=$("xm").value,s=$("xf"),cur=s.value;
+ s.innerHTML='<option value="">هەمی جهان</option>'+S.places.map(p=>`<option value="${esc(p)}">${esc(p)}</option>`).join("")+'<option value="*none">بێ جه</option>';
+ s.value=[...s.options].some(o=>o.value===cur)?cur:"";
+ const f=s.value;
+ let L=W().map(w=>({w,a:S.asg[w0+"_"+w.id]||["",""]}));
+ if(f==="*none")L=L.filter(x=>!x.a[1]);else if(f)L=L.filter(x=>x.a[1]===f);
+ L.sort((x,y)=>(+x.a[0]||1e9)-(+y.a[0]||1e9));
+ $("xh").innerHTML='<tr><th>ڕێز</th><th>کۆد</th><th>ناڤ</th><th>جهێ کاری</th>'+DS.map(d=>`<th>${dn(d)}<br>${d.slice(5)}</th>`).join("")+'<th>کۆم</th></tr>';
+ let G=0;
+ $("xb").innerHTML=L.map(({w,a})=>{
+  const t=DS.reduce((z,d)=>z+xv(w,d,mode),0);G+=t;
+  const c=DS.map(d=>{
+   const k=w.id+"_"+d;
+   if(outside(w,d))return`<td class="outc">${mode==="abs"?fh(dayH(w)):""}</td>`;
+   if(mode==="abs"&&S.lv[k])return`<td class="lvc lvx" data-id="${w.id}" data-d="${d}" style="cursor:pointer" title="کلیک = لابرنا مۆلەتێ">مۆلەت ✕</td>`;
+   return`<td><input type="text" inputmode="decimal" class="h xc" data-id="${w.id}" data-d="${d}" value="${fh((mode==="ot"?S.ot:S.abs)[k]||0)}" placeholder="0:00">${mode==="ot"&&S.lw[k]?`<span class="lwn ok">+${fh(lwOf(w,d))} مۆلەت</span>`:""}</td>`;
+  }).join("");
+  return`<tr data-id="${w.id}"><td>${esc(a[0])}</td><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td><td>${esc(a[1])}</td>${c}<td class="tt"><b>${r2(t)}</b></td></tr>`;
+ }).join("")||'<tr><td colspan="13">چ کرێکار نینن</td></tr>';
+ $("xt").innerHTML=L.length?`<tr><th colspan="11">کۆما گشتی</th><th>${r2(G)}</th></tr>`:"";
+}
+$("xb").addEventListener("change",e=>{
+ const t=e.target;if(!t.classList.contains("xc"))return;
+ const mode=$("xm").value,M=mode==="ot"?S.ot:S.abs,k=t.dataset.id+"_"+t.dataset.d,v=Math.min(ph(t.value),24);
+ if(mode==="abs"&&/^(م|مۆلەت|m)$/i.test(t.value.trim())){S.lv[k]=1;delete S.abs[k];save();renderM();renderS();renderD();renderWarn();renderX();return}
+ const ww=S.workers.find(x=>x.id===t.dataset.id);if(mode==="abs"&&ww&&/^(غ|x|غیاب)$/i.test(t.value.trim())){M[k]=dayH(ww);t.value=fh(M[k])}else{if(v>0)M[k]=v;else delete M[k];
+ t.value=fh(v)}
+ save();renderM();renderS();renderD();renderWarn();
+ const DS=wkIds($("xw").value);let G=0;
+ [...$("xb").rows].forEach(r=>{const w=S.workers.find(x=>x.id===r.dataset.id);if(!w)return;const z=DS.reduce((q,d)=>q+xv(w,d,mode),0);r.querySelector(".tt").innerHTML="<b>"+r2(z)+"</b>";G+=z});
+ $("xt").innerHTML=`<tr><th colspan="11">کۆما گشتی</th><th>${r2(G)}</th></tr>`;
+});
+$("xb").addEventListener("keydown",e=>{
+ if(e.key!=="Enter"||!e.target.classList.contains("xc"))return;
+ e.preventDefault();
+ const ins=[...$("xb").querySelectorAll("input.xc")],i=ins.indexOf(e.target);
+ e.target.blur();
+ if(ins[i+1])ins[i+1].focus();
+});
+$("xb").addEventListener("click",e=>{const c=e.target.closest(".lvx");if(!c)return;delete S.lv[c.dataset.id+"_"+c.dataset.d];save();renderM();renderS();renderD();renderWarn();renderX()});
+$("xb").addEventListener("focusin",e=>{if(e.target.classList.contains("xc"))e.target.select()});
+const mx=n=>{const d=new Date($("xw").value+"T00:00:00");d.setDate(d.getDate()+n);$("xw").value=iso(d);renderX()};
+$("xp").onclick=()=>mx(-7);$("xn").onclick=()=>mx(7);
+$("xw").onchange=()=>{if(!$("xw").value)return;$("xw").value=weekOf($("xw").value);renderX()};
+$("xf").onchange=renderX;$("xm").onchange=renderX;
+const dn=d=>DN[new Date(d+"T00:00:00").getDay()];
+function sheetHtml(place,w0){
+ const DS=wkIds(w0);
+ const L=S.workers.map(w=>({w,a:S.asg[w0+"_"+w.id]||["",""]})).filter(x=>x.a[1]===place).sort((x,y)=>(+x.a[0]||1e9)-(+y.a[0]||1e9));
+ if(!L.length)return"";
+ let h=`<div class="pg"><h2>${esc(place)}</h2><p>خشتەیێ هەفتیێ ژ ${w0} هەتا ${DS[6]}</p><table><tr><th>ڕێز</th><th>کۆد</th><th>ناڤ</th>`+DS.map(d=>`<th>${dn(d)}<br>${d.slice(5)}</th>`).join("")+"<th>ڕۆژا مۆلەتێ</th></tr>";
+ L.forEach(({w,a})=>{
+  const lv=DS.filter(d=>S.lv[w.id+"_"+d]);
+  h+=`<tr><td>${esc(a[0])}</td><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td>`+DS.map(d=>`<td class="${S.lv[w.id+"_"+d]?"lvc":""}">${S.lv[w.id+"_"+d]?"مۆلەت":""}</td>`).join("")+`<td>${lv.map(dn).join("، ")||"—"}</td></tr>`;
+ });
+ return h+"</table></div>";
+}
+function sheetPages(place,w0){
+ const DS=wkIds(w0);
+ const base=S.workers.map(w=>({w,a:S.asg[w0+"_"+w.id]||["","",""]})).filter(x=>x.a[1]===place);
+ const N=12,out=[];
+ [...SH,""].forEach(sh=>{
+  const L=base.filter(x=>(x.a[2]||"")===sh).sort((x,y)=>(+x.a[0]||1e9)-(+y.a[0]||1e9));
+  if(!L.length)return;
+  const lab=sh?"دەوامێ "+sh:"بێ دەوام",tot=Math.ceil(L.length/N);
+  for(let i=0;i<L.length;i+=N){
+   const pg=i/N+1;
+   let h=`<div class="pg"><h2>${esc(place)} — ${esc(lab)}</h2><p>هەفتی ژ ${w0} هەتا ${DS[6]}${tot>1?" — لاپەڕ "+pg+"/"+tot:""}</p><table class="pt"><tr><th>ڕێز</th><th>کۆد</th><th>ناڤ</th>`+DS.map(d=>`<th>${dn(d)}<br>${d.slice(5)}</th>`).join("")+"<th>کۆما غیابێ</th><th>تێبینی</th></tr>";
+   L.slice(i,i+N).forEach(({w,a})=>{
+    h+=`<tr><td>${esc(a[0])}</td><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td>`+DS.map(d=>{const l=S.lv[w.id+"_"+d],o=outside(w,d);return`<td class="${l?"lvc":o?"gry":""}">${l?"مۆلەت":""}</td>`}).join("")+"<td></td><td></td></tr>";
+   });
+   out.push(h+`</table><p style="margin-top:14px">ناڤ و ئیمزایا مراقبی: ____________________</p></div>`);
+  }
+ });
+ return out;
+}
+async function saveFile(name,blob){
+ let dl=null;
+ try{dl=window.claude&&await claude.use("downloads")}catch(e){dl=null}
+ if(dl){await dl.save({filename:name,data:blob});return}
+ const u=URL.createObjectURL(blob),a=document.createElement("a");
+ a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();
+ setTimeout(()=>URL.revokeObjectURL(u),4000);
+}
+function tableToXlsx(tbl,name,sheet,meta){
+ const c=tbl.cloneNode(true);
+ const src=tbl.querySelectorAll("input,select"),dst=c.querySelectorAll("input,select");
+ dst.forEach((el,i)=>{const s=src[i];el.replaceWith(document.createTextNode(s.type==="checkbox"?(s.checked?"م":""):s.value))});
+ c.querySelectorAll("button,.lwn").forEach(b=>b.remove());
+ c.querySelectorAll("br").forEach(b=>b.replaceWith(" "));
+ const txt=el=>el.textContent.replace(/\s+/g," ").trim();
+ const rowsOf=sel=>[...c.querySelectorAll(sel)];
+ const all=[...c.rows];
+ let head=all[0],data=[],tot=[];
+ all.slice(1).forEach(r=>{
+  const inFoot=r.parentElement.tagName==="TFOOT",hasSpanTh=[...r.cells].some(x=>x.tagName==="TH");
+  if(r.cells.length===1)return;
+  (inFoot||hasSpanTh?tot:data).push(r);
+ });
+ const H=[...head.cells].map(txt),ni=H.indexOf("ناڤ");
+ const conv=r=>{const o=[];[...r.cells].forEach((x,j)=>{let role="";const b=x.querySelector(".rb");if(b){role=txt(b);b.remove()}o.push(txt(x));if(j===ni&&ni>=0)o.push(role);for(let k=1;k<(+x.colSpan||1);k++)o.push("")});return o};
+ if(ni>=0)H.splice(ni+1,0,"جۆر");
+ let D=data.map(conv);
+ const T=tot.map(r=>{const o=[];[...r.cells].forEach(x=>{o.push(txt(x));for(let k=1;k<(+x.colSpan||1);k++)o.push("")});if(ni>=0)o.splice(ni+1,0,"");return o});
+ if(ni>=0){const col=new Intl.Collator(["ckb","ar"],{sensitivity:"base",numeric:true});D.sort((a,b)=>col.compare(a[ni].replace(/^⚠\s*/,""),b[ni].replace(/^⚠\s*/,"")))}
+ const seen={};const HN=H.map((h,i)=>{h=h||"ستوین "+(i+1);let n=h,k=2;while(seen[n.toLowerCase()])n=h+" "+k++;seen[n.toLowerCase()]=1;return n});
+ return saveFile(name+".xlsx",new Blob([buildXlsx(HN,D,T,sheet,Object.assign({ni},meta||{}))],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}));
+}
+function buildXlsx(H,D,T,sheet,meta){
+ meta=meta||{};
+ const X=s=>String(s).replace(/[\x00-\x08\x0b\x0c\x0e-\x1f]/g,"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+ const SS=[],SI={},si=s=>{if(!(s in SI)){SI[s]=SS.length;SS.push(s)}return SI[s]};
+ const colL=i=>{let s="";i++;while(i){const m=(i-1)%26;s=String.fromCharCode(65+m)+s;i=(i-m-1)/26}return s};
+ // ---- style registry ----
+ const FN=[],FL=['<fill><patternFill patternType="none"/></fill>','<fill><patternFill patternType="gray125"/></fill>'],XF=[],FK={},LK={},XK={};
+ const font=(b,c,sz)=>{const k=[b,c,sz].join();if(!(k in FK)){FK[k]=FN.length;FN.push(`<font>${b?"<b/>":""}<sz val="${sz||11}"/><color rgb="${c||"FF1F2937"}"/><name val="Tahoma"/><family val="2"/></font>`)}return FK[k]};
+ const fill=c=>{if(!c)return 0;if(!(c in LK)){LK[c]=FL.length;FL.push(`<fill><patternFill patternType="solid"><fgColor rgb="${c}"/><bgColor indexed="64"/></patternFill></fill>`)}return LK[c]};
+ font(0);
+ const st=o=>{const f=font(o.b,o.c,o.sz),l=fill(o.bg),n=o.t?164:0,br=o.nb?0:1,h=o.h||"center";const k=[f,l,n,br,h,o.w?1:0].join();if(!(k in XK)){XK[k]=XF.length;XF.push(`<xf numFmtId="${n}" fontId="${f}" fillId="${l}" borderId="${br}" xfId="0" applyNumberFormat="1" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="${h}" vertical="center" readingOrder="2"${o.w?' wrapText="1"':""}/></xf>`)}return XK[k]};
+ st({nb:1});
+ const RED="FFDC2626",GRN="FF15803D",BAND="FFF4F7FC",TOT="FFDCE6F4";
+ const RC={"کرێکار":"FF1D4ED8","هۆستا":"FFB45309","مراقب":"FF7E22CE"};
+ const ni=meta.ni==null?-1:meta.ni,ri=ni>=0?ni+1:-1;
+ const kind=H.map(h=>/غیاب/.test(h)?"bad":/زێدە/.test(h)?"ok":"");
+ const nc=H.length,W=H.map(h=>Math.min(String(h).length,14));
+ const OFF=meta.title?3:0,HR=OFF+1;
+ const cell=(v,r,ci,mode,band)=>{
+  const ref=colL(ci)+r;v=v==null?"":String(v);
+  if(mode!=="h")W[ci]=Math.max(W[ci]||0,v.length);
+  const o={bg:mode==="t"?TOT:band?BAND:"",b:mode==="t"};
+  if(mode==="h"){return`<c r="${ref}" t="s" s="${st({b:1,c:"FFFFFFFF",bg:"FF1E3A8A",w:1})}"><v>${si(v)}</v></c>`}
+  if(ci===ni){o.b=1;o.h="right"}
+  if(ci===ri&&RC[v]){o.c=RC[v];o.b=1}
+  let m;
+  if((m=v.match(/^(\d+):(\d{2})$/))){o.t=1;if(kind[ci]==="bad"&&v!=="0:00")o.c=RED;else if(kind[ci]==="ok"&&v!=="0:00")o.c=GRN;else if(v==="0:00")o.c="FF9CA3AF";if(kind[ci])o.b=1;return`<c r="${ref}" s="${st(o)}"><v>${(+m[1]+ +m[2]/60)/24}</v></c>`}
+  if(v===""){return`<c r="${ref}" s="${st(o)}"/>`}
+  if(v==="✓"){o.c=GRN;o.b=1}
+  else if(/مۆلەت/.test(v)||v==="م"){o.bg="FFFEF3C7";o.c="FF92400E";o.b=1}
+  else if(/^[−-]\d/.test(v)){o.c=RED;o.b=1}
+  else if(/^\+\d/.test(v)){o.c=GRN;o.b=1}
+  if(/^(0|[1-9]\d{0,9})$/.test(v))return`<c r="${ref}" s="${st(o)}"><v>${v}</v></c>`;
+  return`<c r="${ref}" t="s" s="${st(o)}"><v>${si(v)}</v></c>`;
+ };
+ let rows="";
+ if(meta.title){
+  rows+=`<row r="1" ht="30" customHeight="1"><c r="A1" t="s" s="${st({b:1,sz:16,c:"FF1E3A8A",nb:1,h:"right"})}"><v>${si(meta.title)}</v></c></row>`;
+  rows+=`<row r="2" ht="20" customHeight="1"><c r="A2" t="s" s="${st({sz:10,c:"FF64748B",nb:1,h:"right"})}"><v>${si(meta.sub||"")}</v></c></row>`;
+ }
+ rows+=`<row r="${HR}" ht="36" customHeight="1">${H.map((h,i)=>cell(h,HR,i,"h")).join("")}</row>`;
+ let r=HR;
+ D.forEach((d,i)=>{r++;rows+=`<row r="${r}" ht="22" customHeight="1">${H.map((_,c)=>cell(d[c],r,c,"",i%2===1)).join("")}</row>`});
+ const last=r;
+ T.forEach(t=>{r++;rows+=`<row r="${r}" ht="26" customHeight="1">${H.map((_,c)=>cell(t[c],r,c,"t")).join("")}</row>`});
+ const ref="A"+HR+":"+colL(nc-1)+Math.max(last,HR+1);
+ const cols=W.map((w,i)=>`<col min="${i+1}" max="${i+1}" width="${(i===ni?Math.max(w*1.3+4,18):Math.min(Math.max(w*1.1+4,9),40)).toFixed(1)}" customWidth="1"/>`).join("");
+ const hasTable=D.length>0,xs=ni>=0?ri+1:0,tl=colL(xs)+(HR+1);
+ const pane=xs?`<pane xSplit="${xs}" ySplit="${HR}" topLeftCell="${tl}" activePane="bottomRight" state="frozen"/><selection pane="bottomRight"/>`:`<pane ySplit="${HR}" topLeftCell="A${HR+1}" activePane="bottomLeft" state="frozen"/>`;
+ const merges=meta.title?`<mergeCells count="2"><mergeCell ref="A1:${colL(nc-1)}1"/><mergeCell ref="A2:${colL(nc-1)}2"/></mergeCells>`:"";
+ const sheetXml=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheetPr><pageSetUpPr fitToPage="1"/></sheetPr><sheetViews><sheetView rightToLeft="1" showGridLines="0" workbookViewId="0">${pane}</sheetView></sheetViews><sheetFormatPr defaultRowHeight="20"/><cols>${cols}</cols><sheetData>${rows}</sheetData>${merges}<pageMargins left="0.4" right="0.4" top="0.5" bottom="0.5" header="0.3" footer="0.3"/><pageSetup paperSize="9" orientation="landscape" fitToWidth="1" fitToHeight="0"/>${hasTable?'<tableParts count="1"><tablePart r:id="rId1"/></tableParts>':""}</worksheet>`;
+ const tableXml=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><table xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" id="1" name="Table1" displayName="Table1" ref="${ref}" headerRowCount="1"><autoFilter ref="${ref}"/><tableColumns count="${nc}">${H.map((h,i)=>`<tableColumn id="${i+1}" name="${X(h)}"/>`).join("")}</tableColumns><tableStyleInfo name="TableStyleLight1" showFirstColumn="0" showLastColumn="0" showRowStripes="0" showColumnStripes="0"/></table>`;
+ const sst=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><sst xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" count="${SS.length}" uniqueCount="${SS.length}">${SS.map(s=>`<si><t xml:space="preserve">${X(s)}</t></si>`).join("")}</sst>`;
+ const styles=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><numFmts count="1"><numFmt numFmtId="164" formatCode="[h]:mm"/></numFmts><fonts count="${FN.length}">${FN.join("")}</fonts><fills count="${FL.length}">${FL.join("")}</fills><borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border><border><left style="thin"><color rgb="FFD5DCE6"/></left><right style="thin"><color rgb="FFD5DCE6"/></right><top style="thin"><color rgb="FFD5DCE6"/></top><bottom style="thin"><color rgb="FFD5DCE6"/></bottom><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="${XF.length}">${XF.join("")}</cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`;
+ const snRaw=String(sheet).replace(/[\\\/\?\*\[\]:']/g," ").slice(0,31)||"Sheet1",sn=X(snRaw);
+ const F={
+  "[Content_Types].xml":`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/><Override PartName="/xl/sharedStrings.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml"/>${hasTable?'<Override PartName="/xl/tables/table1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.table+xml"/>':""}</Types>`,
+  "_rels/.rels":`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`,
+  "xl/workbook.xml":`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><bookViews><workbookView/></bookViews><sheets><sheet name="${sn}" sheetId="1" r:id="rId1"/></sheets><definedNames><definedName name="_xlnm.Print_Titles" localSheetId="0">'${sn}'!$${HR}:$${HR}</definedName></definedNames></workbook>`,
+  "xl/_rels/workbook.xml.rels":`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings" Target="sharedStrings.xml"/></Relationships>`,
+  "xl/worksheets/sheet1.xml":sheetXml,
+  "xl/styles.xml":styles,
+  "xl/sharedStrings.xml":sst
+ };
+ if(hasTable){
+  F["xl/worksheets/_rels/sheet1.xml.rels"]=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/table" Target="../tables/table1.xml"/></Relationships>`;
+  F["xl/tables/table1.xml"]=tableXml;
+ }
+ return zipStore(F);
+}
+function zipStore(F){
+ const enc=new TextEncoder(),CT=[];for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;CT[n]=c>>>0}
+ const crc=b=>{let c=0xFFFFFFFF;for(let i=0;i<b.length;i++)c=CT[(c^b[i])&255]^(c>>>8);return(c^0xFFFFFFFF)>>>0};
+ const parts=[],cen=[];let off=0;
+ const u16=v=>[v&255,(v>>8)&255],u32=v=>[v&255,(v>>8)&255,(v>>16)&255,(v>>>24)&255];
+ for(const [n,s] of Object.entries(F)){
+  const nb=enc.encode(n),db=enc.encode(s),cr=crc(db);
+  const lh=new Uint8Array([...u32(0x04034b50),...u16(20),...u16(0x0800),...u16(0),...u16(0),...u16(0x21),...u32(cr),...u32(db.length),...u32(db.length),...u16(nb.length),...u16(0)]);
+  parts.push(lh,nb,db);
+  cen.push(new Uint8Array([...u32(0x02014b50),...u16(20),...u16(20),...u16(0x0800),...u16(0),...u16(0),...u16(0x21),...u32(cr),...u32(db.length),...u32(db.length),...u16(nb.length),...u16(0),...u16(0),...u16(0),...u16(0),...u32(0),...u32(off)]),nb);
+  off+=lh.length+nb.length+db.length;
+ }
+ const cs=cen.reduce((a,b)=>a+b.length,0),n=Object.keys(F).length;
+ const end=new Uint8Array([...u32(0x06054b50),...u16(0),...u16(0),...u16(n),...u16(n),...u32(cs),...u32(off),...u16(0)]);
+ return new Blob([...parts,...cen,end]);
+}
+async function xl(tblId,name,sheet,title,sub){
+ try{msg("ئێکسل دهێتە دروستکرن...");await tableToXlsx($(tblId),name,sheet,{title,sub:(sub?sub+"   ·   ":"")+"هاتیە دەرئێخستن: "+iso(new Date())});msg("")}
+ catch(e){console.error(e);msg("ئێکسل نەهاتە دروستکرن")}
+}
+const xwk=w=>{const e=new Date(w+"T00:00:00");e.setDate(e.getDate()+6);return"هەفتی ژ "+w+" هەتا "+iso(e)};
+const xsel=id=>{const o=$(id).selectedOptions[0];return o&&o.value?o.textContent:""};
+$("xlM").onclick=()=>xl("mt","month-"+$("mo").value,"مانگانە","خشتەیێ غیابا مانگانە","مانگ: "+$("mo").value);
+$("xlS").onclick=()=>xl("stt","summary-"+$("sw").value,"کورتکرن","کورتکرنا هەفتیێ",xwk($("sw").value));
+$("xlX").onclick=()=>xl("xtb","absence-"+$("xw").value,"غیابا هەفتیێ",$("xm").value==="ot"?"کاتژمێرێن زێدە یێن هەفتیێ":"غیابا هەفتیێ",xwk($("xw").value)+(xsel("xf")?"   ·   جه: "+xsel("xf"):""));
+$("xlA").onclick=()=>xl("atb","assign-"+$("ws").value,"ڕێکخستن","ڕێکخستنا هەفتیێ",xwk($("ws").value)+(xsel("pf")?"   ·   جه: "+xsel("pf"):"")+(xsel("sf")?"   ·   دەوام: "+xsel("sf"):""));
+// ===== PDF: drawn natively on canvas (correct Kurdish shaping), packed into a PDF without libraries =====
+function plKey(p){
+ p=String(p||"").replace(/[٠-٩]/g,c=>c.charCodeAt(0)-1632).replace(/[۰-۹]/g,c=>c.charCodeAt(0)-1776);
+ if(isSvc(p))return 0;
+ const n=(p.match(/\d+/)||[])[0];
+ if(/ج[ه]?[ەا]?ز|جهاز|jihaz|cihaz/i.test(p))return 10+(n?Math.min(+n,19):19);
+ if(/ل[سص]ق|lsq|lasq/i.test(p))return 40;
+ if(/[سص]ق[يیە]?ل|sqil|saqil/i.test(p))return 30;
+ if(isPool(p))return 50;
+ return 60;
+}
+function pdfSheets(w0,places,allMode){
+ const DS=wkIds(w0),RH=54;
+ const base=S.workers.map(w=>({w,a:S.asg[w0+"_"+w.id]||["","",""]}));
+ const bySeq=(x,y)=>(+x.a[0]||1e9)-(+y.a[0]||1e9)||COLL.compare(x.w.name,y.w.name);
+ const shLab=sh=>sh?"دەوامێ "+sh:"بێ دەوام";
+ const secs=[],svc=[],pIdx=p=>{const i=S.places.indexOf(p);return i<0?999:i};
+ places.slice().sort((a,b)=>plKey(a)-plKey(b)||pIdx(a)-pIdx(b)||COLL.compare(a,b)).forEach(pl=>{
+  const L=base.filter(x=>x.a[1]===pl&&roleOf(x.w)==="کرێکار");
+  if(isSvc(pl)){svc.push(...L);return}
+  if(isPool(pl)){const R=L.slice().sort(bySeq);if(R.length)secs.push({label:pl,DS,rowH:RH,rows:R});return}
+  [...SH,""].forEach(sh=>{
+   const R=L.filter(x=>(x.a[2]||"")===sh).sort(bySeq);
+   if(R.length)secs.push({label:pl+" — "+shLab(sh),DS,rowH:RH,rows:R});
+  });
+ });
+ const inPl=x=>places.includes(x.a[1])||(allMode&&!x.a[1]);
+ const MS=base.filter(x=>roleOf(x.w)==="مراقب"&&inPl(x)).concat(svc).sort(bySeq);
+ const HO=base.filter(x=>roleOf(x.w)==="هۆستا"&&inPl(x)).sort(bySeq);
+ if(HO.length)secs.unshift({label:"هۆستا",DS,rowH:RH,rows:HO});
+ if(MS.length)secs.unshift({label:"مراقب و خدمات",DS,rowH:RH,rows:MS});
+ return secs;
+}
+const PW=2105,PH=1488,PM=70;
+const pf=(w,s)=>`${w} ${s}px "Noto Kufi Arabic","Noto Sans Arabic",Tahoma,"Segoe UI",sans-serif`;
+function colsFor(t,DS){
+ const c=[{k:"seq",h:"ڕێز",w:70},{k:"code",h:"کۆد",w:110},{k:"name",h:"ناڤ",w:340}];
+ const used=c.reduce((a,b)=>a+b.w,0),dw=(PW-2*PM-used)/7;
+ return c.concat(DS.map(d=>({k:"d",d,h:dn(d)+"\n"+d.slice(5),w:dw})));
+}
+function paginate(secs,title,sub){
+ const LH=56,HH=70,GAP=36,top=PM+118,bottom=PH-PM;
+ const pages=[];let cur=null,y=0;
+ const np=()=>{cur={title,sub,items:[]};pages.push(cur);y=top};
+ np();
+ secs.forEach(sc=>{
+  const cols=colsFor(sc,sc.DS),full=LH+HH+sc.rowH*sc.rows.length;
+  if(y>top){if(y+GAP+full<=bottom)y+=GAP;else np()}
+  const head=cont=>{cur.items.push({t:"label",text:sc.label+" ("+sc.rows.length+")"+(cont?" — بەردەوام":""),y});y+=LH;cur.items.push({t:"head",cols,y});y+=HH};
+  head(false);
+  sc.rows.forEach(r=>{if(y+sc.rowH>bottom){np();head(true)}cur.items.push({t:"row",cols,r,y,h:sc.rowH});y+=sc.rowH});
+ });
+ if(pages.length>1)pages.forEach((p,i)=>p.title+="   ("+(i+1)+"/"+pages.length+")");
+ return pages;
+}
+function fitText(x,txt,maxW,w,s){let z=s;x.font=pf(w,z);while(z>12&&x.measureText(txt).width>maxW){z-=1;x.font=pf(w,z)}return z}
+function drawCell(x,cx,cy,cw,ch,txt,o){
+ o=o||{};
+ if(o.bg){x.fillStyle=o.bg;x.fillRect(cx,cy,cw,ch)}
+ x.strokeStyle="#8a8f98";x.lineWidth=1.5;x.strokeRect(cx,cy,cw,ch);
+ if(!txt)return;
+ x.fillStyle=o.c||"#111";
+ const lines=String(txt).split("\n"),w=o.b?700:400,s=o.s||24;
+ lines.forEach((ln,i)=>{
+  const z=fitText(x,ln,cw-18,w,s);
+  const ly=cy+ch/2+(i-(lines.length-1)/2)*(z+8);
+  if(o.al==="r"){x.textAlign="right";x.fillText(ln,cx+cw-12,ly)}else{x.textAlign="center";x.fillText(ln,cx+cw/2,ly)}
+ });
+}
+function renderPdfPage(pg){
+ const c=document.createElement("canvas");c.width=PW;c.height=PH;const x=c.getContext("2d");
+ x.fillStyle="#fff";x.fillRect(0,0,PW,PH);x.direction="rtl";x.textBaseline="middle";
+ x.fillStyle="#111";x.font=pf(700,40);x.textAlign="right";x.fillText(pg.title,PW-PM,PM+22);
+ x.fillStyle="#555";x.font=pf(400,24);x.fillText(pg.sub,PW-PM,PM+76);
+ pg.items.forEach(it=>{
+  if(it.t==="label"){x.fillStyle="#1e3a8a";x.font=pf(700,28);x.textAlign="right";x.fillText(it.text,PW-PM,it.y+26);return}
+  let cx=PW-PM;
+  it.cols.forEach(col=>{
+   cx-=col.w;
+   if(it.t==="head"){drawCell(x,cx,it.y,col.w,70,col.h,{bg:"#e8edf4",b:1,s:21});return}
+   const w=it.r.w,a=it.r.a;let txt="",o={};
+   if(col.k==="seq")txt=a[0]||"";
+   else if(col.k==="code")txt=w.code||"";
+   else if(col.k==="name"){txt=w.name;o={b:1,al:"r",s:25}}
+   else if(col.k==="sh")txt=a[2]||"—";
+   else if(col.k==="pl")txt=a[1]||"—";
+   else if(col.k==="d"){const l=S.lv[w.id+"_"+col.d],out=outside(w,col.d);if(l){txt="مۆلەت";o={bg:"#fde68a",c:"#6b4a00",b:1,s:21}}else if(out)o={bg:"#e2e2e2"}}
+   drawCell(x,cx,it.y,col.w,it.h,txt,o);
+  });
+ });
+ return c;
+}
+async function jpegPdf(canvases){
+ const enc=new TextEncoder(),parts=[];let off=0;const offs=[];
+ const put=v=>{const b=typeof v==="string"?enc.encode(v):v;parts.push(b);off+=b.length};
+ const imgs=[];for(const c of canvases){const bl=await new Promise(r=>c.toBlob(r,"image/jpeg",0.9));imgs.push({b:new Uint8Array(await bl.arrayBuffer()),w:c.width,h:c.height})}
+ const n=imgs.length,W=841.89,H=595.28,obj=(i,s)=>{offs[i]=off;put(i+" 0 obj\n");s.forEach(put);put("\nendobj\n")};
+ put("%PDF-1.4\n");
+ obj(1,["<< /Type /Catalog /Pages 2 0 R >>"]);
+ obj(2,["<< /Type /Pages /Kids ["+imgs.map((_,i)=>(3+3*i)+" 0 R").join(" ")+"] /Count "+n+" >>"]);
+ imgs.forEach((im,i)=>{
+  const p=3+3*i,cs="q "+W+" 0 0 "+H+" 0 0 cm /Im0 Do Q";
+  obj(p,["<< /Type /Page /Parent 2 0 R /MediaBox [0 0 "+W+" "+H+"] /Resources << /XObject << /Im0 "+(p+2)+" 0 R >> >> /Contents "+(p+1)+" 0 R >>"]);
+  obj(p+1,["<< /Length "+cs.length+" >>\nstream\n"+cs+"\nendstream"]);
+  obj(p+2,["<< /Type /XObject /Subtype /Image /Width "+im.w+" /Height "+im.h+" /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length "+im.b.length+" >>\nstream\n",im.b,"\nendstream"]);
+ });
+ const xr=off,N=3+3*n;
+ put("xref\n0 "+N+"\n0000000000 65535 f \n");
+ for(let i=1;i<N;i++)put(String(offs[i]).padStart(10,"0")+" 00000 n \n");
+ put("trailer\n<< /Size "+N+" /Root 1 0 R >>\nstartxref\n"+xr+"\n%%EOF");
+ return new Blob(parts,{type:"application/pdf"});
+}
+$("pp").onclick=async()=>{
+ try{
+  const w0=$("ws").value,f=$("pf").value,all=!f||f==="*none";
+  const places=!all?[f]:[...new Set(S.workers.map(w=>(S.asg[w0+"_"+w.id]||[])[1]).filter(Boolean))];
+  const sheets=pdfSheets(w0,places,all);
+  const ttl="ڕێکخستنا هەفتیێ"+(all?"":" — "+f);
+  if(!sheets.length){msg("بۆ ڤێ هەفتیێ جهەک ب کرێکاران نەهاتیە دیارکرن");return}
+  msg("PDF دهێتە دروستکرن...");
+  try{await Promise.all([document.fonts.load(pf(700,30)),document.fonts.load(pf(400,24))]);await document.fonts.ready}catch(e){}
+  const canv=paginate(sheets,ttl,xwk(w0)).map(renderPdfPage);
+  await saveFile("week-"+w0+(all?"":"-"+f)+".pdf",await jpegPdf(canv));
+  msg("");
+ }catch(e){console.error(e);msg(e&&e.code==="declined"?"":"PDF نەهاتە دروستکرن")}
+};
+const outside=(w,d)=>!!((w.start&&d<w.start)||(w.end&&d>w.end));
+const absOf=(w,d)=>outside(w,d)?dayH(w):(S.abs[w.id+"_"+d]||0);
+$("wl").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.classList.contains("ed")){e.preventDefault();e.target.blur()}});
+$("wl").addEventListener("change",e=>{const t=e.target;if(t.classList.contains("ed")){const w=S.workers[+t.dataset.i],v=t.value.trim();if(t.dataset.f==="name"&&!v){t.value=w.name;msg("ناڤ نابیت ڤالا بیت");return}if(t.dataset.f==="code"&&v&&S.workers.some(x=>x!==w&&(x.code||"")===v)){msg("ئاگەهداری: کۆدا «"+v+"» بۆ کرێکارەکێ دی ژی هەیە")}else msg("");w[t.dataset.f]=v;save();all();return}if(t.classList.contains("rl2")){S.workers[+t.dataset.i].role=t.value;save();all();return}if(!t.classList.contains("dd"))return;S.workers[+t.dataset.i][t.dataset.f]=t.value;save();all()});
+const wkIds=s=>{const a=[],d=new Date(s+"T00:00:00");for(let i=0;i<7;i++){a.push(iso(d));d.setDate(d.getDate()+1)}return a};
+function renderWarn(){
+ const ds=wkIds(weekOf($("dt").value));
+ const ended=ds[6]<=iso(new Date())||$("dt").value===ds[6];
+ const m=S.workers.filter(w=>!ds.some(d=>S.lv[w.id+"_"+d]||absOf(w,d)));
+ $("wb").innerHTML=ended&&m.length?`<div class="warnbox">⚠ د ڤێ هەفتیێ دا ئەڤ کرێکارە نە مۆلەت و نە غیاب هەین، دبیت خەلەتی هەبیت: <b>${m.map(w=>esc(w.name)).join("، ")}</b></div>`:"";
+}
+function renderAW(){
+ const el=$("aw");if(!ME||!ME.admin||!$("dt").value){el.innerHTML="";return}
+ const w0=weekOf($("dt").value),DS=wkIds(w0);
+ const L=S.workers.map(w=>({w,n:DS.filter(d=>!outside(w,d)&&!S.lv[w.id+"_"+d]&&(S.abs[w.id+"_"+d]||0)>=dayH(w)).length})).filter(x=>x.n>=2).sort((a,b)=>b.n-a.n);
+ el.innerHTML=L.length?`<div class="warnbox">🚨 <b>تەنێ بۆ ئەدمینی:</b> ئەڤ کرێکارە د هەفتیا ${w0} هەتا ${DS[6]} دا 2 ڕۆژ یان پتر نەهاتینە:<br>${L.map(x=>`<span class="awn" data-q="${esc(x.w.code||x.w.name)}" title="کلیک = دیتنا داتایێن وی">${esc(x.w.name)}${x.w.code?" ("+esc(x.w.code)+")":""} — ${x.n} ڕۆژ</span>`).join("")}</div>`:"";
+}
+$("aw").addEventListener("click",e=>{const b=e.target.closest(".awn");if(!b)return;$("q").value=b.dataset.q;all()});
+function renderDF(){renderAW();const d=$("dt").value;let a=0,o=0,n=0;const L=dList(d);L.forEach(w=>{const x=absOf(w,d);a+=x;if(x&&!outside(w,d))n++;o+=otOf(w,d)});const act=L.filter(w=>!outside(w,d)).length;$("df").innerHTML=L.length?`<tr><th colspan="4" class="f-t">کۆما ڕۆژێ — ئامادە: <span class="ok">${act-n}</span> ، نەهاتی: <span class="bad">${n}</span></th><th class="bad f-n">${n}</th><th class="bad f-a" data-l="غیاب">${r2(a)}</th><th class="ok f-o" data-l="زێدە">${r2(o)}</th><th class="f-e"></th><th class="f-e"></th></tr>`:""}
+function setOt(id,v){const k=id+"_"+$("dt").value;if(!(v>0))delete S.ot[k];else S.ot[k]=Math.min(v,24);renderDF();save();renderM();renderS()}
+function renderS(){
+ const w0=$("sw").value;if(!w0)return;
+ const ds=[...Array(7)].map((_,i)=>{const d=new Date(w0+"T00:00:00");d.setDate(d.getDate()+i);return d});
+ $("sr").textContent="هەفتی ژ "+iso(ds[0])+" هەتا "+iso(ds[6]);
+ let h='<tr><th>کۆد</th><th>ناڤ</th><th>جهێ کاری</th>'+ds.map(d=>`<th>${DN[d.getDay()]}<br>${iso(d).slice(5)}</th>`).join("")+'<th>کۆما زێدە</th><th>کۆما غیابێ</th><th>ڕۆژێن مۆلەتێ</th></tr>',TO=0,TA=0,BAD=0;
+ W().forEach(w=>{
+  let o=0,a=0,L=0;
+  const c=ds.map(d=>{const k=w.id+"_"+iso(d),x=otOf(w,iso(d)),y=absOf(w,iso(d)),out=outside(w,iso(d)),l=S.lv[k];o+=x;a+=y;if(l)L++;return`<td class="${out?"outc":l?"lvc":""}">${l?"مۆلەت ":""}${x?'<span class="ok">+'+fh(x)+'</span> ':""}${y?'<span class="bad">−'+fh(y)+'</span>':""}${!l&&!x&&!y?'<span class="tk" title="ئامادە">✓</span>':""}</td>`});
+  TO+=o;TA+=a;
+  const bad=!L&&!a;if(bad)BAD++;h+=`<tr><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td><td>${esc(plc(w.id,iso(ds[0])))}</td>`+c.join("")+`<td class="ok"><b>${r2(o)}</b></td><td class="bad"><b>${r2(a)}</b></td><td><b>${L}</b></td></tr>`;
+ });
+ h+=`<tr><th colspan="10">کۆما گشتی</th><th class="ok">${r2(TO)}</th><th class="bad">${r2(TA)}</th><th></th></tr>`;
+ $("kp").innerHTML=`<div class="kpi"><span>کۆما غیابێ</span><b class="bad">${r2(TA)}</b></div><div class="kpi"><span>کۆما زێدە</span><b class="ok">${r2(TO)}</b></div><div class="kpi"><span>بێ مۆلەت و غیاب</span><b class="${BAD?"bad":"ok"}">${BAD}</b></div><div class="kpi"><span>ژمارا کرێکاران</span><b>${W().length}</b></div>`;
+ $("stt").innerHTML=h;
+}
+const ms=n=>{const d=new Date($("sw").value+"T00:00:00");d.setDate(d.getDate()+n);$("sw").value=iso(d);renderS()};
+$("sp").onclick=()=>ms(-7);$("sn").onclick=()=>ms(7);
+$("sw").onchange=()=>{if(!$("sw").value)return;$("sw").value=weekOf($("sw").value);renderS()};
+const now=new Date();$("dt").value=iso(now);$("ws").value=weekOf(iso(now));$("sw").value=weekOf(iso(now));$("xw").value=weekOf(iso(now));$("mo").value=iso(now).slice(0,7);
+showLogin();all();load();
+</script>
+</body>
+</html>
