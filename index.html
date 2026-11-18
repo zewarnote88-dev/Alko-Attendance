@@ -446,8 +446,8 @@ async function load(){
 function netInfo(){const n=$("net");if(n){n.textContent=DB?"🟢 ئۆنلاین":"💾 تەنێ ل سەر ڤی ئامێری";n.title=DB?"داتا ل سەر ئینتەرنێتێ دهێتە پاشکەفتکرن و هەمی بەکارهێنەر دبینن":"داتا تەنێ د ڤی براوسەری دا دهێتە پاشکەفتکرن"}}
 function startLive(){
  const got={c:0,d:0,w:0};
- const tm=setTimeout(()=>{if(!READY)$("lgt").textContent="هێشتا پەیوەندی ب داتایێ ڤە نەبوویە. ئینتەرنێتێ پشکنە."},10000);
- const fail=e=>{console.error(e);const t=e&&(e.code==="42501"||e.code==="42P01")?"خشتەیێ docs یان دەستهەلات ل Supabase نە دروستن. کۆدا SQL دووبارە Run بکە.":"پەیوەندی ب داتایێ ڤە هاتە بڕین. پەیجێ دووبارە ڤەکە.";msg(t);$("lgt").textContent=t};
+ let FAILED=false;const tm=setTimeout(()=>{if(!READY&&!FAILED)$("lgt").textContent="هێشتا پەیوەندی ب داتایێ ڤە نەبوویە. ئینتەرنێتێ پشکنە."},10000);
+ const fail=e=>{console.error(e);FAILED=true;const c=e&&e.code||"";const t=/^(42501|42P01|PGRST20[0-9])$/.test(c)||/docs/.test(e&&e.message||"")?"خشتەیێ docs ل Supabase نینە یان دەستهەلات نە دروستن. کۆدا SQL ل SQL Editor دووبارە Run بکە. ("+c+")":"پەیوەندی ب داتایێ ڤە سەرنەکەفت ("+(c||e&&e.message||"")+"). پەیجێ دووبارە ڤەکە.";msg(t);$("lgt").textContent=t};
  const after=()=>{
   if(!READY){if(got.c&&got.d&&got.w){clearTimeout(tm);READY=true;BASE=clone(S);netInfo();all();gate()}return}
   refreshMe();rerender();
