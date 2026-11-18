@@ -338,6 +338,12 @@ td.hn::after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:7
 .cs.on{border-color:var(--tx)!important;outline:2px solid var(--card);outline-offset:-4px}
 .cmd{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .cmd button.on{background:linear-gradient(135deg,var(--ac),var(--ac2))!important;color:#fff!important;border-color:transparent!important}
+.ntb{display:block;margin:4px auto 0;padding:1px 8px!important;font-size:11px!important;border-radius:999px!important;background:var(--bg)!important;color:var(--mu)!important;border:1px dashed var(--bd)!important;box-shadow:none!important;white-space:nowrap;max-width:140px;overflow:hidden;text-overflow:ellipsis}
+.ntb.has{border-style:solid!important;color:var(--ac)!important;border-color:color-mix(in srgb,var(--ac) 50%,var(--bd))!important}
+#ntp{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;padding:16px}
+#ntp.hide{display:none}
+.ntbox{background:var(--card);border-radius:18px;padding:16px;width:min(380px,100%);display:flex;flex-direction:column;gap:10px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.ntbox small{color:var(--mu)}
 </style>
 </head>
 <body class="locked">
@@ -465,6 +471,7 @@ td.hn::after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:7
   <div class="bar" style="margin-top:8px"><input id="ap" type="password" placeholder="پەیڤا نهێنی یا نوی" autocomplete="new-password" dir="ltr"><input id="ap2" type="password" placeholder="دووبارە بنڤیسە" autocomplete="new-password" dir="ltr"><button id="apb">گوهۆڕین</button></div></div>
 </section>
 <div id="cpop" class="hide"><div class="cph"><b>🎨 ڕەنگێ پرۆگرامی</b><button id="cpx" class="off" type="button">✕</button></div><div id="csw" class="csw"></div><div class="cph" style="margin-top:12px"><b>ڕەنگێ پاشبنەمێ</b></div><div class="cmd"><button type="button" class="sec" data-m="light">☀️ ڕۆناهی</button><button type="button" class="sec" data-m="dark">🌙 تاری</button></div><small>ئەڤ هەلبژارتنە تنێ بۆ تە یە و ل سەر ڤی ئامێری دمینیت.</small></div>
+<div id="ntp" class="hide"><div class="ntbox"><b>💬 بۆچی نەهاتیە؟</b><small id="ntt"></small><input id="nti" maxlength="200" autocomplete="off" placeholder="وەک: نەخۆش بوو"><div class="bar" style="margin:0"><button id="nts" type="button">پاشەکەفتکرن</button><button id="ntc" type="button" class="off">بەتالکرن</button></div></div></div>
 <div id="pr"></div>
 </main>
 <script>
@@ -912,7 +919,7 @@ function renderX(){
    const k=w.id+"_"+d;
    if(outside(w,d))return`<td class="outc">${mode==="abs"?fh(dayH(w)):""}</td>`;
    if(mode==="abs"&&S.lv[k])return`<td class="lvc lvx" data-id="${w.id}" data-d="${d}" style="cursor:pointer" title="کلیک = لابرنا مۆلەتێ">مۆلەت ✕</td>`;
-   const nn=mode==="abs"&&S.abs[k]?S.nt[k]:"";return`<td${nn?` class="hn" title="${esc(nn).replace(/"/g,"&quot;")}"`:""}><input type="text" inputmode="decimal" class="h xc" data-id="${w.id}" data-d="${d}" value="${fh((mode==="ot"?S.ot:S.abs)[k]||0)}" placeholder="0:00">${mode==="abs"&&S.abs[k]&&S.by[k]?`<span class="byl">👤 ${esc(S.by[k])}</span>`:""}${mode==="ot"&&S.lw[k]?`<span class="lwn ok">+${fh(lwOf(w,d))} مۆلەت</span>`:""}</td>`;
+   const nn=mode==="abs"&&S.abs[k]?S.nt[k]:"";return`<td${nn?` class="hn" title="${esc(nn).replace(/"/g,"&quot;")}"`:""}><input type="text" inputmode="decimal" class="h xc" data-id="${w.id}" data-d="${d}" value="${fh((mode==="ot"?S.ot:S.abs)[k]||0)}" placeholder="0:00">${mode==="abs"&&S.abs[k]?`<button type="button" class="ntb${S.nt[k]?" has":""}" data-id="${w.id}" data-d="${d}" title="${S.nt[k]?esc(S.nt[k]).replace(/"/g,"&quot;"):"تێبینی: بۆچی نەهاتیە؟"}">💬${S.nt[k]?" "+esc(S.nt[k].length>14?S.nt[k].slice(0,14)+"…":S.nt[k]):""}</button>`:""}${mode==="abs"&&S.abs[k]&&S.by[k]?`<span class="byl">👤 ${esc(S.by[k])}</span>`:""}${mode==="ot"&&S.lw[k]?`<span class="lwn ok">+${fh(lwOf(w,d))} مۆلەت</span>`:""}</td>`;
   }).join("");
   return`<tr data-id="${w.id}"><td>${esc(a[0])}</td><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td><td>${esc(a[1])}</td>${c}<td class="tt"><b>${r2(t)}</b></td></tr>`;
  }).join("")||'<tr><td colspan="13">چ کرێکار نینن</td></tr>';
@@ -930,6 +937,7 @@ $("xb").addEventListener("change",e=>{
  const DS=wkIds($("xw").value);let G=0;
  [...$("xb").rows].forEach(r=>{const w=S.workers.find(x=>x.id===r.dataset.id);if(!w)return;const z=DS.reduce((q,d)=>q+xv(w,d,mode),0);r.querySelector(".tt").innerHTML="<b>"+r2(z)+"</b>";G+=z});
  $("xt").innerHTML=`<tr><th colspan="11">کۆما گشتی</th><th>${r2(G)}</th></tr>`;
+ if(mode==="abs")renderX();
 });
 $("dl").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.classList.contains("nt")){e.preventDefault();e.target.blur()}});
 $("xb").addEventListener("keydown",e=>{
@@ -937,8 +945,14 @@ $("xb").addEventListener("keydown",e=>{
  e.preventDefault();
  const ins=[...$("xb").querySelectorAll("input.xc")],i=ins.indexOf(e.target);
  e.target.blur();
- if(ins[i+1])ins[i+1].focus();
+ const ins2=[...$("xb").querySelectorAll("input.xc")];if(ins2[i+1])ins2[i+1].focus();
 });
+let NTK=null;
+function openNt(id,d){const w=S.workers.find(x=>x.id===id);if(!w)return;NTK=id+"_"+d;$("ntt").textContent=w.name+" — "+dn(d)+" "+d;$("nti").value=S.nt[NTK]||"";$("ntp").classList.remove("hide");setTimeout(()=>$("nti").focus(),30)}
+function saveNt(){if(!NTK)return;const v=$("nti").value.trim();if(v)S.nt[NTK]=v;else delete S.nt[NTK];NTK=null;$("ntp").classList.add("hide");save();renderX();renderM();renderS();renderD()}
+$("nts").onclick=saveNt;$("ntc").onclick=()=>{NTK=null;$("ntp").classList.add("hide")};
+$("nti").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();saveNt()}});
+$("xb").addEventListener("click",e=>{const nb=e.target.closest(".ntb");if(nb){openNt(nb.dataset.id,nb.dataset.d);return}});
 $("xb").addEventListener("click",e=>{const c=e.target.closest(".lvx");if(!c)return;delete S.lv[c.dataset.id+"_"+c.dataset.d];save();renderM();renderS();renderD();renderWarn();renderX()});
 $("xb").addEventListener("focusin",e=>{if(e.target.classList.contains("xc"))e.target.select()});
 const mx=n=>{const d=new Date($("xw").value+"T00:00:00");d.setDate(d.getDate()+n);$("xw").value=iso(d);renderX()};
@@ -988,7 +1002,7 @@ function tableToXlsx(tbl,name,sheet,meta){
  const c=tbl.cloneNode(true);
  const src=tbl.querySelectorAll("input,select"),dst=c.querySelectorAll("input,select");
  dst.forEach((el,i)=>{const s=src[i];el.replaceWith(document.createTextNode(s.type==="checkbox"?(s.checked?"م":""):s.value))});
- c.querySelectorAll("button,.lwn,.byl").forEach(b=>b.remove());
+ c.querySelectorAll("button,.lwn,.byl,.ntb").forEach(b=>b.remove());
  c.querySelectorAll("br").forEach(b=>b.replaceWith(" "));
  const txt=el=>el.textContent.replace(/\s+/g," ").trim();
  const rowsOf=sel=>[...c.querySelectorAll(sel)];
