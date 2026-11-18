@@ -675,7 +675,8 @@ function gate(){
 }
 function showLogin(){
  document.body.classList.add("locked");
- const setup=!S.admin;
+ const setup=READY&&!S.admin;
+ $("lb").disabled=!READY;$("lb").style.opacity=READY?"":".6";
  $("lp2w").classList.toggle("hide",!setup);
  $("lgt").textContent=!READY?"چاڤەڕێ بە...":setup?"جارا ئێکێ: پەیڤەکا نهێنی بۆ ئەدمینی (zewar) دابنە (4 پیت یان پتر).":"بۆ چوونەژوورێ ناڤ و پەیڤا نهێنی بنڤیسە";
  const clr=()=>{if(setup){$("lu").value=ADM;$("lu").readOnly=true}else{$("lu").readOnly=false;$("lu").value=""}$("lp").value="";$("lp2").value=""};clr();setTimeout(clr,300);
