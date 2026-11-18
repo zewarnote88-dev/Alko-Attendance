@@ -427,6 +427,14 @@ th.tdh{color:var(--ac)!important;box-shadow:inset 0 -3px 0 var(--ac)}
  #xtb td.lvc{font-size:10px}
  #xtb tfoot th[colspan]{text-align:start}
 }
+#mt th.md{min-width:26px;padding:6px 3px;font-size:12.5px;text-align:center}
+#mt th.mfri{background:color-mix(in srgb,var(--ac) 12%,var(--thbg))}
+#mt td{padding:5px 2px;min-width:22px}
+#mt .mvf{display:none}
+#mt td.nm{white-space:nowrap}
+#mt .rb{display:none}
+#mt th:not(.md){padding:6px 4px;white-space:normal;line-height:1.25;max-width:58px}
+#mt th.md{min-width:24px!important;padding:6px 1px!important}
 </style>
 </head>
 <body class="locked">
@@ -898,11 +906,11 @@ function lwCell(w,d){
 function renderM(){
  const [y,m]=$("mo").value.split("-").map(Number),n=new Date(y,m,0).getDate();
  let h='<tr><th>کۆد</th><th>ناڤ</th>';
- for(let d=1;d<=n;d++)h+=`<th>${DN[new Date(y,m-1,d).getDay()]}<br>${d}</th>`;
+ for(let d=1;d<=n;d++){const g=new Date(y,m-1,d).getDay(),ds=y+"-"+p2(m)+"-"+p2(d);h+=`<th class="md${g===5?" mfri":""}${ds===wtoday()?" tdh":""}" title="${DN[g]} ${ds}">${d}</th>`}
  h+="<th>کۆما غیابێ</th><th>کۆما زێدە</th><th>مۆلەت</th></tr>";
  W().forEach(w=>{
   let t=0,o=0,n2=0,r=`<tr><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td>`;
-  for(let d=1;d<=n;d++){const ds2=y+"-"+p2(m)+"-"+p2(d),out=outside(w,ds2),v=out?dayH(w):S.abs[w.id+"_"+ds2];if(v)t+=v;o+=otOf(w,ds2);const l=S.lv[w.id+"_"+y+"-"+p2(m)+"-"+p2(d)];if(l)n2++;const nn=S.nt[w.id+"_"+ds2];r+=`<td class="${out?"outc":v?"a":l?"lvc":""}${nn&&v&&!out?" hn":""}"${nn&&v&&!out?` title="${esc(nn).replace(/"/g,"&quot;")}"`:""}>${v?fh(v):l?"م":""}</td>`}
+  for(let d=1;d<=n;d++){const ds2=y+"-"+p2(m)+"-"+p2(d),out=outside(w,ds2),v=out?dayH(w):S.abs[w.id+"_"+ds2];if(v)t+=v;o+=otOf(w,ds2);const l=S.lv[w.id+"_"+y+"-"+p2(m)+"-"+p2(d)];if(l)n2++;const nn=S.nt[w.id+"_"+ds2];r+=`<td class="${out?"outc":v?"a":l?"lvc":""}${nn&&v&&!out?" hn":""}"${nn&&v&&!out?` title="${esc(nn).replace(/"/g,"&quot;")}"`:""}>${v?(fh(v).endsWith(":00")?`<span class="mvf">${fh(v)}</span><span class="mvs">${fh(v).slice(0,-3)}</span>`:fh(v)):l?"م":""}</td>`}
   h+=r+`<td class="${t?"bad":""}"><b>${fh(t)||"0:00"}</b></td><td class="ok"><b>${fh(o)||"0:00"}</b></td><td><b>${n2}</b></td></tr>`;
  });
  $("mt").innerHTML=h;
@@ -1111,7 +1119,7 @@ function tableToXlsx(tbl,name,sheet,meta){
  const c=tbl.cloneNode(true);
  const src=tbl.querySelectorAll("input,select"),dst=c.querySelectorAll("input,select");
  dst.forEach((el,i)=>{const s=src[i];el.replaceWith(document.createTextNode(s.type==="checkbox"?(s.checked?"م":""):s.value))});
- c.querySelectorAll("button,.lwn,.byl,.ntb,.dshort").forEach(b=>b.remove());
+ c.querySelectorAll("button,.lwn,.byl,.ntb,.dshort,.mvs").forEach(b=>b.remove());
  c.querySelectorAll("br").forEach(b=>b.replaceWith(" "));
  const txt=el=>el.textContent.replace(/\s+/g," ").trim();
  const rowsOf=sel=>[...c.querySelectorAll(sel)];
