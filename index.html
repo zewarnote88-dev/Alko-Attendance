@@ -263,7 +263,7 @@ details.help>div{line-height:1.9}
  #dnx button{width:100%}
 }
 </style>
-<script>try{document.documentElement.dataset.theme=localStorage.getItem("absTheme")||"light";var _s=localStorage.getItem("absStyle")||"alko";if(_s==="dash")_s="alko";document.documentElement.dataset.style=_s;if(_s==="alko")document.documentElement.dataset.theme="dark";if(_s==="dash")document.documentElement.dataset.theme="light"}catch(e){document.documentElement.dataset.theme="light"}</script>
+<script>try{if(localStorage.getItem("absMig")!=="3"){Object.keys(localStorage).forEach(function(k){if(k==="absTheme"||k.indexOf("absStyle")===0)localStorage.removeItem(k)});localStorage.setItem("absMig","3")}document.documentElement.dataset.theme=localStorage.getItem("absTheme")||"light";var _s=localStorage.getItem("absStyle")||"flat";if(_s==="dash")_s="flat";document.documentElement.dataset.style=_s;if(_s==="alko")document.documentElement.dataset.theme="dark";if(_s==="dash")document.documentElement.dataset.theme="light"}catch(e){document.documentElement.dataset.theme="light"}</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style id="mobile-compact">
 @media (max-width:700px){
@@ -944,7 +944,7 @@ const PAL={
 const ckey=()=>"absColor"+(ME&&ME.u?":"+ME.u:"");
 const skey=()=>"absStyle"+(ME&&ME.u?":"+ME.u:"");
 function setStyle(v){try{localStorage.setItem(skey(),v);localStorage.setItem("absStyle",v)}catch(x){}}
-function getStyle(){let v="alko";try{v=localStorage.getItem(skey())||localStorage.getItem("absStyle")||"alko"}catch(e){}return v==="dash"?"alko":v}
+function getStyle(){let v="flat";try{v=localStorage.getItem(skey())||localStorage.getItem("absStyle")||"flat"}catch(e){}return v==="dash"?"flat":v}
 function getColor(){try{return localStorage.getItem(ckey())||localStorage.getItem("absColor")||"alko"}catch(e){return"alko"}}
 function applyColor(c){
  const sy=getStyle();document.documentElement.dataset.style=sy;if(sy==="alko")document.documentElement.dataset.theme="dark";if(sy==="dash")document.documentElement.dataset.theme="light";
