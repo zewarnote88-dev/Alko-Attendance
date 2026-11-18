@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="color-scheme" content="only light">
+<script>try{var _s=localStorage.getItem("absStyle");if(_s)document.documentElement.dataset.style=_s}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <title>غیابا کرێکاران</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700;800&family=Noto+Sans+Arabic:wght@400;600;700&display=swap">
@@ -437,6 +438,36 @@ th.tdh{color:var(--ac)!important;box-shadow:inset 0 -3px 0 var(--ac)}
 #mt th.md{min-width:24px!important;padding:6px 1px!important}
 body.fru #dtl #dtd,body.fru .dbar button{display:none}
 body.fru .dbar{grid-template-columns:1fr!important;display:grid}
+/* ===== glass mode ===== */
+:root[data-style="glass"]:not([data-theme="dark"]){--card:rgba(255,255,255,.52);--bg2:rgba(255,255,255,.38);--thbg:rgba(255,255,255,.42);--bd:rgba(255,255,255,.62);--sh:0 8px 32px rgba(31,38,135,.14);--gsolid:rgba(255,255,255,.88);--gin:rgba(255,255,255,.66)}
+:root[data-style="glass"][data-theme="dark"]{--card:rgba(17,24,39,.48);--bg2:rgba(255,255,255,.07);--thbg:rgba(255,255,255,.06);--bd:rgba(255,255,255,.14);--sh:0 8px 32px rgba(0,0,0,.35);--gsolid:rgba(17,24,39,.92);--gin:rgba(255,255,255,.08)}
+html[data-style="glass"]{background:#e9edf8}
+html[data-style="glass"][data-theme="dark"]{background:#0b1020}
+html[data-style="glass"] body{background:transparent!important;background-image:none!important}
+html[data-style="glass"] body::before{content:"";position:fixed;inset:-10%;z-index:-1;pointer-events:none;
+ background:radial-gradient(38% 32% at 12% 18%,color-mix(in srgb,var(--g3,#0ea5e9) 70%,transparent),transparent 70%),
+ radial-gradient(42% 38% at 88% 28%,color-mix(in srgb,var(--ac2) 60%,transparent),transparent 70%),
+ radial-gradient(48% 42% at 45% 92%,color-mix(in srgb,var(--g2,#2563eb) 55%,transparent),transparent 70%),
+ radial-gradient(30% 28% at 80% 85%,rgba(244,114,182,.35),transparent 70%),
+ linear-gradient(160deg,#eef2ff,#fdf4ff 60%,#ecfeff)}
+html[data-style="glass"][data-theme="dark"] body::before{
+ background:radial-gradient(38% 32% at 12% 18%,color-mix(in srgb,var(--g3,#0ea5e9) 45%,transparent),transparent 70%),
+ radial-gradient(42% 38% at 88% 28%,color-mix(in srgb,var(--ac2) 40%,transparent),transparent 70%),
+ radial-gradient(48% 42% at 45% 92%,color-mix(in srgb,var(--g2,#2563eb) 40%,transparent),transparent 70%),
+ linear-gradient(160deg,#0b1020,#111827 60%,#0b1020)}
+html[data-style="glass"] :where(.card,.tabs,.srch,.kpi,.tile,details.help,#dtb tbody tr,#dtb tfoot tr,.dfl,#cpop,.ntbox,.lgc,.warnbox,.amok,.xact){
+ background:var(--card)!important;border:1px solid var(--bd)!important;box-shadow:var(--sh)!important;
+ -webkit-backdrop-filter:blur(18px) saturate(170%);backdrop-filter:blur(18px) saturate(170%)}
+html[data-style="glass"] .top{background:linear-gradient(120deg,color-mix(in srgb,var(--g1,#1e3a8a) 78%,transparent),color-mix(in srgb,var(--g2,#2563eb) 70%,transparent) 55%,color-mix(in srgb,var(--g3,#0ea5e9) 62%,transparent))!important;
+ border:1px solid rgba(255,255,255,.35);-webkit-backdrop-filter:blur(18px) saturate(170%);backdrop-filter:blur(18px) saturate(170%)}
+html[data-style="glass"] :is(input,select,textarea):not([type=checkbox]):not([type=radio]){background:var(--gin)!important;border-color:var(--bd)!important}
+html[data-style="glass"] .srch input{background:transparent!important}
+html[data-style="glass"] table,html[data-style="glass"] td{background-color:transparent}
+html[data-style="glass"] th{background:var(--thbg)!important;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+html[data-style="glass"] .tabs button.off,html[data-style="glass"] button.sec,html[data-style="glass"] button.off{background:rgba(255,255,255,.18)}
+html[data-style="glass"] #atb td.nm,html[data-style="glass"] #xtb td.nm{background:var(--gsolid)!important}
+html[data-style="glass"] .tile[data-k="1"],html[data-style="glass"] .tile[data-k="6"]{background:linear-gradient(135deg,color-mix(in srgb,var(--ac) 85%,transparent),color-mix(in srgb,var(--ac2) 80%,transparent))!important;border:1px solid rgba(255,255,255,.35)!important}
+html[data-style="glass"] #ntp{background:rgba(0,0,0,.25);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
 </style>
 </head>
 <body class="locked">
@@ -567,7 +598,7 @@ body.fru .dbar{grid-template-columns:1fr!important;display:grid}
  <div class="card"><b>گوهۆڕینا پەیڤا نهێنی یا ئەدمینی (zewar)</b>
   <div class="bar" style="margin-top:8px"><input id="ap" type="password" placeholder="پەیڤا نهێنی یا نوی" autocomplete="new-password" dir="ltr"><input id="ap2" type="password" placeholder="دووبارە بنڤیسە" autocomplete="new-password" dir="ltr"><button id="apb">گوهۆڕین</button></div></div>
 </section>
-<div id="cpop" class="hide"><div class="cph"><b>🎨 ڕەنگێ پرۆگرامی</b><button id="cpx" class="off" type="button">✕</button></div><div id="csw" class="csw"></div><div class="cph" style="margin-top:12px"><b>ڕەنگێ پاشبنەمێ</b></div><div class="cmd"><button type="button" class="sec" data-m="light">☀️ ڕۆناهی</button><button type="button" class="sec" data-m="dark">🌙 تاری</button></div><small>ئەڤ هەلبژارتنە تنێ بۆ تە یە و ل سەر ڤی ئامێری دمینیت.</small></div>
+<div id="cpop" class="hide"><div class="cph"><b>🎨 ڕەنگێ پرۆگرامی</b><button id="cpx" class="off" type="button">✕</button></div><div id="csw" class="csw"></div><div class="cph" style="margin-top:12px"><b>ڕەنگێ پاشبنەمێ</b></div><div class="cmd"><button type="button" class="sec" data-m="light">☀️ ڕۆناهی</button><button type="button" class="sec" data-m="dark">🌙 تاری</button></div><div class="cph" style="margin-top:12px"><b>شێوە</b></div><div class="cmd"><button type="button" class="sec" data-s="flat">▢ ئاسایی</button><button type="button" class="sec" data-s="glass">🔮 شووشە</button></div><small>ئەڤ هەلبژارتنە تنێ بۆ تە یە و ل سەر ڤی ئامێری دمینیت.</small></div>
 <div id="ntp" class="hide"><div class="ntbox"><b>💬 بۆچی نەهاتیە؟</b><small id="ntt"></small><input id="nti" maxlength="200" autocomplete="off" placeholder="وەک: نەخۆش بوو"><div class="bar" style="margin:0"><button id="nts" type="button">پاشەکەفتکرن</button><button id="ntc" type="button" class="off">بەتالکرن</button></div></div></div>
 <div id="pr"></div>
 </main>
@@ -707,6 +738,8 @@ const PAL={
  slate:["خۆلەمێشی",["#475569","#334155"],["#94a3b8","#cbd5e1"],["#0f172a","#334155","#64748b"]]
 };
 const ckey=()=>"absColor"+(ME&&ME.u?":"+ME.u:"");
+const skey=()=>"absStyle"+(ME&&ME.u?":"+ME.u:"");
+function getStyle(){try{return localStorage.getItem(skey())||localStorage.getItem("absStyle")||"flat"}catch(e){return"flat"}}
 function getColor(){try{return localStorage.getItem(ckey())||localStorage.getItem("absColor")||"blue"}catch(e){return"blue"}}
 function applyColor(c){
  c=PAL[c]?c:getColor();const P=PAL[c]||PAL.blue,dk=document.documentElement.dataset.theme==="dark",a=dk?P[2]:P[1],st=document.documentElement.style;
@@ -714,13 +747,15 @@ function applyColor(c){
  const m=document.querySelector('meta[name="theme-color"]')||document.head.appendChild(Object.assign(document.createElement("meta"),{name:"theme-color"}));m.content=P[3][1];
  const sw=$("csw");if(sw)sw.innerHTML=Object.entries(PAL).map(([k,v])=>`<button type="button" class="cs${k===c?" on":""}" data-c="${k}" style="background:linear-gradient(135deg,${v[3][1]},${v[3][2]})" title="${v[0]}"><span>${v[0]}</span></button>`).join("");
  document.querySelectorAll("#cpop [data-m]").forEach(b=>b.classList.toggle("on",b.dataset.m===(dk?"dark":"light")));
+ const sy=getStyle();document.documentElement.dataset.style=sy;document.querySelectorAll("#cpop [data-s]").forEach(b=>b.classList.toggle("on",b.dataset.s===sy));
 }
 function setTheme(t){document.documentElement.dataset.theme=t;try{applyColor()}catch(e){}try{localStorage.setItem("absTheme",t)}catch(e){}document.querySelectorAll(".thb").forEach(b=>{b.textContent=t==="dark"?"☀️ ڕۆناهی":"🌙 تاری";b.title=t==="dark"?"گوهۆڕین بۆ ڕەنگێ ڕۆناهی":"گوهۆڕین بۆ ڕەنگێ تاری"})}
 $("cbt").onclick=e=>{e.stopPropagation();$("cpop").classList.toggle("hide");applyColor()};
 $("cpx").onclick=()=>$("cpop").classList.add("hide");
 $("cpop").addEventListener("click",e=>{e.stopPropagation();const c=e.target.closest("[data-c]"),m=e.target.closest("[data-m]");
  if(c){try{localStorage.setItem(ckey(),c.dataset.c);localStorage.setItem("absColor",c.dataset.c)}catch(x){}applyColor(c.dataset.c)}
- if(m)setTheme(m.dataset.m)});
+ if(m)setTheme(m.dataset.m);
+ const sb=e.target.closest("[data-s]");if(sb){try{localStorage.setItem(skey(),sb.dataset.s);localStorage.setItem("absStyle",sb.dataset.s)}catch(x){}applyColor()}});
 document.addEventListener("click",()=>$("cpop").classList.add("hide"));
 document.querySelectorAll(".thb").forEach(b=>b.onclick=()=>setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark"));
 setTheme(document.documentElement.dataset.theme||"light");
