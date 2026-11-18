@@ -505,7 +505,7 @@ td.lkc{color:var(--mu);background:repeating-linear-gradient(45deg,transparent 0 
  <div class="card"><b>بەکارهێنەرەکێ نوی</b>
   <div class="grid" style="margin-top:8px"><label>ناڤێ بەکارهێنەری<input id="nu" autocomplete="off" dir="ltr"></label><label>پەیڤا نهێنی<input id="np" autocomplete="new-password" dir="ltr"></label></div>
   <div style="margin-top:10px"><b>دەستهەلات:</b><div id="npm" class="bar" style="margin-top:6px"></div></div>
-  <label class="pm" style="margin:2px 0 10px;width:fit-content"><input type="checkbox" id="nnf">🕌 ڕۆژا ئەینیێ: تنێ دیتن (نەشێت چ بگوهۆڕیت)</label>
+  <label class="pm" style="margin:2px 0 10px;width:fit-content"><input type="checkbox" id="nnf">🕌 بەکارهێنەرێ ئەینیێ: تنێ ژ پێنجشەمب ١٢ێ شەڤێ هەتا شەمبی ٨ێ سپێدێ دشێت داتایان داخل بکەت، دەمێن دی تنێ دبینیت</label>
   <div class="bar"><button id="nadd">زێدەکرنا بەکارهێنەری</button></div></div>
  <div class="card scroll"><table><thead id="uh"></thead><tbody id="ul"></tbody></table></div>
  <div class="card"><b>پاشکەفت (Backup) و ڤەگوهاستنا داتایێ</b>
@@ -709,7 +709,7 @@ $("lb").onclick=async()=>{
 };
 $("lo").onclick=()=>{ses("");ME=null;renderAW();$("lu").value="";showLogin()};
 function enter(){
- applyColor();
+ applyColor();try{all()}catch(e){console.error(e)}
  document.body.classList.remove("locked");
  ["1","2","3","4","5","6","7"].forEach(k=>$("t"+k).classList.toggle("hide",!can(k)));
  $("who").innerHTML="👤 <b dir=\"ltr\">"+esc(ME.u)+"</b>"+(ME.admin?"<em> (ئەدمین)</em>":"");
@@ -722,7 +722,7 @@ function enter(){
 function renderU(){
  if(!ME||!ME.admin)return;
  if(!$("npm").childElementCount)$("npm").innerHTML=PERMS.map(([k,t])=>`<label class="pm"><input type="checkbox" class="npk" value="${k}"${k==="1"?" checked":""}>${t}</label>`).join("");
- $("uh").innerHTML="<tr><th>ناڤێ بەکارهێنەری</th>"+PERMS.map(([k,t])=>`<th>${t}</th>`).join("")+"<th>🕌 ئەینی: تنێ دیتن</th><th>پەیڤا نهێنی یا نوی</th><th></th></tr>";
+ $("uh").innerHTML="<tr><th>ناڤێ بەکارهێنەری</th>"+PERMS.map(([k,t])=>`<th>${t}</th>`).join("")+"<th>🕌 تنێ ئەینی<br><small>پێنجشەمب ١٢ شەڤ ← شەمبی ٨ سپێدە</small></th><th>پەیڤا نهێنی یا نوی</th><th></th></tr>";
  $("ul").innerHTML=S.users.map((x,i)=>`<tr><td class="nm" dir="ltr">${esc(x.u)}</td>`+PERMS.map(([k])=>`<td><input type="checkbox" class="upk lv" data-i="${i}" value="${k}"${(x.perms||[]).includes(k)?" checked":""}></td>`).join("")+`<td><input type="checkbox" class="unf lv" data-i="${i}"${x.noFri?" checked":""}></td><td><input class="upw" data-i="${i}" placeholder="••••" style="width:110px" dir="ltr"> <button class="sec" data-pw="${i}">گوهۆڕین</button></td><td><button class="off" data-du="${i}">ژێبرن</button></td></tr>`).join("")||`<tr><td colspan="${PERMS.length+4}">هێشتا چ بەکارهێنەر نەهاتینە زێدەکرن</td></tr>`;
 }
 $("nadd").onclick=async()=>{
@@ -735,7 +735,7 @@ $("nadd").onclick=async()=>{
  S.users.push({u,salt,h:await hsh(salt,p),perms,noFri:$("nnf").checked});$("nnf").checked=false;
  $("nu").value="";$("np").value="";msg("بەکارهێنەر «"+u+"» هاتە زێدەکرن");save();renderU();
 };
-$("ul").addEventListener("change",e=>{const t=e.target;if(t.classList.contains("unf")){S.users[+t.dataset.i].noFri=t.checked;save();msg("«"+S.users[+t.dataset.i].u+"»: ڕۆژا ئەینیێ "+(t.checked?"تنێ دیتن":"ئاسایی"));return}if(!t.classList.contains("upk"))return;const x=S.users[+t.dataset.i],P=new Set(x.perms||[]);t.checked?P.add(t.value):P.delete(t.value);x.perms=PERMS.map(p=>p[0]).filter(k=>P.has(k));save()});
+$("ul").addEventListener("change",e=>{const t=e.target;if(t.classList.contains("unf")){S.users[+t.dataset.i].noFri=t.checked;save();msg("«"+S.users[+t.dataset.i].u+"»: "+(t.checked?"تنێ ژ پێنجشەمب ١٢ێ شەڤێ هەتا شەمبی ٨ێ سپێدێ دشێت داخل بکەت":"ئاسایی، هەمی دەمان دشێت داخل بکەت"));return}if(!t.classList.contains("upk"))return;const x=S.users[+t.dataset.i],P=new Set(x.perms||[]);t.checked?P.add(t.value):P.delete(t.value);x.perms=PERMS.map(p=>p[0]).filter(k=>P.has(k));save()});
 $("ul").addEventListener("click",async e=>{
  const pw=e.target.closest("[data-pw]"),du=e.target.closest("[data-du]");
  if(pw){const i=+pw.dataset.pw,inp=$("ul").querySelector(`.upw[data-i="${i}"]`),p=inp.value;if(p.length<4)return msg("پەیڤا نهێنی دڤێت 4 پیت یان پتر بن");const x=S.users[i];x.salt=rnd();x.h=await hsh(x.salt,p);inp.value="";save();msg("پەیڤا نهێنی یا «"+x.u+"» هاتە گوهۆڕین")}
@@ -765,7 +765,9 @@ const keepDF=()=>{try{localStorage.setItem("absDSh",DSH);localStorage.setItem("a
 const asgOf=(w,d)=>S.asg[weekOf(d)+"_"+w.id]||["","",""];
 const isPool=p=>/ح[ەو]?[وۆ]?[ضزظذ]|hawz|hawd/i.test(p||"");
 const isSvc=p=>/خ[ەا]?د[ەا]?م[اە]ت|خزم[ەا]ت|service/i.test(p||"");
-const lockD=d=>!!ME&&!ME.admin&&!!ME.noFri&&!!d&&new Date(d+"T00:00:00").getDay()===5;
+const inFriWin=()=>{const n=new Date(),g=n.getDay();return g===5||(g===6&&n.getHours()<8)};
+const lockD=d=>!!ME&&!ME.admin&&!!ME.noFri&&!inFriWin();
+const LKT="🔒 تنێ دیتن — داخلکرن تنێ ژ پێنجشەمب ١٢ێ شەڤێ هەتا شەمبی ٨ێ سپێدێ";
 const gone=(w,d)=>!!(w.end&&w.end<d);
 const dBase=d=>W().filter(w=>{if(gone(w,d))return false;const a=asgOf(w,d);return !DSH||a[2]===DSH||isSvc(a[1])});
 function dItems(d){
@@ -801,7 +803,7 @@ function renderD(){
  const d=$("dt").value;const it=renderDFil(d);renderDF();renderWarn();
  const L=dList(d);
  $("dl").innerHTML=L.map(w=>{const out=outside(w,d),av=absOf(w,d),a=asgOf(w,d),sub=[a[0]?"#"+a[0]:"",w.code?"کۆد "+w.code:"",a[1],a[2]].filter(Boolean).map(esc).join(" · ");const k0=w.id+"_"+d,ex=!out&&((av>0&&av<dayH(w))||S.ot[k0]||S.lv[k0]||S.lw[k0]),op=OPN.has(w.id)||ex;return`<tr data-w="${w.id}" class="${out?"outr":av?"absr":""}${op?" open":""}"><td class="c-sq">${esc(a[0]||"")}</td><td class="c-cd">${esc(w.code||"")}</td><td class="nm c-nm"><span class="wn">${esc(w.name)}${rb(w)}</span>${sub?`<span class="mo">${sub}</span>`:""}${out?"":`<button type="button" class="mxb" data-id="${w.id}">${op?"▴ کێمتر":"⋯ زێدەتر"}</button>`}${out?` <small>(ل ڤێ ڕۆژێ ل کار نینە، ${dayH(w)}:00 دهێتە حسابکرن)</small>`:""}${out?"":`<button type="button" class="off lvw" data-id="${w.id}" title="ئەڤ کرێکارە کار هێلا">🚪 کار هێلا</button>`}</td><td class="c-pl">${esc(a[1]||"")}${a[2]?` <small>${esc(a[2])}</small>`:""}</td><td class="c-ab"><label class="abt"><input type="checkbox" class="ab" data-id="${w.id}" title="نەهاتیە = ${dayH(w)} کاتژمێر"${!out&&av>=dayH(w)?" checked":""}><span>نەهاتیە <small>(${dayH(w)} کاتژمێر)</small></span></label>${out?"":`<input type="text" class="nt" data-id="${w.id}" maxlength="200" autocomplete="off" placeholder="💬 بۆچی نەهاتیە؟" value="${esc(S.nt[w.id+"_"+d]||"").replace(/"/g,"&quot;")}">${av&&S.by[w.id+"_"+d]?`<span class="byl">👤 تۆمارکر: ${esc(S.by[w.id+"_"+d])}</span>`:""}`}</td><td class="c-h" data-l="کاتژمێرێن نەهاتنێ"><input type="text" inputmode="decimal" class="h" data-id="${w.id}" value="${fh(av)}" placeholder="0:00"></td><td class="c-ot" data-l="کاتژمێرێن زێدە"><input type="text" inputmode="decimal" class="h ot" data-id="${w.id}" value="${fh(S.ot[w.id+"_"+d])}" placeholder="0:00"></td><td class="c-lv"><label class="lvt"><input type="checkbox" class="lv" data-id="${w.id}"${S.lv[w.id+"_"+d]?" checked":""}><span>مۆلەت</span></label></td><td class="c-lw" data-l="ل ڕۆژا مۆلەتێ هاتیە (×1.5)">${lwCell(w,d)}</td></tr>`}).join("")||(S.workers.length?'<tr><td colspan="9" class="emp">چ کرێکار د ڤی دەوامی و ڤی جهی دا نینن</td></tr>':'<tr><td colspan="9" class="emp">پێشیێ کرێکاران زێدە بکە (پەرەیا «کرێکار»)</td></tr>');
- const LK=lockD(d);$("dtb").classList.toggle("lockd",LK);if(LK){$("dl").querySelectorAll("input,.lvw").forEach(x=>x.disabled=true);$("dtl").insertAdjacentHTML("beforeend",' <span class="lkb">🔒 ئەینی: تنێ دیتن</span>')}
+ const LK=lockD(d);$("dtb").classList.toggle("lockd",LK);if(LK){$("dl").querySelectorAll("input,.lvw").forEach(x=>x.disabled=true);$("dtl").insertAdjacentHTML("beforeend",' <span class="lkb">'+LKT+'</span>')}
  const pl=it.slice(1),i=pl.findIndex(x=>x[0]===DPL);
  $("dnx").innerHTML=DPL&&pl[i+1]?`<button id="dnb">جهێ پاشی: ${esc(pl[i+1][1])} ⬅</button>`:"";
 }
@@ -980,7 +982,7 @@ function renderX(){
   }).join("");
   return`<tr data-id="${w.id}"><td>${esc(a[0])}</td><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td><td>${esc(a[1])}</td>${c}<td class="tt"><b>${r2(t)}</b></td></tr>`;
  }).join("")||'<tr><td colspan="13">چ کرێکار نینن</td></tr>';
- {const C={};DS.forEach(d=>S.workers.forEach(w=>{const k=w.id+"_"+d;if(S.abs[k]>0){const u=S.by[k]||"—";C[u]=(C[u]||0)+1}}));const E=Object.entries(C).sort((a,b)=>b[1]-a[1]);$("xact").innerHTML=`<b>👤 کێ غیاب ل ڤێ هەفتیێ تۆمار کرینە:</b> `+(E.length?E.map(([u,n])=>`<span class="chip"><b dir="ltr">${esc(u)}</b> <small>${n} جار</small></span>`).join(" "):"<small>هێشتا چ غیاب نەهاتینە تۆمارکرن</small>")+(E.some(x=>x[0]==="—")?' <small>(«—» = بەری ڤێ تایبەتمەندیێ هاتینە تۆمارکرن)</small>':"")}
+ {const C={};DS.forEach(d=>S.workers.forEach(w=>{const k=w.id+"_"+d;if(S.abs[k]>0){const u=S.by[k]||"—";C[u]=(C[u]||0)+1}}));const E=Object.entries(C).sort((a,b)=>b[1]-a[1]);$("xact").innerHTML=(lockD()?`<div class="lkb" style="flex-basis:100%;padding:4px 12px">${LKT}</div>`:"")+`<b>👤 کێ غیاب ل ڤێ هەفتیێ تۆمار کرینە:</b> `+(E.length?E.map(([u,n])=>`<span class="chip"><b dir="ltr">${esc(u)}</b> <small>${n} جار</small></span>`).join(" "):"<small>هێشتا چ غیاب نەهاتینە تۆمارکرن</small>")+(E.some(x=>x[0]==="—")?' <small>(«—» = بەری ڤێ تایبەتمەندیێ هاتینە تۆمارکرن)</small>':"")}
  $("xt").innerHTML=L.length?`<tr><th colspan="11">کۆما گشتی</th><th>${r2(G)}</th></tr>`:"";
 }
 $("xb").addEventListener("change",e=>{
@@ -1340,8 +1342,8 @@ const ms=n=>{const d=new Date($("sw").value+"T00:00:00");d.setDate(d.getDate()+n
 $("sp").onclick=()=>ms(-7);$("sn").onclick=()=>ms(7);
 $("sw").onchange=()=>{if(!$("sw").value)return;$("sw").value=weekOf($("sw").value);renderS()};
 const now=new Date(wtoday()+"T12:00:00");$("dt").value=iso(now);$("ws").value=weekOf(iso(now));$("sw").value=weekOf(iso(now));$("xw").value=weekOf(iso(now));$("mo").value=iso(now).slice(0,7);
-let WT=wtoday();
-setInterval(()=>{const t=wtoday();if(t===WT)return;const old=WT;WT=t;
+let WT=wtoday(),LKS=null;
+setInterval(()=>{const lk=lockD();if(LKS!==null&&lk!==LKS&&!typing())all();LKS=lk;const t=wtoday();if(t===WT)return;const old=WT;WT=t;
  if($("dt").value===old){$("dt").value=t;if(!typing())renderD()}
  [["ws",renderA],["sw",renderS],["xw",renderX]].forEach(([id,f])=>{if($(id).value===weekOf(old)&&weekOf(t)!==weekOf(old)){$(id).value=weekOf(t);if(!typing())f()}});
  if($("mo").value===old.slice(0,7)&&t.slice(0,7)!==old.slice(0,7)){$("mo").value=t.slice(0,7);renderM()}
