@@ -263,8 +263,8 @@ details.help>div{line-height:1.9}
 <div id="login"><form class="lgc" onsubmit="return false">
  <div class="lgi">⏱️</div><h2>غیابا کرێکاران</h2>
  <p id="lgt">بۆ چوونەژوورێ ناڤ و پەیڤا نهێنی بنڤیسە</p>
- <label>ناڤێ بەکارهێنەری<input id="lu" autocomplete="username" dir="ltr"></label>
- <label>پەیڤا نهێنی<input id="lp" type="password" autocomplete="current-password" dir="ltr"></label>
+ <label>ناڤێ بەکارهێنەری<input id="lu" name="ghiyab-user" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="ناڤێ خۆ بنڤیسە" dir="ltr"></label>
+ <label>پەیڤا نهێنی<input id="lp" name="ghiyab-pass" type="password" autocomplete="new-password" placeholder="••••" dir="ltr"></label>
  <label id="lp2w" class="hide">دووبارە پەیڤا نهێنی بنڤیسە<input id="lp2" type="password" autocomplete="new-password" dir="ltr"></label>
  <button id="lb" type="submit">چوونەژوور</button>
  <div id="le" class="bad"></div>
@@ -514,7 +514,7 @@ const rnd=()=>{try{return[...crypto.getRandomValues(new Uint8Array(16))].map(x=>
 async function hsh(salt,pw){const t=new TextEncoder().encode(salt+":"+pw);try{const b=await crypto.subtle.digest("SHA-256",t);return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}catch(e){let h=2166136261;for(const c of t){h^=c;h=Math.imul(h,16777619)>>>0}return"f"+h.toString(16)}}
 const ses=(v)=>{try{if(v===undefined)return sessionStorage.getItem("absUser");if(v)sessionStorage.setItem("absUser",v);else sessionStorage.removeItem("absUser")}catch(e){return null}};
 function gate(){
- const u=ses();
+ const u=ME&&ME.u;
  ME=u===ADM&&S.admin?{u:ADM,admin:true}:(S.users.find(x=>x.u===u)||null);
  if(ME)enter();else showLogin();
 }
@@ -523,7 +523,7 @@ function showLogin(){
  const setup=!S.admin;
  $("lp2w").classList.toggle("hide",!setup);
  $("lgt").textContent=!READY?"چاڤەڕێ بە...":setup?"جارا ئێکێ: پەیڤەکا نهێنی بۆ ئەدمینی (zewar) دابنە (4 پیت یان پتر).":"بۆ چوونەژوورێ ناڤ و پەیڤا نهێنی بنڤیسە";
- if(setup){$("lu").value=ADM;$("lu").readOnly=true}else $("lu").readOnly=false;
+ const clr=()=>{if(setup){$("lu").value=ADM;$("lu").readOnly=true}else{$("lu").readOnly=false;$("lu").value=""}$("lp").value="";$("lp2").value=""};clr();setTimeout(clr,300);
  $("lb").textContent=setup?"دانان و چوونەژوور":"چوونەژوور";
  setTimeout(()=>(setup?$("lp"):$("lu")).focus(),50);
 }
