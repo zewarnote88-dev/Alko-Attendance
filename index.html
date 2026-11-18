@@ -300,6 +300,9 @@ details.help>div{line-height:1.9}
  #msg{font-size:12px}
  .lgc{padding:24px 18px}.lgc h2{font-size:19px}
 }
+.lvw{display:inline-block;margin-inline-start:8px;padding:2px 9px!important;font-size:11.5px!important;border-radius:999px!important;vertical-align:middle}
+.lvw.cf{background:var(--bad)!important;color:#fff!important;border-color:var(--bad)!important}
+@media (max-width:700px){#dtb .lvw{float:left;margin:0;font-size:11px!important;padding:3px 9px!important}}
 </style>
 </head>
 <body class="locked">
@@ -635,7 +638,8 @@ const keepDF=()=>{try{localStorage.setItem("absDSh",DSH);localStorage.setItem("a
 const asgOf=(w,d)=>S.asg[weekOf(d)+"_"+w.id]||["","",""];
 const isPool=p=>/ح[ەو]?[وۆ]?[ضزظذ]|hawz|hawd/i.test(p||"");
 const isSvc=p=>/خ[ەا]?د[ەا]?م[اە]ت|خزم[ەا]ت|service/i.test(p||"");
-const dBase=d=>W().filter(w=>{const a=asgOf(w,d);return !DSH||a[2]===DSH||isSvc(a[1])});
+const gone=(w,d)=>!!(w.end&&w.end<d);
+const dBase=d=>W().filter(w=>{if(gone(w,d))return false;const a=asgOf(w,d);return !DSH||a[2]===DSH||isSvc(a[1])});
 function dItems(d){
  const B=dBase(d),pc=p=>B.filter(w=>(asgOf(w,d)[1]||"")===p);
  const extra=[...new Set(B.map(w=>asgOf(w,d)[1]).filter(p=>p&&!S.places.includes(p)))];
@@ -652,7 +656,7 @@ function dList(d){
 }
 function renderDFil(d){
  const shs=[["","هەمی"],["سپێدە","☀️ سپێدە"],["ئێڤار","🌇 ئێڤار"],["شەڤ","🌙 شەڤ"]];
- const cnt=sh=>W().filter(w=>!sh||asgOf(w,d)[2]===sh).length;
+ const cnt=sh=>W().filter(w=>!gone(w,d)&&(!sh||asgOf(w,d)[2]===sh)).length;
  $("dsh").innerHTML=shs.map(([v,t])=>`<button class="sg${v===DSH?" on":""}" data-v="${v}">${t}<i>${cnt(v)}</i></button>`).join("");
  const it=dItems(d);
  if(DPL&&!it.some(x=>x[0]===DPL)){DPL="";keepDF()}
@@ -664,7 +668,7 @@ function renderDFil(d){
 function renderD(){
  const d=$("dt").value;const it=renderDFil(d);renderDF();renderWarn();
  const L=dList(d);
- $("dl").innerHTML=L.map(w=>{const out=outside(w,d),av=absOf(w,d),a=asgOf(w,d),sub=[a[0]?"#"+a[0]:"",w.code?"کۆد "+w.code:"",a[1],a[2]].filter(Boolean).map(esc).join(" · ");return`<tr class="${out?"outr":av?"absr":""}"><td class="c-sq">${esc(a[0]||"")}</td><td class="c-cd">${esc(w.code||"")}</td><td class="nm c-nm"><span class="wn">${esc(w.name)}${rb(w)}</span>${sub?`<span class="mo">${sub}</span>`:""}${out?` <small>(ل ڤێ ڕۆژێ ل کار نینە، ${dayH(w)}:00 دهێتە حسابکرن)</small>`:""}</td><td class="c-pl">${esc(a[1]||"")}${a[2]?` <small>${esc(a[2])}</small>`:""}</td><td class="c-ab"><label class="abt"><input type="checkbox" class="ab" data-id="${w.id}" title="نەهاتیە = ${dayH(w)} کاتژمێر"${!out&&av>=dayH(w)?" checked":""}><span>نەهاتیە <small>(${dayH(w)} کاتژمێر)</small></span></label></td><td class="c-h" data-l="کاتژمێرێن نەهاتنێ"><input type="text" inputmode="decimal" class="h" data-id="${w.id}" value="${fh(av)}" placeholder="0:00"></td><td class="c-ot" data-l="کاتژمێرێن زێدە"><input type="text" inputmode="decimal" class="h ot" data-id="${w.id}" value="${fh(S.ot[w.id+"_"+d])}" placeholder="0:00"></td><td class="c-lv"><label class="lvt"><input type="checkbox" class="lv" data-id="${w.id}"${S.lv[w.id+"_"+d]?" checked":""}><span>مۆلەت</span></label></td><td class="c-lw" data-l="ل ڕۆژا مۆلەتێ هاتیە (×1.5)">${lwCell(w,d)}</td></tr>`}).join("")||(S.workers.length?'<tr><td colspan="9" class="emp">چ کرێکار د ڤی دەوامی و ڤی جهی دا نینن</td></tr>':'<tr><td colspan="9" class="emp">پێشیێ کرێکاران زێدە بکە (پەرەیا «کرێکار»)</td></tr>');
+ $("dl").innerHTML=L.map(w=>{const out=outside(w,d),av=absOf(w,d),a=asgOf(w,d),sub=[a[0]?"#"+a[0]:"",w.code?"کۆد "+w.code:"",a[1],a[2]].filter(Boolean).map(esc).join(" · ");return`<tr class="${out?"outr":av?"absr":""}"><td class="c-sq">${esc(a[0]||"")}</td><td class="c-cd">${esc(w.code||"")}</td><td class="nm c-nm"><span class="wn">${esc(w.name)}${rb(w)}</span>${sub?`<span class="mo">${sub}</span>`:""}${out?` <small>(ل ڤێ ڕۆژێ ل کار نینە، ${dayH(w)}:00 دهێتە حسابکرن)</small>`:""}${out?"":`<button type="button" class="off lvw" data-id="${w.id}" title="ئەڤ کرێکارە کار هێلا">🚪 کار هێلا</button>`}</td><td class="c-pl">${esc(a[1]||"")}${a[2]?` <small>${esc(a[2])}</small>`:""}</td><td class="c-ab"><label class="abt"><input type="checkbox" class="ab" data-id="${w.id}" title="نەهاتیە = ${dayH(w)} کاتژمێر"${!out&&av>=dayH(w)?" checked":""}><span>نەهاتیە <small>(${dayH(w)} کاتژمێر)</small></span></label></td><td class="c-h" data-l="کاتژمێرێن نەهاتنێ"><input type="text" inputmode="decimal" class="h" data-id="${w.id}" value="${fh(av)}" placeholder="0:00"></td><td class="c-ot" data-l="کاتژمێرێن زێدە"><input type="text" inputmode="decimal" class="h ot" data-id="${w.id}" value="${fh(S.ot[w.id+"_"+d])}" placeholder="0:00"></td><td class="c-lv"><label class="lvt"><input type="checkbox" class="lv" data-id="${w.id}"${S.lv[w.id+"_"+d]?" checked":""}><span>مۆلەت</span></label></td><td class="c-lw" data-l="ل ڕۆژا مۆلەتێ هاتیە (×1.5)">${lwCell(w,d)}</td></tr>`}).join("")||(S.workers.length?'<tr><td colspan="9" class="emp">چ کرێکار د ڤی دەوامی و ڤی جهی دا نینن</td></tr>':'<tr><td colspan="9" class="emp">پێشیێ کرێکاران زێدە بکە (پەرەیا «کرێکار»)</td></tr>');
  const pl=it.slice(1),i=pl.findIndex(x=>x[0]===DPL);
  $("dnx").innerHTML=DPL&&pl[i+1]?`<button id="dnb">جهێ پاشی: ${esc(pl[i+1][1])} ⬅</button>`:"";
 }
@@ -686,6 +690,19 @@ $("qas").onclick=()=>{
 $("dsh").addEventListener("click",e=>{const b=e.target.closest(".sg");if(!b)return;DSH=b.dataset.v;DPL="";keepDF();renderD()});
 $("dpl").addEventListener("click",e=>{const b=e.target.closest(".sg");if(!b)return;DPL=b.dataset.v;keepDF();renderD()});
 $("dnx").addEventListener("click",e=>{if(!e.target.closest("#dnb"))return;const pl=dItems($("dt").value).slice(1),i=pl.findIndex(x=>x[0]===DPL);if(pl[i+1]){DPL=pl[i+1][0];keepDF();renderD();$("dsh").scrollIntoView({behavior:"smooth",block:"start"})}});
+$("dl").addEventListener("click",e=>{
+ const b=e.target.closest(".lvw");if(!b)return;
+ const w=S.workers.find(x=>x.id===b.dataset.id),d=$("dt").value;if(!w)return;
+ if(!b.dataset.a){
+  b.dataset.a=1;b.classList.add("cf");b.textContent="✓ پشتڕاستکرن: "+w.name+" کار هێلا؟";
+  clearTimeout(b._t);b._t=setTimeout(()=>{if(b.isConnected){delete b.dataset.a;b.classList.remove("cf");b.textContent="🚪 کار هێلا"}},5000);
+  return;
+ }
+ const x=new Date(d+"T00:00:00");x.setDate(x.getDate()-1);
+ w.end=iso(x);
+ save();all();
+ msg("«"+w.name+"» کار هێلا ژ ڕۆژا "+d+". بۆ زڤڕاندنێ: پەرەیا «👷 کرێکار» ← ڕۆژا دەرکەتنێ ڤالا بکە.");
+});
 function lwCell(w,d){
  const k=w.id+"_"+d,h=S.lw[k];
  let t=`<input type="checkbox" class="lw lv" data-id="${w.id}"${h?" checked":""}>`;
