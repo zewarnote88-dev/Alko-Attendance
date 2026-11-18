@@ -522,6 +522,8 @@ td.lkc{color:var(--mu);background:repeating-linear-gradient(45deg,transparent 0 
 const $=id=>document.getElementById(id);
 const DN=["یەکشەمب","دووشەمب","سێشەمب","چارشەمب","پێنجشەمب","ئەینی","شەمبی"];
 const p2=n=>String(n).padStart(2,"0");
+const SHIFT_H=8;
+const wtoday=()=>{const x=new Date(Date.now()-SHIFT_H*3600e3);return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0")};
 const iso=d=>d.getFullYear()+"-"+p2(d.getMonth()+1)+"-"+p2(d.getDate());
 const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 const msg=t=>{$("msg").textContent=t};
@@ -748,8 +750,8 @@ const all=()=>{renderHome();qInfo();renderW();renderD();renderM();renderA();rend
 const HO=["1","6","5","4","2","3","7"],HT={"1":["📝","ڕۆژانە","غیاب و زێدەیێ ئەڤرۆ"],"6":["📋","غیابا هەفتیێ","هەمی ٧ ڕۆژان ب جارەکێ"],"5":["📊","کورتکرنا هەفتیێ","کۆما غیاب و زێدەیێ"],"4":["🧭","ڕێکخستنا هەفتیێ","جه، دەوام و مۆلەت"],"2":["📅","مانگانە","خشتەیێ مانگێ"],"3":["👷","کرێکار","زێدەکرن و گوهۆڕین"],"7":["🔐","بەکارهێنەر","دەستهەلات و پاشکەفت"]};
 function renderHome(){
  const el=$("hm");if(!el||!ME)return;
- const d=iso(new Date()),act=S.workers.filter(w=>!outside(w,d)),ab=act.filter(w=>(S.abs[w.id+"_"+d]||0)>0).length,lv=act.filter(w=>S.lv[w.id+"_"+d]).length;
- el.innerHTML=`<div class="hhi">سڵاڤ <b dir="ltr">${esc(ME.u)}</b> 👋 <small>${DN[new Date().getDay()]} ${d}</small></div>
+ const d=wtoday(),act=S.workers.filter(w=>!outside(w,d)),ab=act.filter(w=>(S.abs[w.id+"_"+d]||0)>0).length,lv=act.filter(w=>S.lv[w.id+"_"+d]).length;
+ el.innerHTML=`<div class="hhi">سڵاڤ <b dir="ltr">${esc(ME.u)}</b> 👋 <small>${DN[new Date(d+"T00:00:00").getDay()]} ${d}</small></div>
  <div class="kpis hk"><div class="kpi"><span>کرێکار</span><b>${act.length}</b></div><div class="kpi"><span>نەهاتی ئەڤرۆ</span><b class="${ab?"bad":"ok"}">${ab}</b></div><div class="kpi"><span>مۆلەت ئەڤرۆ</span><b>${lv}</b></div></div>
  <div class="tiles">${HO.filter(can).map(k=>`<button class="tile" data-k="${k}"><span class="ti">${HT[k][0]}</span><b>${HT[k][1]}</b><small>${HT[k][2]}</small></button>`).join("")}</div>`;
 }
@@ -791,7 +793,7 @@ function renderDFil(d){
  $("dpl").innerHTML=it.length>1?it.map(([v,t,L])=>{const a=ab(L);return`<button class="sg${v===DPL?" on":""}" data-v="${esc(v)}">${esc(t)}<i>${L.length}</i>${a?`<b class="sgb" title="نەهاتی">${a}</b>`:""}</button>`}).join(""):'<small>بۆ ڤێ هەفتیێ جهێ کاری نەهاتیە دیارکرن (پەرەیا «ڕێکخستنا هەفتیێ»)</small>';
  {let L=dBase(d);if(DPL)L=L.filter(w=>{const p=asgOf(w,d)[1]||"";return DPL==="*none"?!p:p===DPL});L=L.filter(w=>!outside(w,d));const na=L.filter(w=>absOf(w,d)>0).length;
   $("dst").innerHTML=[["","هەمی",L.length],["a","❌ نەهاتی",na],["p","✅ ئامادە",L.length-na]].map(([v,t,n])=>`<button class="sg${v===DST?" on":""}" data-v="${v}">${t}<i>${n}</i></button>`).join("")}
- const td0=iso(new Date());$("dtl").innerHTML=`<b>${DN[new Date(d+"T00:00:00").getDay()]}</b>`+(d===td0?' <span class="tdy">ئەڤرۆ</span>':` <button type="button" class="sec" id="dtd">↩ بزڤڕە بۆ ئەڤرۆ</button>`);
+ const td0=wtoday();$("dtl").innerHTML=`<b>${DN[new Date(d+"T00:00:00").getDay()]}</b>`+(d===td0?' <span class="tdy">ئەڤرۆ</span>':` <button type="button" class="sec" id="dtd">↩ بزڤڕە بۆ ئەڤرۆ</button>`);
  const on=document.querySelector("#dpl .sg.on");if(on)on.scrollIntoView({block:"nearest",inline:"center"});
  return it;
 }
@@ -820,7 +822,7 @@ $("qas").onclick=()=>{
 };
 $("dsh").addEventListener("click",e=>{const b=e.target.closest(".sg");if(!b)return;DSH=b.dataset.v;DPL="";keepDF();renderD()});
 $("dst").addEventListener("click",e=>{const b=e.target.closest(".sg");if(!b)return;DST=b.dataset.v;renderD()});
-$("dtl").addEventListener("click",e=>{if(e.target.closest("#dtd")){$("dt").value=iso(new Date());renderD()}});
+$("dtl").addEventListener("click",e=>{if(e.target.closest("#dtd")){$("dt").value=wtoday();renderD()}});
 $("dpl").addEventListener("click",e=>{const b=e.target.closest(".sg");if(!b)return;DPL=b.dataset.v;keepDF();renderD()});
 $("dnx").addEventListener("click",e=>{if(!e.target.closest("#dnb"))return;const pl=dItems($("dt").value).slice(1),i=pl.findIndex(x=>x[0]===DPL);if(pl[i+1]){DPL=pl[i+1][0];keepDF();renderD();$("dsh").scrollIntoView({behavior:"smooth",block:"start"})}});
 $("dl").addEventListener("click",e=>{
@@ -1306,7 +1308,7 @@ $("wl").addEventListener("change",e=>{const t=e.target;if(t.classList.contains("
 const wkIds=s=>{const a=[],d=new Date(s+"T00:00:00");for(let i=0;i<7;i++){a.push(iso(d));d.setDate(d.getDate()+1)}return a};
 function renderWarn(){
  const ds=wkIds(weekOf($("dt").value));
- const ended=ds[6]<=iso(new Date())||$("dt").value===ds[6];
+ const ended=ds[6]<=wtoday()||$("dt").value===ds[6];
  const m=S.workers.filter(w=>!ds.some(d=>S.lv[w.id+"_"+d]||absOf(w,d)));
  $("wb").innerHTML=ended&&m.length?`<div class="warnbox">⚠ د ڤێ هەفتیێ دا ئەڤ کرێکارە نە مۆلەت و نە غیاب هەین، دبیت خەلەتی هەبیت: <b>${m.map(w=>esc(w.name)).join("، ")}</b></div>`:"";
 }
@@ -1337,7 +1339,13 @@ function renderS(){
 const ms=n=>{const d=new Date($("sw").value+"T00:00:00");d.setDate(d.getDate()+n);$("sw").value=iso(d);renderS()};
 $("sp").onclick=()=>ms(-7);$("sn").onclick=()=>ms(7);
 $("sw").onchange=()=>{if(!$("sw").value)return;$("sw").value=weekOf($("sw").value);renderS()};
-const now=new Date();$("dt").value=iso(now);$("ws").value=weekOf(iso(now));$("sw").value=weekOf(iso(now));$("xw").value=weekOf(iso(now));$("mo").value=iso(now).slice(0,7);
+const now=new Date(wtoday()+"T12:00:00");$("dt").value=iso(now);$("ws").value=weekOf(iso(now));$("sw").value=weekOf(iso(now));$("xw").value=weekOf(iso(now));$("mo").value=iso(now).slice(0,7);
+let WT=wtoday();
+setInterval(()=>{const t=wtoday();if(t===WT)return;const old=WT;WT=t;
+ if($("dt").value===old){$("dt").value=t;if(!typing())renderD()}
+ [["ws",renderA],["sw",renderS],["xw",renderX]].forEach(([id,f])=>{if($(id).value===weekOf(old)&&weekOf(t)!==weekOf(old)){$(id).value=weekOf(t);if(!typing())f()}});
+ if($("mo").value===old.slice(0,7)&&t.slice(0,7)!==old.slice(0,7)){$("mo").value=t.slice(0,7);renderM()}
+ renderHome()},30000);
 showLogin();all();load();
 </script>
 </body>
