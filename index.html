@@ -685,6 +685,9 @@ html[data-style="dash"] #dtb tfoot th{background:transparent!important;border:0!
  html:not([data-style="dash"]) #dtb td.c-lv .byl{text-align:center}
  html:not([data-style="dash"]) #dtb tr.outr td.c-lv{display:none!important}
 }
+tr.shg td{background:color-mix(in srgb,var(--ac) 10%,var(--card))!important;color:var(--ac);font-weight:800;text-align:start!important;padding:7px 12px!important;font-size:13px;position:static!important}
+tr.shg td small{color:var(--mu);font-weight:600}
+#atb tr.shg>td{display:table-cell!important}
 </style>
 </head>
 <body class="locked">
@@ -764,7 +767,7 @@ html[data-style="dash"] #dtb tfoot th{background:transparent!important;border:0!
   <input type="date" id="ws">
   <button class="sec" id="wn">هەفتیا پاشی</button>
   <button class="sec" id="wc">کۆپیکرن ژ هەفتیا بەری</button>
-  <select id="so" title="ڕێزکرنا لیستێ"><option value="">↕ ڕێزکرن: ئاسایی</option><option value="seq">↕ ڕێزکرن: ژمارا ڕێزێ</option><option value="name">↕ ڕێزکرن: ناڤ (ئەلف بێ)</option><option value="code">↕ ڕێزکرن: کۆد</option></select>
+  <select id="so" title="ڕێزکرنا لیستێ"><option value="">↕ ڕێزکرن: ئاسایی</option><option value="seq">↕ ڕێزکرن: ژمارا ڕێزێ</option><option value="name">↕ ڕێزکرن: ناڤ (ئەلف بێ)</option><option value="code">↕ ڕێزکرن: کۆد</option><option value="sh">↕ ڕێزکرن: دەوام (سپێدە، ئێڤار، شەڤ)</option></select>
   <select id="pf"></select>
   <select id="sf"><option value="">هەمی دەوامان</option><option value="سپێدە">سپێدە</option><option value="ئێڤار">ئێڤار</option><option value="شەڤ">شەڤ</option><option value="*none">بێ دەوام</option></select>
   <button id="pp">PDF بۆ جهی</button>
@@ -1251,9 +1254,11 @@ function renderA(){
  const so=$("so").value;
  if(so==="name")L.sort((x,y)=>COLL.compare(x.w.name,y.w.name));
  else if(so==="code")L.sort((x,y)=>(!x.w.code)-(!y.w.code)||COLL.compare(x.w.code||"",y.w.code||""));
+ else if(so==="sh"||(f&&!so))L.sort((x,y)=>shI(x.a[2])-shI(y.a[2])||(+x.a[0]||1e9)-(+y.a[0]||1e9)||COLL.compare(x.w.name,y.w.name));
  else if(so==="seq"||f||sf)L.sort((x,y)=>(+x.a[0]||1e9)-(+y.a[0]||1e9));
  renderAM();
- $("al").innerHTML=L.map(({w,a})=>`<tr class="${missA(w,a,DS).length?"inc":""}"><td><input type="number" class="h sq" min="1" data-id="${w.id}" value="${esc(a[0])}"></td><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td><td><select class="pc" data-id="${w.id}">${opts(a[1])}</select></td><td><select class="sh" data-id="${w.id}">${shopts(a[2]||"")}</select></td>${DS.map(d=>`<td><input type="checkbox" class="alv lv" data-id="${w.id}" data-d="${d}"${S.lv[w.id+"_"+d]?" checked":""}${outside(w,d)||lockD(d)?" disabled":""}></td>`).join("")}<td>${DS.filter(d=>S.lv[w.id+"_"+d]).map(dn).join("، ")}</td></tr>`).join("")||'<tr><td colspan="4">پێشیێ کرێکاران زێدە بکە</td></tr>';
+ const grp=(so==="sh"||(f&&!so))&&!sf,ncol=$("ah").querySelectorAll("th").length||12;let lastSh=null;
+ $("al").innerHTML=L.map(({w,a})=>{const sh=a[2]||"",hd=grp&&sh!==lastSh?(lastSh=sh,`<tr class="shg"><td colspan="${ncol}">${sh==="سپێدە"?"☀️":sh==="ئێڤار"?"🌇":sh==="شەڤ"?"🌙":"❔"} ${sh?"دەوامێ "+esc(sh):"بێ دەوام"} <small>(${L.filter(z=>(z.a[2]||"")===sh).length})</small></td></tr>`):"";return hd+`<tr class="${missA(w,a,DS).length?"inc":""}"><td><input type="number" class="h sq" min="1" data-id="${w.id}" value="${esc(a[0])}"></td><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td><td><select class="pc" data-id="${w.id}">${opts(a[1])}</select></td><td><select class="sh" data-id="${w.id}">${shopts(a[2]||"")}</select></td>${DS.map(d=>`<td><input type="checkbox" class="alv lv" data-id="${w.id}" data-d="${d}"${S.lv[w.id+"_"+d]?" checked":""}${outside(w,d)||lockD(d)?" disabled":""}></td>`).join("")}<td>${DS.filter(d=>S.lv[w.id+"_"+d]).map(dn).join("، ")}</td></tr>`}).join("")||'<tr><td colspan="4">پێشیێ کرێکاران زێدە بکە</td></tr>';
  fillPl();$("wr").textContent+=" — ژمارا کرێکاران: "+L.length;
 }
 $("al").addEventListener("change",e=>{
@@ -1294,6 +1299,7 @@ const lwOf=(w,d)=>{const h=S.lw[w.id+"_"+d];return h?h*lwMul(w,d):0};
 const otOf=(w,d)=>(S.ot[w.id+"_"+d]||0)+lwOf(w,d);
 const rb=w=>`<span class="rb ${RC[roleOf(w)]}">${roleOf(w)}</span>`;
 const SH=["سپێدە","ئێڤار","شەڤ"];
+const shI=v=>{const i=SH.indexOf(v||"");return i<0?9:i};
 const shopts=cur=>["",...SH].map(x=>`<option value="${x}"${x===cur?" selected":""}>${x||"—"}</option>`).join("");
 const xv=(w,d,mode)=>outside(w,d)?(mode==="abs"?dayH(w):0):(mode==="abs"&&S.lv[w.id+"_"+d]?0:((mode==="ot"?otOf(w,d):(S.abs[w.id+"_"+d]||0))));
 function renderX(){
