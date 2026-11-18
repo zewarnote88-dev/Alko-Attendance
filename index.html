@@ -738,7 +738,7 @@ html[data-style="dash"] #dtb tfoot th{background:transparent!important;border:0!
 </section>
 
 <section id="p2" class="hide"><details class="help"><summary>💡 ڕێنمایی</summary><div>خشتەیێ هەمی ڕۆژێن مانگێ. خانێن سۆر ئەو ڕۆژن یێن کرێکار تێدا نەهاتی، و ل دووماهیێ کۆما غیابێ و یا زێدە دیار دبن.</div></details>
- <div class="bar"><label>مانگ<input type="month" id="mo"></label><button id="xlM">📥 ئێکسل</button></div>
+ <div class="bar"><label>مانگ<input type="month" id="mo"></label><button id="xlM">📥 ئێکسل</button><button id="mpdf">📄 PDF</button></div>
  <div class="card scroll"><table id="mt"></table></div>
 </section>
 
@@ -1641,6 +1641,84 @@ $("pp").onclick=async()=>{
   msg("");
  }catch(e){console.error(e);msg(e&&e.code==="declined"?"":"PDF نەهاتە دروستکرن")}
 };
+// ===== Monthly PDF report (designed) =====
+const MKN=["کانوونا دووێ","شوبات","ئادار","نیسان","گولان","حوزەیران","تیرمەه","ئاب","ئەیلوول","تشرینا ئێکێ","تشرینا دووێ","کانوونا ئێکێ"];
+function rr(x,X,Y,W,H,r){x.beginPath();x.moveTo(X+r,Y);x.arcTo(X+W,Y,X+W,Y+H,r);x.arcTo(X+W,Y+H,X,Y+H,r);x.arcTo(X,Y+H,X,Y,r);x.arcTo(X,Y,X+W,Y,r);x.closePath()}
+function monthRows(y,m){
+ const n=new Date(y,m,0).getDate(),m1=y+"-"+p2(m)+"-01",mN=y+"-"+p2(m)+"-"+p2(n),days=[...Array(n)].map((_,i)=>y+"-"+p2(m)+"-"+p2(i+1));
+ const L=S.workers.filter(w=>inR(w,m1,mN)).slice().sort((a,b)=>COLL.compare(String(a.code||"~"),String(b.code||"~"))||COLL.compare(a.name,b.name));
+ return {n,days,rows:L.map(w=>{let t=0,o=0,l=0;const c=days.map(ds=>{const out=outside(w,ds),v=out?dayH(w):(S.abs[w.id+"_"+ds]||0),lv=!out&&S.lv[w.id+"_"+ds];if(v)t+=v;o+=otOf(w,ds);if(lv)l++;return{out,v:out?0:v,lv}});return{w,c,t,o,l}})};
+}
+function monthPdfPages(y,m){
+ const D=monthRows(y,m),RH=40,top=PM+262,bottom=PH-PM-70,per=Math.max(1,Math.floor((bottom-top-56)/RH));
+ const pages=[];for(let i=0;i<Math.max(1,D.rows.length);i+=per)pages.push(D.rows.slice(i,i+per));
+ const T={w:D.rows.length,a:D.rows.reduce((s,r)=>s+r.t,0),o:D.rows.reduce((s,r)=>s+r.o,0),l:D.rows.reduce((s,r)=>s+r.l,0)};
+ return pages.map((rows,pi)=>drawMonthPage(y,m,D,rows,pi,pages.length,T,RH,top));
+}
+function drawMonthPage(y,m,D,rows,pi,np,T,RH,top){
+ const c=document.createElement("canvas");c.width=PW;c.height=PH;const x=c.getContext("2d");
+ x.fillStyle="#f6f7fb";x.fillRect(0,0,PW,PH);x.direction="rtl";x.textBaseline="middle";
+ // header band
+ const g=x.createLinearGradient(PW-PM,0,PM,0);g.addColorStop(0,"#7c3aed");g.addColorStop(.55,"#6366f1");g.addColorStop(1,"#3b82f6");
+ rr(x,PM,PM,PW-2*PM,150,28);x.fillStyle=g;x.fill();
+ x.save();rr(x,PM,PM,PW-2*PM,150,28);x.clip();x.fillStyle="rgba(255,255,255,.08)";x.beginPath();x.arc(PM+180,PM+170,160,0,7);x.fill();x.beginPath();x.arc(PM+40,PM-30,110,0,7);x.fill();x.restore();
+ // logo diamond
+ const lx=PW-PM-95,ly=PM+75;x.save();x.translate(lx,ly);x.rotate(Math.PI/4);rr(x,-38,-38,76,76,18);x.fillStyle="rgba(255,255,255,.22)";x.fill();x.restore();
+ x.fillStyle="#fff";x.textAlign="center";x.font='900 44px system-ui,"Segoe UI",sans-serif';x.fillText("A",lx,ly+2);
+ x.textAlign="right";x.fillStyle="#fff";x.font=pf(800,46);x.fillText("ڕاپۆرتا مانگانە — "+MKN[m-1]+" "+y,PW-PM-170,PM+58);
+ x.font=pf(500,24);x.fillStyle="rgba(255,255,255,.88)";x.fillText("غیابا کرێکاران ب کاتژمێر · "+y+"-"+p2(m),PW-PM-170,PM+108);
+ x.textAlign="left";x.font='800 30px system-ui,"Segoe UI",sans-serif';x.fillStyle="#fff";x.fillText("ALKO",PM+40,PM+62);
+ x.font='600 15px system-ui,"Segoe UI",sans-serif';x.fillStyle="rgba(255,255,255,.8)";x.fillText("C O M P A N Y",PM+42,PM+92);
+ // KPI chips
+ const K=[["کرێکار",String(T.w),"#6366f1"],["کۆما غیابێ (کاتژمێر)",r2(T.a),"#ef4444"],["کۆما زێدە (کاتژمێر)",r2(T.o),"#10b981"],["ڕۆژێن مۆلەتێ",String(T.l),"#f59e0b"]];
+ const kw=(PW-2*PM-3*20)/4;K.forEach((k,i)=>{const kx=PW-PM-(i+1)*kw-i*20,ky=PM+170;rr(x,kx,ky,kw,74,18);x.fillStyle="#fff";x.fill();x.strokeStyle="#e6e7ef";x.lineWidth=2;x.stroke();
+  rr(x,kx+kw-10,ky+14,6,46,3);x.fillStyle=k[2];x.fill();
+  x.textAlign="right";x.fillStyle="#6b6f86";x.font=pf(600,20);x.fillText(k[0],kx+kw-30,ky+24);x.fillStyle="#1d1b2f";x.font=pf(800,30);x.fillText(k[1],kx+kw-30,ky+54)});
+ // table
+ const fixed=[{k:"code",h:"کۆد",w:92},{k:"name",h:"ناڤ",w:330}],tail=[{k:"t",h:"غیاب",w:112},{k:"o",h:"زێدە",w:112},{k:"l",h:"مۆلەت",w:86}];
+ const used=fixed.concat(tail).reduce((s,c)=>s+c.w,0),dw=(PW-2*PM-used)/D.n;
+ const cols=fixed.concat(D.days.map((d,i)=>({k:"d",i,d,h:String(i+1),w:dw})),tail);
+ const tx=PM,tw=PW-2*PM,ty=top,HH=56;
+ rr(x,tx,ty,tw,HH+RH*rows.length,18);x.fillStyle="#fff";x.fill();x.save();rr(x,tx,ty,tw,HH+RH*rows.length,18);x.clip();
+ x.fillStyle="#1d1b2f";x.fillRect(tx,ty,tw,HH);
+ let cx=PW-PM;cols.forEach(col=>{cx-=col.w;const fri=col.k==="d"&&new Date(col.d+"T00:00:00").getDay()===5;
+  if(fri){x.fillStyle="#3b3566";x.fillRect(cx,ty,col.w,HH);x.fillStyle="rgba(124,58,237,.06)";x.fillRect(cx,ty+HH,col.w,RH*rows.length)}
+  x.fillStyle=fri?"#c4b5fd":"#fff";x.textAlign="center";const z=fitText(x,col.h,col.w-6,700,col.k==="d"?19:22);x.fillText(col.h,cx+col.w/2,ty+HH/2+1)});
+ rows.forEach((r,ri)=>{const ry=ty+HH+ri*RH;if(ri%2){x.fillStyle="rgba(99,102,241,.045)";x.fillRect(tx,ry,tw,RH)}
+  let cx=PW-PM;cols.forEach(col=>{cx-=col.w;let t="",o={c:"#1d1b2f",w:400,s:19,al:"c"};
+   if(col.k==="code"){t=r.w.code||"";o.c="#6b6f86"}
+   else if(col.k==="name"){t=r.w.name;o={c:"#1d1b2f",w:700,s:20,al:"r"}}
+   else if(col.k==="d"){const v=r.c[col.i];
+    if(v.out){x.fillStyle="#eceef3";x.fillRect(cx+1,ry+1,col.w-2,RH-2)}
+    else if(v.lv){x.fillStyle="#fef3c7";rr(x,cx+3,ry+5,col.w-6,RH-10,7);x.fill();t="م";o={c:"#92400e",w:700,s:17,al:"c"}}
+    else if(v.v){x.fillStyle="#fee2e2";rr(x,cx+3,ry+5,col.w-6,RH-10,7);x.fill();const f=fh(v.v);t=f.endsWith(":00")?f.slice(0,-3):f;o={c:"#b91c1c",w:700,s:17,al:"c"}}}
+   else if(col.k==="t"){t=r2(r.t);o={c:r.t?"#dc2626":"#9aa0b4",w:800,s:20,al:"c"}}
+   else if(col.k==="o"){t=r2(r.o);o={c:r.o?"#059669":"#9aa0b4",w:800,s:20,al:"c"}}
+   else if(col.k==="l"){t=String(r.l);o={c:r.l?"#b45309":"#9aa0b4",w:800,s:20,al:"c"}}
+   if(t){x.fillStyle=o.c;const z=fitText(x,t,col.w-(o.al==="r"?24:6),o.w,o.s);if(o.al==="r"){x.textAlign="right";x.fillText(t,cx+col.w-14,ry+RH/2+1)}else{x.textAlign="center";x.fillText(t,cx+col.w/2,ry+RH/2+1)}}
+  });
+  x.strokeStyle="#eef0f5";x.lineWidth=1.5;x.beginPath();x.moveTo(tx,ry+RH);x.lineTo(tx+tw,ry+RH);x.stroke()});
+ // vertical separators for fixed/tail blocks
+ x.strokeStyle="#e3e5ee";x.lineWidth=2;let sx=PW-PM;[fixed[0],fixed[1]].forEach(c0=>{sx-=c0.w;x.beginPath();x.moveTo(sx,ty+HH);x.lineTo(sx,ty+HH+RH*rows.length);x.stroke()});
+ sx=PM+tail.reduce((s,c)=>s+c.w,0);x.beginPath();x.moveTo(sx,ty);x.lineTo(sx,ty+HH+RH*rows.length);x.stroke();
+ x.restore();
+ if(!rows.length){x.fillStyle="#6b6f86";x.font=pf(600,26);x.textAlign="center";x.fillText("بۆ ڤێ مانگێ چ کرێکار نینن",PW/2,ty+HH+60)}
+ // legend + footer
+ const fy=PH-PM-24;let lgx=PW-PM;[["#fee2e2","#b91c1c","غیاب (کاتژمێر)"],["#fef3c7","#92400e","مۆلەت (م)"],["#eceef3","#6b6f86","ل کار نینە"],["#ede9fe","#6d28d9","ئەینی"]].forEach(([bg,fg,t])=>{rr(x,lgx-30,fy-15,30,30,8);x.fillStyle=bg;x.fill();x.fillStyle=fg;x.font=pf(600,20);x.textAlign="right";x.fillText(t,lgx-42,fy+1);lgx-=60+x.measureText(t).width+30});
+ x.textAlign="left";x.fillStyle="#9aa0b4";x.font=pf(500,19);const now=new Date();x.fillText("ALKO Company · "+iso(now)+" "+p2(now.getHours())+":"+p2(now.getMinutes())+(np>1?"  ·  "+(pi+1)+"/"+np:""),PM,fy+1);
+ return c;
+}
+$("mpdf").onclick=async()=>{
+ try{
+  const v=$("mo").value;if(!v)return;const [y,m]=v.split("-").map(Number);
+  msg("PDF دهێتە دروستکرن...");
+  try{await Promise.all([document.fonts.load(pf(800,40)),document.fonts.load(pf(700,24)),document.fonts.load(pf(400,20))]);await document.fonts.ready}catch(e){}
+  const canv=monthPdfPages(y,m);
+  await saveFile("month-"+v+".pdf",await jpegPdf(canv));
+  msg("");
+ }catch(e){console.error(e);msg(e&&e.code==="declined"?"":"PDF نەهاتە دروستکرن")}
+};
+
 const outside=(w,d)=>!!((w.start&&d<w.start)||(w.end&&d>w.end));
 const absOf=(w,d)=>outside(w,d)?dayH(w):(S.abs[w.id+"_"+d]||0);
 $("wl").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.classList.contains("ed")){e.preventDefault();e.target.blur()}});
