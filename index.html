@@ -439,6 +439,11 @@ th.tdh{color:var(--ac)!important;box-shadow:inset 0 -3px 0 var(--ac)}
 #mt th.mfri{background:color-mix(in srgb,var(--ac) 12%,var(--thbg))}
 #mt td{padding:5px 2px;min-width:22px}
 #mt .mvf{display:none}
+#stt tr.nolv>td{background:color-mix(in srgb,#f59e0b 16%,transparent)}
+#stt tr.nolv>td.nm{box-shadow:inset -4px 0 0 #f59e0b}
+.nlb{display:inline-block;margin-inline-start:6px;padding:1px 7px;border-radius:999px;background:#f59e0b;color:#fff;font-size:10px;font-weight:800;vertical-align:middle}
+.x15{display:inline-block;margin-inline-start:5px;padding:0 6px;border-radius:6px;background:#059669;color:#fff;font-size:10px;font-weight:800;direction:ltr}
+.kpi.nlk{border-color:#f59e0b}.kpi.nlk b{color:#d97706}
 #mt td.oc{background:color-mix(in srgb,#10b981 16%,transparent)}
 #mt .mot{display:block;direction:ltr;unicode-bidi:isolate;color:#047857;font-weight:800;font-size:.85em;line-height:1.1}
 #mt td.a .mot,#mt td.lvc .mot{border-top:1px dashed currentColor;margin-top:1px}
@@ -848,7 +853,7 @@ html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!imp
   <button class="sec" id="sp">هەفتیا بەری</button>
   <input type="date" id="sw">
   <button class="sec" id="sn">هەفتیا پاشی</button>
-  <label>ڕێزکرن<select id="sso"><option value="">وەک لیستا کرێکاران</option><option value="name">ناڤ (أ-ي)</option><option value="code">کۆد</option><option value="pl">جهێ کاری</option><option value="a">❌ غیابا پتر</option><option value="o">➕ زێدەیا پتر</option><option value="l">🌴 مۆلەتا پتر</option></select></label>
+  <label>ڕێزکرن<select id="sso"><option value="">وەک لیستا کرێکاران</option><option value="name">ناڤ (أ-ي)</option><option value="code">کۆد</option><option value="pl">جهێ کاری</option><option value="a">❌ غیابا پتر</option><option value="o">➕ زێدەیا پتر</option><option value="l">🌴 مۆلەتا پتر</option><option value="nl">🟧 بێ مۆلەت (×1.5) ل سەری</option></select></label>
   <button id="xlS">📥 ئێکسل</button><button id="spdf">📄 PDF</button>
  </div>
  <div id="kp" class="kpis"></div>
@@ -1651,7 +1656,7 @@ function tableToXlsx(tbl,name,sheet,meta){
  const c=tbl.cloneNode(true);
  const src=tbl.querySelectorAll("input,select"),dst=c.querySelectorAll("input,select");
  dst.forEach((el,i)=>{const s=src[i];el.replaceWith(document.createTextNode(s.type==="checkbox"?(s.checked?"م":""):s.value))});
- c.querySelectorAll("button,.lwn,.byl,.ntb,.dshort,.mvs,.prk").forEach(b=>b.remove());
+ c.querySelectorAll("button,.lwn,.byl,.ntb,.dshort,.mvs,.prk,.nlb,.x15").forEach(b=>b.remove());
  c.querySelectorAll("br").forEach(b=>b.replaceWith(" "));
  const txt=el=>el.textContent.replace(/\s+/g," ").trim();
  const rowsOf=sel=>[...c.querySelectorAll(sel)];
@@ -1985,7 +1990,7 @@ function weekPdfPages(w0){
   const K=[["Workers",String(T.w),"#6366f1"],["Total absence (hours)",r2(T.a),"#ef4444"],["Total overtime (hours)",r2(T.o),"#10b981"],["Leave days",String(T.l),"#f59e0b"],["No leave & no absence",String(T.ok),"#64748b"]];
   const kw=(PW-2*PM-4*20)/5;K.forEach((k,i)=>{const kx=PM+i*(kw+20),ky=PM+170;rr(x,kx,ky,kw,74,18);x.fillStyle="#fff";x.fill();x.strokeStyle="#e6e7ef";x.lineWidth=2;x.stroke();
    rr(x,kx+4,ky+14,6,46,3);x.fillStyle=k[2];x.fill();x.textAlign="left";x.fillStyle="#6b6f86";x.font=EF(600,20);x.fillText(k[0],kx+26,ky+24);x.fillStyle="#1d1b2f";x.font=EF(800,30);x.fillText(k[1],kx+26,ky+54)});
-  const fixed=[{k:"n",h:"#",w:60},{k:"code",h:"Code",w:90},{k:"name",h:"Name",w:330},{k:"pl",h:"Place",w:170}],tail=[{k:"o",h:"Overtime",w:120},{k:"t",h:"Absence",w:120},{k:"l",h:"Leave",w:90}];
+  const fixed=[{k:"n",h:"#",w:60},{k:"code",h:"Code",w:90},{k:"name",h:"Name",w:310},{k:"pl",h:"Place",w:170}],tail=[{k:"o",h:"Overtime",w:150},{k:"t",h:"Absence",w:120},{k:"l",h:"Leave",w:90}];
   const used=fixed.concat(tail).reduce((s,c)=>s+c.w,0),dw=(PW-2*PM-used)/7;
   const cols=fixed.concat(days.map((d,i)=>({k:"d",i,d,h:DEN[ds[i].getDay()]+" "+d.slice(8)+"/"+d.slice(5,7),w:dw})),tail);
   const tx=PM,tw=PW-2*PM,ty=top,HH=56,TH=HH+RH*R.length;
@@ -1998,7 +2003,7 @@ function weekPdfPages(w0){
    x.fillStyle=fri?"#c4b5fd":"#fff";fit(col.h,col.w-10,700,20);
    if(col.k==="name"||col.k==="pl"){x.textAlign="left";x.fillText(col.h,cx+14,ty+HH/2+1)}else{x.textAlign="center";x.fillText(col.h,cx+col.w/2,ty+HH/2+1)}
    cx+=col.w});
-  R.forEach((r,ri)=>{const ry=ty+HH+ri*RH;if(ri%2){x.fillStyle="rgba(99,102,241,.045)";x.fillRect(tx,ry,tw,RH)}
+  R.forEach((r,ri)=>{const ry=ty+HH+ri*RH;if(!r.l){x.fillStyle="rgba(245,158,11,.16)";x.fillRect(tx,ry,tw,RH);x.fillStyle="#f59e0b";x.fillRect(tx,ry,8,RH)}else if(ri%2){x.fillStyle="rgba(99,102,241,.045)";x.fillRect(tx,ry,tw,RH)}
    let cx=PM;cols.forEach(col=>{let t="",o={c:"#1d1b2f",w:400,s:19};
     if(col.k==="n"){t=String(pi*per+ri+1);o.c="#9aa0b4"}
     else if(col.k==="code"){t=r.w.code||"";o.c="#6b6f86"}
@@ -2010,7 +2015,7 @@ function weekPdfPages(w0){
       if(!parts.length){x.fillStyle="#22c55e";x.font=EF(700,18);x.textAlign="center";x.fillText("✓",cx+col.w/2,ry+RH/2+1)}
       else{const pw=(bw-(parts.length-1)*4)/parts.length;parts.forEach(([pt,bg,fg],k)=>{const px=bx+k*(pw+4);rr(x,px,by,pw,bh,7);x.fillStyle=bg;x.fill();x.fillStyle=fg;fit(pt,pw-6,800,17);x.textAlign="center";x.fillText(pt,px+pw/2,ry+RH/2+1)})}}}
     else if(col.k==="t"){t=r2(r.t);o={c:r.t?"#dc2626":"#9aa0b4",w:800,s:20}}
-    else if(col.k==="o"){t=r2(r.o);o={c:r.o?"#059669":"#9aa0b4",w:800,s:20}}
+    else if(col.k==="o"){t=r2(r.o)+(!r.l&&r.o?" ×1.5":"");o={c:r.o?"#059669":"#9aa0b4",w:800,s:20}}
     else if(col.k==="l"){t=String(r.l);o={c:r.l?"#b45309":"#9aa0b4",w:800,s:20}}
     if(t){x.fillStyle=o.c;fit(t,col.w-6,o.w,o.s);x.textAlign="center";x.fillText(t,cx+col.w/2,ry+RH/2+1)}
     cx+=col.w});
@@ -2020,7 +2025,7 @@ function weekPdfPages(w0){
   sx=PW-PM-tail.reduce((s,c)=>s+c.w,0);x.strokeStyle="#e3e5ee";x.beginPath();x.moveTo(sx,ty);x.lineTo(sx,ty+TH);x.stroke();
   x.restore();
   if(!R.length){x.fillStyle="#6b6f86";x.font=EF(600,26);x.textAlign="center";x.fillText("No workers for this week",PW/2,ty+HH+60)}
-  const fy=PH-PM-24;let lgx=PM;[["#fee2e2","#b91c1c","Absent (hours)"],["#d1fae5","#047857","Overtime (hours)"],["#fef3c7","#92400e","Leave"],["#141414","#141414","Left the company"],["#ede9fe","#6d28d9","Friday"]].forEach(([bg,fg,t])=>{rr(x,lgx,fy-15,30,30,8);x.fillStyle=bg;x.fill();x.fillStyle="#4b5068";x.font=EF(600,20);x.textAlign="left";x.fillText(t,lgx+42,fy+1);lgx+=72+x.measureText(t).width+30});
+  const fy=PH-PM-24;let lgx=PM;[["#fee2e2","#b91c1c","Absent (hours)"],["#d1fae5","#047857","Overtime (hours)"],["#fef3c7","#92400e","Leave"],["#141414","#141414","Left the company"],["#fde3b3","#b45309","No leave this week (overtime ×1.5)"],["#ede9fe","#6d28d9","Friday"]].forEach(([bg,fg,t])=>{rr(x,lgx,fy-15,30,30,8);x.fillStyle=bg;x.fill();x.fillStyle="#4b5068";x.font=EF(600,20);x.textAlign="left";x.fillText(t,lgx+42,fy+1);lgx+=72+x.measureText(t).width+30});
   x.textAlign="right";x.fillStyle="#9aa0b4";x.font=EF(500,19);const now=new Date();x.fillText("ALKO Company · Generated "+iso(now)+" "+p2(now.getHours())+":"+p2(now.getMinutes())+(P.length>1?"  ·  Page "+(pi+1)+" of "+P.length:""),PW-PM,fy+1);
   return c});
 }
@@ -2146,23 +2151,23 @@ function setOt(id,v){const k=id+"_"+$("dt").value;if(!(v>0))delete S.ot[k];else 
 function sumList(w0,ds){
  const so=$("sso").value,d0=iso(ds[0]);let WL=W().filter(w=>inR(w,d0,iso(ds[6])));
  if(so){const sm=w=>{let o=0,a=0,L=0;ds.forEach(d=>{const x=iso(d);o+=otOf(w,x);a+=absOf(w,x);if(S.lv[w.id+"_"+x])L++});return{o,a,l:L}},M=new Map(WL.map(w=>[w.id,sm(w)])),nm=(x,y)=>COLL.compare(x.name,y.name);
-  WL.sort(so==="name"?nm:so==="code"?(x,y)=>(!x.code)-(!y.code)||COLL.compare(x.code||"",y.code||""):so==="pl"?(x,y)=>(!plc(x.id,d0))-(!plc(y.id,d0))||COLL.compare(plc(x.id,d0),plc(y.id,d0))||nm(x,y):(x,y)=>M.get(y.id)[so]-M.get(x.id)[so]||nm(x,y))}
+  WL.sort(so==="name"?nm:so==="code"?(x,y)=>(!x.code)-(!y.code)||COLL.compare(x.code||"",y.code||""):so==="pl"?(x,y)=>(!plc(x.id,d0))-(!plc(y.id,d0))||COLL.compare(plc(x.id,d0),plc(y.id,d0))||nm(x,y):so==="nl"?(x,y)=>(M.get(x.id).l>0)-(M.get(y.id).l>0)||M.get(y.id).o-M.get(x.id).o||nm(x,y):(x,y)=>M.get(y.id)[so]-M.get(x.id)[so]||nm(x,y))}
  return WL;
 }
 function renderS(){
  const w0=$("sw").value;if(!w0)return;
  const ds=[...Array(7)].map((_,i)=>{const d=new Date(w0+"T00:00:00");d.setDate(d.getDate()+i);return d});
  $("sr").textContent="هەفتی ژ "+iso(ds[0])+" هەتا "+iso(ds[6]);
- let h='<tr><th>کۆد</th><th>ناڤ</th><th>جهێ کاری</th>'+ds.map(d=>`<th>${DN[d.getDay()]}<br>${iso(d).slice(5)}</th>`).join("")+'<th>کۆما زێدە</th><th>کۆما غیابێ</th><th>ڕۆژێن مۆلەتێ</th></tr>',TO=0,TA=0,BAD=0;
+ let h='<tr><th>کۆد</th><th>ناڤ</th><th>جهێ کاری</th>'+ds.map(d=>`<th>${DN[d.getDay()]}<br>${iso(d).slice(5)}</th>`).join("")+'<th>کۆما زێدە</th><th>کۆما غیابێ</th><th>ڕۆژێن مۆلەتێ</th></tr>',TO=0,TA=0,BAD=0,NL=0;
  const WL=sumList(w0,ds);
  WL.forEach(w=>{
   let o=0,a=0,L=0;
   const c=ds.map(d=>{const k=w.id+"_"+iso(d),x=otOf(w,iso(d)),y=absOf(w,iso(d)),out=outside(w,iso(d)),l=S.lv[k];o+=x;a+=y;if(l)L++;const nn=S.nt[k];return`<td class="${out?oc(w,iso(d)):l?"lvc":""}${nn&&y&&!out?" hn":""}"${nn&&y&&!out?` title="${esc(nn).replace(/"/g,"&quot;")}"`:""}>${l?"مۆلەت ":""}${x?'<span class="ok">+'+fh(x)+'</span> ':""}${y?'<span class="bad">−'+fh(y)+'</span>':""}${!l&&!x&&!y?'<span class="tk" title="ئامادە">✓</span>':""}</td>`});
   TO+=o;TA+=a;
-  const bad=!L&&!a;if(bad)BAD++;h+=`<tr><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td><td>${esc(plc(w.id,iso(ds[0])))}</td>`+c.join("")+`<td class="ok"><b>${r2(o)}</b></td><td class="bad"><b>${r2(a)}</b></td><td><b>${L}</b></td></tr>`;
+  const bad=!L&&!a;if(bad)BAD++;if(!L)NL++;h+=`<tr${!L?' class="nolv"':""}><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}${!L?'<span class="nlb">بێ مۆلەت</span>':""}</td><td>${esc(plc(w.id,iso(ds[0])))}</td>`+c.join("")+`<td class="ok"><b>${r2(o)}</b>${!L&&o?'<span class="x15">×1.5</span>':""}</td><td class="bad"><b>${r2(a)}</b></td><td><b>${L}</b></td></tr>`;
  });
  h+=`<tr><th colspan="10">کۆما گشتی</th><th class="ok">${r2(TO)}</th><th class="bad">${r2(TA)}</th><th></th></tr>`;
- $("kp").innerHTML=`<div class="kpi"><span>کۆما غیابێ</span><b class="bad">${r2(TA)}</b></div><div class="kpi"><span>کۆما زێدە</span><b class="ok">${r2(TO)}</b></div><div class="kpi"><span>بێ مۆلەت و غیاب</span><b class="${BAD?"bad":"ok"}">${BAD}</b></div><div class="kpi"><span>ژمارا کرێکاران</span><b>${W().length}</b></div>`;
+ $("kp").innerHTML=`<div class="kpi"><span>کۆما غیابێ</span><b class="bad">${r2(TA)}</b></div><div class="kpi"><span>کۆما زێدە</span><b class="ok">${r2(TO)}</b></div><div class="kpi nlk"><span>🟧 بێ مۆلەت (ئیزافە ×1.5)</span><b>${NL}</b></div><div class="kpi"><span>بێ مۆلەت و غیاب</span><b class="${BAD?"bad":"ok"}">${BAD}</b></div><div class="kpi"><span>ژمارا کرێکاران</span><b>${W().length}</b></div>`;
  $("stt").innerHTML=h;
 }
 const ms=n=>{const d=new Date($("sw").value+"T00:00:00");d.setDate(d.getDate()+n);$("sw").value=iso(d);renderS()};
