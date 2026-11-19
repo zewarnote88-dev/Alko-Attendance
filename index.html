@@ -848,6 +848,7 @@ html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!imp
   <button class="sec" id="sp">هەفتیا بەری</button>
   <input type="date" id="sw">
   <button class="sec" id="sn">هەفتیا پاشی</button>
+  <label>ڕێزکرن<select id="sso"><option value="">وەک لیستا کرێکاران</option><option value="name">ناڤ (أ-ي)</option><option value="code">کۆد</option><option value="pl">جهێ کاری</option><option value="a">❌ غیابا پتر</option><option value="o">➕ زێدەیا پتر</option><option value="l">🌴 مۆلەتا پتر</option></select></label>
   <button id="xlS">📥 ئێکسل</button>
  </div>
  <div id="kp" class="kpis"></div>
@@ -2080,7 +2081,10 @@ function renderS(){
  const ds=[...Array(7)].map((_,i)=>{const d=new Date(w0+"T00:00:00");d.setDate(d.getDate()+i);return d});
  $("sr").textContent="هەفتی ژ "+iso(ds[0])+" هەتا "+iso(ds[6]);
  let h='<tr><th>کۆد</th><th>ناڤ</th><th>جهێ کاری</th>'+ds.map(d=>`<th>${DN[d.getDay()]}<br>${iso(d).slice(5)}</th>`).join("")+'<th>کۆما زێدە</th><th>کۆما غیابێ</th><th>ڕۆژێن مۆلەتێ</th></tr>',TO=0,TA=0,BAD=0;
- W().filter(w=>inR(w,iso(ds[0]),iso(ds[6]))).forEach(w=>{
+ const so=$("sso").value,d0=iso(ds[0]);let WL=W().filter(w=>inR(w,d0,iso(ds[6])));
+ if(so){const sm=w=>{let o=0,a=0,L=0;ds.forEach(d=>{const x=iso(d);o+=otOf(w,x);a+=absOf(w,x);if(S.lv[w.id+"_"+x])L++});return{o,a,l:L}},M=new Map(WL.map(w=>[w.id,sm(w)])),nm=(x,y)=>COLL.compare(x.name,y.name);
+  WL.sort(so==="name"?nm:so==="code"?(x,y)=>(!x.code)-(!y.code)||COLL.compare(x.code||"",y.code||""):so==="pl"?(x,y)=>(!plc(x.id,d0))-(!plc(y.id,d0))||COLL.compare(plc(x.id,d0),plc(y.id,d0))||nm(x,y):(x,y)=>M.get(y.id)[so]-M.get(x.id)[so]||nm(x,y))}
+ WL.forEach(w=>{
   let o=0,a=0,L=0;
   const c=ds.map(d=>{const k=w.id+"_"+iso(d),x=otOf(w,iso(d)),y=absOf(w,iso(d)),out=outside(w,iso(d)),l=S.lv[k];o+=x;a+=y;if(l)L++;const nn=S.nt[k];return`<td class="${out?oc(w,iso(d)):l?"lvc":""}${nn&&y&&!out?" hn":""}"${nn&&y&&!out?` title="${esc(nn).replace(/"/g,"&quot;")}"`:""}>${l?"مۆلەت ":""}${x?'<span class="ok">+'+fh(x)+'</span> ':""}${y?'<span class="bad">−'+fh(y)+'</span>':""}${!l&&!x&&!y?'<span class="tk" title="ئامادە">✓</span>':""}</td>`});
   TO+=o;TA+=a;
@@ -2091,7 +2095,7 @@ function renderS(){
  $("stt").innerHTML=h;
 }
 const ms=n=>{const d=new Date($("sw").value+"T00:00:00");d.setDate(d.getDate()+n);$("sw").value=iso(d);renderS()};
-$("sp").onclick=()=>ms(-7);$("sn").onclick=()=>ms(7);
+$("sp").onclick=()=>ms(-7);try{$("sso").value=localStorage.getItem("absSSo")||""}catch(e){}$("sso").onchange=()=>{try{localStorage.setItem("absSSo",$("sso").value)}catch(e){}renderS()};$("sn").onclick=()=>ms(7);
 $("sw").onchange=()=>{if(!$("sw").value)return;$("sw").value=weekOf($("sw").value);renderS()};
 const now=new Date(wtoday()+"T12:00:00");$("dt").value=iso(now);$("ws").value=(()=>{let k=aKey(iso(now));if(now.getDay()===4)k=addD(k,7);return addD(k,-1)})();$("sw").value=weekOf(iso(now));$("xw").value=weekOf(iso(now));$("mo").value=iso(now).slice(0,7);
 let WT=wtoday(),LKS=null;
