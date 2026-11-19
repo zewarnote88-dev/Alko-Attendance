@@ -439,6 +439,9 @@ th.tdh{color:var(--ac)!important;box-shadow:inset 0 -3px 0 var(--ac)}
 #mt th.mfri{background:color-mix(in srgb,var(--ac) 12%,var(--thbg))}
 #mt td{padding:5px 2px;min-width:22px}
 #mt .mvf{display:none}
+#mt td.oc{background:color-mix(in srgb,#10b981 16%,transparent)}
+#mt .mot{display:block;direction:ltr;unicode-bidi:isolate;color:#047857;font-weight:800;font-size:.85em;line-height:1.1}
+#mt td.a .mot,#mt td.lvc .mot{border-top:1px dashed currentColor;margin-top:1px}
 #mt td.nm{white-space:nowrap}
 #mt .rb{display:none}
 #mt th:not(.md){padding:6px 4px;white-space:normal;line-height:1.25;max-width:58px}
@@ -797,7 +800,7 @@ html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!imp
 </section>
 
 <section id="p2" class="hide"><details class="help"><summary>💡 ڕێنمایی</summary><div>خشتەیێ هەمی ڕۆژێن مانگێ. خانێن سۆر ئەو ڕۆژن یێن کرێکار تێدا نەهاتی، و ل دووماهیێ کۆما غیابێ و یا زێدە دیار دبن.</div></details>
- <div class="bar"><label>مانگ<input type="month" id="mo"></label><button id="xlM">📥 ئێکسل</button><button id="mpdf">📄 PDF</button></div>
+ <div class="bar"><label>مانگ<input type="month" id="mo"></label><label>نیشاندان<select id="mfl"><option value="">هەمی کرێکار</option><option value="a">❌ تنێ یێن غیاب هەین</option><option value="o">➕ تنێ یێن زێدە (ئیزافە) هەین</option><option value="l">🌴 تنێ یێن مۆلەت هەین</option></select></label><button id="xlM">📥 ئێکسل</button><button id="mpdf">📄 PDF</button></div>
  <div id="mw"></div>
  <div class="card scroll"><table id="mt"></table></div>
 </section>
@@ -1382,7 +1385,8 @@ function renderM(){try{renderMW()}catch(e){console.error(e)}
  const m1=y+"-"+p2(m)+"-01",mN=y+"-"+p2(m)+"-"+p2(n);
  W().filter(w=>inR(w,m1,mN)).forEach(w=>{
   let t=0,o=0,n2=0,r=`<tr><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td>`;
-  for(let d=1;d<=n;d++){const ds2=y+"-"+p2(m)+"-"+p2(d),out=outside(w,ds2),v=out?dayH(w):S.abs[w.id+"_"+ds2];if(v)t+=v;o+=otOf(w,ds2);const l=S.lv[w.id+"_"+y+"-"+p2(m)+"-"+p2(d)];if(l)n2++;const nn=S.nt[w.id+"_"+ds2];r+=`<td class="${out?oc(w,ds2):v?"a":l?"lvc":""}${nn&&v&&!out?" hn":""}"${nn&&v&&!out?` title="${esc(nn).replace(/"/g,"&quot;")}"`:""}>${v?(fh(v).endsWith(":00")?`<span class="mvf">${fh(v)}</span><span class="mvs">${fh(v).slice(0,-3)}</span>`:fh(v)):l?"م":""}</td>`}
+  for(let d=1;d<=n;d++){const ds2=y+"-"+p2(m)+"-"+p2(d),out=outside(w,ds2),v=out?dayH(w):S.abs[w.id+"_"+ds2];if(v)t+=v;o+=otOf(w,ds2);const l=S.lv[w.id+"_"+y+"-"+p2(m)+"-"+p2(d)];if(l)n2++;const nn=S.nt[w.id+"_"+ds2],ox=out?0:otOf(w,ds2),ot=ox?`<span class="mot"> +${fh(ox).replace(/:00$/,"")}</span>`:"";r+=`<td class="${out?oc(w,ds2):v?"a":l?"lvc":ox?"oc":""}${nn&&v&&!out?" hn":""}"${nn&&v&&!out?` title="${esc(nn).replace(/"/g,"&quot;")}"`:""}>${v?(fh(v).endsWith(":00")?`<span class="mvf">${fh(v)}</span><span class="mvs">${fh(v).slice(0,-3)}</span>`:fh(v)):l?"م":""}${ot}</td>`}
+  const mf=$("mfl").value;if((mf==="a"&&!t)||(mf==="o"&&!o)||(mf==="l"&&!n2))return;
   h+=r+`<td class="${t?"bad":""}"><b>${fh(t)||"0:00"}</b></td><td class="ok"><b>${fh(o)||"0:00"}</b></td><td><b>${n2}</b></td></tr>`;
  });
  $("mt").innerHTML=h;
@@ -1416,7 +1420,7 @@ function placeQ(n){const sr=document.querySelector(".srch"),card=n==="7"?null:$(
 const mv=n=>{const d=new Date($("dt").value+"T00:00:00");d.setDate(d.getDate()+n);$("dt").value=iso(d);renderD()};
 $("dp").onclick=()=>mv(-1);$("dn").onclick=()=>mv(1);
 $("q").addEventListener("input",all);$("qx").onclick=()=>{$("q").value="";all();$("q").focus()};
-$("dt").onchange=renderD;$("mo").onchange=renderM;
+$("dt").onchange=renderD;$("mo").onchange=renderM;$("mfl").onchange=renderM;
 const weekOf=s=>{const x=new Date(s+"T00:00:00");x.setDate(x.getDate()-(x.getDay()+1)%7);return iso(x)};
 const plc=(id,d)=>{const a=S.asg[aKey(d)+"_"+id];return a&&a[1]||""};
 function fillPl(){$("pc2").innerHTML=S.places.map((p,i)=>`<span class="chip">${esc(p)} <button class="off" data-p="${i}">×</button></span>`).join("")||"<small>هێشتا جهەک نەهاتیە زێدەکرن</small>"}
