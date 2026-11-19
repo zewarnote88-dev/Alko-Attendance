@@ -849,7 +849,7 @@ html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!imp
   <input type="date" id="sw">
   <button class="sec" id="sn">هەفتیا پاشی</button>
   <label>ڕێزکرن<select id="sso"><option value="">وەک لیستا کرێکاران</option><option value="name">ناڤ (أ-ي)</option><option value="code">کۆد</option><option value="pl">جهێ کاری</option><option value="a">❌ غیابا پتر</option><option value="o">➕ زێدەیا پتر</option><option value="l">🌴 مۆلەتا پتر</option></select></label>
-  <button id="xlS">📥 ئێکسل</button>
+  <button id="xlS">📥 ئێکسل</button><button id="spdf">📄 PDF</button>
  </div>
  <div id="kp" class="kpis"></div>
  <div id="sr" style="margin-bottom:8px;color:var(--mu)"></div>
@@ -1963,6 +1963,73 @@ function drawMonthPage(y,m,D,rows,pi,np,T,RH,top){
  x.textAlign="right";x.fillStyle="#9aa0b4";x.font=EF(500,19);const now=new Date();x.fillText("ALKO Company · Generated "+iso(now)+" "+p2(now.getHours())+":"+p2(now.getMinutes())+(np>1?"  ·  Page "+(pi+1)+" of "+np:""),PW-PM,fy+1);
  return c;
 }
+function weekPdfPages(w0){
+ const ds=[...Array(7)].map((_,i)=>{const d=new Date(w0+"T00:00:00");d.setDate(d.getDate()+i);return d}),days=ds.map(iso);
+ const rows=sumList(w0,ds).map(w=>{let t=0,o=0,l=0;const c=days.map(d=>{const out=outside(w,d),a=absOf(w,d),x=out?0:otOf(w,d),lv=!out&&S.lv[w.id+"_"+d];t+=a;o+=x;if(lv)l++;return{out,q:out&&!!(w.end&&d>w.end),a,x,lv}});return{w,c,t,o,l,pl:plc(w.id,days[0])}});
+ const T={w:rows.length,a:rows.reduce((s,r)=>s+r.t,0),o:rows.reduce((s,r)=>s+r.o,0),l:rows.reduce((s,r)=>s+r.l,0),ok:rows.filter(r=>!r.t&&!r.l).length};
+ const RH=42,top=PM+262,bottom=PH-PM-70,per=Math.max(1,Math.floor((bottom-top-56)/RH)),P=[];
+ for(let i=0;i<Math.max(1,rows.length);i+=per)P.push(rows.slice(i,i+per));
+ const EF=(w,s)=>`${w} ${s}px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif`,DEN=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+ return P.map((R,pi)=>{
+  const c=document.createElement("canvas");c.width=PW;c.height=PH;const x=c.getContext("2d");
+  x.fillStyle="#f6f7fb";x.fillRect(0,0,PW,PH);x.direction="ltr";x.textBaseline="middle";
+  const g=x.createLinearGradient(PM,0,PW-PM,0);g.addColorStop(0,"#7c3aed");g.addColorStop(.55,"#6366f1");g.addColorStop(1,"#3b82f6");
+  rr(x,PM,PM,PW-2*PM,150,28);x.fillStyle=g;x.fill();
+  x.save();rr(x,PM,PM,PW-2*PM,150,28);x.clip();x.fillStyle="rgba(255,255,255,.08)";x.beginPath();x.arc(PW-PM-180,PM+170,160,0,7);x.fill();x.beginPath();x.arc(PW-PM-40,PM-30,110,0,7);x.fill();x.restore();
+  const lx=PM+95,ly=PM+75;x.save();x.translate(lx,ly);x.rotate(Math.PI/4);rr(x,-38,-38,76,76,18);x.fillStyle="rgba(255,255,255,.22)";x.fill();x.restore();
+  x.fillStyle="#fff";x.textAlign="center";x.font=EF(900,44);x.fillText("A",lx,ly+2);
+  x.textAlign="left";x.font=EF(800,46);x.fillText("Weekly Attendance Summary",PM+170,PM+58);
+  x.font=EF(500,24);x.fillStyle="rgba(255,255,255,.88)";x.fillText("Week "+days[0]+"  →  "+days[6]+" · absence, overtime & leave",PM+170,PM+108);
+  x.textAlign="right";x.font=EF(800,30);x.fillStyle="#fff";x.fillText("ALKO",PW-PM-40,PM+62);
+  x.font=EF(600,15);x.fillStyle="rgba(255,255,255,.8)";x.fillText("C O M P A N Y",PW-PM-40,PM+92);
+  const K=[["Workers",String(T.w),"#6366f1"],["Total absence (hours)",r2(T.a),"#ef4444"],["Total overtime (hours)",r2(T.o),"#10b981"],["Leave days",String(T.l),"#f59e0b"],["No leave & no absence",String(T.ok),"#64748b"]];
+  const kw=(PW-2*PM-4*20)/5;K.forEach((k,i)=>{const kx=PM+i*(kw+20),ky=PM+170;rr(x,kx,ky,kw,74,18);x.fillStyle="#fff";x.fill();x.strokeStyle="#e6e7ef";x.lineWidth=2;x.stroke();
+   rr(x,kx+4,ky+14,6,46,3);x.fillStyle=k[2];x.fill();x.textAlign="left";x.fillStyle="#6b6f86";x.font=EF(600,20);x.fillText(k[0],kx+26,ky+24);x.fillStyle="#1d1b2f";x.font=EF(800,30);x.fillText(k[1],kx+26,ky+54)});
+  const fixed=[{k:"n",h:"#",w:60},{k:"code",h:"Code",w:90},{k:"name",h:"Name",w:330},{k:"pl",h:"Place",w:170}],tail=[{k:"o",h:"Overtime",w:120},{k:"t",h:"Absence",w:120},{k:"l",h:"Leave",w:90}];
+  const used=fixed.concat(tail).reduce((s,c)=>s+c.w,0),dw=(PW-2*PM-used)/7;
+  const cols=fixed.concat(days.map((d,i)=>({k:"d",i,d,h:DEN[ds[i].getDay()]+" "+d.slice(8)+"/"+d.slice(5,7),w:dw})),tail);
+  const tx=PM,tw=PW-2*PM,ty=top,HH=56,TH=HH+RH*R.length;
+  rr(x,tx,ty,tw,TH,18);x.fillStyle="#fff";x.fill();x.save();rr(x,tx,ty,tw,TH,18);x.clip();
+  x.fillStyle="#1d1b2f";x.fillRect(tx,ty,tw,HH);
+  const fit=(t,mw,w,s)=>{let z=s;x.font=EF(w,z);while(z>11&&x.measureText(t).width>mw){z--;x.font=EF(w,z)}};
+  const ar=(t,cx,cw,ry,w,s,col)=>{x.save();x.direction="rtl";x.textAlign="left";x.fillStyle=col;x.font=pf(w,s);let z=s;while(z>11&&x.measureText(t).width>cw-24){z--;x.font=pf(w,z)}x.fillText(t,cx+12,ry+RH/2+1);x.restore()};
+  let cx=PM;cols.forEach(col=>{const fri=col.k==="d"&&ds[col.i].getDay()===5;
+   if(fri){x.fillStyle="#3b3566";x.fillRect(cx,ty,col.w,HH);x.fillStyle="rgba(124,58,237,.06)";x.fillRect(cx,ty+HH,col.w,RH*R.length)}
+   x.fillStyle=fri?"#c4b5fd":"#fff";fit(col.h,col.w-10,700,20);
+   if(col.k==="name"||col.k==="pl"){x.textAlign="left";x.fillText(col.h,cx+14,ty+HH/2+1)}else{x.textAlign="center";x.fillText(col.h,cx+col.w/2,ty+HH/2+1)}
+   cx+=col.w});
+  R.forEach((r,ri)=>{const ry=ty+HH+ri*RH;if(ri%2){x.fillStyle="rgba(99,102,241,.045)";x.fillRect(tx,ry,tw,RH)}
+   let cx=PM;cols.forEach(col=>{let t="",o={c:"#1d1b2f",w:400,s:19};
+    if(col.k==="n"){t=String(pi*per+ri+1);o.c="#9aa0b4"}
+    else if(col.k==="code"){t=r.w.code||"";o.c="#6b6f86"}
+    else if(col.k==="name")ar(r.w.name,cx,col.w,ry,700,20,"#1d1b2f");
+    else if(col.k==="pl"){if(r.pl)ar(r.pl,cx,col.w,ry,500,17,"#6b6f86")}
+    else if(col.k==="d"){const v=r.c[col.i],bx=cx+4,bw=col.w-8,by=ry+5,bh=RH-10;
+     if(v.out){x.fillStyle=v.q?"#141414":"#eceef3";x.fillRect(cx+1,ry+1,col.w-2,RH-2);if(v.q){x.fillStyle="#fff";fit("−"+r2(v.a),col.w-8,700,17);x.textAlign="center";x.fillText("−"+r2(v.a),cx+col.w/2,ry+RH/2+1)}}
+     else{const parts=[];if(v.lv)parts.push(["Leave","#fef3c7","#92400e"]);if(v.a)parts.push(["−"+r2(v.a),"#fee2e2","#b91c1c"]);if(v.x)parts.push(["+"+r2(v.x),"#d1fae5","#047857"]);
+      if(!parts.length){x.fillStyle="#22c55e";x.font=EF(700,18);x.textAlign="center";x.fillText("✓",cx+col.w/2,ry+RH/2+1)}
+      else{const pw=(bw-(parts.length-1)*4)/parts.length;parts.forEach(([pt,bg,fg],k)=>{const px=bx+k*(pw+4);rr(x,px,by,pw,bh,7);x.fillStyle=bg;x.fill();x.fillStyle=fg;fit(pt,pw-6,800,17);x.textAlign="center";x.fillText(pt,px+pw/2,ry+RH/2+1)})}}}
+    else if(col.k==="t"){t=r2(r.t);o={c:r.t?"#dc2626":"#9aa0b4",w:800,s:20}}
+    else if(col.k==="o"){t=r2(r.o);o={c:r.o?"#059669":"#9aa0b4",w:800,s:20}}
+    else if(col.k==="l"){t=String(r.l);o={c:r.l?"#b45309":"#9aa0b4",w:800,s:20}}
+    if(t){x.fillStyle=o.c;fit(t,col.w-6,o.w,o.s);x.textAlign="center";x.fillText(t,cx+col.w/2,ry+RH/2+1)}
+    cx+=col.w});
+   x.strokeStyle="#eef0f5";x.lineWidth=1.5;x.beginPath();x.moveTo(tx,ry+RH);x.lineTo(tx+tw,ry+RH);x.stroke()});
+  x.strokeStyle="#e3e5ee";x.lineWidth=2;let sx=PM;fixed.forEach(c0=>{sx+=c0.w;x.beginPath();x.moveTo(sx,ty+HH);x.lineTo(sx,ty+TH);x.stroke()});
+  for(let i=1;i<7;i++){const vx=sx+i*dw;x.strokeStyle="#f1f2f7";x.beginPath();x.moveTo(vx,ty+HH);x.lineTo(vx,ty+TH);x.stroke()}
+  sx=PW-PM-tail.reduce((s,c)=>s+c.w,0);x.strokeStyle="#e3e5ee";x.beginPath();x.moveTo(sx,ty);x.lineTo(sx,ty+TH);x.stroke();
+  x.restore();
+  if(!R.length){x.fillStyle="#6b6f86";x.font=EF(600,26);x.textAlign="center";x.fillText("No workers for this week",PW/2,ty+HH+60)}
+  const fy=PH-PM-24;let lgx=PM;[["#fee2e2","#b91c1c","Absent (hours)"],["#d1fae5","#047857","Overtime (hours)"],["#fef3c7","#92400e","Leave"],["#141414","#141414","Left the company"],["#ede9fe","#6d28d9","Friday"]].forEach(([bg,fg,t])=>{rr(x,lgx,fy-15,30,30,8);x.fillStyle=bg;x.fill();x.fillStyle="#4b5068";x.font=EF(600,20);x.textAlign="left";x.fillText(t,lgx+42,fy+1);lgx+=72+x.measureText(t).width+30});
+  x.textAlign="right";x.fillStyle="#9aa0b4";x.font=EF(500,19);const now=new Date();x.fillText("ALKO Company · Generated "+iso(now)+" "+p2(now.getHours())+":"+p2(now.getMinutes())+(P.length>1?"  ·  Page "+(pi+1)+" of "+P.length:""),PW-PM,fy+1);
+  return c});
+}
+$("spdf").onclick=async()=>{
+ try{const w0=$("sw").value;if(!w0)return;msg("PDF دهێتە دروستکرن...");
+  try{await Promise.all([document.fonts.load(pf(700,20)),document.fonts.load(pf(500,17))]);await document.fonts.ready}catch(e){}
+  await saveFile("week-"+w0+".pdf",await jpegPdf(weekPdfPages(w0)));msg("");
+ }catch(e){console.error(e);msg(e&&e.code==="declined"?"":"PDF نەهاتە دروستکرن")}
+};
 $("mpdf").onclick=async()=>{
  try{
   const v=$("mo").value;if(!v)return;const [y,m]=v.split("-").map(Number);
@@ -2076,14 +2143,18 @@ function renderAW(){
 $("aw").addEventListener("click",e=>{if(e.target.closest("#awpdf")){const w0=weekOf($("dt").value),DS=wkIds(w0);absPdf("absence-week-"+w0+".pdf","Absence Report — Week "+DS[0]+" to "+DS[6],"Workers absent 2 or more full days this week",absList(DS,2),w0);return}const b=e.target.closest(".awn");if(!b)return;$("q").value=b.dataset.q;all()});
 function renderDF(){renderAW();const d=$("dt").value;let a=0,o=0,n=0;const L=dList(d,1);L.forEach(w=>{const x=absOf(w,d);a+=x;if(x&&!outside(w,d))n++;o+=otOf(w,d)});const act=L.filter(w=>!outside(w,d)).length;$("df").innerHTML=L.length?`<tr><th colspan="4" class="f-t">کۆما ڕۆژێ — ئامادە: <span class="ok">${act-n}</span> ، نەهاتی: <span class="bad">${n}</span></th><th class="bad f-n">${n}</th><th class="bad f-a" data-l="غیاب">${r2(a)}</th><th class="ok f-o" data-l="زێدە">${r2(o)}</th><th class="f-e"></th><th class="f-e"></th></tr>`:""}
 function setOt(id,v){const k=id+"_"+$("dt").value;if(!(v>0))delete S.ot[k];else S.ot[k]=Math.min(v,24);renderDF();save();renderM();renderS()}
+function sumList(w0,ds){
+ const so=$("sso").value,d0=iso(ds[0]);let WL=W().filter(w=>inR(w,d0,iso(ds[6])));
+ if(so){const sm=w=>{let o=0,a=0,L=0;ds.forEach(d=>{const x=iso(d);o+=otOf(w,x);a+=absOf(w,x);if(S.lv[w.id+"_"+x])L++});return{o,a,l:L}},M=new Map(WL.map(w=>[w.id,sm(w)])),nm=(x,y)=>COLL.compare(x.name,y.name);
+  WL.sort(so==="name"?nm:so==="code"?(x,y)=>(!x.code)-(!y.code)||COLL.compare(x.code||"",y.code||""):so==="pl"?(x,y)=>(!plc(x.id,d0))-(!plc(y.id,d0))||COLL.compare(plc(x.id,d0),plc(y.id,d0))||nm(x,y):(x,y)=>M.get(y.id)[so]-M.get(x.id)[so]||nm(x,y))}
+ return WL;
+}
 function renderS(){
  const w0=$("sw").value;if(!w0)return;
  const ds=[...Array(7)].map((_,i)=>{const d=new Date(w0+"T00:00:00");d.setDate(d.getDate()+i);return d});
  $("sr").textContent="هەفتی ژ "+iso(ds[0])+" هەتا "+iso(ds[6]);
  let h='<tr><th>کۆد</th><th>ناڤ</th><th>جهێ کاری</th>'+ds.map(d=>`<th>${DN[d.getDay()]}<br>${iso(d).slice(5)}</th>`).join("")+'<th>کۆما زێدە</th><th>کۆما غیابێ</th><th>ڕۆژێن مۆلەتێ</th></tr>',TO=0,TA=0,BAD=0;
- const so=$("sso").value,d0=iso(ds[0]);let WL=W().filter(w=>inR(w,d0,iso(ds[6])));
- if(so){const sm=w=>{let o=0,a=0,L=0;ds.forEach(d=>{const x=iso(d);o+=otOf(w,x);a+=absOf(w,x);if(S.lv[w.id+"_"+x])L++});return{o,a,l:L}},M=new Map(WL.map(w=>[w.id,sm(w)])),nm=(x,y)=>COLL.compare(x.name,y.name);
-  WL.sort(so==="name"?nm:so==="code"?(x,y)=>(!x.code)-(!y.code)||COLL.compare(x.code||"",y.code||""):so==="pl"?(x,y)=>(!plc(x.id,d0))-(!plc(y.id,d0))||COLL.compare(plc(x.id,d0),plc(y.id,d0))||nm(x,y):(x,y)=>M.get(y.id)[so]-M.get(x.id)[so]||nm(x,y))}
+ const WL=sumList(w0,ds);
  WL.forEach(w=>{
   let o=0,a=0,L=0;
   const c=ds.map(d=>{const k=w.id+"_"+iso(d),x=otOf(w,iso(d)),y=absOf(w,iso(d)),out=outside(w,iso(d)),l=S.lv[k];o+=x;a+=y;if(l)L++;const nn=S.nt[k];return`<td class="${out?oc(w,iso(d)):l?"lvc":""}${nn&&y&&!out?" hn":""}"${nn&&y&&!out?` title="${esc(nn).replace(/"/g,"&quot;")}"`:""}>${l?"مۆلەت ":""}${x?'<span class="ok">+'+fh(x)+'</span> ':""}${y?'<span class="bad">−'+fh(y)+'</span>':""}${!l&&!x&&!y?'<span class="tk" title="ئامادە">✓</span>':""}</td>`});
