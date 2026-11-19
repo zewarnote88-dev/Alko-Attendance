@@ -345,7 +345,7 @@ svg.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;strok
 #cpop small{display:block;margin-top:10px;color:var(--mu);font-size:11.5px}
 .cph{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .cph button{padding:2px 9px}
-.csw{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.csw{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.csw .cs span{font-size:11px}
 .cs{height:54px;border-radius:14px!important;border:2px solid transparent!important;padding:0!important;display:flex;align-items:flex-end;justify-content:center;box-shadow:none!important}
 .cs span{font-size:10.5px;color:#fff;font-weight:700;padding-bottom:4px;text-shadow:0 1px 2px rgba(0,0,0,.35)}
 .cs.on{border-color:var(--tx)!important;outline:2px solid var(--card);outline-offset:-4px}
@@ -459,14 +459,12 @@ th.tdh{color:var(--ac)!important;box-shadow:inset 0 -3px 0 var(--ac)}
 body.fru #dtl #dtd,body.fru .dbar button{display:none}
 body.fru .dbar{grid-template-columns:1fr!important;display:grid}
 /* ===== glass mode ===== */
-:root[data-style="glass"]:not([data-theme="dark"]){--card:rgba(255,255,255,.52);--bg2:rgba(255,255,255,.38);--thbg:rgba(255,255,255,.42);--bd:rgba(255,255,255,.62);--sh:0 8px 32px rgba(31,38,135,.14);--gsolid:rgba(255,255,255,.88);--gin:rgba(255,255,255,.66)}
-:root[data-style="glass"][data-theme="dark"]{--card:rgba(17,24,39,.48);--bg2:rgba(255,255,255,.07);--thbg:rgba(255,255,255,.06);--bd:rgba(255,255,255,.14);--sh:0 8px 32px rgba(0,0,0,.35);--gsolid:rgba(17,24,39,.92);--gin:rgba(255,255,255,.08)}
-html[data-style="glass"]{background:#e9edf8}
-.cip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.ipb{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 4px!important;border-radius:16px!important;background:var(--bg2)!important;color:var(--tx)!important;border:1.5px solid var(--bd)!important;box-shadow:none!important;font-size:12px!important;font-weight:700}
-.ipb i{width:38px;height:38px;border-radius:12px;box-shadow:inset 0 1px 1px rgba(255,255,255,.6),inset 0 -6px 10px rgba(0,0,0,.18),0 4px 10px rgba(0,0,0,.18)}
-.ipb span{display:flex;flex-direction:column;line-height:1.3;text-align:center}.ipb small{color:var(--mu);font-weight:600;font-size:10.5px}
-.ipb.on{border-color:var(--ac)!important;box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 25%,transparent)!important}
+:root[data-style="glass"]:not([data-theme="dark"]){--card:rgba(255,255,255,.58);--bg2:rgba(255,255,255,.42);--thbg:rgba(255,255,255,.5);--bd:rgba(255,255,255,.75);--sh:0 10px 30px -8px color-mix(in srgb,var(--g1) 28%,transparent);--gsolid:rgba(255,255,255,.88);--gin:rgba(255,255,255,.66)}
+:root[data-style="glass"][data-theme="dark"]{--card:rgba(20,24,38,.5);--bg2:rgba(255,255,255,.07);--thbg:rgba(255,255,255,.06);--bd:rgba(255,255,255,.14);--sh:0 8px 32px rgba(0,0,0,.35);--gsolid:rgba(17,24,39,.92);--gin:rgba(255,255,255,.08)}
+html[data-style="glass"]{background:#eef1f7}
+html[data-style="glass"] :where(.card,.tabs,.kpi,.tile,details.help,.dfl,#cpop){-webkit-backdrop-filter:blur(22px) saturate(180%)!important;backdrop-filter:blur(22px) saturate(180%)!important;border-radius:20px}
+html[data-style="glass"] .tabs button:not(.off){box-shadow:0 6px 16px -6px var(--ac),inset 0 1px 0 rgba(255,255,255,.4)}
+html[data-style="glass"] .top{box-shadow:0 12px 30px -10px color-mix(in srgb,var(--g2) 55%,transparent),inset 0 1px 0 rgba(255,255,255,.35)}
 /* liquid-glass highlight */
 html[data-style="glass"] :where(.card,.tabs,.kpi,.tile,details.help,#dtb tbody tr,.dfl,#cpop,.warnbox,.xact){box-shadow:var(--sh),inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(255,255,255,.18)!important}
 html[data-style="glass"][data-theme="dark"] :where(.card,.tabs,.kpi,.tile,details.help,#dtb tbody tr,.dfl,#cpop,.warnbox,.xact){box-shadow:var(--sh),inset 0 1px 0 rgba(255,255,255,.16)!important}
@@ -476,13 +474,13 @@ html[data-style="glass"] body::before{content:"";position:fixed;inset:-10%;z-ind
  background:radial-gradient(38% 32% at 12% 18%,color-mix(in srgb,var(--g3,#0ea5e9) 70%,transparent),transparent 70%),
  radial-gradient(42% 38% at 88% 28%,color-mix(in srgb,var(--ac2) 60%,transparent),transparent 70%),
  radial-gradient(48% 42% at 45% 92%,color-mix(in srgb,var(--g2,#2563eb) 55%,transparent),transparent 70%),
- radial-gradient(30% 28% at 80% 85%,rgba(244,114,182,.35),transparent 70%),
- linear-gradient(160deg,#eef2ff,#fdf4ff 60%,#ecfeff)}
+ radial-gradient(30% 28% at 82% 84%,color-mix(in srgb,var(--ac) 35%,transparent),transparent 70%),
+ linear-gradient(160deg,color-mix(in srgb,var(--g1) 10%,#f8fafc),color-mix(in srgb,var(--g3) 8%,#f8fafc) 60%,color-mix(in srgb,var(--g2) 12%,#f1f5f9))}
 html[data-style="glass"][data-theme="dark"] body::before{
  background:radial-gradient(38% 32% at 12% 18%,color-mix(in srgb,var(--g3,#0ea5e9) 45%,transparent),transparent 70%),
  radial-gradient(42% 38% at 88% 28%,color-mix(in srgb,var(--ac2) 40%,transparent),transparent 70%),
  radial-gradient(48% 42% at 45% 92%,color-mix(in srgb,var(--g2,#2563eb) 40%,transparent),transparent 70%),
- linear-gradient(160deg,#0b1020,#111827 60%,#0b1020)}
+ linear-gradient(160deg,color-mix(in srgb,var(--g1) 30%,#05070d),#0b0f19 60%,color-mix(in srgb,var(--g2) 22%,#05070d))}
 html:is([data-style="glass"],[data-style="alko"]) :where(.card,.tabs,.srch,.kpi,.tile,details.help,#dtb tbody tr,#dtb tfoot tr,.dfl,#cpop,.ntbox,.lgc,.warnbox,.amok,.xact){
  background:var(--card)!important;border:1px solid var(--bd)!important;box-shadow:var(--sh)!important;
  -webkit-backdrop-filter:blur(18px) saturate(170%);backdrop-filter:blur(18px) saturate(170%)}
@@ -930,7 +928,7 @@ html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!imp
  <div class="card"><b>گوهۆڕینا پەیڤا نهێنی یا ئەدمینی (zewar)</b>
   <div class="bar" style="margin-top:8px"><input id="ap" type="password" placeholder="پەیڤا نهێنی یا نوی" autocomplete="new-password" dir="ltr"><input id="ap2" type="password" placeholder="دووبارە بنڤیسە" autocomplete="new-password" dir="ltr"><button id="apb">گوهۆڕین</button></div></div>
 </section>
-<div id="cpop" class="hide"><div class="cph"><b>🎨 ڕەنگێ پرۆگرامی</b><button id="cpx" class="off" type="button">✕</button></div><div id="csw" class="csw"></div><div class="cph" style="margin-top:12px"><b>📱 ڕەنگێن iPhone یێن نوی + شووشە</b></div><div id="cip" class="cip"></div><div class="cph" style="margin-top:12px"><b>ڕەنگێ پاشبنەمێ</b></div><div class="cmd"><button type="button" class="sec" data-m="light">☀️ ڕۆناهی</button><button type="button" class="sec" data-m="dark">🌙 تاری</button></div><div class="cph" style="margin-top:12px"><b>شێوە</b></div><div class="cmd c3"><button type="button" class="sec" data-s="alko">✦ ALKO</button><button type="button" class="sec" data-s="glass">🔮 شووشە</button><button type="button" class="sec" data-s="flat">▢ ئاسایی</button></div><small>ئەڤ هەلبژارتنە تنێ بۆ تە یە و ل سەر ڤی ئامێری دمینیت.</small></div>
+<div id="cpop" class="hide"><div class="cph"><b>🎨 ڕەنگێ پرۆگرامی</b><button id="cpx" class="off" type="button">✕</button></div><div id="csw" class="csw"></div><div class="cph" style="margin-top:12px"><b>ڕەنگێ پاشبنەمێ</b></div><div class="cmd"><button type="button" class="sec" data-m="light">☀️ ڕۆناهی</button><button type="button" class="sec" data-m="dark">🌙 تاری</button></div><div class="cph" style="margin-top:12px"><b>شێوە</b></div><div class="cmd c3"><button type="button" class="sec" data-s="alko">✦ ALKO</button><button type="button" class="sec" data-s="glass">🔮 شووشە</button><button type="button" class="sec" data-s="flat">▢ ئاسایی</button></div><small>ئەڤ هەلبژارتنە تنێ بۆ تە یە و ل سەر ڤی ئامێری دمینیت.</small></div>
 <div id="ntp" class="hide"><div class="ntbox"><b>💬 بۆچی نەهاتیە؟</b><small id="ntt"></small><input id="nti" maxlength="200" autocomplete="off" placeholder="وەک: نەخۆش بوو"><div class="bar" style="margin:0"><button id="nts" type="button">پاشەکەفتکرن</button><button id="ntc" type="button" class="off">بەتالکرن</button></div></div></div>
 <div id="acp" class="hide"><form class="acbox" onsubmit="return false">
  <div class="cph"><b>👤 ئەکاونتێ من</b><button type="button" class="off" id="acx">✕</button></div>
@@ -1106,31 +1104,23 @@ $("bkf").onchange=async e=>{
  catch(err){console.error(err);msg("ئەڤ فایلە نە دورستە")}
 };
 const PAL={
- alko:["ALKO",["#7c3aed","#4f46e5"],["#8b5cf6","#3b82f6"],["#7c3aed","#6366f1","#3b82f6"]],
- blue:["شین",["#2563eb","#4f46e5"],["#60a5fa","#818cf8"],["#1e3a8a","#2563eb","#0ea5e9"]],
- green:["کەسک",["#059669","#0d9488"],["#34d399","#2dd4bf"],["#064e3b","#059669","#14b8a6"]],
- teal:["شینێ ئاسمانی",["#0891b2","#0284c7"],["#22d3ee","#38bdf8"],["#164e63","#0891b2","#06b6d4"]],
- purple:["مۆر",["#7c3aed","#c026d3"],["#a78bfa","#e879f9"],["#4c1d95","#7c3aed","#c026d3"]],
- rose:["سۆر",["#e11d48","#db2777"],["#fb7185","#f472b6"],["#881337","#e11d48","#f472b6"]],
- orange:["پرتەقالی",["#ea580c","#d97706"],["#fb923c","#fbbf24"],["#7c2d12","#ea580c","#f59e0b"]],
- slate:["خۆلەمێشی",["#475569","#334155"],["#94a3b8","#cbd5e1"],["#0f172a","#334155","#64748b"]],
- burgundy:["بورگەندی · iPhone 18",["#8a1c33","#a8324a"],["#e8798f","#f3a3b3"],["#2b0811","#7a1a2e","#c0485f"]],
- glacier:["شینێ بەفری · iPhone 18",["#2f6f96","#4a8db8"],["#9fd0ec","#c9e6f6"],["#16384f","#3f84b0","#9ccfe9"]],
- cosmic:["پرتەقالیا کۆسمیک · iPhone 17",["#d9480f","#f76707"],["#ff922b","#ffb366"],["#6b2205","#e8590c","#ff9a4d"]]
+ alko:["ALKO",["#7c3aed","#4f46e5"],["#a78bfa","#818cf8"],["#5b21b6","#6366f1","#3b82f6"]],
+ blue:["شین",["#2563eb","#1d4ed8"],["#60a5fa","#93c5fd"],["#1e3a8a","#2563eb","#38bdf8"]],
+ green:["کەسک",["#059669","#047857"],["#34d399","#6ee7b7"],["#064e3b","#059669","#2dd4bf"]],
+ rose:["سۆر",["#dc2626","#be123c"],["#f87171","#fda4af"],["#7f1d1d","#dc2626","#fb7185"]],
+ slate:["خۆلەمێشی",["#475569","#334155"],["#94a3b8","#cbd5e1"],["#0f172a","#334155","#64748b"]]
 };
-const IPH=["burgundy","glacier","cosmic"];
 const ckey=()=>"absColor"+(ME&&ME.u?":"+ME.u:"");
 const skey=()=>"absStyle"+(ME&&ME.u?":"+ME.u:"");
 function setStyle(v){try{localStorage.setItem(skey(),v);localStorage.setItem("absStyle",v)}catch(x){}}
 function getStyle(){let v="flat";try{v=localStorage.getItem(skey())||localStorage.getItem("absStyle")||"flat"}catch(e){}return v==="dash"?"flat":v}
-function getColor(){try{return localStorage.getItem(ckey())||localStorage.getItem("absColor")||"alko"}catch(e){return"alko"}}
+function getColor(){let c="alko";try{c=localStorage.getItem(ckey())||localStorage.getItem("absColor")||"alko"}catch(e){}return PAL[c]?c:"alko"}
 function applyColor(c){
  const sy=getStyle();document.documentElement.dataset.style=sy;if(sy==="alko")document.documentElement.dataset.theme="dark";if(sy==="dash")document.documentElement.dataset.theme="light";
  c=PAL[c]?c:getColor();const P=PAL[c]||PAL.alko,dk=document.documentElement.dataset.theme==="dark",a=dk?P[2]:P[1],st=document.documentElement.style;
  st.setProperty("--ac",a[0]);st.setProperty("--ac2",a[1]);st.setProperty("--g1",P[3][0]);st.setProperty("--g2",P[3][1]);st.setProperty("--g3",P[3][2]);
  const m=document.querySelector('meta[name="theme-color"]')||document.head.appendChild(Object.assign(document.createElement("meta"),{name:"theme-color"}));m.content=P[3][1];
- const ip=$("cip");if(ip)ip.innerHTML=IPH.map(k=>{const v=PAL[k];return`<button type="button" class="ipb${k===c&&sy==="glass"?" on":""}" data-ip="${k}"><i style="background:linear-gradient(135deg,${v[3][0]},${v[3][1]} 55%,${v[3][2]})"></i><span>${v[0].split(" · ")[0]}<small>${v[0].split(" · ")[1]}</small></span></button>`}).join("");
- const sw=$("csw");if(sw)sw.innerHTML=Object.entries(PAL).filter(([k])=>!IPH.includes(k)).map(([k,v])=>`<button type="button" class="cs${k===c?" on":""}" data-c="${k}" style="background:linear-gradient(135deg,${v[3][1]},${v[3][2]})" title="${v[0]}"><span>${v[0]}</span></button>`).join("");
+ const sw=$("csw");if(sw)sw.innerHTML=Object.entries(PAL).map(([k,v])=>`<button type="button" class="cs${k===c?" on":""}" data-c="${k}" style="background:linear-gradient(135deg,${v[3][1]},${v[3][2]})" title="${v[0]}"><span>${v[0]}</span></button>`).join("");
  document.querySelectorAll("#cpop [data-m]").forEach(b=>b.classList.toggle("on",sy!=="alko"&&sy!=="dash"&&b.dataset.m===(dk?"dark":"light")));
  document.querySelectorAll("#cpop [data-s]").forEach(b=>b.classList.toggle("on",b.dataset.s===sy));
 }
@@ -1140,7 +1130,6 @@ $("cpx").onclick=()=>$("cpop").classList.add("hide");
 $("cpop").addEventListener("click",e=>{e.stopPropagation();const c=e.target.closest("[data-c]"),m=e.target.closest("[data-m]");
  if(c){try{localStorage.setItem(ckey(),c.dataset.c);localStorage.setItem("absColor",c.dataset.c)}catch(x){}applyColor(c.dataset.c)}
  if(m){if(getStyle()==="alko"||getStyle()==="dash")setStyle("flat");setTheme(m.dataset.m)}
- const ipb=e.target.closest("[data-ip]");if(ipb){const k=ipb.dataset.ip,was=getStyle();try{localStorage.setItem(ckey(),k);localStorage.setItem("absColor",k)}catch(x){}setStyle("glass");if(was==="alko"||was==="dash"){let t="light";try{t=localStorage.getItem("absTheme")||"light"}catch(x){}setTheme(t)}else applyColor(k);return}
  const sb=e.target.closest("[data-s]");if(sb){const was=getStyle();setStyle(sb.dataset.s);if((was==="alko"||was==="dash")&&sb.dataset.s!=="alko"&&sb.dataset.s!=="dash"){let t="light";try{t=localStorage.getItem("absTheme")||"light"}catch(x){}setTheme(t)}else applyColor()}});
 document.addEventListener("click",()=>$("cpop").classList.add("hide"));
 document.querySelectorAll(".thb").forEach(b=>b.onclick=()=>{if(getStyle()==="alko"||getStyle()==="dash"){setStyle("flat");setTheme(getStyle()==="alko"?"light":"dark");return}setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark")});
