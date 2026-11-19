@@ -845,7 +845,7 @@ html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!imp
  <div class="card"><b>گوهۆڕینا پەیڤا نهێنی یا ئەدمینی (zewar)</b>
   <div class="bar" style="margin-top:8px"><input id="ap" type="password" placeholder="پەیڤا نهێنی یا نوی" autocomplete="new-password" dir="ltr"><input id="ap2" type="password" placeholder="دووبارە بنڤیسە" autocomplete="new-password" dir="ltr"><button id="apb">گوهۆڕین</button></div></div>
 </section>
-<div id="cpop" class="hide"><div class="cph"><b>🎨 ڕەنگێ پرۆگرامی</b><button id="cpx" class="off" type="button">✕</button></div><div id="csw" class="csw"></div><div class="cph" style="margin-top:12px"><b>ڕەنگێ پاشبنەمێ</b></div><div class="cmd"><button type="button" class="sec" data-m="light">☀️ ڕۆناهی</button><button type="button" class="sec" data-m="dark">🌙 تاری</button></div><div class="cph" style="margin-top:12px"><b>شێوە</b></div><div class="cmd c3"><button type="button" class="sec" data-s="alko">✦ ALKO</button><button type="button" class="sec" data-s="glass">🔮 شووشە</button><button type="button" class="sec" data-s="flat">▢ ئاسایی</button></div><small>ئەڤ هەلبژارتنە تنێ بۆ تە یە و ل سەر ڤی ئامێری دمینیت.</small></div>
+<div id="cpop" class="hide"><div class="cph"><b>🎨 ڕەنگێ پرۆگرامی</b><button id="cpx" class="off" type="button">✕</button></div><div id="csw" class="csw"></div><div class="cph" style="margin-top:12px"><b>ڕەنگێ پاشبنەمێ</b></div><div class="cmd"><button type="button" class="sec" data-m="light">☀️ ڕۆناهی</button><button type="button" class="sec" data-m="dark">🌙 تاری</button></div><div class="cph" style="margin-top:12px"><b>🔔 ئاگەهدارکرن ل سەر مۆبایلێ</b></div><button type="button" class="sec" id="pushb" style="width:100%">🔔 چالاککرنا ئاگەهدارکرنا دەوامان</button><small id="pushs"></small><div class="cph" style="margin-top:12px"><b>شێوە</b></div><div class="cmd c3"><button type="button" class="sec" data-s="alko">✦ ALKO</button><button type="button" class="sec" data-s="glass">🔮 شووشە</button><button type="button" class="sec" data-s="flat">▢ ئاسایی</button></div><small>ئەڤ هەلبژارتنە تنێ بۆ تە یە و ل سەر ڤی ئامێری دمینیت.</small></div>
 <div id="ntp" class="hide"><div class="ntbox"><b>💬 بۆچی نەهاتیە؟</b><small id="ntt"></small><input id="nti" maxlength="200" autocomplete="off" placeholder="وەک: نەخۆش بوو"><div class="bar" style="margin:0"><button id="nts" type="button">پاشەکەفتکرن</button><button id="ntc" type="button" class="off">بەتالکرن</button></div></div></div>
 <div id="pr"></div>
 </main>
@@ -1165,6 +1165,30 @@ function saHTML(){
  <div class="san">${a.L.slice(0,30).map(w=>`<span class="sac">${esc(w.name)}${w.code?" <small>("+esc(w.code)+")</small>":""}</span>`).join("")}${a.L.length>30?`<span class="sac">+${a.L.length-30}</span>`:""}</div>
  <button type="button" class="sec sago" data-sh="${esc(a.sh)}" data-d="${a.D}">👁 تنێ ئەوان نیشان بدە</button></div>`).join("");
 }
+const VAPID_PUB="BKcq1UztK466NvnBxvWJ7beWsl1Yc2WrvScZ3ur9fM5_3b8Sy8s9ZK6m6jlyuhqvpugH-KzkY1HPnMPHAIeTENo";
+const b64u=s=>{const p="=".repeat((4-s.length%4)%4),b=atob((s+p).replace(/-/g,"+").replace(/_/g,"/"));return Uint8Array.from(b,c=>c.charCodeAt(0))};
+const hstr=s=>{let h=5381;for(const c of s)h=((h*33)^c.charCodeAt(0))>>>0;return h.toString(36)};
+async function pushState(){
+ const el=$("pushs"),b=$("pushb");if(!el||!b)return;
+ if(!("serviceWorker" in navigator)||!("PushManager" in window)||!("Notification" in window)){b.disabled=true;el.textContent="ئەڤ براوزەرە ئاگەهدارکرنان پشتگیری ناکەت. پرۆگرامی ب Chrome ڤەکە و «Install app» بکە.";return}
+ if(Notification.permission==="denied"){el.textContent="ئاگەهدارکرن د ڕێکخستنێن مۆبایلێ دا هاتینە گرتن. ژ Settings ← Apps ← Chrome ← Notifications ڤەکە.";return}
+ try{const r=await navigator.serviceWorker.getRegistration(),sub=r&&await r.pushManager.getSubscription();
+  if(sub&&Notification.permission==="granted"){b.textContent="✅ ئاگەهدارکرن چالاکن (دووبارە تۆمارکرن)";el.textContent="ل ٣:٠٠ ئێڤار، ١١:٠٠ شەڤ و ٧:٠٠ سپێدە، ئەگەر کرێکار بێ داتا هەبن، ئاگەهدارکرن دهێت."}
+  else{b.textContent="🔔 چالاککرنا ئاگەهدارکرنا دەوامان";el.textContent=""}}catch(e){}
+}
+async function enablePush(){
+ if(!ME){msg("پێشیێ بچە ژوور");return}
+ try{
+  if(!("serviceWorker" in navigator)||!("PushManager" in window)){pushState();return}
+  const perm=await Notification.requestPermission();if(perm!=="granted"){pushState();return}
+  const reg=await navigator.serviceWorker.register("sw.js");await navigator.serviceWorker.ready;
+  let sub=await reg.pushManager.getSubscription();
+  if(!sub)sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(VAPID_PUB)});
+  const j=sub.toJSON();await DB.doc("push/"+hstr(j.endpoint)).set({u:ME.u,sub:j,at:new Date().toISOString(),ua:navigator.userAgent.slice(0,120)});
+  msg("✅ ئاگەهدارکرن ل سەر ڤی مۆبایلی چالاک بوون");pushState();
+ }catch(e){console.error(e);msg("ئاگەهدارکرن چالاک نەبوون: "+(e&&e.message||e))}
+}
+document.addEventListener("click",e=>{if(e.target.closest("#pushb"))enablePush();if(e.target.closest("#cbt"))setTimeout(pushState,50)});
 function renderSA(){const h=saHTML();const el=$("sa");if(el&&el.innerHTML!==h)el.innerHTML=h;const hm=$("hsa");if(hm&&hm.innerHTML!==h)hm.innerHTML=h}
 document.addEventListener("click",e=>{const b=e.target.closest(".sago");if(!b)return;DSH=b.dataset.sh;DPL="";DST="m";try{keepDF()}catch(x){}$("dt").value=b.dataset.d;$("q").value="";if($("p1").classList.contains("hide"))$("t1").click();renderD();scrollTo(0,0)});
 function dList(d,noSt){
