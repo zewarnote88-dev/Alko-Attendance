@@ -813,7 +813,7 @@ html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!imp
 </section>
 
 <section id="p2" class="hide"><details class="help"><summary>💡 ڕێنمایی</summary><div>خشتەیێ هەمی ڕۆژێن مانگێ. خانێن سۆر ئەو ڕۆژن یێن کرێکار تێدا نەهاتی، و ل دووماهیێ کۆما غیابێ و یا زێدە دیار دبن.</div></details>
- <div class="bar"><label>مانگ<input type="month" id="mo"></label><label>نیشاندان<select id="mfl"><option value="">هەمی کرێکار</option><option value="a">❌ تنێ یێن غیاب هەین</option><option value="o">➕ تنێ یێن زێدە (ئیزافە) هەین</option><option value="l">🌴 تنێ یێن مۆلەت هەین</option></select></label><button id="xlM">📥 ئێکسل</button><button id="mpdf">📄 PDF</button></div>
+ <div class="bar"><label>مانگ<input type="month" id="mo"></label><label>نیشاندان<select id="mfl"><option value="">هەمی کرێکار</option><option value="a">❌ تنێ یێن غیاب هەین</option><option value="o">➕ تنێ یێن زێدە (ئیزافە) هەین</option><option value="l">🌴 تنێ یێن مۆلەت هەین</option></select></label><label>ڕێزکرن<select id="mso"><option value="">وەک لیستا کرێکاران</option><option value="name">ناڤ (أ-ي)</option><option value="code">کۆد</option><option value="a">❌ غیابا پتر</option><option value="o">➕ زێدەیا پتر</option></select></label><button id="xlM">📥 ئێکسل</button><button id="mpdf">📄 PDF</button></div>
  <div id="mw"></div>
  <div class="card scroll"><table id="mt"></table></div>
 </section>
@@ -1397,13 +1397,21 @@ function lwCell(w,d){
  if(h){const I=lwInfo(w,d),m=I.m;t+=` <input type="text" inputmode="decimal" class="lwh" data-id="${w.id}" value="${fh(h)}" title="کاتژمێرێن کارکری"><span class="lwn ${m>1?"ok":"bad"}">${m>1?"= +"+fh(h*m)+" (×1.5)":"= +"+fh(h)+" (×1 · ل بەرانبەر غیابا "+DN[new Date(I.a+"T00:00:00").getDay()]+" "+I.a.slice(5)+")"}</span>`}
  return t;
 }
+function mSort(L,m1,mN){
+ const so=$("mso").value;if(!so)return L;const nm=(a,b)=>COLL.compare(a.name,b.name);
+ if(so==="name")return L.sort(nm);
+ if(so==="code")return L.sort((a,b)=>(!a.code)-(!b.code)||COLL.compare(String(a.code||""),String(b.code||""))||nm(a,b));
+ const days=[];for(let d=m1;d<=mN;d=addD(d,1))days.push(d);
+ const M=new Map(L.map(w=>[w.id,days.reduce((s,d)=>s+(so==="a"?absOf(w,d):outside(w,d)?0:otOf(w,d)),0)]));
+ return L.sort((a,b)=>M.get(b.id)-M.get(a.id)||nm(a,b));
+}
 function renderM(){try{renderMW()}catch(e){console.error(e)}
  const [y,m]=$("mo").value.split("-").map(Number),n=new Date(y,m,0).getDate();
  let h='<tr><th>کۆد</th><th>ناڤ</th>';
  for(let d=1;d<=n;d++){const g=new Date(y,m-1,d).getDay(),ds=y+"-"+p2(m)+"-"+p2(d);h+=`<th class="md${g===5?" mfri":""}${ds===wtoday()?" tdh":""}" title="${DN[g]} ${ds}">${d}</th>`}
  h+="<th>کۆما غیابێ</th><th>کۆما زێدە</th><th>مۆلەت</th></tr>";
  const m1=y+"-"+p2(m)+"-01",mN=y+"-"+p2(m)+"-"+p2(n);
- W().filter(w=>inR(w,m1,mN)).forEach(w=>{
+ mSort(W().filter(w=>inR(w,m1,mN)),m1,mN).forEach(w=>{
   let t=0,o=0,n2=0,r=`<tr><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td>`;
   for(let d=1;d<=n;d++){const ds2=y+"-"+p2(m)+"-"+p2(d),out=outside(w,ds2),v=out?dayH(w):S.abs[w.id+"_"+ds2];if(v)t+=v;o+=otOf(w,ds2);const l=S.lv[w.id+"_"+y+"-"+p2(m)+"-"+p2(d)];if(l)n2++;const nn=S.nt[w.id+"_"+ds2],ox=out?0:otOf(w,ds2),ot=ox?`<span class="mot"> +${fh(ox).replace(/:00$/,"")}</span>`:"";r+=`<td class="${out?oc(w,ds2):v?"a":l?"lvc":ox?"oc":""}${nn&&v&&!out?" hn":""}"${nn&&v&&!out?` title="${esc(nn).replace(/"/g,"&quot;")}"`:""}>${v?(fh(v).endsWith(":00")?`<span class="mvf">${fh(v)}</span><span class="mvs">${fh(v).slice(0,-3)}</span>`:fh(v)):l?"م":""}${ot}</td>`}
   const mf=$("mfl").value;if((mf==="a"&&!t)||(mf==="o"&&!o)||(mf==="l"&&!n2))return;
@@ -1440,7 +1448,7 @@ function placeQ(n){const sr=document.querySelector(".srch"),card=n==="7"?null:$(
 const mv=n=>{const d=new Date($("dt").value+"T00:00:00");d.setDate(d.getDate()+n);$("dt").value=iso(d);renderD()};
 $("dp").onclick=()=>mv(-1);$("dn").onclick=()=>mv(1);
 $("q").addEventListener("input",all);$("qx").onclick=()=>{$("q").value="";all();$("q").focus()};
-$("dt").onchange=renderD;$("mo").onchange=renderM;$("mfl").onchange=renderM;
+$("dt").onchange=renderD;$("mo").onchange=renderM;$("mfl").onchange=renderM;try{$("mso").value=localStorage.getItem("absMSo")||""}catch(e){}$("mso").onchange=()=>{try{localStorage.setItem("absMSo",$("mso").value)}catch(e){}renderM()};
 const weekOf=s=>{const x=new Date(s+"T00:00:00");x.setDate(x.getDate()-(x.getDay()+1)%7);return iso(x)};
 const plc=(id,d)=>{const a=S.asg[aKey(d)+"_"+id];return a&&a[1]||""};
 function fillPl(){$("pc2").innerHTML=S.places.map((p,i)=>`<span class="chip">${esc(p)} <button class="off" data-p="${i}">×</button></span>`).join("")||"<small>هێشتا جهەک نەهاتیە زێدەکرن</small>"}
@@ -1927,7 +1935,7 @@ const MKN=["کانوونا دووێ","شوبات","ئادار","نیسان","گ�
 function rr(x,X,Y,W,H,r){x.beginPath();x.moveTo(X+r,Y);x.arcTo(X+W,Y,X+W,Y+H,r);x.arcTo(X+W,Y+H,X,Y+H,r);x.arcTo(X,Y+H,X,Y,r);x.arcTo(X,Y,X+W,Y,r);x.closePath()}
 function monthRows(y,m){
  const n=new Date(y,m,0).getDate(),m1=y+"-"+p2(m)+"-01",mN=y+"-"+p2(m)+"-"+p2(n),days=[...Array(n)].map((_,i)=>y+"-"+p2(m)+"-"+p2(i+1));
- const L=S.workers.filter(w=>inR(w,m1,mN)).slice().sort((a,b)=>COLL.compare(String(a.code||"~"),String(b.code||"~"))||COLL.compare(a.name,b.name));
+ const L=mSort(W().filter(w=>inR(w,m1,mN)),m1,mN);
  return {n,days,rows:L.map(w=>{let t=0,o=0,l=0;const c=days.map(ds=>{const out=outside(w,ds),v=out?dayH(w):(S.abs[w.id+"_"+ds]||0),lv=!out&&S.lv[w.id+"_"+ds];if(v)t+=v;o+=otOf(w,ds);if(lv)l++;return{out,q:out&&!!(w.end&&ds>w.end),v:out?0:v,lv}});return{w,c,t,o,l}})};
 }
 function monthPdfPages(y,m){
