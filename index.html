@@ -326,11 +326,16 @@ td.hn::after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:7
 .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
 .tile{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:start;padding:16px 14px;border-radius:18px;background:var(--card)!important;color:var(--tx)!important;border:1px solid var(--bd)!important;box-shadow:var(--sh)!important}
 .tile:hover{border-color:var(--ac)!important;filter:none}
-.tile .ti{font-size:28px;line-height:1.2;margin-bottom:4px}
+.tile .ti{display:grid;place-items:center;width:46px;height:46px;border-radius:14px;margin-bottom:8px;color:#fff;background:linear-gradient(135deg,var(--a1),var(--a2));box-shadow:0 6px 14px -4px color-mix(in srgb,var(--a2) 60%,transparent),inset 0 1px 0 rgba(255,255,255,.35)}
+.tile .ti .ic{width:24px;height:24px}
+.tc1{--a1:#8b5cf6;--a2:#6366f1}.tc6{--a1:#f43f5e;--a2:#e11d48}.tc5{--a1:#10b981;--a2:#059669}.tc4{--a1:#3b82f6;--a2:#2563eb}.tc2{--a1:#f59e0b;--a2:#ea580c}.tc3{--a1:#06b6d4;--a2:#0891b2}.tc7{--a1:#64748b;--a2:#334155}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.25);vertical-align:middle}
+#cbt svg.ic,#lo svg.ic{width:18px;height:18px}#who svg.ic{width:15px;height:15px;vertical-align:-2px}
+svg.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;display:inline-block;vertical-align:-4px;flex:none}
 .tile b{font-size:15px}.tile small{color:var(--mu);font-weight:500;font-size:11.5px}
 .tile[data-k="1"],.tile[data-k="6"]{background:linear-gradient(135deg,var(--ac),var(--ac2))!important;color:#fff!important;border:0!important}
 .tile[data-k="1"] small,.tile[data-k="6"] small{color:rgba(255,255,255,.85)}
-@media (max-width:700px){.tiles{grid-template-columns:1fr 1fr}.tile{padding:14px 12px}.tile .ti{font-size:24px}.tile b{font-size:14px}}
+@media (max-width:700px){.tiles{grid-template-columns:1fr 1fr}.tile{padding:14px 12px}.tile .ti{width:42px;height:42px}.tile b{font-size:14px}}
 .top{background:linear-gradient(120deg,var(--g1,#1e3a8a) 0%,var(--g2,#2563eb) 55%,var(--g3,#0ea5e9) 100%)!important;box-shadow:0 10px 30px color-mix(in srgb,var(--g2,#2563eb) 28%,transparent)!important}
 #login{background:linear-gradient(135deg,var(--g1,#1e3a8a),var(--g2,#2563eb) 55%,var(--g3,#0ea5e9))!important}
 :root,:root[data-theme="light"]{color-scheme:only light}
@@ -777,8 +782,8 @@ html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!imp
 </form></div>
 <main>
 <header class="top"><div class="brand"><div class="logo bml"><span>A</span></div><div><h1>غیابا کرێکاران</h1><p class="sub"><b class="alkot">ALKO</b> Company · غیاب، زێدە و ڕێکخستنا هەفتیێ</p></div></div>
-<div class="ub"><span id="net"></span><span id="who"></span><button id="cbt" class="ghost" type="button" title="ڕەنگ و دیزاین">🎨</button><button id="th" class="ghost thb" type="button">🌙</button><button id="lo" class="ghost">🚪<span class="dl"> دەرکەتن</span></button></div></header>
-<div class="tabs"><button id="t0" class="off" title="سەرەکی"><i>🏠</i></button><button id="t1" title="ڕۆژانە"><i>📝</i><span> ڕۆژانە</span></button><button id="t2" class="off" title="مانگانە"><i>📅</i><span> مانگانە</span></button><button id="t3" class="off" title="کرێکار"><i>👷</i><span> کرێکار</span></button><button id="t4" class="off" title="ڕێکخستنا هەفتیێ"><i>🧭</i><span> ڕێکخستنا هەفتیێ</span></button><button id="t5" class="off" title="کورتکرنا هەفتیێ"><i>📊</i><span> کورتکرنا هەفتیێ</span></button><button id="t6" class="off" title="غیابا هەفتیێ"><i>📋</i><span> غیابا هەفتیێ</span></button><button id="t7" class="off hide" title="بەکارهێنەر"><i>🔐</i><span> بەکارهێنەر</span></button></div>
+<div class="ub"><span id="net"></span><span id="who"></span><button id="cbt" class="ghost" type="button" title="ڕەنگ و دیزاین"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.8-.8 1.8-1.8 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-1 .8-1.8 1.8-1.8H17a4 4 0 0 0 4-4C21 6.6 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.2"/><circle cx="10" cy="7" r="1.2"/><circle cx="15" cy="7" r="1.2"/></svg></button><button id="th" class="ghost thb" type="button">🌙</button><button id="lo" class="ghost"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="M10 17l-5-5 5-5M5 12h11"/></svg><span class="dl"> دەرکەتن</span></button></div></header>
+<div class="tabs"><button id="t0" class="off" title="سەرەکی"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></i></button><button id="t1" title="ڕۆژانە"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2.5"/><path d="M9 4V2.8h6V4"/><path d="m9 13 2 2 4-4.5"/></svg></i><span> ڕۆژانە</span></button><button id="t2" class="off" title="مانگانە"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M16 3v4M8 3v4M3 10h18"/><path d="M7.5 14h.01M12 14h.01M16.5 14h.01M7.5 17.5h.01M12 17.5h.01"/></svg></i><span> مانگانە</span></button><button id="t3" class="off" title="کرێکار"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-6 6.5-6s5.9 2.4 6.5 6"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.3c1.9.8 3.2 2.9 3.5 5.7"/></svg></i><span> کرێکار</span></button><button id="t4" class="off" title="ڕێکخستنا هەفتیێ"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M3 9h18M9 21V9"/><path d="M13 13h4M13 17h2.5"/></svg></i><span> ڕێکخستنا هەفتیێ</span></button><button id="t5" class="off" title="کورتکرنا هەفتیێ"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6" rx="1"/><rect x="12" y="8" width="3" height="10" rx="1"/><rect x="17" y="5" width="3" height="13" rx="1"/></svg></i><span> کورتکرنا هەفتیێ</span></button><button id="t6" class="off" title="غیابا هەفتیێ"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2.5"/><path d="M3 9h18M8 2v4M16 2v4"/><path d="m10 12.5 4 4m0-4-4 4"/></svg></i><span> غیابا هەفتیێ</span></button><button id="t7" class="off hide" title="بەکارهێنەر"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4.5 6v6c0 4.8 3.3 7.8 7.5 9 4.2-1.2 7.5-4.2 7.5-9V6z"/><path d="m9 12 2 2 4-4"/></svg></i><span> بەکارهێنەر</span></button></div>
 <div class="srch hide"><span>🔍</span><input id="q" type="search" autocomplete="off" placeholder="گەڕیان ب ناڤ یان کۆد ..."><button id="qx" class="off hide" title="پاقژکرن">✕</button><small id="qn"></small></div>
 <div id="msg"></div>
 <div id="aw"></div>
@@ -979,7 +984,7 @@ async function load(){
  }
  startLive();
 }
-function netInfo(){const n=$("net");if(n){n.innerHTML=DB?"🟢<em> ئۆنلاین</em>":"💾<em> تەنێ ل سەر ڤی ئامێری</em>";n.title=DB?"داتا ل سەر ئینتەرنێتێ دهێتە پاشکەفتکرن و هەمی بەکارهێنەر دبینن":"داتا تەنێ د ڤی براوسەری دا دهێتە پاشکەفتکرن"}}
+function netInfo(){const n=$("net");if(n){n.innerHTML=DB?'<i class="dot"></i><em> ئۆنلاین</em>':"💾<em> تەنێ ل سەر ڤی ئامێری</em>";n.title=DB?"داتا ل سەر ئینتەرنێتێ دهێتە پاشکەفتکرن و هەمی بەکارهێنەر دبینن":"داتا تەنێ د ڤی براوسەری دا دهێتە پاشکەفتکرن"}}
 function startLive(){
  const got={c:0,d:0,w:0};
  let FAILED=false;const tm=setTimeout(()=>{if(!READY&&!FAILED)$("lgt").textContent="هێشتا پەیوەندی ب داتایێ ڤە نەبوویە. ئینتەرنێتێ پشکنە."},10000);
@@ -1134,7 +1139,7 @@ function enter(){
  applyColor();try{all()}catch(e){console.error(e)}
  document.body.classList.remove("locked");
  ["1","2","3","4","5","6","7"].forEach(k=>$("t"+k).classList.toggle("hide",!can(k)));
- $("who").innerHTML="👤 <b dir=\"ltr\">"+esc(ME.u)+"</b>"+(ME.admin?"<em> (ئەدمین)</em>":"");
+ $("who").innerHTML='<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c.8-4 4-6.5 8-6.5s7.2 2.5 8 6.5"/></svg> <b dir="ltr">'+esc(ME.u)+"</b>"+(ME.admin?"<em> (ئەدمین)</em>":"");
  const nP=["1","2","3","4","5","6","7"].filter(can).length,first=innerWidth<=700&&nP>=2?"0":["1","2","3","4","5","6","7"].find(can);
  document.querySelector(".tabs").classList.toggle("hide",["1","2","3","4","5","6","7"].filter(can).length<2);
  $("t0").classList.toggle("hide",FRU());document.body.classList.toggle("fru",FRU());
@@ -1242,6 +1247,7 @@ const inR=(w,a,b)=>!(w.end&&w.end<a)&&!(w.start&&w.start>b);
 const inWk=(w,w0)=>{const D=wkIds(w0);return inR(w,D[0],D[6])};
 const all=()=>{renderHome();qInfo();renderW();renderD();renderM();renderA();renderS();renderX()};
 
+const ICO={"0": "<path d=\"M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z\"/>", "1": "<rect x=\"5\" y=\"4\" width=\"14\" height=\"17\" rx=\"2.5\"/><path d=\"M9 4V2.8h6V4\"/><path d=\"m9 13 2 2 4-4.5\"/>", "2": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2.5\"/><path d=\"M16 3v4M8 3v4M3 10h18\"/><path d=\"M7.5 14h.01M12 14h.01M16.5 14h.01M7.5 17.5h.01M12 17.5h.01\"/>", "3": "<circle cx=\"9\" cy=\"8\" r=\"3.5\"/><path d=\"M2.5 20c.6-3.6 3.2-6 6.5-6s5.9 2.4 6.5 6\"/><path d=\"M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.3c1.9.8 3.2 2.9 3.5 5.7\"/>", "4": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2.5\"/><path d=\"M3 9h18M9 21V9\"/><path d=\"M13 13h4M13 17h2.5\"/>", "5": "<path d=\"M3 3v18h18\"/><rect x=\"7\" y=\"12\" width=\"3\" height=\"6\" rx=\"1\"/><rect x=\"12\" y=\"8\" width=\"3\" height=\"10\" rx=\"1\"/><rect x=\"17\" y=\"5\" width=\"3\" height=\"13\" rx=\"1\"/>", "6": "<rect x=\"3\" y=\"4\" width=\"18\" height=\"17\" rx=\"2.5\"/><path d=\"M3 9h18M8 2v4M16 2v4\"/><path d=\"m10 12.5 4 4m0-4-4 4\"/>", "7": "<path d=\"M12 3 4.5 6v6c0 4.8 3.3 7.8 7.5 9 4.2-1.2 7.5-4.2 7.5-9V6z\"/><path d=\"m9 12 2 2 4-4\"/>"},ico=k=>`<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${ICO[k]}</svg>`;
 const HO=["1","6","5","4","2","3","7"],HT={"1":["📝","ڕۆژانە","غیاب و زێدەیێ ئەڤرۆ"],"6":["📋","غیابا هەفتیێ","هەمی ٧ ڕۆژان ب جارەکێ"],"5":["📊","کورتکرنا هەفتیێ","کۆما غیاب و زێدەیێ"],"4":["🧭","ڕێکخستنا هەفتیێ","جه، دەوام و مۆلەت"],"2":["📅","مانگانە","خشتەیێ مانگێ"],"3":["👷","کرێکار","زێدەکرن و گوهۆڕین"],"7":["🔐","بەکارهێنەر","دەستهەلات و پاشکەفت"]};
 const avH=id=>{let h=7;for(const c of String(id))h=(h*31+c.charCodeAt(0))>>>0;return Math.round((h*137.508)%360)};
 function kpiHTML(d){
@@ -1262,7 +1268,7 @@ function renderHome(){
  <div id="hsa">${saHTML()}</div>
  <div class="dkp">${kpiHTML(d)}</div>
  <div class="kpis hk"><div class="kpi"><span>کرێکار</span><b>${act.length}</b></div><div class="kpi"><span>نەهاتی ئەڤرۆ</span><b class="${ab?"bad":"ok"}">${ab}</b></div><div class="kpi"><span>مۆلەت ئەڤرۆ</span><b>${lv}</b></div></div>
- <div class="tiles">${HO.filter(can).map(k=>`<button class="tile" data-k="${k}"><span class="ti">${HT[k][0]}</span><b>${HT[k][1]}</b><small>${HT[k][2]}</small></button>`).join("")}</div>`;
+ <div class="tiles">${HO.filter(can).map(k=>`<button class="tile" data-k="${k}"><span class="ti tc${k}">${ico(k)}</span><b>${HT[k][1]}</b><small>${HT[k][2]}</small></button>`).join("")}</div>`;
 }
 document.addEventListener("click",e=>{const t=e.target.closest(".tile");if(t)$("t"+t.dataset.k).click()});
 function qInfo(){const q=$("q").value.trim();$("qx").classList.toggle("hide",!q);$("qn").textContent=q?W().length+" ژ "+S.workers.length+" کرێکاران":""}
