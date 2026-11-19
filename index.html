@@ -1139,7 +1139,7 @@ $("ul").addEventListener("click",async e=>{
  if(pw){const i=+pw.dataset.pw,inp=$("ul").querySelector(`.upw[data-i="${i}"]`),p=inp.value;if(p.length<4)return msg("پەیڤا نهێنی دڤێت 4 پیت یان پتر بن");const x=S.users[i];x.salt=rnd();x.h=await hsh(x.salt,p);inp.value="";save();msg("پەیڤا نهێنی یا «"+x.u+"» هاتە گوهۆڕین")}
  if(du){if(du.dataset.a){S.users.splice(+du.dataset.du,1);save();renderU()}else{du.dataset.a=1;du.textContent="تو پشتڕاستی؟"}}
 });
-let IMP=null,IMPO={a:true,l:true,o:true,p:false,ow:false,add:false};
+let IMP=null,IMPO={a:true,l:true,o:true,p:true,ow:false,add:false,end:true};
 const ncode=c=>nq(String(c??""));
 $("imf").onchange=async e=>{
  const f=e.target.files[0];e.target.value="";if(!f)return;
@@ -1148,9 +1148,10 @@ $("imf").onchange=async e=>{
 function impPlan(){
  const o=IMPO;
  const by=new Map(S.workers.map(w=>[ncode(w.code),w]));
- const R={match:0,miss:[],n:{a:0,l:0,o:0,p:0},conf:0,skip:0,ops:[]};
+ const R={match:0,miss:[],n:{a:0,l:0,o:0,p:0},conf:0,skip:0,ops:[],ends:[]};
  IMP.rows.forEach(r=>{let w=by.get(ncode(r.code));
   if(!w){R.miss.push(r);if(!o.add)return;w={id:"new:"+r.code,code:String(r.code),name:r.name,role:/فني|فنی|هۆستا|hosta/i.test(r.role||"")?"هۆستا":"کرێکار",start:"",end:"",_new:1}}else R.match++;
+  if(o.end&&r.end&&(!w.end||w.end>r.end))R.ends.push([w,r.end]);
   for(const d in r.d){const x=r.d[d];if(!o[x.t])continue;const k=w.id+"_"+d;
    const has=(S.abs[k]>0)||S.lv[k]||(x.t==="o"?S.ot[k]>0:false)||(x.t==="p"?S.pr[k]:false);
    const same=(x.t==="a"&&S.abs[k]===x.h)||(x.t==="l"&&S.lv[k])||(x.t==="o"&&S.ot[k]===x.h)||(x.t==="p"&&S.pr[k]);
@@ -1166,8 +1167,9 @@ function renderImp(){
  $("imv").innerHTML=`<div class="impbox">
   <div><b>فایل:</b> ${esc(IMP.source||"")} · <b>ڕۆژ:</b> ${esc(ds[0]||"")} ← ${esc(ds[ds.length-1]||"")} · <b>کرێکار د فایلی دا:</b> ${IMP.rows.length}</div>
   <div class="imopt">${[["a","❌ غیاب"],["l","🌴 مۆلەت"],["o","➕ ئیزافە"],["p","✓ هاتی (P)"]].map(([k,t])=>`<label><input type="checkbox" data-o="${k}"${IMPO[k]?" checked":""}> ${t}</label>`).join("")}</div>
-  <div class="imopt"><label><input type="checkbox" data-o="ow"${IMPO.ow?" checked":""}> ل سەر داتایێن هەین بنڤیسە (ئەگەر جودا بن)</label><label><input type="checkbox" data-o="add"${IMPO.add?" checked":""}> کرێکارێن نەهاتینە دیتن زێدە بکە</label></div>
+  <div class="imopt"><label><input type="checkbox" data-o="ow"${IMPO.ow?" checked":""}> ل سەر داتایێن هەین بنڤیسە (ئەگەر جودا بن)</label><label><input type="checkbox" data-o="add"${IMPO.add?" checked":""}> کرێکارێن نەهاتینە دیتن زێدە بکە</label><label><input type="checkbox" data-o="end"${IMPO.end?" checked":""}> 🚪 ڕۆژا کار هێلانێ دابنێ</label></div>
   <div class="imsum">✅ <b>${R.match}</b> کرێکار هاتنە دیتن ب کۆدی · دێ هێنە داخلکرن: <b>${R.n.a}</b> غیاب، <b>${R.n.l}</b> مۆلەت، <b>${R.n.o}</b> ئیزافە${R.n.p?`، <b>${R.n.p}</b> هاتی`:""}${R.skip?` · ${R.skip} ژ بەری هەنە`:""}${R.conf?` · <span class="bad">${R.conf} جودانە ژ یێن هەین (نائێنە گوهۆڕین)</span>`:""}</div>
+  ${R.ends.length?`<div class="imsum">🚪 <b>${R.ends.length}</b> کرێکار کار هێلاینە (د هەفتیا ٢ دا نینن) — ڕۆژا دەرکەتنێ دێ بیتە ${esc(R.ends[0][1])}:<br>${R.ends.map(([w])=>`<span class="sac">${esc(w.code)} · ${esc(w.name)}</span>`).join(" ")}</div>`:""}
   ${R.miss.length?`<details class="immiss"><summary>⚠ ${R.miss.length} کۆد د سیستەمی دا نینن</summary><div>${R.miss.map(r=>`<span class="sac">${esc(r.code)} · ${esc(r.name)} <small>${esc(r.place||"")}</small></span>`).join("")}</div></details>`:""}
   <div class="bar" style="margin-top:8px"><button type="button" id="ima2">📥 ئینان</button><button type="button" class="off" id="imx">بەتالکرن</button></div></div>`;
 
@@ -1176,7 +1178,7 @@ $("imv").addEventListener("change",e=>{const c=e.target.closest("[data-o]");if(c
 $("imv").addEventListener("click",async e=>{
  if(e.target.closest("#imx")){IMP=null;renderImp();return}
  if(!e.target.closest("#ima2"))return;
- const {o,R}=impPlan();if(!R.ops.length){msg("چ داتایێن نوی بۆ ئینانێ نینن");return}
+ const {o,R}=impPlan();if(!R.ops.length&&!R.ends.length){msg("چ داتایێن نوی بۆ ئینانێ نینن");return}
  const made=new Map();
  R.ops.forEach(([w,d,x])=>{
   if(w._new){if(!made.has(w.id)){const id=Date.now().toString(36)+Math.random().toString(36).slice(2,6);const nw={id,code:w.code,name:w.name,role:w.role,start:"",end:""};S.workers.push(nw);made.set(w.id,nw)}w=made.get(w.id)}
@@ -1186,8 +1188,9 @@ $("imv").addEventListener("click",async e=>{
   else if(x.t==="o"){S.ot[k]=Math.min(+x.h||0,24);S.bo[k]="Excel"}
   else if(x.t==="p"){S.pr[k]=1;delete S.abs[k];delete S.lv[k];S.bp[k]="Excel"}
  });
+ R.ends.forEach(([w,e])=>{const t=w._new?made.get(w.id):w;if(t)t.end=e});
  NOSTAMP=true;try{await save()}finally{NOSTAMP=false}
- IMP=null;renderImp();all();msg(`✅ ${R.ops.length} داتا ژ Excel هاتنە ئینان${made.size?` و ${made.size} کرێکارێن نوی هاتنە زێدەکرن`:""}`);
+ IMP=null;renderImp();all();msg(`✅ ${R.ops.length} داتا ژ Excel هاتنە ئینان${made.size?` و ${made.size} کرێکارێن نوی هاتنە زێدەکرن`:""}${R.ends.length?` · ${R.ends.length} کرێکار کار هێلاینە`:""}`);
 });
 function openAcc(){if(!ME)return;$("acu").value=ME.u;$("acuw").classList.toggle("hide",!!ME.admin);["acc","acn","acn2"].forEach(i=>$(i).value="");$("ace").textContent="";$("acp").classList.remove("hide");setTimeout(()=>(ME.admin?$("acc"):$("acu")).focus(),50)}
 const closeAcc=()=>$("acp").classList.add("hide");
