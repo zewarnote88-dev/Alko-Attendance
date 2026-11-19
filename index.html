@@ -707,6 +707,11 @@ tr.prr{background:color-mix(in srgb,#16a34a 7%,var(--card))}
 }
 html[data-style="dash"] #dtb .prb{background:#fff!important;color:#64748b!important;border:1px solid var(--bd)!important}
 html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!important;border-color:#16a34a!important}
+.sabox{border-radius:14px;padding:10px 14px;margin:0 0 10px;background:color-mix(in srgb,#f59e0b 14%,var(--card));border:1px solid color-mix(in srgb,#f59e0b 50%,var(--bd));font-size:13px;line-height:1.7}
+.sabox.late{background:color-mix(in srgb,#ef4444 12%,var(--card));border-color:color-mix(in srgb,#ef4444 50%,var(--bd))}
+.san{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 8px}
+.sac{background:var(--card);border:1px solid var(--bd);border-radius:999px;padding:1px 10px;font-size:12px;font-weight:600}
+.sago{padding:5px 12px;font-size:12.5px}
 </style>
 </head>
 <body class="locked">
@@ -732,7 +737,7 @@ html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!imp
 
 <section id="p0" class="hide"><div id="hm"></div></section>
 
-<section id="p1"><div id="dkp" class="dkp"></div><details class="help"><summary>💡 ڕێنمایی</summary><div>هەمی کرێکار ب شێوەیەکێ ئاسایی <b>ئامادەنە</b>. بۆ ئەوێ نەهاتی تەنێ «نەهاتیە» چێک بکە، کاتژمێرێن دەواما وی ب خۆ دهێنە حسابکرن (کرێکار: 8 کاتژمێر، هۆستا و مراقب 12 کاتژمێر). ئەگەر هندەک کاتژمێران نەهاتبیت، ب دەستی بنڤیسە وەک 4 یان 2:30.<br>ئەگەر ل ڕۆژا مۆلەتا خۆ هاتبیتە کاری، «ل ڕۆژا مۆلەتێ هاتیە» چێک بکە: کاتژمێرێن وێ ڕۆژێ ×1.5 دبنە زێدە (8 → 12). بۆ کرێکاران: ئەگەر د وێ هەفتیێ دا غیاب هەبن، ڕۆژا مۆلەتێ یا ئێکێ ل بەرانبەر غیابێ دچیت و ناهێتە حسابکرن، و یا دووێ ×1.5 دهێتە حسابکرن؛ بۆ هۆستا و مراقبان هەردەم ×1.5.</div></details>
+<section id="p1"><div id="dkp" class="dkp"></div><div id="sa"></div><details class="help"><summary>💡 ڕێنمایی</summary><div>هەمی کرێکار ب شێوەیەکێ ئاسایی <b>ئامادەنە</b>. بۆ ئەوێ نەهاتی تەنێ «نەهاتیە» چێک بکە، کاتژمێرێن دەواما وی ب خۆ دهێنە حسابکرن (کرێکار: 8 کاتژمێر، هۆستا و مراقب 12 کاتژمێر). ئەگەر هندەک کاتژمێران نەهاتبیت، ب دەستی بنڤیسە وەک 4 یان 2:30.<br>ئەگەر ل ڕۆژا مۆلەتا خۆ هاتبیتە کاری، «ل ڕۆژا مۆلەتێ هاتیە» چێک بکە: کاتژمێرێن وێ ڕۆژێ ×1.5 دبنە زێدە (8 → 12). بۆ کرێکاران: ئەگەر د وێ هەفتیێ دا غیاب هەبن، ڕۆژا مۆلەتێ یا ئێکێ ل بەرانبەر غیابێ دچیت و ناهێتە حسابکرن، و یا دووێ ×1.5 دهێتە حسابکرن؛ بۆ هۆستا و مراقبان هەردەم ×1.5.</div></details>
  <div class="bar dbar">
   <button class="sec" id="dp" title="ڕۆژا بەری"><span class="dl">ڕۆژا بەری</span><span class="dm">→</span></button>
   <input type="date" id="dt">
@@ -1114,6 +1119,7 @@ function renderHome(){
  const el=$("hm");if(!el||!ME)return;
  const d=wtoday(),act=S.workers.filter(w=>!outside(w,d)),ab=act.filter(w=>(S.abs[w.id+"_"+d]||0)>0).length,lv=act.filter(w=>S.lv[w.id+"_"+d]).length;
  el.innerHTML=`<div class="hhi">سڵاڤ <b dir="ltr">${esc(ME.u)}</b> 👋 <small>${DN[new Date(d+"T00:00:00").getDay()]} ${d}</small></div>
+ <div id="hsa">${saHTML()}</div>
  <div class="dkp">${kpiHTML(d)}</div>
  <div class="kpis hk"><div class="kpi"><span>کرێکار</span><b>${act.length}</b></div><div class="kpi"><span>نەهاتی ئەڤرۆ</span><b class="${ab?"bad":"ok"}">${ab}</b></div><div class="kpi"><span>مۆلەت ئەڤرۆ</span><b>${lv}</b></div></div>
  <div class="tiles">${HO.filter(can).map(k=>`<button class="tile" data-k="${k}"><span class="ti">${HT[k][0]}</span><b>${HT[k][1]}</b><small>${HT[k][2]}</small></button>`).join("")}</div>`;
@@ -1146,10 +1152,25 @@ function dItems(d){
  const nn=pc("");if(nn.length&&it.length>1)it.push(["*none","بێ جه",nn]);
  return it;
 }
+const hasData=(w,d)=>{const k=w.id+"_"+d;return!!(S.pr[k]||(S.abs[k]||0)>0||S.lv[k])};
+// shifts: morning 08-16, evening 16-24, night 00-08 (end hours counted from 00:00 of the work day)
+const SHT=[["سپێدە",16,"☀️"],["ئێڤار",24,"🌇"],["شەڤ",32,"🌙"]];
+function shiftAlerts(){
+ const D=wtoday(),hrs=(Date.now()-new Date(D+"T00:00:00").getTime())/36e5;
+ return SHT.filter(([sh,end])=>hrs>=end-1).map(([sh,end,ic])=>({sh,ic,D,left:Math.ceil((end-hrs)*60),L:S.workers.filter(w=>!outside(w,D)&&!gone(w,D)&&asgOf(w,D)[2]===sh&&!hasData(w,D))})).filter(x=>x.L.length);
+}
+function saHTML(){
+ if(!ME||!can("1"))return"";
+ return shiftAlerts().map(a=>`<div class="sabox${a.left>0?"":" late"}"><div class="sah">${a.left>0?"⏰":"⚠️"} <b>${a.ic} دەوامێ ${esc(a.sh)}</b> ${a.left>0?`د ناڤ <b>${a.left}</b> خولەکان دا ب دووماهی دهێت.`:"ب دووماهی هات."} <b>${a.L.length}</b> کرێکار هێشتا داتا (هاتیە / نەهاتیە / مۆلەت) بۆ نەهاتیە داخلکرن:</div>
+ <div class="san">${a.L.slice(0,30).map(w=>`<span class="sac">${esc(w.name)}${w.code?" <small>("+esc(w.code)+")</small>":""}</span>`).join("")}${a.L.length>30?`<span class="sac">+${a.L.length-30}</span>`:""}</div>
+ <button type="button" class="sec sago" data-sh="${esc(a.sh)}" data-d="${a.D}">👁 تنێ ئەوان نیشان بدە</button></div>`).join("");
+}
+function renderSA(){const h=saHTML();const el=$("sa");if(el&&el.innerHTML!==h)el.innerHTML=h;const hm=$("hsa");if(hm&&hm.innerHTML!==h)hm.innerHTML=h}
+document.addEventListener("click",e=>{const b=e.target.closest(".sago");if(!b)return;DSH=b.dataset.sh;DPL="";DST="m";try{keepDF()}catch(x){}$("dt").value=b.dataset.d;$("q").value="";if($("p1").classList.contains("hide"))$("t1").click();renderD();scrollTo(0,0)});
 function dList(d,noSt){
  let L=dBase(d);
  if(DPL)L=L.filter(w=>{const p=asgOf(w,d)[1]||"";return DPL==="*none"?!p:p===DPL});
- if(DST&&!noSt)L=L.filter(w=>{const x=!outside(w,d)&&absOf(w,d)>0;return DST==="a"?x:!x&&!outside(w,d)});
+ if(DST&&!noSt)L=L.filter(w=>{if(DST==="m")return!outside(w,d)&&!hasData(w,d);const x=!outside(w,d)&&absOf(w,d)>0;return DST==="a"?x:!x&&!outside(w,d)});
  if(DSH||DPL)L.sort((x,y)=>(+asgOf(x,d)[0]||1e9)-(+asgOf(y,d)[0]||1e9));
  return L;
 }
@@ -1161,8 +1182,8 @@ function renderDFil(d){
  if(DPL&&!it.some(x=>x[0]===DPL)){DPL="";keepDF()}
  const ab=L=>L.filter(w=>!outside(w,d)&&absOf(w,d)>0).length;
  $("dpl").innerHTML=it.length>1?it.map(([v,t,L])=>{const a=ab(L);return`<button class="sg${v===DPL?" on":""}" data-v="${esc(v)}">${esc(t)}<i>${L.length}</i>${a?`<b class="sgb" title="نەهاتی">${a}</b>`:""}</button>`}).join(""):'<small>بۆ ڤێ هەفتیێ جهێ کاری نەهاتیە دیارکرن (پەرەیا «ڕێکخستنا هەفتیێ»)</small>';
- {let L=dBase(d);if(DPL)L=L.filter(w=>{const p=asgOf(w,d)[1]||"";return DPL==="*none"?!p:p===DPL});L=L.filter(w=>!outside(w,d));const na=L.filter(w=>absOf(w,d)>0).length;
-  $("dst").innerHTML=[["","هەمی",L.length],["a","❌ نەهاتی",na],["p","✅ ئامادە",L.length-na]].map(([v,t,n])=>`<button class="sg${v===DST?" on":""}" data-v="${v}">${t}<i>${n}</i></button>`).join("")}
+ {let L=dBase(d);if(DPL)L=L.filter(w=>{const p=asgOf(w,d)[1]||"";return DPL==="*none"?!p:p===DPL});L=L.filter(w=>!outside(w,d));const na=L.filter(w=>absOf(w,d)>0).length,nm=L.filter(w=>!hasData(w,d)).length;
+  $("dst").innerHTML=[["","هەمی",L.length],["a","❌ نەهاتی",na],["p","✅ ئامادە",L.length-na],["m","⏳ بێ داتا",nm]].map(([v,t,n])=>`<button class="sg${v===DST?" on":""}" data-v="${v}">${t}<i>${n}</i></button>`).join("")}
  const td0=wtoday();$("dtl").innerHTML=`<b>${DN[new Date(d+"T00:00:00").getDay()]}</b>`+(d===td0?' <span class="tdy">ئەڤرۆ</span>':` <button type="button" class="sec" id="dtd">↩ بزڤڕە بۆ ئەڤرۆ</button>`);
  const on=document.querySelector("#dpl .sg.on");if(on){const c=on.parentElement,cr=c.getBoundingClientRect(),r=on.getBoundingClientRect(),dx=(r.left+r.width/2)-(cr.left+cr.width/2);if(Math.abs(dx)>4)c.scrollLeft+=dx}
  return it;
@@ -1173,12 +1194,12 @@ function updRow(id){
  if(!tr||!w||DST){renderD();return}
  const t=document.createElement("tbody");t.innerHTML=dRow(w,d);const nr=t.firstElementChild;tr.replaceWith(nr);
  if(lockD(d))nr.querySelectorAll("input,.lvw").forEach(x=>x.disabled=true);
- renderDFil(d);renderDF();renderWarn();$("dkp").innerHTML=kpiHTML(d);
+ renderDFil(d);renderDF();renderWarn();renderSA();$("dkp").innerHTML=kpiHTML(d);
 }
 function renderD(){const SY=scrollY;try{renderD0()}finally{if(Math.abs(scrollY-SY)>1)scrollTo(0,SY)}}
 function renderD0(){
  if(FRU()){const F=fwin();if(F&&$("dt").value!==F)$("dt").value=F}["dp","dn","dt"].forEach(i=>$(i).disabled=FRU());
- const d=$("dt").value;const it=renderDFil(d);renderDF();renderWarn();$("dkp").innerHTML=kpiHTML(d);
+ const d=$("dt").value;const it=renderDFil(d);renderDF();renderWarn();renderSA();$("dkp").innerHTML=kpiHTML(d);
  const L=dList(d);
  $("dl").innerHTML=L.map(w=>dRow(w,d)).join("")||(S.workers.length?'<tr><td colspan="9" class="emp">چ کرێکار د ڤی دەوامی و ڤی جهی دا نینن</td></tr>':'<tr><td colspan="9" class="emp">پێشیێ کرێکاران زێدە بکە (پەرەیا «کرێکار»)</td></tr>');
  const LK=lockD(d);$("dtb").classList.toggle("lockd",LK);if(LK){$("dl").querySelectorAll("input,.lvw").forEach(x=>x.disabled=true);$("dtl").insertAdjacentHTML("beforeend",' <span class="lkb">'+LKT+'</span>')}
@@ -1901,7 +1922,7 @@ $("sw").onchange=()=>{if(!$("sw").value)return;$("sw").value=weekOf($("sw").valu
 const now=new Date(wtoday()+"T12:00:00");$("dt").value=iso(now);$("ws").value=(()=>{let k=aKey(iso(now));if(now.getDay()===4)k=addD(k,7);return addD(k,-1)})();$("sw").value=weekOf(iso(now));$("xw").value=weekOf(iso(now));$("mo").value=iso(now).slice(0,7);
 let WT=wtoday(),LKS=null;
 let FWS=undefined;
-setInterval(()=>{if(ME&&FRU()){const fw=fwin();if(FWS!==undefined&&fw!==FWS)enter();FWS=fw}else FWS=undefined;const lk=lockD($("dt").value);if(LKS!==null&&lk!==LKS&&!typing())all();LKS=lk;const t=wtoday();if(t===WT)return;const old=WT;WT=t;if(!typing())renderA();
+setInterval(()=>{try{renderSA()}catch(e){}if(ME&&FRU()){const fw=fwin();if(FWS!==undefined&&fw!==FWS)enter();FWS=fw}else FWS=undefined;const lk=lockD($("dt").value);if(LKS!==null&&lk!==LKS&&!typing())all();LKS=lk;const t=wtoday();if(t===WT)return;const old=WT;WT=t;if(!typing())renderA();
  if($("dt").value===old){$("dt").value=t;if(!typing())renderD()}
  if($("ws").value===addD(aKey(old),-1)&&aKey(t)!==aKey(old)){$("ws").value=addD(aKey(t),-1);if(!typing())renderA()}
  [["sw",renderS],["xw",renderX]].forEach(([id,f])=>{if($(id).value===weekOf(old)&&weekOf(t)!==weekOf(old)){$(id).value=weekOf(t);if(!typing())f()}});
