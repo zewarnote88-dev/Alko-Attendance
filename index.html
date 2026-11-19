@@ -88,9 +88,9 @@ td.lvc{background:#fde68a!important;color:#6b4a00;font-weight:700}
 tr.warn td{background:color-mix(in srgb,#e53935 16%,transparent)!important}
 tr.warn td.nm{color:var(--bad)}
 .rb{display:inline-block;font-size:11px;font-weight:700;padding:0 8px;border-radius:10px;margin-inline-start:6px;vertical-align:middle;line-height:18px}
-.r-k{background:rgba(31,111,235,.14);color:#1f5fc4}.r-h{background:rgba(230,126,0,.18);color:#a65a00}.r-m{background:rgba(130,60,200,.16);color:#7a3cc0}
+.r-k{background:rgba(31,111,235,.14);color:#1f5fc4}.r-p{background:rgba(15,118,110,.15);color:#0f766e}.r-h{background:rgba(230,126,0,.18);color:#a65a00}.r-m{background:rgba(130,60,200,.16);color:#7a3cc0}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .r-k{color:#79b4ff}:root:not([data-theme="light"]) .r-h{color:#ffb35c}:root:not([data-theme="light"]) .r-m{color:#c9a0ff}}
-#pr .r-k{color:#1f5fc4}#pr .r-h{color:#a65a00}#pr .r-m{color:#7a3cc0}
+#pr .r-k{color:#1f5fc4}#pr .r-p{color:#0f766e}#pr .r-h{color:#a65a00}#pr .r-m{color:#7a3cc0}
 tr.absr td{background:rgba(229,57,53,.10)!important}
 input.lwh{width:60px;padding:6px 4px;text-align:center}.lwn{display:block;font-size:11.5px;font-weight:700}
 input.ab{width:22px;height:22px;accent-color:#e53935}
@@ -167,7 +167,7 @@ td.a{background:var(--hl);color:var(--bad)}
 tr.absr td{background:color-mix(in srgb,var(--bad) 9%,var(--card))!important}
 /* role badges */
 .rb{border-radius:999px;padding:0 9px;font-size:10.5px}
-:root[data-theme="dark"] .r-k{color:#93c5fd}:root[data-theme="dark"] .r-h{color:#fdba74}:root[data-theme="dark"] .r-m{color:#d8b4fe}
+:root[data-theme="dark"] .r-k{color:#93c5fd}:root[data-theme="dark"] .r-p{color:#5eead4}:root[data-theme="dark"] .r-h{color:#fdba74}:root[data-theme="dark"] .r-m{color:#d8b4fe}
 /* kpis */
 .kpis{gap:12px}
 .kpi{border-radius:18px;padding:16px;box-shadow:var(--sh);text-align:start;position:relative;overflow:hidden}
@@ -777,7 +777,7 @@ html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!imp
 
 <section id="p0" class="hide"><div id="hm"></div></section>
 
-<section id="p1"><div id="dkp" class="dkp"></div><div id="sa"></div><details class="help"><summary>💡 ڕێنمایی</summary><div>هەمی کرێکار ب شێوەیەکێ ئاسایی <b>ئامادەنە</b>. بۆ ئەوێ نەهاتی تەنێ «نەهاتیە» چێک بکە، کاتژمێرێن دەواما وی ب خۆ دهێنە حسابکرن (کرێکار: 8 کاتژمێر، هۆستا و مراقب 12 کاتژمێر). ئەگەر هندەک کاتژمێران نەهاتبیت، ب دەستی بنڤیسە وەک 4 یان 2:30.<br>ئەگەر ل ڕۆژا مۆلەتا خۆ هاتبیتە کاری، «ل ڕۆژا مۆلەتێ هاتیە» چێک بکە: کاتژمێرێن وێ ڕۆژێ ×1.5 دبنە زێدە (8 → 12). بۆ کرێکاران: ئەگەر پشتی وێ ڕۆژێ (هەتا دووماهیا هەفتیا پاشی) غیابەک هەبیت، ئەو ڕۆژا مۆلەتێ ب خۆ دزڤڕیتە ×1 (8 → 8)، دا غیاب و زێدە ئێکودوو لادبەن. هەر غیابەک تنێ ڕۆژەکێ دزڤڕینیت؛ ڕۆژا مۆلەتێ یا پشتی غیابێ ×1.5 دمینیت. بۆ هۆستا و مراقبان هەردەم ×1.5.</div></details>
+<section id="p1"><div id="dkp" class="dkp"></div><div id="sa"></div><details class="help"><summary>💡 ڕێنمایی</summary><div>هەمی کرێکار ب شێوەیەکێ ئاسایی <b>ئامادەنە</b>. بۆ ئەوێ نەهاتی تەنێ «نەهاتیە» چێک بکە، کاتژمێرێن دەواما وی ب خۆ دهێنە حسابکرن (کرێکار: 8 کاتژمێر، هۆستا و مراقب 12 کاتژمێر). ئەگەر هندەک کاتژمێران نەهاتبیت، ب دەستی بنڤیسە وەک 4 یان 2:30.<br>ئەگەر ل ڕۆژا مۆلەتا خۆ هاتبیتە کاری، «ل ڕۆژا مۆلەتێ هاتیە» چێک بکە: کاتژمێرێن وێ ڕۆژێ ×1.5 دبنە زێدە (8 → 12). بۆ کرێکاران: ئەگەر پشتی وێ ڕۆژێ (هەتا دووماهیا هەفتیا پاشی) غیابەک هەبیت، ئەو ڕۆژا مۆلەتێ ب خۆ دزڤڕیتە ×1 (8 → 8)، دا غیاب و زێدە ئێکودوو لادبەن. هەر غیابەک تنێ ڕۆژەکێ دزڤڕینیت؛ ڕۆژا مۆلەتێ یا پشتی غیابێ ×1.5 دمینیت. بۆ هۆستا، هۆستایێ بەشەکی و مراقبان هەردەم ×1.5.</div></details>
  <div class="bar dbar">
   <button class="sec" id="dp" title="ڕۆژا بەری"><span class="dl">ڕۆژا بەری</span><span class="dm">→</span></button>
   <input type="date" id="dt">
@@ -795,7 +795,7 @@ html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!imp
   <div class="grid" style="margin-top:8px">
    <label>کۆد<input id="qac" autocomplete="off"></label>
    <label>ناڤ<input id="qan" autocomplete="off"></label>
-   <label>جۆر<select id="qar"><option>کرێکار</option><option>هۆستا</option><option>مراقب</option></select></label>
+   <label>جۆر<select id="qar"><option>کرێکار</option><option>هۆستا</option><option>مراقب</option><option>هۆستایێ بەشەکی</option></select></label>
   </div>
   <div class="bar" style="margin-top:10px"><button id="qas">زێدەکرن</button><button id="qax" class="off">بەتالکرن</button></div>
  </div>
@@ -815,7 +815,7 @@ html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!imp
   <div class="grid">
    <label>کۆدا کرێکاری<input id="cd"></label>
    <label>ناڤ<input id="nm"></label>
-   <label>جۆرێ کرێکاری<select id="rl"><option>کرێکار</option><option>هۆستا</option><option>مراقب</option></select><small>کرێکار = 8 کاتژمێر، هۆستا و مراقب = 12 کاتژمێر</small></label>
+   <label>جۆرێ کرێکاری<select id="rl"><option>کرێکار</option><option>هۆستا</option><option>مراقب</option><option>هۆستایێ بەشەکی</option></select><small>کرێکار و هۆستایێ بەشەکی = 8 کاتژمێر، هۆستا و مراقب = 12 کاتژمێر. هۆستایێ بەشەکی: ڕۆژا مۆلەتێ هەردەم ×1.5</small></label>
    <label>ڕۆژا دەستپێکرنا کاری<input type="date" id="sd"></label>
    <label>ڕۆژا دەرکەتنێ <small>(نە پێدڤییە)</small><input type="date" id="ed"></label>
   </div>
@@ -1505,10 +1505,11 @@ $("wc").onclick=()=>{
 const fh=h=>{if(!h)return"";const m=Math.round(h*60);return Math.floor(m/60)+":"+String(m%60).padStart(2,"0")};
 const ph=s=>{s=String(s).replace(/[٠-٩]/g,c=>c.charCodeAt(0)-1632).replace(/[۰-۹]/g,c=>c.charCodeAt(0)-1776).replace(/[،,]/g,".").replace(/[٫٬]/g,".").trim();if(!s)return 0;if(s.includes(":")){const p=s.split(":");return Math.max(0,(+p[0]||0)+(+p[1]||0)/60)}return Math.max(0,parseFloat(s)||0)};
 const r2=n=>fh(n)||"0:00";
-const ROLES=["کرێکار","هۆستا","مراقب"];
+const ROLES=["کرێکار","هۆستا","مراقب","هۆستایێ بەشەکی"];
+const isK=w=>{const r=roleOf(w);return r==="کرێکار"||r==="هۆستایێ بەشەکی"};
 const roleOf=w=>ROLES.includes(w&&w.role)?w.role:"کرێکار";
-const dayH=w=>roleOf(w)==="کرێکار"?8:12;
-const RC={"کرێکار":"r-k","هۆستا":"r-h","مراقب":"r-m"};
+const dayH=w=>isK(w)?8:12;
+const RC={"کرێکار":"r-k","هۆستا":"r-h","مراقب":"r-m","هۆستایێ بەشەکی":"r-p"};
 // Worked-on-leave day = ×1.5. If the worker is absent later (until the end of the following week),
 // that absence cancels one such day: it falls back to ×1 so the absence and the extra day net out.
 const lwEnd=d=>addD(weekOf(d),13);
@@ -1698,7 +1699,7 @@ function buildXlsx(H,D,T,sheet,meta){
  const st=o=>{const f=font(o.b,o.c,o.sz),l=fill(o.bg),n=o.t?164:0,br=o.nb?0:1,h=o.h||"center";const k=[f,l,n,br,h,o.w?1:0].join();if(!(k in XK)){XK[k]=XF.length;XF.push(`<xf numFmtId="${n}" fontId="${f}" fillId="${l}" borderId="${br}" xfId="0" applyNumberFormat="1" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="${h}" vertical="center" readingOrder="2"${o.w?' wrapText="1"':""}/></xf>`)}return XK[k]};
  st({nb:1});
  const RED="FFDC2626",GRN="FF15803D",BAND="FFF4F7FC",TOT="FFDCE6F4";
- const RC={"کرێکار":"FF1D4ED8","هۆستا":"FFB45309","مراقب":"FF7E22CE"};
+ const RC={"کرێکار":"FF1D4ED8","هۆستا":"FFB45309","مراقب":"FF7E22CE","هۆستایێ بەشەکی":"FF0F766E"};
  const ni=meta.ni==null?-1:meta.ni,ri=ni>=0?ni+1:-1;
  const kind=H.map(h=>/غیاب/.test(h)?"bad":/زێدە/.test(h)?"ok":"");
  const nc=H.length,W=H.map(h=>Math.min(String(h).length,14));
@@ -1799,7 +1800,7 @@ function pdfSheets(w0,places,allMode){
  const shLab=sh=>sh?"دەوامێ "+sh:"بێ دەوام";
  const secs=[],svc=[],pIdx=p=>{const i=S.places.indexOf(p);return i<0?999:i};
  places.slice().sort((a,b)=>plKey(a)-plKey(b)||pIdx(a)-pIdx(b)||COLL.compare(a,b)).forEach(pl=>{
-  const L=base.filter(x=>x.a[1]===pl&&roleOf(x.w)==="کرێکار");
+  const L=base.filter(x=>x.a[1]===pl&&isK(x.w));
   if(isSvc(pl)){svc.push(...L);return}
   if(isPool(pl)){const R=L.slice().sort(bySeq);if(R.length)secs.push({label:pl,DS,rowH:RH,rows:R});return}
   [...SH,""].forEach(sh=>{
