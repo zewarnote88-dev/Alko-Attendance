@@ -1139,7 +1139,8 @@ if(innerWidth>700)document.querySelectorAll("details.help").forEach(x=>x.open=tr
 const PERMS=[["1","📝 ڕۆژانە"],["2","📅 مانگانە"],["3","👷 کرێکار"],["4","🧭 ڕێکخستنا هەفتیێ"],["5","📊 کورتکرنا هەفتیێ"],["6","📋 غیابا هەفتیێ"]];
 const ADM="zewar";
 const FRU=()=>!!ME&&!ME.admin&&!!ME.noFri;
-const fwin=()=>{const n=new Date(),g=n.getDay();if(g===5)return iso(n);if(g===6&&n.getHours()<8){const y=new Date(n);y.setDate(y.getDate()-1);return iso(y)}return null};
+// Friday users: Thursday 24:00 → Saturday 08:00. The work day runs 08:00→08:00, so before Friday 08:00 it is still Thursday's (night shift).
+const fwin=()=>{const n=new Date(),g=n.getDay();return g===5||(g===6&&n.getHours()<8)?wtoday():null};
 const can=k=>!!ME&&(FRU()?(k==="1"&&!!fwin()):(k==="0"||ME.admin||(k!=="7"&&(ME.perms||[]).includes(k))));
 const rnd=()=>{try{return[...crypto.getRandomValues(new Uint8Array(16))].map(x=>x.toString(16).padStart(2,"0")).join("")}catch(e){return Math.random().toString(36).slice(2)+Date.now().toString(36)}};
 async function hsh(salt,pw){const t=new TextEncoder().encode(salt+":"+pw);try{const b=await crypto.subtle.digest("SHA-256",t);return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}catch(e){let h=2166136261;for(const c of t){h^=c;h=Math.imul(h,16777619)>>>0}return"f"+h.toString(16)}}
