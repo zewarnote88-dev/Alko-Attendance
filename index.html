@@ -733,6 +733,11 @@ html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!imp
 #xtb th.xdt small{display:block;font-size:10.5px;color:var(--mu);font-weight:600}
 .xwk .sg.on small{color:#fff;opacity:.9}
 @media (max-width:700px){#xtb input.xc::placeholder{color:transparent}.xth{display:none}.xtool button{padding:5px 9px;font-size:12px}.xwk .sg small{display:none}}
+#acp{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;padding:16px}
+#acp.hide,#acuw.hide{display:none}
+.acbox{background:var(--card);color:var(--tx);border-radius:18px;padding:16px;width:min(400px,100%);display:flex;flex-direction:column;gap:10px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.acbox label{display:flex;flex-direction:column;gap:5px;font-weight:600;font-size:13px}
+#who{cursor:pointer}
 </style>
 </head>
 <body class="locked">
@@ -870,6 +875,15 @@ html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!imp
 </section>
 <div id="cpop" class="hide"><div class="cph"><b>🎨 ڕەنگێ پرۆگرامی</b><button id="cpx" class="off" type="button">✕</button></div><div id="csw" class="csw"></div><div class="cph" style="margin-top:12px"><b>ڕەنگێ پاشبنەمێ</b></div><div class="cmd"><button type="button" class="sec" data-m="light">☀️ ڕۆناهی</button><button type="button" class="sec" data-m="dark">🌙 تاری</button></div><div class="cph" style="margin-top:12px"><b>شێوە</b></div><div class="cmd c3"><button type="button" class="sec" data-s="alko">✦ ALKO</button><button type="button" class="sec" data-s="glass">🔮 شووشە</button><button type="button" class="sec" data-s="flat">▢ ئاسایی</button></div><small>ئەڤ هەلبژارتنە تنێ بۆ تە یە و ل سەر ڤی ئامێری دمینیت.</small></div>
 <div id="ntp" class="hide"><div class="ntbox"><b>💬 بۆچی نەهاتیە؟</b><small id="ntt"></small><input id="nti" maxlength="200" autocomplete="off" placeholder="وەک: نەخۆش بوو"><div class="bar" style="margin:0"><button id="nts" type="button">پاشەکەفتکرن</button><button id="ntc" type="button" class="off">بەتالکرن</button></div></div></div>
+<div id="acp" class="hide"><form class="acbox" onsubmit="return false">
+ <div class="cph"><b>👤 ئەکاونتێ من</b><button type="button" class="off" id="acx">✕</button></div>
+ <label id="acuw">ناڤێ بەکارهێنەری یێ نوی<input id="acu" autocomplete="off" autocapitalize="off" spellcheck="false" dir="ltr"></label>
+ <label>پەیڤا نهێنی یا نوکە<input id="acc" type="password" autocomplete="current-password" dir="ltr"></label>
+ <label>پەیڤا نهێنی یا نوی <small>(ئەگەر ناگوهۆڕی، ڤالا بهێلە)</small><input id="acn" type="password" autocomplete="new-password" dir="ltr"></label>
+ <label>دووبارە پەیڤا نهێنی یا نوی<input id="acn2" type="password" autocomplete="new-password" dir="ltr"></label>
+ <div id="ace" class="bad"></div>
+ <div class="bar" style="margin:0"><button type="submit" id="acs">پاشەکەفتکرن</button><button type="button" class="off" id="acx2">بەتالکرن</button></div>
+</form></div>
 <div id="pr"></div>
 </main>
 <script>
@@ -1117,6 +1131,23 @@ $("ul").addEventListener("click",async e=>{
  if(pw){const i=+pw.dataset.pw,inp=$("ul").querySelector(`.upw[data-i="${i}"]`),p=inp.value;if(p.length<4)return msg("پەیڤا نهێنی دڤێت 4 پیت یان پتر بن");const x=S.users[i];x.salt=rnd();x.h=await hsh(x.salt,p);inp.value="";save();msg("پەیڤا نهێنی یا «"+x.u+"» هاتە گوهۆڕین")}
  if(du){if(du.dataset.a){S.users.splice(+du.dataset.du,1);save();renderU()}else{du.dataset.a=1;du.textContent="تو پشتڕاستی؟"}}
 });
+function openAcc(){if(!ME)return;$("acu").value=ME.u;$("acuw").classList.toggle("hide",!!ME.admin);["acc","acn","acn2"].forEach(i=>$(i).value="");$("ace").textContent="";$("acp").classList.remove("hide");setTimeout(()=>(ME.admin?$("acc"):$("acu")).focus(),50)}
+const closeAcc=()=>$("acp").classList.add("hide");
+$("who").addEventListener("click",openAcc);$("acx").onclick=closeAcc;$("acx2").onclick=closeAcc;
+$("acs").onclick=async()=>{
+ const er=t=>{$("ace").textContent=t};er("");if(!ME)return;
+ const cur=$("acc").value,np=$("acn").value,np2=$("acn2").value,nu=ME.admin?ADM:$("acu").value.trim().toLowerCase();
+ const rec=ME.admin?S.admin:S.users.find(v=>v.u===ME.u);if(!rec)return er("ئەکاونت نەهاتە دیتن");
+ if(await hsh(rec.salt,cur)!==rec.h)return er("پەیڤا نهێنی یا نوکە خەلەتە");
+ if(!ME.admin){if(nu.length<2)return er("ناڤ دڤێت 2 پیت یان پتر بن");if(nu===ADM||S.users.some(v=>v.u===nu&&v!==rec))return er("ئەڤ ناڤە بەری نوکە هەیە")}
+ if(np||np2){if(np.length<4)return er("پەیڤا نهێنی دڤێت 4 پیت یان پتر بن");if(np!==np2)return er("هەردوو پەیڤێن نهێنی یێن نوی نە وەک ئێکن")}
+ if(nu===ME.u&&!np)return er("چ گوهۆڕین نەهاتنە کرن");
+ const old=ME.u;
+ if(np){const salt=rnd(),h=await hsh(salt,np);if(ME.admin)S.admin={salt,h};else{rec.salt=salt;rec.h=h}}
+ if(nu!==old){rec.u=nu;["by","bo","bl","bp"].forEach(m=>{for(const k in S[m])if(S[m][k]===old)S[m][k]=nu})}
+ if(!ME.admin)ME=rec;ses(ME.u);{const r=remGet();if(r)remSet({u:ME.u,h:hOf(ME.u)})}
+ await save();closeAcc();enter();msg("✅ ئەکاونتێ تە هاتە نویکرن"+(nu!==old?" — ناڤێ نوی: "+nu:""));
+};
 $("apb").onclick=async()=>{const p=$("ap").value;if(p.length<4)return msg("پەیڤا نهێنی دڤێت 4 پیت یان پتر بن");if(p!==$("ap2").value)return msg("هەردوو پەیڤێن نهێنی نە وەک ئێکن");const salt=rnd();S.admin={salt,h:await hsh(salt,p)};{const r=remGet();if(r&&r.u===ADM)remSet({u:ADM,h:S.admin.h})}$("ap").value="";$("ap2").value="";await save();msg("پەیڤا نهێنی یا ئەدمینی هاتە گوهۆڕین")};
 const nq=x=>String(x||"").replace(/[٠-٩]/g,c=>c.charCodeAt(0)-1632).replace(/[۰-۹]/g,c=>c.charCodeAt(0)-1776).replace(/ي/g,"ی").replace(/ك/g,"ک").replace(/ة/g,"ە").replace(/[\u064B-\u065F\u200c\u200d]/g,"").toLowerCase().trim();
 const qm=w=>{const q=nq($("q").value);if(!q)return true;return nq(w.code).includes(q)||nq(w.name).includes(q)};
