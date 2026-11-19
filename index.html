@@ -761,6 +761,7 @@ html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!imp
 
 <section id="p2" class="hide"><details class="help"><summary>💡 ڕێنمایی</summary><div>خشتەیێ هەمی ڕۆژێن مانگێ. خانێن سۆر ئەو ڕۆژن یێن کرێکار تێدا نەهاتی، و ل دووماهیێ کۆما غیابێ و یا زێدە دیار دبن.</div></details>
  <div class="bar"><label>مانگ<input type="month" id="mo"></label><button id="xlM">📥 ئێکسل</button><button id="mpdf">📄 PDF</button></div>
+ <div id="mw"></div>
  <div class="card scroll"><table id="mt"></table></div>
 </section>
 
@@ -1206,7 +1207,7 @@ function lwCell(w,d){
  if(h){const m=lwMul(w,d);t+=` <input type="text" inputmode="decimal" class="lwh" data-id="${w.id}" value="${fh(h)}" title="کاتژمێرێن کارکری"><span class="lwn ${m>1?"ok":"bad"}">${m>1?"= +"+fh(h*m)+" (×1.5)":"= 0 (ل بەرانبەر غیابا ڤێ هەفتیێ)"}</span>`}
  return t;
 }
-function renderM(){
+function renderM(){try{renderMW()}catch(e){console.error(e)}
  const [y,m]=$("mo").value.split("-").map(Number),n=new Date(y,m,0).getDate();
  let h='<tr><th>کۆد</th><th>ناڤ</th>';
  for(let d=1;d<=n;d++){const g=new Date(y,m-1,d).getDay(),ds=y+"-"+p2(m)+"-"+p2(d);h+=`<th class="md${g===5?" mfri":""}${ds===wtoday()?" tdh":""}" title="${DN[g]} ${ds}">${d}</th>`}
@@ -1758,6 +1759,86 @@ $("mpdf").onclick=async()=>{
  }catch(e){console.error(e);msg(e&&e.code==="declined"?"":"PDF نەهاتە دروستکرن")}
 };
 
+// ===== Absence report PDF (weekly 2+ days / monthly >2 days) =====
+const fullAbs=(w,d)=>!outside(w,d)&&!S.lv[w.id+"_"+d]&&(S.abs[w.id+"_"+d]||0)>=dayH(w);
+function absList(days,minDays){
+ return S.workers.filter(w=>inR(w,days[0],days[days.length-1])).map(w=>{
+  const rows=days.filter(d=>!outside(w,d)&&!S.lv[w.id+"_"+d]&&(S.abs[w.id+"_"+d]||0)>0).map(d=>{const k=w.id+"_"+d;return{d,h:S.abs[k],note:S.nt[k]||"",by:S.by[k]||""}});
+  return{w,n:days.filter(d=>fullAbs(w,d)).length,h:rows.reduce((s,r)=>s+r.h,0),rows}}).filter(x=>x.n>=minDays).sort((a,b)=>b.n-a.n||b.h-a.h);
+}
+function absReportPages(title,sub,L,asgWeek){
+ const EF=(w,s)=>`${w} ${s}px system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif`,DEN=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+ const pages=[];let c,x,y;const RH=40,BH=64,HH=46,top=PM+262,bottom=PH-PM-60;
+ const T={w:L.length,d:L.reduce((s,a)=>s+a.n,0),h:L.reduce((s,a)=>s+a.h,0)};
+ const cols=[{h:"Date",w:220},{h:"Day",w:200},{h:"Hours",w:150},{h:"Reason / note",w:0},{h:"Recorded by",w:260}];
+ const tw=PW-2*PM;cols[3].w=tw-cols.reduce((s,c)=>s+c.w,0);
+ const newPage=()=>{c=document.createElement("canvas");c.width=PW;c.height=PH;x=c.getContext("2d");x.fillStyle="#f6f7fb";x.fillRect(0,0,PW,PH);x.textBaseline="middle";x.direction="ltr";
+  const g=x.createLinearGradient(PM,0,PW-PM,0);g.addColorStop(0,"#dc2626");g.addColorStop(.5,"#7c3aed");g.addColorStop(1,"#3b82f6");
+  rr(x,PM,PM,tw,150,28);x.fillStyle=g;x.fill();x.save();rr(x,PM,PM,tw,150,28);x.clip();x.fillStyle="rgba(255,255,255,.08)";x.beginPath();x.arc(PW-PM-180,PM+170,160,0,7);x.fill();x.restore();
+  const lx=PM+95,ly=PM+75;x.save();x.translate(lx,ly);x.rotate(Math.PI/4);rr(x,-38,-38,76,76,18);x.fillStyle="rgba(255,255,255,.22)";x.fill();x.restore();
+  x.fillStyle="#fff";x.textAlign="center";x.font=EF(900,44);x.fillText("A",lx,ly+2);
+  x.textAlign="left";x.font=EF(800,44);x.fillText(title,PM+170,PM+58);x.font=EF(500,24);x.fillStyle="rgba(255,255,255,.9)";x.fillText(sub,PM+170,PM+108);
+  x.textAlign="right";x.font=EF(800,30);x.fillStyle="#fff";x.fillText("ALKO",PW-PM-40,PM+62);x.font=EF(600,15);x.fillStyle="rgba(255,255,255,.8)";x.fillText("C O M P A N Y",PW-PM-40,PM+92);
+  const K=[["Workers listed",String(T.w),"#7c3aed"],["Full days absent",String(T.d),"#dc2626"],["Total absent hours",r2(T.h),"#f59e0b"]],kw=(tw-2*20)/3;
+  K.forEach((k,i)=>{const kx=PM+i*(kw+20),ky=PM+170;rr(x,kx,ky,kw,74,18);x.fillStyle="#fff";x.fill();x.strokeStyle="#e6e7ef";x.lineWidth=2;x.stroke();rr(x,kx+4,ky+14,6,46,3);x.fillStyle=k[2];x.fill();
+   x.textAlign="left";x.fillStyle="#6b6f86";x.font=EF(600,20);x.fillText(k[0],kx+26,ky+24);x.fillStyle="#1d1b2f";x.font=EF(800,30);x.fillText(k[1],kx+26,ky+54)});
+  y=top;pages.push(c)};
+ newPage();
+ if(!L.length){x.fillStyle="#6b6f86";x.font=EF(600,28);x.textAlign="center";x.fillText("No workers match this report",PW/2,top+80)}
+ L.forEach(a=>{
+  let i=0;
+  while(i<a.rows.length||i===0){
+   const room=Math.floor((bottom-y-BH-HH-16)/RH);
+   if(room<1){newPage();continue}
+   const part=a.rows.slice(i,i+room),cont=i>0,H=BH+HH+part.length*RH;
+   rr(x,PM,y,tw,H,18);x.fillStyle="#fff";x.fill();x.strokeStyle="#e6e7ef";x.lineWidth=2;x.stroke();
+   // worker header
+   x.save();rr(x,PM,y,tw,H,18);x.clip();x.fillStyle="#fbf7ff";x.fillRect(PM,y,tw,BH);x.restore();
+   const as=asgWeek?(S.asg[asgWeek+"_"+a.w.id]||[]):[];
+   x.save();x.direction="rtl";x.textAlign="left";x.fillStyle="#1d1b2f";x.font=pf(800,26);x.fillText(a.w.name+(cont?"  (…)":""),PM+24,y+BH/2+2);x.restore();
+   x.font=pf(800,26);const nw=x.measureText(a.w.name).width;
+   x.textAlign="left";x.fillStyle="#6b6f86";x.font=EF(600,20);x.direction="ltr";
+   const meta=["Code "+(a.w.code||"—"),as[1]?"Place: \u2067"+as[1]+"\u2069":"",as[2]?"Shift: "+({"سپێدە":"Morning","ئێڤار":"Evening","شەڤ":"Night"}[as[2]]||as[2]):""].filter(Boolean).join("   ·   ");
+   x.fillText(meta,PM+24+nw+40,y+BH/2+2);
+   const bt=a.n+" full day"+(a.n===1?"":"s")+"  ·  "+r2(a.h)+" h";x.font=EF(800,22);const bw=x.measureText(bt).width+40;
+   rr(x,PM+tw-bw-20,y+14,bw,BH-28,(BH-28)/2);x.fillStyle="#fee2e2";x.fill();x.fillStyle="#b91c1c";x.textAlign="center";x.fillText(bt,PM+tw-20-bw/2,y+BH/2+1);
+   // table header
+   let cx=PM;const hy=y+BH;x.fillStyle="#1d1b2f";x.fillRect(PM,hy,tw,HH);
+   cols.forEach(col=>{x.fillStyle="#fff";x.font=EF(700,20);x.textAlign="left";x.fillText(col.h,cx+18,hy+HH/2+1);cx+=col.w});
+   part.forEach((r,j)=>{const ry=hy+HH+j*RH;if(j%2){x.fillStyle="rgba(99,102,241,.045)";x.fillRect(PM,ry,tw,RH)}
+    let cx=PM;const full=r.h>=dayH(a.w);
+    const vals=[r.d,DEN[new Date(r.d+"T00:00:00").getDay()],null,r.note,r.by||"—"];
+    cols.forEach((col,ci)=>{
+     if(ci===2){const t=fh(r.h);x.font=EF(800,19);const bw2=x.measureText(t).width+26;rr(x,cx+14,ry+7,bw2,RH-14,8);x.fillStyle=full?"#fee2e2":"#ffedd5";x.fill();x.fillStyle=full?"#b91c1c":"#c2410c";x.textAlign="left";x.fillText(t,cx+27,ry+RH/2+1)}
+     else if(ci===3){if(r.note){x.save();x.direction="rtl";x.textAlign="left";x.fillStyle="#1d1b2f";x.font=pf(500,19);let t="💬 "+r.note;while(x.measureText(t).width>col.w-30&&t.length>4)t=t.slice(0,-2);x.fillText(t,cx+16,ry+RH/2+1);x.restore()}else{x.fillStyle="#b6bacb";x.font=EF(500,19);x.textAlign="left";x.fillText("—",cx+18,ry+RH/2+1)}}
+     else{x.fillStyle=ci===4?"#4b5068":"#1d1b2f";x.font=EF(ci===0?700:500,19);x.textAlign="left";x.fillText(vals[ci],cx+18,ry+RH/2+1)}
+     cx+=col.w});
+    x.strokeStyle="#eef0f5";x.lineWidth=1.5;x.beginPath();x.moveTo(PM,ry+RH);x.lineTo(PM+tw,ry+RH);x.stroke()});
+   y+=H+16;i+=Math.max(part.length,1);if(!a.rows.length)break;
+  }
+ });
+ const np=pages.length,now=new Date();pages.forEach((pc,pi)=>{const x=pc.getContext("2d");x.textBaseline="middle";x.direction="ltr";x.textAlign="right";x.fillStyle="#9aa0b4";x.font=EF(500,19);
+  x.fillText("ALKO Company · Generated "+iso(now)+" "+p2(now.getHours())+":"+p2(now.getMinutes())+(np>1?"  ·  Page "+(pi+1)+" of "+np:""),PW-PM,PH-PM-24);
+  x.textAlign="left";x.fillStyle="#b91c1c";x.font=EF(600,19);x.fillText("Full day = absent all scheduled hours (not on leave)",PM,PH-PM-24)});
+ return pages;
+}
+async function absPdf(name,title,sub,L,asgWeek){
+ try{msg("PDF دهێتە دروستکرن...");try{await document.fonts.ready}catch(e){}
+  await saveFile(name,await jpegPdf(absReportPages(title,sub,L,asgWeek)));msg("")}catch(e){console.error(e);msg(e&&e.code==="declined"?"":"PDF نەهاتە دروستکرن")}
+}
+function renderMW(){
+ const el=$("mw");if(!el)return;if(!ME||!ME.admin||!$("mo").value){el.innerHTML="";return}
+ const [y,m]=$("mo").value.split("-").map(Number),n=new Date(y,m,0).getDate(),days=[...Array(n)].map((_,i)=>y+"-"+p2(m)+"-"+p2(i+1));
+ const L=absList(days,3);
+ el.innerHTML=L.length?`<div class="warnbox">🚨 <b>تەنێ بۆ ئەدمینی:</b> ئەڤ کرێکارە د ڤێ مانگێ دا پتر ژ 2 ڕۆژان نەهاتینە:<br>${L.map(x=>`<span class="awn" data-q="${esc(x.w.code||x.w.name)}">${esc(x.w.name)}${x.w.code?" ("+esc(x.w.code)+")":""} — ${x.n} ڕۆژ</span>`).join(" ")}<div style="margin-top:8px"><button type="button" class="sec" id="mwpdf">📄 PDF: ڕۆژ و تێبینی</button></div></div>`:"";
+}
+$("mw").addEventListener("click",e=>{
+ if(e.target.closest("#mwpdf")){const [y,m]=$("mo").value.split("-").map(Number),n=new Date(y,m,0).getDate(),days=[...Array(n)].map((_,i)=>y+"-"+p2(m)+"-"+p2(i+1));
+  const MEN=["January","February","March","April","May","June","July","August","September","October","November","December"];
+  absPdf("absence-month-"+$("mo").value+".pdf","Absence Report — "+MEN[m-1]+" "+y,"Workers absent more than 2 days this month",absList(days,3),null);return}
+ const b=e.target.closest(".awn");if(b){$("q").value=b.dataset.q;$("t1").click();all()}
+});
+
 const outside=(w,d)=>!!((w.start&&d<w.start)||(w.end&&d>w.end));
 const absOf=(w,d)=>outside(w,d)?dayH(w):(S.abs[w.id+"_"+d]||0);
 $("wl").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.classList.contains("ed")){e.preventDefault();e.target.blur()}});
@@ -1773,10 +1854,10 @@ function renderWarn(){
 function renderAW(){
  const el=$("aw");if(!ME||!ME.admin||!$("dt").value){el.innerHTML="";return}
  const w0=weekOf($("dt").value),DS=wkIds(w0);
- const L=S.workers.filter(w=>inR(w,DS[0],DS[6])).map(w=>({w,n:DS.filter(d=>!outside(w,d)&&!S.lv[w.id+"_"+d]&&(S.abs[w.id+"_"+d]||0)>=dayH(w)).length})).filter(x=>x.n>=2).sort((a,b)=>b.n-a.n);
- el.innerHTML=L.length?`<div class="warnbox">🚨 <b>تەنێ بۆ ئەدمینی:</b> ئەڤ کرێکارە د هەفتیا ${w0} هەتا ${DS[6]} دا 2 ڕۆژ یان پتر نەهاتینە:<br>${L.map(x=>`<span class="awn" data-q="${esc(x.w.code||x.w.name)}" title="کلیک = دیتنا داتایێن وی">${esc(x.w.name)}${x.w.code?" ("+esc(x.w.code)+")":""} — ${x.n} ڕۆژ</span>`).join("")}</div>`:"";
+ const L=absList(DS,2);
+ el.innerHTML=L.length?`<div class="warnbox">🚨 <b>تەنێ بۆ ئەدمینی:</b> ئەڤ کرێکارە د هەفتیا ${w0} هەتا ${DS[6]} دا 2 ڕۆژ یان پتر نەهاتینە:<br>${L.map(x=>`<span class="awn" data-q="${esc(x.w.code||x.w.name)}" title="کلیک = دیتنا داتایێن وی">${esc(x.w.name)}${x.w.code?" ("+esc(x.w.code)+")":""} — ${x.n} ڕۆژ</span>`).join("")}<div style="margin-top:8px"><button type="button" class="sec" id="awpdf">📄 PDF: ڕۆژ و تێبینی</button></div></div>`:"";
 }
-$("aw").addEventListener("click",e=>{const b=e.target.closest(".awn");if(!b)return;$("q").value=b.dataset.q;all()});
+$("aw").addEventListener("click",e=>{if(e.target.closest("#awpdf")){const w0=weekOf($("dt").value),DS=wkIds(w0);absPdf("absence-week-"+w0+".pdf","Absence Report — Week "+DS[0]+" to "+DS[6],"Workers absent 2 or more full days this week",absList(DS,2),w0);return}const b=e.target.closest(".awn");if(!b)return;$("q").value=b.dataset.q;all()});
 function renderDF(){renderAW();const d=$("dt").value;let a=0,o=0,n=0;const L=dList(d,1);L.forEach(w=>{const x=absOf(w,d);a+=x;if(x&&!outside(w,d))n++;o+=otOf(w,d)});const act=L.filter(w=>!outside(w,d)).length;$("df").innerHTML=L.length?`<tr><th colspan="4" class="f-t">کۆما ڕۆژێ — ئامادە: <span class="ok">${act-n}</span> ، نەهاتی: <span class="bad">${n}</span></th><th class="bad f-n">${n}</th><th class="bad f-a" data-l="غیاب">${r2(a)}</th><th class="ok f-o" data-l="زێدە">${r2(o)}</th><th class="f-e"></th><th class="f-e"></th></tr>`:""}
 function setOt(id,v){const k=id+"_"+$("dt").value;if(!(v>0))delete S.ot[k];else S.ot[k]=Math.min(v,24);renderDF();save();renderM();renderS()}
 function renderS(){
