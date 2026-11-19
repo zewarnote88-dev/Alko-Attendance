@@ -777,7 +777,7 @@ html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!imp
 
 <section id="p0" class="hide"><div id="hm"></div></section>
 
-<section id="p1"><div id="dkp" class="dkp"></div><div id="sa"></div><details class="help"><summary>💡 ڕێنمایی</summary><div>هەمی کرێکار ب شێوەیەکێ ئاسایی <b>ئامادەنە</b>. بۆ ئەوێ نەهاتی تەنێ «نەهاتیە» چێک بکە، کاتژمێرێن دەواما وی ب خۆ دهێنە حسابکرن (کرێکار: 8 کاتژمێر، هۆستا و مراقب 12 کاتژمێر). ئەگەر هندەک کاتژمێران نەهاتبیت، ب دەستی بنڤیسە وەک 4 یان 2:30.<br>ئەگەر ل ڕۆژا مۆلەتا خۆ هاتبیتە کاری، «ل ڕۆژا مۆلەتێ هاتیە» چێک بکە: کاتژمێرێن وێ ڕۆژێ ×1.5 دبنە زێدە (8 → 12). بۆ کرێکاران: ئەگەر د وێ هەفتیێ دا غیاب هەبن، ڕۆژا مۆلەتێ یا ئێکێ ل بەرانبەر غیابێ دچیت و ناهێتە حسابکرن، و یا دووێ ×1.5 دهێتە حسابکرن؛ بۆ هۆستا و مراقبان هەردەم ×1.5.</div></details>
+<section id="p1"><div id="dkp" class="dkp"></div><div id="sa"></div><details class="help"><summary>💡 ڕێنمایی</summary><div>هەمی کرێکار ب شێوەیەکێ ئاسایی <b>ئامادەنە</b>. بۆ ئەوێ نەهاتی تەنێ «نەهاتیە» چێک بکە، کاتژمێرێن دەواما وی ب خۆ دهێنە حسابکرن (کرێکار: 8 کاتژمێر، هۆستا و مراقب 12 کاتژمێر). ئەگەر هندەک کاتژمێران نەهاتبیت، ب دەستی بنڤیسە وەک 4 یان 2:30.<br>ئەگەر ل ڕۆژا مۆلەتا خۆ هاتبیتە کاری، «ل ڕۆژا مۆلەتێ هاتیە» چێک بکە: کاتژمێرێن وێ ڕۆژێ ×1.5 دبنە زێدە (8 → 12). بۆ کرێکاران: ئەگەر پشتی وێ ڕۆژێ (هەتا دووماهیا هەفتیا پاشی) غیابەک هەبیت، ئەو ڕۆژا مۆلەتێ ب خۆ دزڤڕیتە ×1 (8 → 8)، دا غیاب و زێدە ئێکودوو لادبەن. هەر غیابەک تنێ ڕۆژەکێ دزڤڕینیت؛ ڕۆژا مۆلەتێ یا پشتی غیابێ ×1.5 دمینیت. بۆ هۆستا و مراقبان هەردەم ×1.5.</div></details>
  <div class="bar dbar">
   <button class="sec" id="dp" title="ڕۆژا بەری"><span class="dl">ڕۆژا بەری</span><span class="dm">→</span></button>
   <input type="date" id="dt">
@@ -1380,7 +1380,7 @@ $("dl").addEventListener("click",e=>{
 function lwCell(w,d){
  const k=w.id+"_"+d,h=S.lw[k];
  let t=`<input type="checkbox" class="lw lv" data-id="${w.id}"${h?" checked":""}>`;
- if(h){const m=lwMul(w,d);t+=` <input type="text" inputmode="decimal" class="lwh" data-id="${w.id}" value="${fh(h)}" title="کاتژمێرێن کارکری"><span class="lwn ${m>1?"ok":"bad"}">${m>1?"= +"+fh(h*m)+" (×1.5)":"= 0 (ل بەرانبەر غیابا ڤێ هەفتیێ)"}</span>`}
+ if(h){const I=lwInfo(w,d),m=I.m;t+=` <input type="text" inputmode="decimal" class="lwh" data-id="${w.id}" value="${fh(h)}" title="کاتژمێرێن کارکری"><span class="lwn ${m>1?"ok":"bad"}">${m>1?"= +"+fh(h*m)+" (×1.5)":"= +"+fh(h)+" (×1 · ل بەرانبەر غیابا "+DN[new Date(I.a+"T00:00:00").getDay()]+" "+I.a.slice(5)+")"}</span>`}
  return t;
 }
 function renderM(){try{renderMW()}catch(e){console.error(e)}
@@ -1509,8 +1509,17 @@ const ROLES=["کرێکار","هۆستا","مراقب"];
 const roleOf=w=>ROLES.includes(w&&w.role)?w.role:"کرێکار";
 const dayH=w=>roleOf(w)==="کرێکار"?8:12;
 const RC={"کرێکار":"r-k","هۆستا":"r-h","مراقب":"r-m"};
-const noAbsWk=(w,d)=>!wkIds(weekOf(d)).some(x=>!outside(w,x)&&S.abs[w.id+"_"+x]>0);
-const lwMul=(w,d)=>{if(roleOf(w)!=="کرێکار"||noAbsWk(w,d))return 1.5;const f=wkIds(weekOf(d)).find(x=>S.lw[w.id+"_"+x]);return f===d?0:1.5};
+// Worked-on-leave day = ×1.5. If the worker is absent later (until the end of the following week),
+// that absence cancels one such day: it falls back to ×1 so the absence and the extra day net out.
+const lwEnd=d=>addD(weekOf(d),13);
+function lwInfo(w,d){
+ const p=w.id+"_",L=Object.keys(S.lw).filter(k=>k.startsWith(p)&&S.lw[k]>0).map(k=>k.slice(p.length)).filter(x=>!outside(w,x)).sort();
+ if(roleOf(w)!=="کرێکار"||!L.includes(d))return{m:1.5};
+ const M=new Map();let x=addD(L[0],1);const last=lwEnd(L[L.length-1]);
+ for(;x<=last;x=addD(x,1)){if(!(S.abs[p+x]>0)||outside(w,x))continue;const l=L.find(l=>l<x&&x<=lwEnd(l)&&!M.has(l));if(l)M.set(l,x)}
+ return M.has(d)?{m:1,a:M.get(d)}:{m:1.5};
+}
+const lwMul=(w,d)=>lwInfo(w,d).m;
 const lwOf=(w,d)=>{const h=S.lw[w.id+"_"+d];return h?h*lwMul(w,d):0};
 const otOf=(w,d)=>(S.ot[w.id+"_"+d]||0)+lwOf(w,d);
 const rb=w=>`<span class="rb ${RC[roleOf(w)]}">${roleOf(w)}</span>`;
