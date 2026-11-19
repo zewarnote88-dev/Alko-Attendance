@@ -1999,6 +1999,76 @@ function drawMonthPage(y,m,D,rows,pi,np,T,RH,HH,top,start){
  const now=new Date();T_("ALKO · "+iso(now)+" "+p2(now.getHours())+":"+p2(now.getMinutes())+(np>1?"  ·  صفحة "+(pi+1)+" من "+np:""),PM,fy+1,500,15,"#666","left");
  return c;
 }
+function weekPdfPages(w0){
+ const ds=[...Array(7)].map((_,i)=>{const d=new Date(w0+"T00:00:00");d.setDate(d.getDate()+i);return d}),days=ds.map(iso);
+ const rows=sumList(w0,ds).map(w=>{let t=0,o=0,l=0;const c=days.map(d=>{const out=outside(w,d),a=absOf(w,d),x=out?0:otOf(w,d),lv=!out&&S.lv[w.id+"_"+d];t+=a;o+=x;if(lv)l++;return{out,q:out&&!!(w.end&&d>w.end),a,x,lv}});return{w,c,t,o,l,pl:plc(w.id,days[0])}});
+ const T={a:rows.reduce((s,r)=>s+r.t,0),o:rows.reduce((s,r)=>s+r.o,0),l:rows.reduce((s,r)=>s+r.l,0),nl:rows.filter(r=>!r.l).length};
+ const RH=38,HH=58,top=PM+96,bottom=PH-PM-58,per=Math.max(1,Math.floor((bottom-top-HH)/RH)),P=[];
+ for(let i=0;i<Math.max(1,rows.length);i+=per)P.push(rows.slice(i,i+per));
+ if(P[P.length-1].length>=per)P.push([]);
+ const DAR=["الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+ return P.map((R,pi)=>{
+  const SC=2,c=document.createElement("canvas");c.width=PW*SC;c.height=PH*SC;const x=c.getContext("2d");x.scale(SC,SC);
+  x.fillStyle="#fff";x.fillRect(0,0,PW,PH);x.textBaseline="middle";
+  const hf=h=>{const f=fh(h);return f.endsWith(":00")?f.slice(0,-3):f};
+  const T_=(t,X,Y,w,sz,col,al,mw)=>{x.save();x.direction=/[؀-ۿ]/.test(t)?"rtl":"ltr";x.textAlign=al||"center";x.fillStyle=col||"#000";let z=sz;x.font=pf(w,z);if(mw)while(z>9&&x.measureText(t).width>mw){z--;x.font=pf(w,z)}x.fillText(t,X,Y);x.restore()};
+  const g=x.createLinearGradient(PM,0,PW-PM,0);g.addColorStop(0,"#3b82f6");g.addColorStop(.5,"#6366f1");g.addColorStop(1,"#7c3aed");
+  rr(x,PM,PM,PW-2*PM,72,16);x.fillStyle=g;x.fill();
+  T_("ملخص الدوام الأسبوعي",PW-PM-28,PM+37,800,34,"#fff","right");
+  T_("من "+days[0]+"  إلى  "+days[6],PW/2,PM+37,600,22,"rgba(255,255,255,.92)","center");
+  x.save();x.direction="ltr";x.textAlign="left";x.fillStyle="#fff";x.font="900 30px system-ui,Arial,sans-serif";x.fillText("ALKO",PM+28,PM+30);x.font="600 12px system-ui,Arial,sans-serif";x.fillStyle="rgba(255,255,255,.85)";x.fillText("C O M P A N Y",PM+28,PM+56);x.restore();
+  const fixed=[{k:"n",h:"ت",w:46},{k:"code",h:"الرمز",w:80},{k:"name",h:"الاسم",w:300},{k:"pl",h:"مكان العمل",w:170}],
+   tail=[{k:"t",h:"مجموع\nالغياب",w:100},{k:"l",h:"أيام\nالإجازة",w:80},{k:"o",h:"مجموع\nالإضافي",w:130},{k:"net",h:"الإضافي\nناقص الغياب",w:124}];
+  const used=fixed.concat(tail).reduce((s,c)=>s+c.w,0),dw=(PW-2*PM-used)/7;
+  const cols=fixed.concat(days.map((d,i)=>({k:"d",i,d,w:dw})),tail);let cx=PW-PM;cols.forEach(c0=>{c0.x=cx-c0.w;cx-=c0.w});
+  const totalRow=pi===P.length-1,nR=R.length+(totalRow?1:0),ty=top,TH=HH+RH*nR,L=PM,Rr=PW-PM;
+  x.fillStyle="#1f2937";x.fillRect(L,ty,Rr-L,HH);
+  cols.forEach(col=>{
+   if(col.k==="d"){const dt=ds[col.i],fri=dt.getDay()===5;if(fri){x.fillStyle="#4c1d95";x.fillRect(col.x,ty,col.w,HH);x.fillStyle="#f3efff";x.fillRect(col.x,ty+HH,col.w,RH*R.length)}
+    T_(DAR[dt.getDay()],col.x+col.w/2,ty+21,800,17,"#fff","center",col.w-6);T_(col.d.slice(8)+"/"+col.d.slice(5,7),col.x+col.w/2,ty+43,500,13,fri?"#ddd6fe":"#cbd5e1")}
+   else{const ln=col.h.split("\n");ln.forEach((t,k)=>T_(t,col.x+col.w/2,ty+HH/2+(k-(ln.length-1)/2)*20,700,16,"#fff","center",col.w-6))}});
+  const cell=(col,ry,bg)=>{x.fillStyle=bg;x.fillRect(col.x,ry,col.w,RH)};
+  R.forEach((r,ri)=>{const ry=ty+HH+ri*RH,cy=ry+RH/2+1,net=r.o-r.t,nl=!r.l;
+   if(nl){x.fillStyle="#ffedd5";x.fillRect(L,ry,Rr-L,RH)}
+   cols.forEach(col=>{const mx=col.x+col.w/2;
+    if(col.k==="n")T_(String(pi*per+ri+1),mx,cy,500,15,"#444");
+    else if(col.k==="code")T_(r.w.code||"",mx,cy,600,15,"#333","center",col.w-6);
+    else if(col.k==="name"){T_(r.w.name,col.x+col.w-10,cy,700,17,"#000","right",col.w-(nl?96:20));if(nl){rr(x,col.x+8,ry+8,78,RH-16,8);x.fillStyle="#f59e0b";x.fill();T_("بدون إجازة",col.x+47,cy,800,11,"#fff","center",72)}}
+    else if(col.k==="pl"){if(r.pl)T_(r.pl,col.x+col.w-10,cy,500,15,"#333","right",col.w-20)}
+    else if(col.k==="d"){const v=r.c[col.i];
+     if(v.out){cell(col,ry,v.q?"#111":"#e5e7eb")}
+     else if(v.lv){cell(col,ry,"#fde68a");T_("إجازة",mx,cy,800,15,"#78350f")}
+     else if(v.a&&v.x){cell(col,ry,"#fecaca");T_("−"+hf(v.a),mx-col.w/4,cy,800,15,"#991b1b");T_("+"+hf(v.x),mx+col.w/4,cy,800,15,"#047857")}
+     else if(v.a){cell(col,ry,"#fecaca");T_("−"+hf(v.a),mx,cy,800,16,"#991b1b")}
+     else if(v.x){cell(col,ry,"#bbf7d0");T_("+"+hf(v.x),mx,cy,800,16,"#065f46")}
+     else T_("✓",mx,cy,700,15,"#16a34a")}
+    else if(col.k==="t")T_(r2(r.t),mx,cy,800,17,r.t?"#b91c1c":"#777");
+    else if(col.k==="l")T_(String(r.l),mx,cy,800,17,r.l?"#92400e":"#777");
+    else if(col.k==="o")T_(r2(r.o)+(nl&&r.o?"  ×1.5":""),mx,cy,800,17,r.o?"#047857":"#777","center",col.w-8);
+    else if(col.k==="net"){cell(col,ry,net>0?"#dcfce7":net<0?"#fee2e2":nl?"#ffedd5":"#f3f4f6");T_((net>0?"+":net<0?"−":"")+r2(Math.abs(net)),mx,cy,900,17,net>0?"#047857":net<0?"#b91c1c":"#555")}
+   })});
+  if(totalRow){const ry=ty+HH+R.length*RH,cy=ry+RH/2+1,net=T.o-T.a;x.fillStyle="#e5e7eb";x.fillRect(L,ry,Rr-L,RH);
+   const nameC=cols.find(c0=>c0.k==="name"),plC=cols.find(c0=>c0.k==="pl");T_("المجموع الكلي ("+rows.length+" عامل · "+T.nl+" بدون إجازة)",nameC.x+nameC.w-10,cy,800,16,"#000","right",nameC.w+plC.w-20);
+   cols.forEach(col=>{const mx=col.x+col.w/2;if(col.k==="t")T_(r2(T.a),mx,cy,900,17,"#b91c1c");if(col.k==="l")T_(String(T.l),mx,cy,900,17,"#92400e");if(col.k==="o")T_(r2(T.o),mx,cy,900,17,"#047857");if(col.k==="net")T_((net>0?"+":net<0?"−":"")+r2(Math.abs(net)),mx,cy,900,17,net>0?"#047857":net<0?"#b91c1c":"#555")})}
+  x.strokeStyle="#000";x.lineWidth=1;
+  for(let i=0;i<=nR;i++){const yy=ty+HH+i*RH;x.beginPath();x.moveTo(L,yy);x.lineTo(Rr,yy);x.stroke()}
+  cols.forEach(col=>{const h=totalRow&&col.k==="pl"?HH+RH*R.length:TH;x.beginPath();x.moveTo(col.x,ty);x.lineTo(col.x,ty+h);x.stroke()});
+  x.lineWidth=2.5;x.strokeRect(L,ty,Rr-L,TH);
+  const tc=cols.find(c0=>c0.k==="t"),b2=tc.x+tc.w,b1=cols.find(c0=>c0.k==="pl").x;x.beginPath();x.moveTo(b2,ty);x.lineTo(b2,ty+TH);x.stroke();x.beginPath();x.moveTo(b1,ty);x.lineTo(b1,ty+TH);x.stroke();
+  if(!rows.length)T_("لا يوجد عمال في هذا الأسبوع",PW/2,ty+HH+60,600,24,"#555");
+  const fy=PH-PM-20;let lx=PW-PM;
+  [["#fecaca","−8","غياب (ساعات)"],["#bbf7d0","+4","إضافي (ساعات)"],["#fde68a","","إجازة"],["#ffedd5","","بدون إجازة (الإضافي ×1.5)"],["#111","","ترك العمل"],["#4c1d95","","الجمعة"]].forEach(([bg,s0,t])=>{
+   x.fillStyle=bg;x.fillRect(lx-28,fy-13,28,26);x.strokeStyle="#000";x.lineWidth=1;x.strokeRect(lx-28,fy-13,28,26);if(s0)T_(s0,lx-14,fy+1,800,11,"#000");
+   x.font=pf(600,16);const tw=x.measureText(t).width;T_(t,lx-38,fy+1,600,16,"#222","right");lx-=38+tw+30});
+  const now=new Date();T_("ALKO · "+iso(now)+" "+p2(now.getHours())+":"+p2(now.getMinutes())+(P.length>1?"  ·  صفحة "+(pi+1)+" من "+P.length:""),PM,fy+1,500,15,"#666","left");
+  return c});
+}
+$("spdf").onclick=async()=>{
+ try{const w0=$("sw").value;if(!w0)return;msg("PDF دهێتە دروستکرن...");
+  try{await Promise.all([document.fonts.load(pf(700,20)),document.fonts.load(pf(500,17))]);await document.fonts.ready}catch(e){}
+  await saveFile("week-"+w0+".pdf",await jpegPdf(weekPdfPages(w0)));msg("");
+ }catch(e){console.error(e);msg(e&&e.code==="declined"?"":"PDF نەهاتە دروستکرن")}
+};
 $("mpdf").onclick=async()=>{
  try{
   const v=$("mo").value;if(!v)return;const [y,m]=v.split("-").map(Number);
