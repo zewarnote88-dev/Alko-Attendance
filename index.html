@@ -757,7 +757,8 @@ html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!imp
 .xwk .sg.on small{color:#fff;opacity:.9}
 @media (max-width:700px){#xtb input.xc::placeholder{color:transparent}.xth{display:none}.xtool button{padding:5px 9px;font-size:12px}.xwk .sg small{display:none}}
 #acp{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;padding:16px}
-#acp.hide,#acuw.hide{display:none}
+#acp.hide,#acuw.hide,#dwp.hide{display:none}
+#dwp{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;padding:16px}
 .acbox{background:var(--card);color:var(--tx);border-radius:18px;padding:16px;width:min(400px,100%);display:flex;flex-direction:column;gap:10px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
 .acbox label{display:flex;flex-direction:column;gap:5px;font-weight:600;font-size:13px}
 #who{cursor:pointer}
@@ -915,6 +916,13 @@ html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!imp
  <label>دووبارە پەیڤا نهێنی یا نوی<input id="acn2" type="password" autocomplete="new-password" dir="ltr"></label>
  <div id="ace" class="bad"></div>
  <div class="bar" style="margin:0"><button type="submit" id="acs">پاشەکەفتکرن</button><button type="button" class="off" id="acx2">بەتالکرن</button></div>
+</form></div>
+<div id="dwp" class="hide"><form class="acbox" onsubmit="return false">
+ <div class="cph"><b>🗑 ژێبرنا کرێکاری</b><button type="button" class="off" id="dwx">✕</button></div>
+ <div id="dwn" style="font-size:14px;line-height:1.7"></div>
+ <label>پەیڤا نهێنی یا ئەدمینی<input id="dwpw" type="password" autocomplete="off" dir="ltr"></label>
+ <div id="dwe" class="bad"></div>
+ <div class="bar" style="margin:0"><button type="submit" id="dws" class="danger" style="background:#dc2626;color:#fff">ژێبرن</button><button type="button" class="off" id="dwx2">بەتالکرن</button></div>
 </form></div>
 <div id="pr"></div>
 </main>
@@ -1446,8 +1454,19 @@ $("addb").onclick=()=>{
 };
 $("wl").addEventListener("click",e=>{
  const b=e.target.closest("[data-d]");if(!b)return;
- if(b.dataset.a){S.workers.splice(+b.dataset.d,1);save();all()}else{b.dataset.a=1;b.textContent="تو پشتڕاستی؟"}
+ const w=S.workers[+b.dataset.d];if(!w)return;DELW=w.id;
+ $("dwn").innerHTML=`تو دێ <b>${esc(w.name)}</b>${w.code?` (کۆد ${esc(w.code)})`:""} ژ لیستێ ژێبەی.<br><small style="color:var(--mu)">بۆ ژێبرنێ پەیڤا نهێنی یا ئەدمینی (${esc(ADM)}) پێتڤی یە.</small>`;
+ $("dwpw").value="";$("dwe").textContent="";$("dwp").classList.remove("hide");setTimeout(()=>$("dwpw").focus(),50);
 });
+let DELW=null;
+const dwClose=()=>{$("dwp").classList.add("hide");$("dwpw").value="";DELW=null};
+$("dwx").onclick=dwClose;$("dwx2").onclick=dwClose;$("dwp").addEventListener("click",e=>{if(e.target.id==="dwp")dwClose()});
+$("dws").onclick=async()=>{
+ const pw=$("dwpw").value;if(!pw){$("dwe").textContent="پەیڤا نهێنی بنڤیسە";return}
+ if(!S.admin||!S.admin.h||await hsh(S.admin.salt,pw)!==S.admin.h){$("dwe").textContent="پەیڤا نهێنی یا ئەدمینی خەلەتە";$("dwpw").select();return}
+ const i=S.workers.findIndex(x=>x.id===DELW);if(i<0){dwClose();return}
+ const nm=S.workers[i].name;S.workers.splice(i,1);dwClose();save();all();msg("🗑 "+nm+" هاتە ژێبرن");
+};
 const show=n=>{["0","1","2","3","4","5","6","7"].forEach(k=>{$("p"+k).classList.toggle("hide",k!==n);$("t"+k).classList.toggle("off",k!==n)});placeQ(n);if(n==="0")renderHome()};
 function placeQ(n){const sr=document.querySelector(".srch"),card=n==="7"?null:$("p"+n).querySelector(".card.scroll");if(card){card.before(sr);sr.classList.remove("hide")}else sr.classList.add("hide")}
 ["0","1","2","3","4","5","6","7"].forEach(k=>$("t"+k).onclick=()=>{if(!can(k))return;show(k);renderS();renderX();if(k==="7")renderU();if(k==="0")renderHome();scrollTo(0,0)});
