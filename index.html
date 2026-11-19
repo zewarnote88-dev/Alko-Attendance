@@ -870,11 +870,14 @@ function sbDB(sb){
  const docSnap=p=>({exists:cache.has(p),data:()=>cache.get(p)});
  const colSnap=c=>({docs:[...cache].filter(([p])=>colOf(p)===c).map(([p,d])=>({id:idOf(p),data:()=>d}))});
  const notify=p=>subs.forEach(x=>{if(x.t==="d"&&x.k===p)x.cb(docSnap(p));else if(x.t==="c"&&x.k===colOf(p))x.cb(colSnap(x.k))});
- let ready=null;
+ let ready=null;const pend={},stale={};
+ // while our own writes to a path are in flight, ignore echoes for it (they can be older than what we show);
+ // when the last write finishes, re-read that row once so changes by others are not lost.
+ const track=async(p,fn)=>{pend[p]=(pend[p]||0)+1;try{return await fn()}finally{if(!--pend[p]){delete pend[p];if(stale[p]){delete stale[p];try{const {data}=await sb.from("docs").select("path,data").eq("path",p).maybeSingle();if(data&&!pend[p]){cache.set(p,data.data);notify(p)}}catch(e){}}}}};
  const init=()=>ready||(ready=(async()=>{
   sb.channel("docs-live").on("postgres_changes",{event:"*",schema:"public",table:"docs"},pl=>{
    if(pl.eventType==="DELETE"){const p=pl.old&&pl.old.path;if(p&&cache.has(p)){cache.delete(p);notify(p)}return}
-   const r=pl.new;if(!r||!r.path)return;cache.set(r.path,r.data);notify(r.path);
+   const r=pl.new;if(!r||!r.path)return;if(pend[r.path]){stale[r.path]=1;return}cache.set(r.path,r.data);notify(r.path);
   }).subscribe();
   const {data,error}=await sb.from("docs").select("path,data");
   if(error)throw error;
@@ -885,8 +888,8 @@ function sbDB(sb){
   onSnapshot(cb,fail){subs.push({t:"d",k:p,cb});init().then(()=>cb(docSnap(p)),fail)},
   async get(){await init();return docSnap(p)},
   async set(data,o){
-   if(o&&o.merge){cache.set(p,dmerge(cache.get(p)||{},data));notify(p);chk(await sb.rpc("merge_doc",{p_path:p,p_data:data}))}
-   else{cache.set(p,data);notify(p);chk(await sb.from("docs").upsert({path:p,data,updated_at:new Date().toISOString()}))}
+   if(o&&o.merge){cache.set(p,dmerge(cache.get(p)||{},data));notify(p);await track(p,async()=>chk(await sb.rpc("merge_doc",{p_path:p,p_data:data})))}
+   else{cache.set(p,data);notify(p);await track(p,async()=>chk(await sb.from("docs").upsert({path:p,data,updated_at:new Date().toISOString()})))}
   }
  });
  return{doc,collection:c=>({onSnapshot(cb,fail){subs.push({t:"c",k:c,cb});init().then(()=>cb(colSnap(c)),fail)}})};
