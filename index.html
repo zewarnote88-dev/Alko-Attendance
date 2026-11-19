@@ -770,7 +770,7 @@ tr.shg td small{color:var(--mu);font-weight:600}
   <button class="sec" id="wp">هەفتیا بەری</button>
   <input type="date" id="ws">
   <button class="sec" id="wn">هەفتیا پاشی</button>
-  <button class="sec" id="wc">کۆپیکرن ژ هەفتیا بەری</button>
+  <button class="sec" id="wc" title="دەوام دهێنە گوهۆڕین: سپێدە ← ئێڤار، ئێڤار ← شەڤ، شەڤ ← سپێدە">🔄 کۆپیکرن ژ هەفتیا بەری (دەوام دزڤڕن)</button>
   <select id="so" title="ڕێزکرنا لیستێ"><option value="">↕ ڕێزکرن: ئاسایی</option><option value="seq">↕ ڕێزکرن: ژمارا ڕێزێ</option><option value="name">↕ ڕێزکرن: ناڤ (ئەلف بێ)</option><option value="code">↕ ڕێزکرن: کۆد</option><option value="sh">↕ ڕێزکرن: دەوام (سپێدە، ئێڤار، شەڤ)</option></select>
   <select id="pf"></select>
   <select id="sf"><option value="">هەمی دەوامان</option><option value="سپێدە">سپێدە</option><option value="ئێڤار">ئێڤار</option><option value="شەڤ">شەڤ</option><option value="*none">بێ دەوام</option></select>
@@ -1295,8 +1295,10 @@ $("pc2").addEventListener("click",e=>{const b=e.target.closest("[data-p]");if(!b
 $("wc").onclick=()=>{
  if(wkLocked($("ws").value)){msg("🔒 ئەڤ هەفتیە دەست پێ کریە، کۆپیکرن ناهێتە کرن");return}
  const c=$("ws").value,d=new Date(c+"T00:00:00");d.setDate(d.getDate()-7);const p=iso(d);
- S.workers.forEach(w=>{const a=S.asg[p+"_"+w.id];if(a)S.asg[c+"_"+w.id]=a.slice()});
+ const ROT={"سپێدە":"ئێڤار","ئێڤار":"شەڤ","شەڤ":"سپێدە"};let n=0;
+ S.workers.filter(w=>inWk(w,c)).forEach(w=>{const a=S.asg[p+"_"+w.id];if(a){const b=a.slice();while(b.length<3)b.push("");b[2]=ROT[b[2]]||b[2];S.asg[c+"_"+w.id]=b;n++}});
  save();renderA();renderD();
+ msg(n?`✅ ${n} کرێکار ژ هەفتیا بەری هاتنە کۆپیکرن، و دەوام هاتنە گوهۆڕین: سپێدە ← ئێڤار، ئێڤار ← شەڤ، شەڤ ← سپێدە`:"هەفتیا بەری چ ڕێکخستن تێدا نینن");
 };
 const fh=h=>{if(!h)return"";const m=Math.round(h*60);return Math.floor(m/60)+":"+String(m%60).padStart(2,"0")};
 const ph=s=>{s=String(s).replace(/[٠-٩]/g,c=>c.charCodeAt(0)-1632).replace(/[۰-۹]/g,c=>c.charCodeAt(0)-1776).replace(/[،,]/g,".").replace(/[٫٬]/g,".").trim();if(!s)return 0;if(s.includes(":")){const p=s.split(":");return Math.max(0,(+p[0]||0)+(+p[1]||0)/60)}return Math.max(0,parseFloat(s)||0)};
