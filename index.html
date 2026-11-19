@@ -76,11 +76,13 @@ th{font-weight:700;color:var(--mu);font-size:12.5px}
 #pr td.lvc{background:#fde68a!important;color:#6b4a00!important}
 #pr td.nm{text-align:start;font-weight:700}
 #pr .pt td{height:38px}
-#pr td.gry{background:#e2e2e2}
+#pr td.gry{background:#e2e2e2}#pr td.gry.qt{background:#141414}
 input.xc{width:66px;padding:7px 4px}
 .outr td{background:color-mix(in srgb,#888 20%,transparent)!important;color:var(--mu)}
 .outr .q,.outr input{pointer-events:none;opacity:.6}
 td.outc{background:color-mix(in srgb,#888 28%,transparent)!important;color:var(--mu)}
+td.outc.qt{background:#111!important;color:#fff!important;font-weight:800;box-shadow:inset 0 0 0 1px #000}
+td.outc.qt .mvf,td.outc.qt span{color:#fff!important}
 input.lv{width:22px;height:22px;padding:0;accent-color:#d99a00}
 td.lvc{background:#fde68a!important;color:#6b4a00;font-weight:700}
 tr.warn td{background:color-mix(in srgb,#e53935 16%,transparent)!important}
@@ -1380,7 +1382,7 @@ function renderM(){try{renderMW()}catch(e){console.error(e)}
  const m1=y+"-"+p2(m)+"-01",mN=y+"-"+p2(m)+"-"+p2(n);
  W().filter(w=>inR(w,m1,mN)).forEach(w=>{
   let t=0,o=0,n2=0,r=`<tr><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td>`;
-  for(let d=1;d<=n;d++){const ds2=y+"-"+p2(m)+"-"+p2(d),out=outside(w,ds2),v=out?dayH(w):S.abs[w.id+"_"+ds2];if(v)t+=v;o+=otOf(w,ds2);const l=S.lv[w.id+"_"+y+"-"+p2(m)+"-"+p2(d)];if(l)n2++;const nn=S.nt[w.id+"_"+ds2];r+=`<td class="${out?"outc":v?"a":l?"lvc":""}${nn&&v&&!out?" hn":""}"${nn&&v&&!out?` title="${esc(nn).replace(/"/g,"&quot;")}"`:""}>${v?(fh(v).endsWith(":00")?`<span class="mvf">${fh(v)}</span><span class="mvs">${fh(v).slice(0,-3)}</span>`:fh(v)):l?"م":""}</td>`}
+  for(let d=1;d<=n;d++){const ds2=y+"-"+p2(m)+"-"+p2(d),out=outside(w,ds2),v=out?dayH(w):S.abs[w.id+"_"+ds2];if(v)t+=v;o+=otOf(w,ds2);const l=S.lv[w.id+"_"+y+"-"+p2(m)+"-"+p2(d)];if(l)n2++;const nn=S.nt[w.id+"_"+ds2];r+=`<td class="${out?oc(w,ds2):v?"a":l?"lvc":""}${nn&&v&&!out?" hn":""}"${nn&&v&&!out?` title="${esc(nn).replace(/"/g,"&quot;")}"`:""}>${v?(fh(v).endsWith(":00")?`<span class="mvf">${fh(v)}</span><span class="mvs">${fh(v).slice(0,-3)}</span>`:fh(v)):l?"م":""}</td>`}
   h+=r+`<td class="${t?"bad":""}"><b>${fh(t)||"0:00"}</b></td><td class="ok"><b>${fh(o)||"0:00"}</b></td><td><b>${n2}</b></td></tr>`;
  });
  $("mt").innerHTML=h;
@@ -1554,7 +1556,7 @@ function renderX(){
   const t=DS.reduce((z,d)=>z+xv(w,d,mode),0);G+=t;
   const c=DS.map(d=>{
    const k=w.id+"_"+d;
-   if(outside(w,d))return`<td class="outc">${mode==="abs"?fh(dayH(w)):""}</td>`;
+   if(outside(w,d))return`<td class="${oc(w,d)}" title="🚪 کار هێلایە">${mode==="abs"?fh(dayH(w)):""}</td>`;
    if(lockD(d)){const v=mode==="abs"?(S.lv[k]?"مۆلەت":fh(S.abs[k]||0)):fh(otOf(w,d));const nn=mode==="abs"&&S.abs[k]?S.nt[k]:"";return`<td class="lkc${S.lv[k]&&mode==="abs"?" lvc":""}${nn?" hn":""}"${nn?` title="${esc(nn).replace(/"/g,"&quot;")}"`:""}>${v}</td>`}
    if(mode==="abs"&&S.lv[k])return`<td class="lvc lvx xcell" data-id="${w.id}" data-d="${d}" style="cursor:pointer" title="کلیک = لابرنا مۆلەتێ${S.bl[k]?" — تۆمارکر: "+esc(S.bl[k]):""}"><span class="dfull">مۆلەت ✕</span><span class="dshort">م</span>${S.bl[k]?`<span class="byl">👤 ${esc(S.bl[k])}</span>`:""}</td>`;
    const nn=mode==="abs"&&S.abs[k]?S.nt[k]:"",av=S.abs[k]||0,cl=[nn?"hn":"",mode==="abs"?(av>=dayH(w)?"xa":av>0?"xpa":S.pr[k]?"xpr":""):((S.ot[k]||0)>0?"xo":"")].filter(Boolean).join(" ");return`<td data-id="${w.id}" data-d="${d}"${cl?` class="${cl}"`:""}${nn?` title="${esc(nn).replace(/"/g,"&quot;")}"`:""}><input type="text" inputmode="decimal" class="h xc" data-id="${w.id}" data-d="${d}" value="${fh((mode==="ot"?S.ot:S.abs)[k]||0)}" placeholder="0:00">${mode==="abs"&&S.pr[k]&&!S.abs[k]?`<span class="prk">✓ هاتیە</span>${S.bp[k]?`<span class="byl">👤 ${esc(S.bp[k])}</span>`:""}`:""}${mode==="abs"&&S.abs[k]?`<button type="button" class="ntb${S.nt[k]?" has":""}" data-id="${w.id}" data-d="${d}" title="${S.nt[k]?esc(S.nt[k]).replace(/"/g,"&quot;"):"تێبینی: بۆچی نەهاتیە؟"}">💬${S.nt[k]?" "+esc(S.nt[k].length>14?S.nt[k].slice(0,14)+"…":S.nt[k]):""}</button>`:""}${mode==="abs"&&S.abs[k]&&S.by[k]?`<span class="byl">👤 ${esc(S.by[k])}</span>`:""}${mode==="ot"&&(S.ot[k]||S.lw[k])&&S.bo[k]?`<span class="byl">👤 ${esc(S.bo[k])}</span>`:""}${mode==="ot"&&S.lw[k]?`<span class="lwn ok">+${fh(lwOf(w,d))} مۆلەت</span>`:""}</td>`;
@@ -1624,7 +1626,7 @@ function sheetPages(place,w0){
    const pg=i/N+1;
    let h=`<div class="pg"><h2>${esc(place)} — ${esc(lab)}</h2><p>هەفتی ژ ${DS[0]} هەتا ${DS[7]}${tot>1?" — لاپەڕ "+pg+"/"+tot:""}</p><table class="pt"><tr><th>ڕێز</th><th>کۆد</th><th>ناڤ</th>`+DS.map(d=>`<th>${dn(d)}<br>${d.slice(5)}</th>`).join("")+"<th>کۆما غیابێ</th><th>تێبینی</th></tr>";
    L.slice(i,i+N).forEach(({w,a})=>{
-    h+=`<tr><td>${esc(a[0])}</td><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td>`+DS.map(d=>{const l=S.lv[w.id+"_"+d],o=outside(w,d);return`<td class="${l?"lvc":o?"gry":""}">${l?"مۆلەت":""}</td>`}).join("")+"<td></td><td></td></tr>";
+    h+=`<tr><td>${esc(a[0])}</td><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td>`+DS.map(d=>{const l=S.lv[w.id+"_"+d],o=outside(w,d);return`<td class="${l?"lvc":o?(w.end&&d>w.end?"gry qt":"gry"):""}">${l?"مۆلەت":""}</td>`}).join("")+"<td></td><td></td></tr>";
    });
    out.push(h+`</table><p style="margin-top:14px">ناڤ و ئیمزایا مراقبی: ____________________</p></div>`);
   }
@@ -1845,7 +1847,7 @@ function renderPdfPage(pg){
    else if(col.k==="name"){txt=w.name;o={b:1,al:"r",s:25}}
    else if(col.k==="sh")txt=a[2]||"—";
    else if(col.k==="pl")txt=a[1]||"—";
-   else if(col.k==="d"){const l=S.lv[w.id+"_"+col.d],out=outside(w,col.d);if(l){txt="مۆلەت";o={bg:"#fde68a",c:"#6b4a00",b:1,s:21}}else if(out)o={bg:"#e2e2e2"}}
+   else if(col.k==="d"){const l=S.lv[w.id+"_"+col.d],out=outside(w,col.d);if(l){txt="مۆلەت";o={bg:"#fde68a",c:"#6b4a00",b:1,s:21}}else if(out)o=(w.end&&col.d>w.end)?{bg:"#141414"}:{bg:"#e2e2e2"}}
    drawCell(x,cx,it.y,col.w,it.h,txt,o);
   });
  });
@@ -1891,7 +1893,7 @@ function rr(x,X,Y,W,H,r){x.beginPath();x.moveTo(X+r,Y);x.arcTo(X+W,Y,X+W,Y+H,r);
 function monthRows(y,m){
  const n=new Date(y,m,0).getDate(),m1=y+"-"+p2(m)+"-01",mN=y+"-"+p2(m)+"-"+p2(n),days=[...Array(n)].map((_,i)=>y+"-"+p2(m)+"-"+p2(i+1));
  const L=S.workers.filter(w=>inR(w,m1,mN)).slice().sort((a,b)=>COLL.compare(String(a.code||"~"),String(b.code||"~"))||COLL.compare(a.name,b.name));
- return {n,days,rows:L.map(w=>{let t=0,o=0,l=0;const c=days.map(ds=>{const out=outside(w,ds),v=out?dayH(w):(S.abs[w.id+"_"+ds]||0),lv=!out&&S.lv[w.id+"_"+ds];if(v)t+=v;o+=otOf(w,ds);if(lv)l++;return{out,v:out?0:v,lv}});return{w,c,t,o,l}})};
+ return {n,days,rows:L.map(w=>{let t=0,o=0,l=0;const c=days.map(ds=>{const out=outside(w,ds),v=out?dayH(w):(S.abs[w.id+"_"+ds]||0),lv=!out&&S.lv[w.id+"_"+ds];if(v)t+=v;o+=otOf(w,ds);if(lv)l++;return{out,q:out&&!!(w.end&&ds>w.end),v:out?0:v,lv}});return{w,c,t,o,l}})};
 }
 function monthPdfPages(y,m){
  const D=monthRows(y,m),RH=40,top=PM+262,bottom=PH-PM-70,per=Math.max(1,Math.floor((bottom-top-56)/RH));
@@ -1937,7 +1939,7 @@ function drawMonthPage(y,m,D,rows,pi,np,T,RH,top){
    if(col.k==="code"){t=r.w.code||"";o.c="#6b6f86"}
    else if(col.k==="name"){x.save();x.direction="rtl";x.textAlign="left";x.fillStyle="#1d1b2f";x.font=pf(700,20);let z=20;while(z>12&&x.measureText(r.w.name).width>col.w-28){z--;x.font=pf(700,z)}x.fillText(r.w.name,cx+14,ry+RH/2+1);x.restore()}
    else if(col.k==="d"){const v=r.c[col.i];
-    if(v.out){x.fillStyle="#eceef3";x.fillRect(cx+1,ry+1,col.w-2,RH-2)}
+    if(v.out){x.fillStyle=v.q?"#141414":"#eceef3";x.fillRect(cx+1,ry+1,col.w-2,RH-2)}
     else if(v.lv){x.fillStyle="#fef3c7";rr(x,cx+3,ry+5,col.w-6,RH-10,7);x.fill();t="L";o={c:"#92400e",w:800,s:17}}
     else if(v.v){x.fillStyle="#fee2e2";rr(x,cx+3,ry+5,col.w-6,RH-10,7);x.fill();const f=fh(v.v);t=f.endsWith(":00")?f.slice(0,-3):f;o={c:"#b91c1c",w:700,s:17}}}
    else if(col.k==="t"){t=r2(r.t);o={c:r.t?"#dc2626":"#9aa0b4",w:800,s:20}}
@@ -2047,6 +2049,7 @@ $("mw").addEventListener("click",e=>{
 });
 
 const outside=(w,d)=>!!((w.start&&d<w.start)||(w.end&&d>w.end));
+const oc=(w,d)=>"outc"+(w.end&&d>w.end?" qt":"");
 const absOf=(w,d)=>outside(w,d)?dayH(w):(S.abs[w.id+"_"+d]||0);
 $("wl").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.classList.contains("ed")){e.preventDefault();e.target.blur()}});
 $("wl").addEventListener("change",e=>{const t=e.target;if(t.classList.contains("ed")){const w=S.workers[+t.dataset.i],v=t.value.trim();if(t.dataset.f==="name"&&!v){t.value=w.name;msg("ناڤ نابیت ڤالا بیت");return}if(t.dataset.f==="code"&&v&&S.workers.some(x=>x!==w&&(x.code||"")===v)){msg("ئاگەهداری: کۆدا «"+v+"» بۆ کرێکارەکێ دی ژی هەیە")}else msg("");w[t.dataset.f]=v;save();all();return}if(t.classList.contains("rl2")){S.workers[+t.dataset.i].role=t.value;save();all();return}if(!t.classList.contains("dd"))return;S.workers[+t.dataset.i][t.dataset.f]=t.value;save();all()});
@@ -2074,7 +2077,7 @@ function renderS(){
  let h='<tr><th>کۆد</th><th>ناڤ</th><th>جهێ کاری</th>'+ds.map(d=>`<th>${DN[d.getDay()]}<br>${iso(d).slice(5)}</th>`).join("")+'<th>کۆما زێدە</th><th>کۆما غیابێ</th><th>ڕۆژێن مۆلەتێ</th></tr>',TO=0,TA=0,BAD=0;
  W().filter(w=>inR(w,iso(ds[0]),iso(ds[6]))).forEach(w=>{
   let o=0,a=0,L=0;
-  const c=ds.map(d=>{const k=w.id+"_"+iso(d),x=otOf(w,iso(d)),y=absOf(w,iso(d)),out=outside(w,iso(d)),l=S.lv[k];o+=x;a+=y;if(l)L++;const nn=S.nt[k];return`<td class="${out?"outc":l?"lvc":""}${nn&&y&&!out?" hn":""}"${nn&&y&&!out?` title="${esc(nn).replace(/"/g,"&quot;")}"`:""}>${l?"مۆلەت ":""}${x?'<span class="ok">+'+fh(x)+'</span> ':""}${y?'<span class="bad">−'+fh(y)+'</span>':""}${!l&&!x&&!y?'<span class="tk" title="ئامادە">✓</span>':""}</td>`});
+  const c=ds.map(d=>{const k=w.id+"_"+iso(d),x=otOf(w,iso(d)),y=absOf(w,iso(d)),out=outside(w,iso(d)),l=S.lv[k];o+=x;a+=y;if(l)L++;const nn=S.nt[k];return`<td class="${out?oc(w,iso(d)):l?"lvc":""}${nn&&y&&!out?" hn":""}"${nn&&y&&!out?` title="${esc(nn).replace(/"/g,"&quot;")}"`:""}>${l?"مۆلەت ":""}${x?'<span class="ok">+'+fh(x)+'</span> ':""}${y?'<span class="bad">−'+fh(y)+'</span>':""}${!l&&!x&&!y?'<span class="tk" title="ئامادە">✓</span>':""}</td>`});
   TO+=o;TA+=a;
   const bad=!L&&!a;if(bad)BAD++;h+=`<tr><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td><td>${esc(plc(w.id,iso(ds[0])))}</td>`+c.join("")+`<td class="ok"><b>${r2(o)}</b></td><td class="bad"><b>${r2(a)}</b></td><td><b>${L}</b></td></tr>`;
  });
