@@ -738,6 +738,10 @@ html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!imp
 .acbox{background:var(--card);color:var(--tx);border-radius:18px;padding:16px;width:min(400px,100%);display:flex;flex-direction:column;gap:10px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
 .acbox label{display:flex;flex-direction:column;gap:5px;font-weight:600;font-size:13px}
 #who{cursor:pointer}
+.impbox{margin-top:10px;border:1px solid var(--bd);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px;font-size:13px;background:var(--bg2)}
+.imopt{display:flex;flex-wrap:wrap;gap:6px 16px}.imopt label{display:flex;align-items:center;gap:6px;font-weight:600}
+.imsum{background:var(--card);border-radius:10px;padding:8px 10px;line-height:1.8}
+.immiss summary{cursor:pointer;font-weight:700;color:#b45309}.immiss div{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
 </style>
 </head>
 <body class="locked">
@@ -870,6 +874,10 @@ html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!imp
  <div class="card"><b>پاشکەفت (Backup) و ڤەگوهاستنا داتایێ</b>
   <p style="margin:6px 0 10px;color:var(--mu);font-size:13px">بۆ ڤەگوهاستنا داتایێن کەڤن بۆ ڤێ ڤەشانێ: ل ئامێرێ کەڤن «دانلۆدکرنا پاشکەفتێ» بکە، پاشی ل ڤێرێ «ئینانا پاشکەفتێ» بکە.</p>
   <div class="bar"><button id="bkx" class="sec">📤 دانلۆدکرنا پاشکەفتێ</button><label class="sec fbtn">📥 ئینانا پاشکەفتێ<input type="file" id="bkf" accept=".json,application/json" hidden></label></div></div>
+ <div class="card"><b>📥 ئینانا داتایێن Excel</b>
+  <p style="margin:6px 0 10px;color:var(--mu);font-size:13px">ئەو فایلێ ئامادەکری (alko-import .json) ل ڤێرە بار بکە. غیاب، مۆلەت و ئیزافە ب کۆدێ کرێکاری دهێنە گرێدان. پێشیێ پێشبینیەک دیار دبیت، و پاشی تو بڕیارێ ددەی.</p>
+  <div class="bar"><label class="sec fbtn">📥 هەلبژارتنا فایلی<input type="file" id="imf" accept=".json,application/json" hidden></label></div>
+  <div id="imv"></div></div>
  <div class="card"><b>گوهۆڕینا پەیڤا نهێنی یا ئەدمینی (zewar)</b>
   <div class="bar" style="margin-top:8px"><input id="ap" type="password" placeholder="پەیڤا نهێنی یا نوی" autocomplete="new-password" dir="ltr"><input id="ap2" type="password" placeholder="دووبارە بنڤیسە" autocomplete="new-password" dir="ltr"><button id="apb">گوهۆڕین</button></div></div>
 </section>
@@ -1130,6 +1138,56 @@ $("ul").addEventListener("click",async e=>{
  const pw=e.target.closest("[data-pw]"),du=e.target.closest("[data-du]");
  if(pw){const i=+pw.dataset.pw,inp=$("ul").querySelector(`.upw[data-i="${i}"]`),p=inp.value;if(p.length<4)return msg("پەیڤا نهێنی دڤێت 4 پیت یان پتر بن");const x=S.users[i];x.salt=rnd();x.h=await hsh(x.salt,p);inp.value="";save();msg("پەیڤا نهێنی یا «"+x.u+"» هاتە گوهۆڕین")}
  if(du){if(du.dataset.a){S.users.splice(+du.dataset.du,1);save();renderU()}else{du.dataset.a=1;du.textContent="تو پشتڕاستی؟"}}
+});
+let IMP=null,IMPO={a:true,l:true,o:true,p:false,ow:false,add:false};
+const ncode=c=>nq(String(c??""));
+$("imf").onchange=async e=>{
+ const f=e.target.files[0];e.target.value="";if(!f)return;
+ try{const j=JSON.parse(await f.text());if(j.type!=="alko-import"||!Array.isArray(j.rows))throw 0;IMP=j;renderImp()}catch(x){IMP=null;$("imv").innerHTML='<div class="warnbox">ئەڤ فایلە نە فایلێ ئینانێ یە (alko-import).</div>'}
+};
+function impPlan(){
+ const o=IMPO;
+ const by=new Map(S.workers.map(w=>[ncode(w.code),w]));
+ const R={match:0,miss:[],n:{a:0,l:0,o:0,p:0},conf:0,skip:0,ops:[]};
+ IMP.rows.forEach(r=>{let w=by.get(ncode(r.code));
+  if(!w){R.miss.push(r);if(!o.add)return;w={id:"new:"+r.code,code:String(r.code),name:r.name,role:/فني|فنی|هۆستا|hosta/i.test(r.role||"")?"هۆستا":"کرێکار",start:"",end:"",_new:1}}else R.match++;
+  for(const d in r.d){const x=r.d[d];if(!o[x.t])continue;const k=w.id+"_"+d;
+   const has=(S.abs[k]>0)||S.lv[k]||(x.t==="o"?S.ot[k]>0:false)||(x.t==="p"?S.pr[k]:false);
+   const same=(x.t==="a"&&S.abs[k]===x.h)||(x.t==="l"&&S.lv[k])||(x.t==="o"&&S.ot[k]===x.h)||(x.t==="p"&&S.pr[k]);
+   if(same){R.skip++;continue}
+   if(has&&!o.ow&&x.t!=="o"){R.conf++;continue}
+   if(x.t==="o"&&S.ot[k]>0&&!o.ow){R.conf++;continue}
+   R.n[x.t]++;R.ops.push([w,d,x])}});
+ return{o,R};
+}
+function renderImp(){
+ if(!IMP){$("imv").innerHTML="";return}
+ const {R}=impPlan(),ds=IMP.days||[];
+ $("imv").innerHTML=`<div class="impbox">
+  <div><b>فایل:</b> ${esc(IMP.source||"")} · <b>ڕۆژ:</b> ${esc(ds[0]||"")} ← ${esc(ds[ds.length-1]||"")} · <b>کرێکار د فایلی دا:</b> ${IMP.rows.length}</div>
+  <div class="imopt">${[["a","❌ غیاب"],["l","🌴 مۆلەت"],["o","➕ ئیزافە"],["p","✓ هاتی (P)"]].map(([k,t])=>`<label><input type="checkbox" data-o="${k}"${IMPO[k]?" checked":""}> ${t}</label>`).join("")}</div>
+  <div class="imopt"><label><input type="checkbox" data-o="ow"${IMPO.ow?" checked":""}> ل سەر داتایێن هەین بنڤیسە (ئەگەر جودا بن)</label><label><input type="checkbox" data-o="add"${IMPO.add?" checked":""}> کرێکارێن نەهاتینە دیتن زێدە بکە</label></div>
+  <div class="imsum">✅ <b>${R.match}</b> کرێکار هاتنە دیتن ب کۆدی · دێ هێنە داخلکرن: <b>${R.n.a}</b> غیاب، <b>${R.n.l}</b> مۆلەت، <b>${R.n.o}</b> ئیزافە${R.n.p?`، <b>${R.n.p}</b> هاتی`:""}${R.skip?` · ${R.skip} ژ بەری هەنە`:""}${R.conf?` · <span class="bad">${R.conf} جودانە ژ یێن هەین (نائێنە گوهۆڕین)</span>`:""}</div>
+  ${R.miss.length?`<details class="immiss"><summary>⚠ ${R.miss.length} کۆد د سیستەمی دا نینن</summary><div>${R.miss.map(r=>`<span class="sac">${esc(r.code)} · ${esc(r.name)} <small>${esc(r.place||"")}</small></span>`).join("")}</div></details>`:""}
+  <div class="bar" style="margin-top:8px"><button type="button" id="ima2">📥 ئینان</button><button type="button" class="off" id="imx">بەتالکرن</button></div></div>`;
+
+}
+$("imv").addEventListener("change",e=>{const c=e.target.closest("[data-o]");if(c){IMPO[c.dataset.o]=c.checked;renderImp()}});
+$("imv").addEventListener("click",async e=>{
+ if(e.target.closest("#imx")){IMP=null;renderImp();return}
+ if(!e.target.closest("#ima2"))return;
+ const {o,R}=impPlan();if(!R.ops.length){msg("چ داتایێن نوی بۆ ئینانێ نینن");return}
+ const made=new Map();
+ R.ops.forEach(([w,d,x])=>{
+  if(w._new){if(!made.has(w.id)){const id=Date.now().toString(36)+Math.random().toString(36).slice(2,6);const nw={id,code:w.code,name:w.name,role:w.role,start:"",end:""};S.workers.push(nw);made.set(w.id,nw)}w=made.get(w.id)}
+  const k=w.id+"_"+d;
+  if(x.t==="a"){S.abs[k]=Math.min(+x.h||dayH(w),24);delete S.lv[k];delete S.pr[k];S.by[k]="Excel"}
+  else if(x.t==="l"){S.lv[k]=1;delete S.abs[k];delete S.nt[k];delete S.pr[k];S.bl[k]="Excel"}
+  else if(x.t==="o"){S.ot[k]=Math.min(+x.h||0,24);S.bo[k]="Excel"}
+  else if(x.t==="p"){S.pr[k]=1;delete S.abs[k];delete S.lv[k];S.bp[k]="Excel"}
+ });
+ NOSTAMP=true;try{await save()}finally{NOSTAMP=false}
+ IMP=null;renderImp();all();msg(`✅ ${R.ops.length} داتا ژ Excel هاتنە ئینان${made.size?` و ${made.size} کرێکارێن نوی هاتنە زێدەکرن`:""}`);
 });
 function openAcc(){if(!ME)return;$("acu").value=ME.u;$("acuw").classList.toggle("hide",!!ME.admin);["acc","acn","acn2"].forEach(i=>$(i).value="");$("ace").textContent="";$("acp").classList.remove("hide");setTimeout(()=>(ME.admin?$("acc"):$("acu")).focus(),50)}
 const closeAcc=()=>$("acp").classList.add("hide");
