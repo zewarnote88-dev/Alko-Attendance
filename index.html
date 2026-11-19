@@ -465,6 +465,29 @@ html[data-style="glass"]{background:#eef1f7}
 html[data-style="glass"] :where(.card,.tabs,.kpi,.tile,details.help,.dfl,#cpop){-webkit-backdrop-filter:blur(22px) saturate(180%)!important;backdrop-filter:blur(22px) saturate(180%)!important;border-radius:20px}
 html[data-style="glass"] .tabs button:not(.off){box-shadow:0 6px 16px -6px var(--ac),inset 0 1px 0 rgba(255,255,255,.4)}
 html[data-style="glass"] .top{box-shadow:0 12px 30px -10px color-mix(in srgb,var(--g2) 55%,transparent),inset 0 1px 0 rgba(255,255,255,.35)}
+
+/* ===== soft (neumorphism) ===== */
+html[data-style="soft"]{--nb:#e6e9f0;--n1:#c3c8d4;--n2:#ffffff;--card:var(--nb);--bg:var(--nb);--bg2:var(--nb);--bd:transparent;--thbg:var(--nb)}
+html[data-style="soft"][data-theme="dark"]{--nb:#22262e;--n1:#15181d;--n2:#2f343e;--tx:#e6e9ef;--mu:#9aa3b2}
+html[data-style="soft"],html[data-style="soft"] body{background:var(--nb)!important;background-image:none!important}
+html[data-style="soft"] :where(.card,.tabs,.kpi,.tile,details.help,#dtb tbody tr,#dtb tfoot tr,.dfl,.warnbox,.srch,.xact,.sabox,.impbox,.lgI,.abr,.acbox,#cpop){background:var(--nb)!important;border:none!important;border-radius:22px!important;box-shadow:7px 7px 16px var(--n1),-7px -7px 16px var(--n2)!important}
+html[data-style="soft"] .top{border-radius:22px!important;box-shadow:7px 7px 16px var(--n1),-7px -7px 16px var(--n2)!important;border:none!important}
+html[data-style="soft"] .tabs{padding:8px!important}
+html[data-style="soft"] .tabs button{background:var(--nb)!important;border:none!important;color:var(--mu)!important;box-shadow:4px 4px 9px var(--n1),-4px -4px 9px var(--n2)!important}
+html[data-style="soft"] .tabs button:not(.off){color:var(--ac)!important;box-shadow:inset 4px 4px 8px var(--n1),inset -4px -4px 8px var(--n2)!important}
+html[data-style="soft"] :is(button.sec,button.off,.sg,.seg button,#dtb .prb,#dtb .abt,#dtb .lvt,#dtb label){background:var(--nb)!important;border:none!important;box-shadow:3px 3px 7px var(--n1),-3px -3px 7px var(--n2)!important}
+html[data-style="soft"] :is(.sg.on,.seg button.on,#dtb .prb.on,#dtb .abt:has(input:checked),#dtb label:has(input:checked)){box-shadow:inset 3px 3px 7px var(--n1),inset -3px -3px 7px var(--n2)!important}
+html[data-style="soft"] :is(.sg.on,.seg button.on,#cpop .on,.tabs button:not(.off)) {color:var(--ac)!important;font-weight:800}
+html[data-style="soft"] #cpop :is([data-s],[data-m]).on{background:var(--ac)!important;color:#fff!important;box-shadow:inset 2px 2px 6px rgba(0,0,0,.25)!important}
+html[data-style="soft"] button.wabtn.sec{background:#16a34a!important;color:#fff!important}
+html[data-style="soft"] :is(input,select,textarea):not([type=checkbox]):not([type=radio]){background:var(--nb)!important;border:none!important;box-shadow:inset 3px 3px 7px var(--n1),inset -3px -3px 7px var(--n2)!important}
+html[data-style="soft"] .tile[data-k="1"],html[data-style="soft"] .tile[data-k="6"]{background:var(--nb)!important;color:var(--tx)!important}
+html[data-style="soft"] .tile[data-k="1"] :is(b,small),html[data-style="soft"] .tile[data-k="6"] :is(b,small){color:inherit!important}html[data-style="soft"] .tile small{color:var(--mu)!important}
+html[data-style="soft"] .tile .ti{box-shadow:4px 4px 10px var(--n1),-4px -4px 10px var(--n2)!important}
+html[data-style="soft"] .kpi{border-inline-end:none!important}
+html[data-style="soft"] table,html[data-style="soft"] td{background-color:transparent}
+html[data-style="soft"] th{background:var(--nb)!important}
+html[data-style="soft"] #atb td.nm,html[data-style="soft"] #xtb td.nm{background:var(--nb)!important}
 /* liquid-glass highlight */
 html[data-style="glass"] :where(.card,.tabs,.kpi,.tile,details.help,#dtb tbody tr,.dfl,#cpop,.warnbox,.xact){box-shadow:var(--sh),inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(255,255,255,.18)!important}
 html[data-style="glass"][data-theme="dark"] :where(.card,.tabs,.kpi,.tile,details.help,#dtb tbody tr,.dfl,#cpop,.warnbox,.xact){box-shadow:var(--sh),inset 0 1px 0 rgba(255,255,255,.16)!important}
@@ -554,7 +577,7 @@ html[data-style="alko"] input[type=checkbox]{accent-color:var(--ac)}
 .logo.bml span{transform:rotate(-45deg);font:900 22px/1 system-ui,-apple-system,"Segoe UI",sans-serif;color:#fff}
 .alkot{letter-spacing:2px;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
 @media (max-width:700px){.logo.bml{width:30px!important;height:30px!important;border-radius:9px}.logo.bml span{font-size:16px}.top .sub{display:none}}
-.cmd.c3{grid-template-columns:repeat(3,1fr)}
+.cmd.c3{grid-template-columns:repeat(2,1fr)}
 html[data-style="alko"] td.lvc,html[data-style="alko"] .lvc{background:rgba(250,204,21,.16)!important;color:#fde68a!important}
 html[data-style="alko"] td.lvc .byl{color:#e7d9a0}
 html[data-style="alko"] td.a{background:rgba(248,113,113,.16)!important}
@@ -928,7 +951,7 @@ html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!imp
  <div class="card"><b>گوهۆڕینا پەیڤا نهێنی یا ئەدمینی (zewar)</b>
   <div class="bar" style="margin-top:8px"><input id="ap" type="password" placeholder="پەیڤا نهێنی یا نوی" autocomplete="new-password" dir="ltr"><input id="ap2" type="password" placeholder="دووبارە بنڤیسە" autocomplete="new-password" dir="ltr"><button id="apb">گوهۆڕین</button></div></div>
 </section>
-<div id="cpop" class="hide"><div class="cph"><b>🎨 ڕەنگێ پرۆگرامی</b><button id="cpx" class="off" type="button">✕</button></div><div id="csw" class="csw"></div><div class="cph" style="margin-top:12px"><b>ڕەنگێ پاشبنەمێ</b></div><div class="cmd"><button type="button" class="sec" data-m="light">☀️ ڕۆناهی</button><button type="button" class="sec" data-m="dark">🌙 تاری</button></div><div class="cph" style="margin-top:12px"><b>شێوە</b></div><div class="cmd c3"><button type="button" class="sec" data-s="alko">✦ ALKO</button><button type="button" class="sec" data-s="glass">🔮 شووشە</button><button type="button" class="sec" data-s="flat">▢ ئاسایی</button></div><small>ئەڤ هەلبژارتنە تنێ بۆ تە یە و ل سەر ڤی ئامێری دمینیت.</small></div>
+<div id="cpop" class="hide"><div class="cph"><b>🎨 ڕەنگێ پرۆگرامی</b><button id="cpx" class="off" type="button">✕</button></div><div id="csw" class="csw"></div><div class="cph" style="margin-top:12px"><b>ڕەنگێ پاشبنەمێ</b></div><div class="cmd"><button type="button" class="sec" data-m="light">☀️ ڕۆناهی</button><button type="button" class="sec" data-m="dark">🌙 تاری</button></div><div class="cph" style="margin-top:12px"><b>شێوە</b></div><div class="cmd c3"><button type="button" class="sec" data-s="alko">✦ ALKO</button><button type="button" class="sec" data-s="glass">🔮 شووشە</button><button type="button" class="sec" data-s="soft">◐ نەرم</button><button type="button" class="sec" data-s="flat">▢ ئاسایی</button></div><small>ئەڤ هەلبژارتنە تنێ بۆ تە یە و ل سەر ڤی ئامێری دمینیت.</small></div>
 <div id="ntp" class="hide"><div class="ntbox"><b>💬 بۆچی نەهاتیە؟</b><small id="ntt"></small><input id="nti" maxlength="200" autocomplete="off" placeholder="وەک: نەخۆش بوو"><div class="bar" style="margin:0"><button id="nts" type="button">پاشەکەفتکرن</button><button id="ntc" type="button" class="off">بەتالکرن</button></div></div></div>
 <div id="acp" class="hide"><form class="acbox" onsubmit="return false">
  <div class="cph"><b>👤 ئەکاونتێ من</b><button type="button" class="off" id="acx">✕</button></div>
