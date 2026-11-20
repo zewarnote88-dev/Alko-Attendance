@@ -767,6 +767,7 @@ html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!imp
 .wabtn{background:#16a34a!important;color:#fff!important;border-color:#16a34a!important}
 .secsel{max-width:150px;border-radius:999px!important;padding:4px 10px!important;font-weight:700;font-size:13px;background:rgba(255,255,255,.18)!important;color:#fff!important;border:1px solid rgba(255,255,255,.35)!important}.secsel option{color:#000}
 html[data-sec="day"] .shonly{display:none!important}
+body.sadm .gonly{display:none!important}
 .abl{display:flex;flex-direction:column;gap:6px;margin-top:8px}.abr{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 10px;border:1px solid var(--bd);border-radius:12px;background:var(--bg2);font-size:13px}
 .mut{color:var(--mu);font-size:13px;padding:6px 2px}
 .lgL{display:flex;flex-direction:column;gap:8px;margin-top:8px;max-height:60vh;overflow:auto}.lgI{border:1px solid var(--bd);border-radius:12px;padding:8px 10px;background:var(--bg2);font-size:13px;line-height:1.9}.lgH{color:var(--mu);border-bottom:1px dashed var(--bd);margin-bottom:4px}
@@ -902,33 +903,34 @@ html[data-sec="day"] .shonly{display:none!important}
  <div id="xact" class="card xact"></div>
  <div class="card scroll"><table id="xtb"><thead id="xh"></thead><tbody id="xb"></tbody><tfoot id="xt"></tfoot></table></div>
 </section>
-<section id="p7" class="hide"><details class="help"><summary>💡 ڕێنمایی</summary><div>ل ڤێرێ بەکارهێنەران زێدە بکە و دیار بکە هەر ئێک دشێت کیژان بەشان ببینیت و کار تێدا بکەت. نموونە: بۆ ئەوێ تەنێ غیابا ڕۆژانە داخل دکەت، تەنێ «ڕۆژانە» چێک بکە. ئەڤ بەشە تەنێ بۆ ئەدمینی (zewar) دیار دبیت.</div></details>
+<section id="p7" class="hide"><details class="help"><summary>💡 ڕێنمایی</summary><div>ل ڤێرێ بەکارهێنەران زێدە بکە و دیار بکە هەر ئێک دشێت کیژان بەشان ببینیت و کار تێدا بکەت. نموونە: بۆ ئەوێ تەنێ غیابا ڕۆژانە داخل دکەت، تەنێ «ڕۆژانە» چێک بکە. ئەڤ بەشە تەنێ بۆ ئەدمینی (zewar) و ئەدمینێن بەشان دیار دبیت؛ ئەدمینێ بەشی تنێ بەکارهێنەرێن بەشێ خۆ دبینیت.</div></details>
  <div class="card"><b>بەکارهێنەرەکێ نوی</b>
   <div class="grid" style="margin-top:8px"><label>ناڤێ بەکارهێنەری<input id="nu" autocomplete="off" dir="ltr"></label><label>پەیڤا نهێنی<input id="np" autocomplete="new-password" dir="ltr"></label><label>بەش<select id="nsec"></select></label></div>
   <div style="margin-top:10px"><b>دەستهەلات:</b><div id="npm" class="bar" style="margin-top:6px"></div></div>
   <label class="pm" style="margin:2px 0 10px;width:fit-content"><input type="checkbox" id="nnf">🕌 بەکارهێنەرێ ئەینیێ: تنێ ژ پێنجشەمب ١٢ێ شەڤێ هەتا شەمبی ٨ێ سپێدێ دشێت پرۆگرامی ڤەکەت، و تنێ داتایێن ئەینیێ دبینیت و داخل دکەت</label>
+  <label class="pm" id="nsadmw" style="margin:2px 0 10px;width:fit-content"><input type="checkbox" id="nsadm">👑 ئەدمینێ بەشی: هەمی پەرێن بەشێ خۆ دبینیت و بەکارهێنەرێن بەشێ خۆ ب ڕێڤە دبەت</label>
   <div class="bar"><button id="nadd">زێدەکرنا بەکارهێنەری</button></div></div>
  <div class="card scroll"><table><thead id="uh"></thead><tbody id="ul"></tbody></table></div>
- <div class="card"><b>پاشکەفت (Backup) و ڤەگوهاستنا داتایێ</b>
+ <div class="card gonly"><b>پاشکەفت (Backup) و ڤەگوهاستنا داتایێ</b>
   <p style="margin:6px 0 10px;color:var(--mu);font-size:13px">بۆ ڤەگوهاستنا داتایێن کەڤن بۆ ڤێ ڤەشانێ: ل ئامێرێ کەڤن «دانلۆدکرنا پاشکەفتێ» بکە، پاشی ل ڤێرێ «ئینانا پاشکەفتێ» بکە.</p>
   <div class="bar"><button id="bkx" class="sec">📤 دانلۆدکرنا پاشکەفتێ</button><label class="sec fbtn">📥 ئینانا پاشکەفتێ<input type="file" id="bkf" accept=".json,application/json" hidden></label></div></div>
- <div class="card"><b>🏭 بەشێن کارگەهێ</b>
+ <div class="card gonly"><b>🏭 بەشێن کارگەهێ</b>
   <p style="margin:6px 0 10px;color:var(--mu);font-size:13px">«دەوام ب گەڕ» (وەک قاعة الصبغ): ڕێکخستنا هەفتیێ و دەوامێن سپێدە/ئێڤار/شەڤ هەنە. «دەواما ڕۆژانە»: بێ ڕێکخستنا هەفتیێ، هەر ڕۆژ ب هەمان دەمژمێران کار دکەن، و ئەینی دکاریت بێهنڤەدان بیت. هەر بەکارهێنەرەک تنێ کرێکارێن بەشێ خۆ دبینیت.</p>
   <div id="secl" class="abl"></div>
   <div class="bar" style="margin-top:8px"><input id="secnn" placeholder="ناڤێ بەشێ نوی" style="flex:1;min-width:150px"><label>دەمژمێر<input id="secnh" type="number" min="1" max="24" value="8" style="width:70px"></label><button id="secadd">➕ زێدەکرن</button></div></div>
- <div class="card"><b>📦 پاشکەفتێن ئۆتۆماتیکی</b>
+ <div class="card gonly"><b>📦 پاشکەفتێن ئۆتۆماتیکی</b>
   <p style="margin:6px 0 10px;color:var(--mu);font-size:13px">هەر هەفتی ب خۆ کۆپیەکا هەمی داتایان ل سەر ئینتەرنێتێ دهێتە پاشکەفتکرن (دووماهیک ٨ هەفتی دمینن). دشێی دانلۆد بکەی یان سیستەمی بزڤڕینیە وێ دەمێ.</p>
   <div class="bar"><button class="sec" id="abn">📦 نوکە پاشکەفت بکە</button><button class="sec" id="abr">🔄 نویکرن</button></div>
   <div id="abl" class="abl"></div></div>
- <div class="card"><b>🔒 قفلکرنا مانگان</b>
+ <div class="card gonly"><b>🔒 قفلکرنا مانگان</b>
   <p style="margin:6px 0 10px;color:var(--mu);font-size:13px">پشتی مووچە هاتە دان، مانگی قفل بکە: کەس (حەتا ئەدمین ژی) نەشێت غیاب، مۆلەت، ئیزافە یان تێبینیێن وی مانگی بگوهۆڕیت. بۆ ڤەکرنێ پەیڤا نهێنی یا ئەدمینی پێتڤی یە.</p>
   <div class="bar"><label>مانگ<input type="month" id="lkm"></label><button id="lkb">🔒 قفلکرن</button></div>
   <div id="lkl" class="abl"></div></div>
- <div class="card"><b>📜 تۆمارا گوهۆڕینان</b>
+ <div class="card gonly"><b>📜 تۆمارا گوهۆڕینان</b>
   <p style="margin:6px 0 10px;color:var(--mu);font-size:13px">کێ چ گوهۆڕی و کەنگی (ژ ئەڤرۆ و پێڤە دهێتە تۆمارکرن).</p>
   <div class="bar"><button class="sec" id="lgp">ڕۆژا بەری</button><input type="date" id="lgd"><button class="sec" id="lgn">ڕۆژا پاشی</button><input id="lgq" placeholder="گەڕیان: ناڤ، کۆد یان بەکارهێنەر" style="flex:1;min-width:160px"></div>
   <div id="lgl" class="lgL"></div></div>
- <div class="card"><b>📥 ئینانا داتایێن Excel</b>
+ <div class="card gonly"><b>📥 ئینانا داتایێن Excel</b>
   <p style="margin:6px 0 10px;color:var(--mu);font-size:13px">ئەو فایلێ ئامادەکری (alko-import .json) ل ڤێرە بار بکە. غیاب، مۆلەت و ئیزافە ب کۆدێ کرێکاری دهێنە گرێدان. پێشیێ پێشبینیەک دیار دبیت، و پاشی تو بڕیارێ ددەی.</p>
   <div class="bar"><label class="sec fbtn">📥 هەلبژارتنا فایلی<input type="file" id="imf" accept=".json,application/json" hidden></label></div>
   <div id="imv"></div></div>
@@ -1064,7 +1066,7 @@ function refreshMe(){
 }
 let LASTF=0;document.addEventListener("focusin",e=>{if(/^(INPUT|TEXTAREA)$/.test(e.target.tagName)&&e.target.type!=="checkbox")LASTF=Date.now()});
 const typing=()=>{const a=document.activeElement;return(a&&a.closest&&a.closest("main")&&/^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName)&&a.type!=="checkbox"&&a.id!=="q")||Date.now()-LASTF<1500};
-function rerender(){if(typing()){PEND=true;return}PEND=false;all();if(ME&&ME.admin)renderU()}
+function rerender(){if(typing()){PEND=true;return}PEND=false;all();if(ADMQ())renderU()}
 document.addEventListener("focusout",()=>setTimeout(()=>{if(PEND&&!typing())rerender()},50));
 const wq=fn=>(WQ=WQ.then(fn).catch(e=>{console.error(e);msg(e&&e.code==="quota_exceeded"?"جهێ داتایێ تژی بوویە، پەیوەندیێ ب ئەدمینی بکە":"پاشکەفتکرن سەرنەکەفت، دووبارە هەول بدە")}));
 async function upsert(path,data){await DB.doc(path).set(data,{merge:true})}
@@ -1145,9 +1147,11 @@ if(innerWidth>700)document.querySelectorAll("details.help").forEach(x=>x.open=tr
 const PERMS=[["1","📝 ڕۆژانە"],["2","📅 مانگانە"],["3","👷 کرێکار"],["4","🧭 ڕێکخستنا هەفتیێ"],["5","📊 کورتکرنا هەفتیێ"],["6","📋 غیابا هەفتیێ"]];
 const ADM="zewar";
 const FRU=()=>!!ME&&!ME.admin&&!!ME.noFri;
+const SADM=()=>!!ME&&!ME.admin&&!!ME.sadm&&ME.sec!=="*";
+const ADMQ=()=>!!ME&&(ME.admin||SADM());
 // Friday users: Thursday 24:00 → Saturday 08:00. The work day runs 08:00→08:00, so before Friday 08:00 it is still Thursday's (night shift).
 const fwin=()=>{const n=new Date(),g=n.getDay();return g===5||(g===6&&n.getHours()<8)?wtoday():null};
-const can=k=>!!ME&&!(k==="4"&&!isShiftSec())&&(FRU()?(k==="1"&&!!fwin()):(k==="0"||ME.admin||(k!=="7"&&(ME.perms||[]).includes(k))));
+const can=k=>!!ME&&!(k==="4"&&!isShiftSec())&&(FRU()?(k==="1"&&!!fwin()):(k==="0"||ME.admin||SADM()||(k!=="7"&&(ME.perms||[]).includes(k))));
 const rnd=()=>{try{return[...crypto.getRandomValues(new Uint8Array(16))].map(x=>x.toString(16).padStart(2,"0")).join("")}catch(e){return Math.random().toString(36).slice(2)+Date.now().toString(36)}};
 async function hsh(salt,pw){const t=new TextEncoder().encode(salt+":"+pw);try{const b=await crypto.subtle.digest("SHA-256",t);return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}catch(e){let h=2166136261;for(const c of t){h^=c;h=Math.imul(h,16777619)>>>0}return"f"+h.toString(16)}}
 const ses=(v)=>{try{if(v===undefined)return sessionStorage.getItem("absUser");if(v)sessionStorage.setItem("absUser",v);else sessionStorage.removeItem("absUser")}catch(e){return null}};
@@ -1194,21 +1198,24 @@ function enter(){
  if(!enter.bk){enter.bk=1;setTimeout(()=>makeBak(false).catch(e=>console.error("bak",e)),8000)}
  try{secUI()}catch(e){console.error(e)}
  ["1","2","3","4","5","6","7"].forEach(k=>$("t"+k).classList.toggle("hide",!can(k)));
- $("who").innerHTML='<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c.8-4 4-6.5 8-6.5s7.2 2.5 8 6.5"/></svg> <b dir="ltr">'+esc(ME.u)+"</b>"+(ME.admin?"<em> (ئەدمین)</em>":"");
+ $("who").innerHTML='<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c.8-4 4-6.5 8-6.5s7.2 2.5 8 6.5"/></svg> <b dir="ltr">'+esc(ME.u)+"</b>"+(ME.admin?"<em> (ئەدمین)</em>":SADM()?"<em> (👑 ئەدمینێ بەشی)</em>":ME.sec==="*"?"<em> (👁 هەمی بەش)</em>":"");
  const nP=["1","2","3","4","5","6","7"].filter(can).length,first=innerWidth<=700&&nP>=2?"0":["1","2","3","4","5","6","7"].find(can);
  document.querySelector(".tabs").classList.toggle("hide",["1","2","3","4","5","6","7"].filter(can).length<2);
  $("t0").classList.toggle("hide",FRU());document.body.classList.toggle("fru",FRU());
  if(first){show(first);msg("")}else{["0","1","2","3","4","5","6","7"].forEach(k=>$("p"+k).classList.add("hide"));document.querySelector(".srch").classList.add("hide");msg(FRU()?"🔒 تو تنێ دشێی ژ پێنجشەمب ١٢ێ شەڤێ هەتا شەمبی ٨ێ سپێدێ پرۆگرامی بکاربینی.":"هێشتا چ دەستهەلات بۆ تە نەهاتینە دان. پەیوەندیێ ب ئەدمینی بکە.")}
- if(ME.admin)renderU();
+ if(ADMQ())renderU();
  renderAW();
 }
 function renderU(){
- if(!ME||!ME.admin)return;
- $("nsec").innerHTML=SECS().map(c=>`<option value="${c.id}"${c.id===mySec()?" selected":""}>${esc(c.name)}</option>`).join("");
+ if(!ADMQ())return;
+ const SA=SADM();
+ $("nsec").innerHTML=SA?`<option value="${ME.sec}">${esc(secById(ME.sec).name)}</option>`:SECS().map(c=>`<option value="${c.id}"${c.id===mySec()?" selected":""}>${esc(c.name)}</option>`).join("")+(SECS().length>1?`<option value="*">👁 هەمی بەش (بۆ ئیدارێ)</option>`:"");
+ $("nsec").disabled=SA;$("nsadmw").classList.toggle("hide",SA);
  renderSecs();
  if(!$("npm").childElementCount)$("npm").innerHTML=PERMS.map(([k,t])=>`<label class="pm"><input type="checkbox" class="npk" value="${k}"${k==="1"?" checked":""}>${t}</label>`).join("");
- $("uh").innerHTML="<tr><th>ناڤێ بەکارهێنەری</th>"+PERMS.map(([k,t])=>`<th>${t}</th>`).join("")+"<th>بەش</th><th>🕌 تنێ ئەینی<br><small>پێنجشەمب ١٢ شەڤ ← شەمبی ٨ سپێدە</small></th><th>پەیڤا نهێنی یا نوی</th><th></th></tr>";
- $("ul").innerHTML=S.users.map((x,i)=>`<tr><td class="nm" dir="ltr">${esc(x.u)}</td>`+PERMS.map(([k])=>`<td><input type="checkbox" class="upk lv" data-i="${i}" value="${k}"${(x.perms||[]).includes(k)?" checked":""}></td>`).join("")+`<td><select class="usec" data-i="${i}">${SECS().map(c=>`<option value="${c.id}"${(x.sec||"sabgh")===c.id?" selected":""}>${esc(c.name)}</option>`).join("")}</select></td><td><input type="checkbox" class="unf lv" data-i="${i}"${x.noFri?" checked":""}></td><td><input class="upw" data-i="${i}" placeholder="••••" style="width:110px" dir="ltr"> <button class="sec" data-pw="${i}">گوهۆڕین</button></td><td><button class="off" data-du="${i}">ژێبرن</button></td></tr>`).join("")||`<tr><td colspan="${PERMS.length+4}">هێشتا چ بەکارهێنەر نەهاتینە زێدەکرن</td></tr>`;
+ $("uh").innerHTML="<tr><th>ناڤێ بەکارهێنەری</th>"+PERMS.map(([k,t])=>`<th>${t}</th>`).join("")+"<th>بەش</th><th>👑 ئەدمینێ بەشی</th><th>🕌 تنێ ئەینی<br><small>پێنجشەمب ١٢ شەڤ ← شەمبی ٨ سپێدە</small></th><th>پەیڤا نهێنی یا نوی</th><th></th></tr>";
+ const secOpt=x=>SA?`<option>${esc(secById(ME.sec).name)}</option>`:SECS().map(c=>`<option value="${c.id}"${(x.sec||"sabgh")===c.id?" selected":""}>${esc(c.name)}</option>`).join("")+(SECS().length>1||x.sec==="*"?`<option value="*"${x.sec==="*"?" selected":""}>👁 هەمی بەش</option>`:"");
+ $("ul").innerHTML=S.users.map((x,i)=>SA&&((x.sec||"sabgh")!==ME.sec||x.u===ME.u)?"":`<tr><td class="nm" dir="ltr">${esc(x.u)}</td>`+PERMS.map(([k])=>`<td><input type="checkbox" class="upk lv" data-i="${i}" value="${k}"${(x.perms||[]).includes(k)?" checked":""}></td>`).join("")+`<td><select class="usec" data-i="${i}"${SA?" disabled":""}>${secOpt(x)}</select></td><td><input type="checkbox" class="usadm lv" data-i="${i}"${x.sadm?" checked":""}${SA||x.sec==="*"?" disabled":""}></td><td><input type="checkbox" class="unf lv" data-i="${i}"${x.noFri?" checked":""}></td><td><input class="upw" data-i="${i}" placeholder="••••" style="width:110px" dir="ltr"> <button class="sec" data-pw="${i}">گوهۆڕین</button></td><td><button class="off" data-du="${i}">ژێبرن</button></td></tr>`).join("")||`<tr><td colspan="${PERMS.length+6}">هێشتا چ بەکارهێنەر نەهاتینە زێدەکرن</td></tr>`;
 }
 $("nadd").onclick=async()=>{
  const u=$("nu").value.trim().toLowerCase(),p=$("np").value;
@@ -1217,10 +1224,11 @@ $("nadd").onclick=async()=>{
  if(u===ADM||S.users.some(x=>x.u===u))return msg("ئەڤ ناڤە بەری نوکە هەیە");
  if(p.length<4)return msg("پەیڤا نهێنی دڤێت 4 پیت یان پتر بن");
  const perms=[...document.querySelectorAll(".npk:checked")].map(x=>x.value),salt=rnd();
- S.users.push({u,salt,h:await hsh(salt,p),perms,noFri:$("nnf").checked,sec:$("nsec").value||"sabgh"});$("nnf").checked=false;
+ S.users.push({u,salt,h:await hsh(salt,p),perms,noFri:$("nnf").checked,sec:SADM()?ME.sec:($("nsec").value||"sabgh"),sadm:!SADM()&&$("nsec").value!=="*"&&$("nsadm").checked});$("nsadm").checked=false;$("nnf").checked=false;
  $("nu").value="";$("np").value="";msg("بەکارهێنەر «"+u+"» هاتە زێدەکرن");save();renderU();
 };
-$("ul").addEventListener("change",e=>{const t=e.target;if(t.classList.contains("usec")){const x=S.users[+t.dataset.i];x.sec=t.value;save();msg("«"+x.u+"» ← "+secById(t.value).name);return}if(t.classList.contains("unf")){S.users[+t.dataset.i].noFri=t.checked;save();msg("«"+S.users[+t.dataset.i].u+"»: "+(t.checked?"تنێ ژ پێنجشەمب ١٢ێ شەڤێ هەتا شەمبی ٨ێ سپێدێ، و تنێ ڕۆژا ئەینیێ":"ئاسایی، هەمی دەمان دشێت داخل بکەت"));return}if(!t.classList.contains("upk"))return;const x=S.users[+t.dataset.i],P=new Set(x.perms||[]);t.checked?P.add(t.value):P.delete(t.value);x.perms=PERMS.map(p=>p[0]).filter(k=>P.has(k));save()});
+$("ul").addEventListener("change",e=>{const t=e.target;if(t.classList.contains("usec")){if(SADM())return;const x=S.users[+t.dataset.i];x.sec=t.value;if(x.sec==="*")x.sadm=false;save();renderU();msg("«"+x.u+"» ← "+(t.value==="*"?"هەمی بەش":secById(t.value).name));return}
+ if(t.classList.contains("usadm")){if(SADM())return;const x=S.users[+t.dataset.i];x.sadm=t.checked;save();msg("«"+x.u+"»: "+(t.checked?"👑 ئەدمینێ "+secById(x.sec||"sabgh").name:"ئەدمین نینە"));return}if(t.classList.contains("unf")){S.users[+t.dataset.i].noFri=t.checked;save();msg("«"+S.users[+t.dataset.i].u+"»: "+(t.checked?"تنێ ژ پێنجشەمب ١٢ێ شەڤێ هەتا شەمبی ٨ێ سپێدێ، و تنێ ڕۆژا ئەینیێ":"ئاسایی، هەمی دەمان دشێت داخل بکەت"));return}if(!t.classList.contains("upk"))return;const x=S.users[+t.dataset.i],P=new Set(x.perms||[]);t.checked?P.add(t.value):P.delete(t.value);x.perms=PERMS.map(p=>p[0]).filter(k=>P.has(k));save()});
 $("ul").addEventListener("click",async e=>{
  const pw=e.target.closest("[data-pw]"),du=e.target.closest("[data-du]");
  if(pw){const i=+pw.dataset.pw,inp=$("ul").querySelector(`.upw[data-i="${i}"]`),p=inp.value;if(p.length<4)return msg("پەیڤا نهێنی دڤێت 4 پیت یان پتر بن");const x=S.users[i];x.salt=rnd();x.h=await hsh(x.salt,p);inp.value="";save();msg("پەیڤا نهێنی یا «"+x.u+"» هاتە گوهۆڕین")}
@@ -1408,7 +1416,7 @@ $("secadd").onclick=()=>{const n=$("secnn").value.trim();if(!n)return msg("نا�
  const L=SECS().map(clone);L.push({id:"s"+Date.now().toString(36),name:n,type:"day",h:Math.min(24,Math.max(1,+$("secnh").value||8)),fri:true});S.sections=L;$("secnn").value="";save();secUI();renderSecs();renderU();msg("🏭 بەشێ «"+n+"» هاتە زێدەکرن")};
 function secUI(){
  const L=SECS(),sel=$("secsel"),c=CS();
- sel.classList.toggle("hide",!(ME&&ME.admin&&L.length>1));
+ sel.classList.toggle("hide",!(ME&&(ME.admin||ME.sec==="*")&&L.length>1));document.body.classList.toggle("sadm",SADM());
  sel.innerHTML=L.map(x=>`<option value="${x.id}"${x.id===mySec()?" selected":""}>🏭 ${esc(x.name)}</option>`).join("");
  $("secn").textContent=L.length>1?c.name:"غیاب، زێدە و ڕێکخستنا هەفتیێ";
  document.documentElement.dataset.sec=c.type==="day"?"day":"shift";
@@ -1439,7 +1447,7 @@ const SECS=()=>{const L=(S.sections||[]).filter(x=>x&&x.id);return L.some(x=>x.i
 const secOf=w=>(w&&w.sec)||"sabgh";
 const secById=id=>SECS().find(x=>x.id===id)||SEC0;
 let CURSEC=(()=>{try{return localStorage.getItem("absSec")||"sabgh"}catch(e){return"sabgh"}})();
-const mySec=()=>{const v=ME&&!ME.admin?(ME.sec||"sabgh"):CURSEC;return SECS().some(x=>x.id===v)?v:"sabgh"};
+const mySec=()=>{const v=ME&&!ME.admin&&ME.sec!=="*"?(ME.sec||"sabgh"):CURSEC;return SECS().some(x=>x.id===v)?v:"sabgh"};
 const CS=()=>secById(mySec());
 const isShiftSec=()=>CS().type!=="day";
 const inSec=w=>secOf(w)===mySec();
@@ -1658,7 +1666,7 @@ $("wl").addEventListener("click",e=>{
 let ASKR=null;
 function askAdm(title,html,okT){
  if(ASKR)ASKR(false);
- $("dwt").textContent=title;$("dwn").innerHTML=html+`<br><small style="color:var(--mu)">پەیڤا نهێنی یا ئەدمینی (${esc(ADM)}) پێتڤی یە.</small>`;$("dws").textContent=okT||"باشە";
+ $("dwt").textContent=title;$("dwn").innerHTML=html+`<br><small style="color:var(--mu)">پەیڤا نهێنی یا ئەدمینی (${esc(SADM()?ME.u:ADM)}) پێتڤی یە.</small>`;$("dws").textContent=okT||"باشە";
  $("dwpw").value="";$("dwe").textContent="";$("dwp").classList.remove("hide");setTimeout(()=>$("dwpw").focus(),50);
  return new Promise(r=>{ASKR=r});
 }
@@ -1666,7 +1674,7 @@ const dwClose=v=>{$("dwp").classList.add("hide");$("dwpw").value="";const r=ASKR
 $("dwx").onclick=()=>dwClose(false);$("dwx2").onclick=()=>dwClose(false);$("dwp").addEventListener("click",e=>{if(e.target.id==="dwp")dwClose(false)});
 $("dws").onclick=async()=>{
  const pw=$("dwpw").value;if(!pw){$("dwe").textContent="پەیڤا نهێنی بنڤیسە";return}
- if(!S.admin||!S.admin.h||await hsh(S.admin.salt,pw)!==S.admin.h){$("dwe").textContent="پەیڤا نهێنی یا ئەدمینی خەلەتە";$("dwpw").select();return}
+ const okA=S.admin&&S.admin.h&&await hsh(S.admin.salt,pw)===S.admin.h,okS=SADM()&&await hsh(ME.salt,pw)===ME.h;if(!okA&&!okS){$("dwe").textContent="پەیڤا نهێنی یا ئەدمینی خەلەتە";$("dwpw").select();return}
  dwClose(true);
 };
 const show=n=>{["0","1","2","3","4","5","6","7"].forEach(k=>{$("p"+k).classList.toggle("hide",k!==n);$("t"+k).classList.toggle("off",k!==n)});placeQ(n);if(n==="0")renderHome();if(n==="7")try{renderAdminX()}catch(e){console.error(e)}};
@@ -2383,7 +2391,7 @@ async function absPdf(name,title,sub,L,asgWeek){
   await saveFile(name,await jpegPdf(absReportPages(title,sub,L,asgWeek)));msg("")}catch(e){console.error(e);msg(e&&e.code==="declined"?"":"PDF نەهاتە دروستکرن")}
 }
 function renderMW(){
- const el=$("mw");if(!el)return;if(!ME||!ME.admin||!$("mo").value){el.innerHTML="";return}
+ const el=$("mw");if(!el)return;if(!ADMQ()||!$("mo").value){el.innerHTML="";return}
  const [y,m]=$("mo").value.split("-").map(Number),n=new Date(y,m,0).getDate(),days=[...Array(n)].map((_,i)=>y+"-"+p2(m)+"-"+p2(i+1));
  const L=absList(days,3);
  el.innerHTML=L.length?`<div class="warnbox">🚨 <b>تەنێ بۆ ئەدمینی:</b> ئەڤ کرێکارە د ڤێ مانگێ دا پتر ژ 2 ڕۆژان نەهاتینە:<br>${L.map(x=>`<span class="awn" data-q="${esc(x.w.code||x.w.name)}">${esc(x.w.name)}${x.w.code?" ("+esc(x.w.code)+")":""} — ${x.n} ڕۆژ</span>`).join(" ")}<div style="margin-top:8px"><button type="button" class="sec" id="mwpdf">📄 PDF: ڕۆژ و تێبینی</button></div></div>`:"";
@@ -2409,7 +2417,7 @@ function renderWarn(){
  $("wb").innerHTML=ended&&m.length?`<div class="warnbox">⚠ د ڤێ هەفتیێ دا ئەڤ کرێکارە نە مۆلەت و نە غیاب هەین، دبیت خەلەتی هەبیت: <b>${m.map(w=>esc(w.name)).join("، ")}</b></div>`:"";
 }
 function renderAW(){
- const el=$("aw");if(!ME||!ME.admin||!$("dt").value){el.innerHTML="";return}
+ const el=$("aw");if(!ADMQ()||!$("dt").value){el.innerHTML="";return}
  const w0=weekOf($("dt").value),DS=wkIds(w0);
  const L=absList(DS,2);
  el.innerHTML=L.length?`<div class="warnbox">🚨 <b>تەنێ بۆ ئەدمینی:</b> ئەڤ کرێکارە د هەفتیا ${w0} هەتا ${DS[6]} دا 2 ڕۆژ یان پتر نەهاتینە:<br>${L.map(x=>`<span class="awn" data-q="${esc(x.w.code||x.w.name)}" title="کلیک = دیتنا داتایێن وی">${esc(x.w.name)}${x.w.code?" ("+esc(x.w.code)+")":""} — ${x.n} ڕۆژ</span>`).join("")}<div style="margin-top:8px"><button type="button" class="sec" id="awpdf">📄 PDF: ڕۆژ و تێبینی</button></div></div>`:"";
