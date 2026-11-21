@@ -807,6 +807,8 @@ body.sadm .gonly{display:none!important}
 .ownb{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:800;padding:2px 9px;border-radius:999px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.35);color:#fff;vertical-align:middle;margin-inline-start:6px;letter-spacing:.3px}
 .ownr{display:inline-block;margin-top:6px;font-size:12px;font-weight:700;color:var(--ac)}
 #ul tr.ownrow td{background:color-mix(in srgb,#f59e0b 14%,var(--card))!important;font-weight:700}
+.nvb{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:90;background:#111827;color:#fff;padding:10px 14px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.35);font-weight:700;font-size:13px;display:flex;gap:10px;align-items:center;white-space:nowrap}.nvb button{background:#22c55e!important;color:#fff!important;border:none!important;padding:6px 12px!important;border-radius:10px!important;font-weight:800}
+.appv{text-align:center;color:var(--mu);font-size:11px;opacity:.7;margin:18px 0 8px}
 .abl{display:flex;flex-direction:column;gap:6px;margin-top:8px}.abr{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 10px;border:1px solid var(--bd);border-radius:12px;background:var(--bg2);font-size:13px}
 .mut{color:var(--mu);font-size:13px;padding:6px 2px}
 .lgL{display:flex;flex-direction:column;gap:8px;margin-top:8px;max-height:60vh;overflow:auto}.lgI{border:1px solid var(--bd);border-radius:12px;padding:8px 10px;background:var(--bg2);font-size:13px;line-height:1.9}.lgH{color:var(--mu);border-bottom:1px dashed var(--bd);margin-bottom:4px}
@@ -831,7 +833,7 @@ body.sadm .gonly{display:none!important}
  <label class="lrm"><input type="checkbox" id="lrm" checked> ل سەر ڤی ئامێری بمینە (هەتا دەرکەتنێ)</label>
  <button id="lb" type="submit"><span>چوونەژوور</span><b>←</b></button>
  <div id="le" class="bad"></div>
- <div class="lgf">غیابا کرێکاران · © ALKO Company<br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
+ <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr">v2026.11.21-1</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
 </form></div>
 <main>
 <header class="top"><div class="brand"><div class="logo bml"><span>A</span></div><div><h1>غیابا کرێکاران</h1><span class="ownb" title="ئەدمینێ سەرەکی">👑 ئەدمین: <b dir="ltr">Zewar</b></span><p class="sub"><b class="alkot">ALKO</b> Company · <span id="secn">غیاب، زێدە و ڕێکخستنا هەفتیێ</span></p></div></div>
@@ -996,6 +998,7 @@ body.sadm .gonly{display:none!important}
  <div class="bar" style="margin:0"><button type="submit" id="dws" class="danger" style="background:#dc2626;color:#fff">ژێبرن</button><button type="button" class="off" id="dwx2">بەتالکرن</button></div>
 </form></div>
 <div id="pr"></div>
+<div class="appv" dir="ltr">ALKO · v2026.11.21-1</div>
 </main>
 <script>
 const $=id=>document.getElementById(id);
@@ -2608,6 +2611,14 @@ setInterval(()=>{try{renderSA()}catch(e){}if(ME&&FRU()){const fw=fwin();if(FWS!=
 document.querySelectorAll("#login .eye").forEach(b=>b.onclick=()=>{const i=$(b.dataset.for),v=i.type==="password";i.type=v?"text":"password";b.classList.toggle("on",v);i.focus()});
 showLogin();all();load();
 if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
+// ===== new-version check: tell open pages when a newer version is published =====
+const APPV="2026.11.21-1";
+async function chkVer(){
+ if(location.protocol!=="https:")return;
+ try{const t=await(await fetch("./index.html?v="+Date.now(),{cache:"no-store"})).text(),m=t.match(/const APPV="([^"]+)"/);
+  if(m&&m[1]!==APPV&&!$("nvb")){document.body.insertAdjacentHTML("beforeend",`<div id="nvb" class="nvb">🆕 ڤەشانەکا نوی یا پرۆگرامی هەیە <button type="button" onclick="location.reload()">نوی بکە</button></div>`)}}catch(e){}
+}
+setInterval(chkVer,3*60*1000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)chkVer()});setTimeout(chkVer,15000);
 </script>
 </body>
 </html>
