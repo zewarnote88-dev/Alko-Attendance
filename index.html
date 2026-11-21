@@ -770,6 +770,11 @@ html[data-sec="day"] .shonly{display:none!important}
 html:not([data-sh2="1"]) .sh2only{display:none!important}
 body.sadm .gonly{display:none!important}
 .upls{min-width:140px;text-align:start}.upls .pm{display:inline-flex;margin:2px 4px}
+#xtb td .xot{display:block;margin-top:3px;width:100%;font-size:11px;color:#047857;background:color-mix(in srgb,#10b981 10%,transparent);border-color:color-mix(in srgb,#10b981 35%,transparent)}
+#xtb td .xot::placeholder{color:color-mix(in srgb,#10b981 55%,transparent);font-size:10px}
+#xtb td.xoo{box-shadow:inset 0 -3px 0 #10b981}#xtb .tto{color:#047857;font-weight:800}.xdo{display:block;color:#047857}
+#xtb tr.xshg td{background:var(--thbg);font-weight:800;text-align:start;padding:6px 10px}
+#xtb tbody tr.xshg{display:table-row!important}#xtb tbody tr.xshg>td{display:table-cell!important;position:static!important}
 .abl{display:flex;flex-direction:column;gap:6px;margin-top:8px}.abr{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 10px;border:1px solid var(--bd);border-radius:12px;background:var(--bg2);font-size:13px}
 .mut{color:var(--mu);font-size:13px;padding:6px 2px}
 .lgL{display:flex;flex-direction:column;gap:8px;margin-top:8px;max-height:60vh;overflow:auto}.lgI{border:1px solid var(--bd);border-radius:12px;padding:8px 10px;background:var(--bg2);font-size:13px;line-height:1.9}.lgH{color:var(--mu);border-bottom:1px dashed var(--bd);margin-bottom:4px}
@@ -897,7 +902,7 @@ body.sadm .gonly{display:none!important}
   <input type="date" id="xw">
   <button class="sec" id="xn">هەفتیا پاشی</button>
   <select id="xf"></select>
-  <select id="xm"><option value="abs">غیاب (کاتژمێرێن نەهاتنێ)</option><option value="ot">کاتژمێرێن زێدە</option></select>
+  <select id="xm"><option value="both">❌➕ غیاب و زێدە (ئێک خشتە)</option><option value="abs">❌ تنێ غیاب</option><option value="ot">➕ تنێ کاتژمێرێن زێدە</option></select><select id="xso"><option value="sh">↕ ل دیف دەوامێ (وەک ڕێکخستنێ)</option><option value="seq">↕ ل دیف ڕێزێ</option><option value="pl">↕ ل دیف جهێ کاری</option><option value="name">↕ ل دیف ناڤی</option><option value="code">↕ ل دیف کۆدی</option></select>
   <button id="xlX">📥 ئێکسل</button>
  </div>
  <div id="xwk" class="xwk"></div>
@@ -1835,42 +1840,46 @@ $("xb").addEventListener("keydown",e=>{
 });
 function renderX(){
  const w0=$("xw").value;if(!w0)return;
- const DS=wkIds(w0),mode=$("xm").value,s=$("xf"),cur=s.value;
+ const DS=wkIds(w0),mode=$("xm").value,both=mode==="both",am=mode!=="ot",s=$("xf"),cur=s.value;
  s.innerHTML='<option value="">هەمی جهان</option>'+PL().map(p=>`<option value="${esc(p)}">${esc(p)}</option>`).join("")+'<option value="*none">بێ جه</option>';
  s.value=[...s.options].some(o=>o.value===cur)?cur:"";
  const f=s.value;
  let L=W().filter(w=>inWk(w,w0)).map(w=>({w,a:S.asg[w0+"_"+w.id]||["",""]}));{const mp=myPls();if(mp)L=L.filter(x=>DS.some(d=>mp.includes(asgOf(x.w,d)[1])))}
  if(f==="*none")L=L.filter(x=>!x.a[1]);else if(f)L=L.filter(x=>x.a[1]===f);
- L.sort((x,y)=>(+x.a[0]||1e9)-(+y.a[0]||1e9));
- $("xh").innerHTML='<tr><th>ڕێز</th><th>کۆد</th><th>ناڤ</th><th>جهێ کاری</th>'+DS.map(dhd).join("")+'<th>کۆم</th></tr>';
- let G=0;
+ const so=$("xso").value,sq=(x,y)=>(+x.a[0]||1e9)-(+y.a[0]||1e9),nmc=(x,y)=>COLL.compare(x.w.name,y.w.name);
+ L.sort(so==="name"?nmc:so==="code"?(x,y)=>COLL.compare(String(x.w.code||"~"),String(y.w.code||"~")):so==="pl"?(x,y)=>COLL.compare(x.a[1]||"~",y.a[1]||"~")||sq(x,y):so==="sh"&&!isShiftSec()?sq:so==="sh"?(x,y)=>shI(x.a[2])-shI(y.a[2])||sq(x,y):sq);
+ const grp=so==="sh"&&isShiftSec();let lastSh=null;const ncol=DS.length+(both?6:5);
+ $("xh").innerHTML='<tr><th>ڕێز</th><th>کۆد</th><th>ناڤ</th><th>جهێ کاری</th>'+DS.map(dhd).join("")+(both?'<th>کۆما غیابێ</th><th>کۆما زێدە</th>':'<th>کۆم</th>')+'</tr>';
+ let G=0,GO=0;
  $("xb").innerHTML=L.map(({w,a})=>{
-  const t=DS.reduce((z,d)=>z+xv(w,d,mode),0);G+=t;
+  const t=DS.reduce((z,d)=>z+xv(w,d,am?"abs":"ot"),0),to=both?DS.reduce((z,d)=>z+xv(w,d,"ot"),0):0;G+=t;GO+=to;
   const c=DS.map(d=>{
    const k=w.id+"_"+d;
-   if(outside(w,d))return`<td class="${oc(w,d)}" title="🚪 کار هێلایە">${mode==="abs"?fh(dayH(w)):""}</td>`;
-   if(lockD(d)){const v=mode==="abs"?(S.lv[k]?"مۆلەت":fh(S.abs[k]||0)):fh(otOf(w,d));const nn=mode==="abs"&&S.abs[k]?S.nt[k]:"";return`<td class="lkc${S.lv[k]&&mode==="abs"?" lvc":""}${nn?" hn":""}"${nn?` title="${esc(nn).replace(/"/g,"&quot;")}"`:""}>${v}</td>`}
-   if(mode==="abs"&&S.lv[k])return`<td class="lvc lvx xcell" data-id="${w.id}" data-d="${d}" style="cursor:pointer" title="کلیک = لابرنا مۆلەتێ${S.bl[k]?" — تۆمارکر: "+esc(S.bl[k]):""}"><span class="dfull">مۆلەت ✕</span><span class="dshort">م</span>${S.bl[k]?`<span class="byl">👤 ${esc(S.bl[k])}</span>`:""}</td>`;
-   const nn=mode==="abs"&&S.abs[k]?S.nt[k]:"",av=S.abs[k]||0,cl=[nn?"hn":"",mode==="abs"?(av>=dayH(w)?"xa":av>0?"xpa":S.pr[k]?"xpr":""):((S.ot[k]||0)>0?"xo":"")].filter(Boolean).join(" ");return`<td data-id="${w.id}" data-d="${d}"${cl?` class="${cl}"`:""}${nn?` title="${esc(nn).replace(/"/g,"&quot;")}"`:""}><input type="text" inputmode="decimal" class="h xc" data-id="${w.id}" data-d="${d}" value="${fh((mode==="ot"?S.ot:S.abs)[k]||0)}" placeholder="0:00">${mode==="abs"&&S.pr[k]&&!S.abs[k]?`<span class="prk">✓ هاتیە</span>${S.bp[k]?`<span class="byl">👤 ${esc(S.bp[k])}</span>`:""}`:""}${mode==="abs"&&S.abs[k]?`<button type="button" class="ntb${S.nt[k]?" has":""}" data-id="${w.id}" data-d="${d}" title="${S.nt[k]?esc(S.nt[k]).replace(/"/g,"&quot;"):"تێبینی: بۆچی نەهاتیە؟"}">💬${S.nt[k]?" "+esc(S.nt[k].length>14?S.nt[k].slice(0,14)+"…":S.nt[k]):""}</button>`:""}${mode==="abs"&&S.abs[k]&&S.by[k]?`<span class="byl">👤 ${esc(S.by[k])}</span>`:""}${mode==="ot"&&(S.ot[k]||S.lw[k])&&S.bo[k]?`<span class="byl">👤 ${esc(S.bo[k])}</span>`:""}${mode==="ot"&&S.lw[k]?`<span class="lwn ok">+${fh(lwOf(w,d))} مۆلەت</span>`:""}</td>`;
+   if(outside(w,d))return`<td class="${oc(w,d)}" title="🚪 کار هێلایە">${am?fh(dayH(w)):""}</td>`;
+   if(lockD(d)){const v=am?(S.lv[k]?"مۆلەت":fh(S.abs[k]||0)):fh(otOf(w,d));const nn=am&&S.abs[k]?S.nt[k]:"";return`<td class="lkc${S.lv[k]&&am?" lvc":""}${nn?" hn":""}"${nn?` title="${esc(nn).replace(/"/g,"&quot;")}"`:""}>${v}${both&&otOf(w,d)?`<small class="xdo">+${fh(otOf(w,d))}</small>`:""}</td>`}
+   if(am&&S.lv[k])return`<td class="lvc lvx xcell" data-id="${w.id}" data-d="${d}" style="cursor:pointer" title="کلیک = لابرنا مۆلەتێ${S.bl[k]?" — تۆمارکر: "+esc(S.bl[k]):""}"><span class="dfull">مۆلەت ✕</span><span class="dshort">م</span>${S.bl[k]?`<span class="byl">👤 ${esc(S.bl[k])}</span>`:""}</td>`;
+   const nn=am&&S.abs[k]?S.nt[k]:"",av=S.abs[k]||0,cl=[nn?"hn":"",am?(av>=dayH(w)?"xa":av>0?"xpa":S.pr[k]?"xpr":""):((S.ot[k]||0)>0?"xo":""),both&&(S.ot[k]||0)>0?"xoo":""].filter(Boolean).join(" ");return`<td data-id="${w.id}" data-d="${d}"${cl?` class="${cl}"`:""}${nn?` title="${esc(nn).replace(/"/g,"&quot;")}"`:""}><input type="text" inputmode="decimal" class="h xc" data-id="${w.id}" data-d="${d}" value="${fh((mode==="ot"?S.ot:S.abs)[k]||0)}" placeholder="0:00">${both?`<input type="text" inputmode="decimal" class="h xc xot" data-m="ot" data-id="${w.id}" data-d="${d}" value="${S.ot[k]?fh(S.ot[k]):""}" placeholder="+ زێدە" title="کاتژمێرێن زێدە">`:""}${am&&S.pr[k]&&!S.abs[k]?`<span class="prk">✓ هاتیە</span>${S.bp[k]?`<span class="byl">👤 ${esc(S.bp[k])}</span>`:""}`:""}${am&&S.abs[k]?`<button type="button" class="ntb${S.nt[k]?" has":""}" data-id="${w.id}" data-d="${d}" title="${S.nt[k]?esc(S.nt[k]).replace(/"/g,"&quot;"):"تێبینی: بۆچی نەهاتیە؟"}">💬${S.nt[k]?" "+esc(S.nt[k].length>14?S.nt[k].slice(0,14)+"…":S.nt[k]):""}</button>`:""}${am&&S.abs[k]&&S.by[k]?`<span class="byl">👤 ${esc(S.by[k])}</span>`:""}${!am||both?"":""}${(mode==="ot"||both)&&(S.ot[k]||S.lw[k])&&S.bo[k]?`<span class="byl">👤 ${esc(S.bo[k])}</span>`:""}${(mode==="ot"||both)&&S.lw[k]?`<span class="lwn ok">+${fh(lwOf(w,d))} مۆلەت</span>`:""}</td>`;
   }).join("");
-  return`<tr data-id="${w.id}"><td>${esc(a[0])}</td><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td><td>${esc(a[1])}</td>${c}<td class="tt"><b>${r2(t)}</b></td></tr>`;
+  const sh=a[2]||"",hd=grp&&sh!==lastSh?(lastSh=sh,`<tr class="shg xshg"><td colspan="${ncol}">${sh==="سپێدە"?"☀️":sh==="ئێڤار"?"🌇":sh==="شەڤ"?"🌙":sh==="شفتی 1"?"1️⃣":sh==="شفتی 2"?"2️⃣":"❔"} ${sh?"دەوامێ "+esc(sh):"بێ دەوام"} <small>(${L.filter(z=>(z.a[2]||"")===sh).length})</small></td></tr>`):"";
+  return hd+`<tr data-id="${w.id}"><td>${esc(a[0])}</td><td>${esc(w.code||"")}</td><td class="nm">${esc(w.name)}${rb(w)}</td><td>${esc(a[1])}</td>${c}<td class="tt"><b>${r2(t)}</b></td>${both?`<td class="tto"><b>${r2(to)}</b></td>`:""}</tr>`;
  }).join("")||'<tr><td colspan="13">چ کرێکار نینن</td></tr>';
  {const C={},add=(u,t)=>{u=u||"—";(C[u]=C[u]||{a:0,o:0,l:0,p:0})[t]++};DS.forEach(d=>SW().forEach(w=>{const k=w.id+"_"+d;if(S.abs[k]>0)add(S.by[k],"a");if(S.ot[k]>0||S.lw[k]>0)add(S.bo[k],"o");if(S.lv[k])add(S.bl[k],"l");if(S.pr[k]&&!(S.abs[k]>0))add(S.bp[k],"p")}));const E=Object.entries(C).sort((a,b)=>(b[1].a+b[1].o+b[1].l+b[1].p)-(a[1].a+a[1].o+a[1].l+a[1].p));$("xact").innerHTML=(lockD()?`<div class="lkb" style="flex-basis:100%;padding:4px 12px">${LKT}</div>`:"")+`<b>👤 کێ داتا ل ڤێ هەفتیێ داخل کرینە:</b> `+(E.length?E.map(([u,c])=>`<span class="chip"><b dir="ltr">${esc(u)}</b> <small>${[c.p?`هاتی ${c.p}`:"",c.a?`غیاب ${c.a}`:"",c.o?`زێدە ${c.o}`:"",c.l?`مۆلەت ${c.l}`:""].filter(Boolean).join(" · ")}</small></span>`).join(" "):"<small>هێشتا چ داتا نەهاتینە داخلکرن</small>")+(E.some(x=>x[0]==="—")?' <small>(«—» = بەری ڤێ تایبەتمەندیێ هاتینە داخلکرن)</small>':"")}
- $("xt").innerHTML=L.length?`<tr><th></th><th></th><th>کۆما گشتی</th><th></th>${DS.map(d=>{const v=L.reduce((z,{w})=>z+(outside(w,d)?0:(mode==="ot"?otOf(w,d):(S.abs[w.id+"_"+d]||0))),0),n=mode==="abs"?L.filter(({w})=>!outside(w,d)&&(S.abs[w.id+"_"+d]||0)>0).length:0;return`<th class="xdt">${v?r2(v):"—"}${n?`<small>${n} کەس</small>`:""}</th>`}).join("")}<th>${r2(G)}</th></tr>`:"";
- renderXW(w0);$("xtool").classList.toggle("hide",mode!=="abs");
+ $("xt").innerHTML=L.length?`<tr><th></th><th></th><th>کۆما گشتی</th><th></th>${DS.map(d=>{const v=L.reduce((z,{w})=>z+(outside(w,d)?0:(!am?otOf(w,d):(S.abs[w.id+"_"+d]||0))),0),n=am?L.filter(({w})=>!outside(w,d)&&(S.abs[w.id+"_"+d]||0)>0).length:0;const vo=both?L.reduce((z,{w})=>z+(outside(w,d)?0:otOf(w,d)),0):0;return`<th class="xdt">${v?r2(v):"—"}${n?`<small>${n} کەس</small>`:""}${vo?`<small class="xdo">+${r2(vo)}</small>`:""}</th>`}).join("")}<th>${r2(G)}</th>${both?`<th class="tto">${r2(GO)}</th>`:""}</tr>`:"";
+ renderXW(w0);$("xtool").classList.toggle("hide",!am);
 }
 $("xb").addEventListener("change",e=>{
  const t=e.target;if(!t.classList.contains("xc"))return;if(lockD(t.dataset.d)){renderX();return}
- const mode=$("xm").value,M=mode==="ot"?S.ot:S.abs,k=t.dataset.id+"_"+t.dataset.d,v=Math.min(ph(t.value),24);
+ const XM=$("xm").value,mode=t.dataset.m||(XM==="ot"?"ot":"abs"),M=mode==="ot"?S.ot:S.abs,k=t.dataset.id+"_"+t.dataset.d,v=Math.min(ph(t.value),24);
  if(mode==="abs"&&/^(م|مۆلەت|m)$/i.test(t.value.trim())){S.lv[k]=1;delete S.abs[k];delete S.by[k];save();renderM();renderS();renderD();renderWarn();renderX();return}
  const ww=S.workers.find(x=>x.id===t.dataset.id);if(mode==="abs"&&ww&&/^(غ|x|غیاب)$/i.test(t.value.trim())){M[k]=dayH(ww);t.value=fh(M[k])}else{if(v>0)M[k]=v;else delete M[k];
  t.value=fh(v)}
  if(mode==="abs"){if(S.abs[k]>0&&ME)S.by[k]=ME.u;else if(!S.abs[k]){delete S.by[k];delete S.nt[k]}}
+ if(mode==="ot"){if(S.ot[k]>0&&ME)S.bo[k]=ME.u;else if(!S.ot[k]&&!S.lw[k])delete S.bo[k]}
  save();renderM();renderS();renderD();renderWarn();
  const DS=wkIds($("xw").value);let G=0;
  [...$("xb").rows].forEach(r=>{const w=S.workers.find(x=>x.id===r.dataset.id);if(!w)return;const z=DS.reduce((q,d)=>q+xv(w,d,mode),0);r.querySelector(".tt").innerHTML="<b>"+r2(z)+"</b>";G+=z});
  $("xt").innerHTML=`<tr><th colspan="11">کۆما گشتی</th><th>${r2(G)}</th></tr>`;
- if(mode==="abs")renderX();
+ if(mode==="abs"||XM==="both")renderX();
 });
 $("dl").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.classList.contains("nt")){e.preventDefault();e.target.blur()}});
 $("xb").addEventListener("keydown",e=>{
@@ -1891,7 +1900,7 @@ $("xb").addEventListener("focusin",e=>{if(e.target.classList.contains("xc"))e.ta
 const mx=n=>{const d=new Date($("xw").value+"T00:00:00");d.setDate(d.getDate()+n);$("xw").value=iso(d);renderX()};
 $("xp").onclick=()=>mx(-7);$("xn").onclick=()=>mx(7);
 $("xw").onchange=()=>{if(!$("xw").value)return;$("xw").value=weekOf($("xw").value);renderX()};
-$("xf").onchange=renderX;$("xm").onchange=renderX;
+$("xf").onchange=renderX;$("xm").onchange=()=>{try{localStorage.setItem("absXM",$("xm").value)}catch(e){}renderX()};try{const v=localStorage.getItem("absXM");if(v)$("xm").value=v;const o=localStorage.getItem("absXSo");if(o)$("xso").value=o}catch(e){}$("xso").onchange=()=>{try{localStorage.setItem("absXSo",$("xso").value)}catch(e){}renderX()};
 const dn=d=>DN[new Date(d+"T00:00:00").getDay()];
 const DNS=["یەک","دوو","سێ","چار","پێنج","ئەینی","شەمبی"];
 const dhd=d=>`<th class="dh${d===wtoday()?" tdh":""}" title="${d}"><span class="dfull">${dn(d)}</span><span class="dshort">${DNS[new Date(d+"T00:00:00").getDay()]}</span></th>`;
@@ -1936,7 +1945,7 @@ async function saveFile(name,blob){
 function tableToXlsx(tbl,name,sheet,meta){
  const c=tbl.cloneNode(true);
  const src=tbl.querySelectorAll("input,select"),dst=c.querySelectorAll("input,select");
- dst.forEach((el,i)=>{const s=src[i];el.replaceWith(document.createTextNode(s.type==="checkbox"?(s.checked?"م":""):s.value))});
+ dst.forEach((el,i)=>{const s=src[i];el.replaceWith(document.createTextNode(s.type==="checkbox"?(s.checked?"م":""):s.classList.contains("xot")?(ph(s.value)>0?" +"+s.value:""):s.value))});
  c.querySelectorAll("button,.lwn,.byl,.ntb,.dshort,.mvs,.prk,.nlb,.x15").forEach(b=>b.remove());
  c.querySelectorAll("br").forEach(b=>b.replaceWith(" "));
  const txt=el=>el.textContent.replace(/\s+/g," ").trim();
