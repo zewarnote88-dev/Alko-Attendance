@@ -833,7 +833,7 @@ body.sadm .gonly{display:none!important}
  <label class="lrm"><input type="checkbox" id="lrm" checked> ل سەر ڤی ئامێری بمینە (هەتا دەرکەتنێ)</label>
  <button id="lb" type="submit"><span>چوونەژوور</span><b>←</b></button>
  <div id="le" class="bad"></div>
- <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr">v2026.11.21-2</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
+ <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr">v2026.11.21-3</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
 </form></div>
 <main>
 <header class="top"><div class="brand"><div class="logo bml"><span>A</span></div><div><h1>غیابا کرێکاران</h1><span class="ownb" title="ئەدمینێ سەرەکی">👑 ئەدمین: <b dir="ltr">Zewar</b></span><p class="sub"><b class="alkot">ALKO</b> Company · <span id="secn">غیاب، زێدە و ڕێکخستنا هەفتیێ</span></p></div></div>
@@ -998,7 +998,7 @@ body.sadm .gonly{display:none!important}
  <div class="bar" style="margin:0"><button type="submit" id="dws" class="danger" style="background:#dc2626;color:#fff">ژێبرن</button><button type="button" class="off" id="dwx2">بەتالکرن</button></div>
 </form></div>
 <div id="pr"></div>
-<div class="appv" dir="ltr">ALKO · v2026.11.21-2</div>
+<div class="appv" dir="ltr">ALKO · v2026.11.21-3</div>
 </main>
 <script>
 const $=id=>document.getElementById(id);
@@ -2147,7 +2147,7 @@ function weekXlsx(w0,src){
    if(lv&&!(showO&&ox))return C(r,d0+i,"مۆلەت",{b:1,bg:"FFFDE68A",c:"FF78350F"});
    if(showA&&av&&showO&&ox)return C(r,d0+i,fh(av)+"  +"+fh(ox),{b:1,bg:"FFFECACA",c:"FF991B1B"});
    if(showA&&av)return C(r,d0+i,hrs(av),{t:1,b:1,bg:av>=dayH(w)?"FFFECACA":"FFFED7AA",c:av>=dayH(w)?"FF991B1B":"FF9A3412"});
-   if(showO&&ox)return C(r,d0+i,(lv?"مۆلەت +":"+")+fh(ox),{b:1,bg:"FFBFDBFE",c:"FF1E40AF"});
+   if(showO&&ox)return C(r,d0+i,"+"+fh(ox),{b:1,bg:"FFBFDBFE",c:"FF1E40AF"});
    if(S.pr[k])return C(r,d0+i,"✓",{b:1,c:"FF16A34A",bg:bb});
    return C(r,d0+i,"",{bg:bb});
   }).join("");
@@ -2613,7 +2613,7 @@ document.querySelectorAll("#login .eye").forEach(b=>b.onclick=()=>{const i=$(b.d
 showLogin();all();load();
 if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
 // ===== new-version check: tell open pages when a newer version is published =====
-const APPV="2026.11.21-2";
+const APPV="2026.11.21-3";
 async function chkVer(){
  if(location.protocol!=="https:")return;
  try{const t=await(await fetch("./index.html?v="+Date.now(),{cache:"no-store"})).text(),m=t.match(/const APPV="([^"]+)"/);
