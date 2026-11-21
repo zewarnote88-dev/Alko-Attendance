@@ -2101,7 +2101,7 @@ function xRows(w0){
  return{DS,L,grp:so==="sh"&&isShiftSec()};
 }
 function weekXlsx(w0){
- const {DS,L,grp}=xRows(w0),mode=$("xm").value,showA=mode!=="ot",showO=mode!=="abs";
+ const {DS,L}=xRows(w0),grp=false,mode=$("xm").value,showA=mode!=="ot",showO=mode!=="abs";
  const X=s=>String(s).replace(/[\x00-\x08\x0b\x0c\x0e-\x1f]/g,"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
  const SS=[],SI={},si=s=>{s=String(s);if(!(s in SI)){SI[s]=SS.length;SS.push(s)}return SI[s]};
  const colL=i=>{let s="";i++;while(i){const m=(i-1)%26;s=String.fromCharCode(65+m)+s;i=(i-m-1)/26}return s};
@@ -2143,28 +2143,28 @@ function weekXlsx(w0){
    if(lv&&!(showO&&ox))return C(r,d0+i,"مۆلەت",{b:1,bg:"FFFDE68A",c:"FF78350F"});
    if(showA&&av&&showO&&ox)return C(r,d0+i,fh(av)+"  +"+fh(ox),{b:1,bg:"FFFECACA",c:"FF991B1B"});
    if(showA&&av)return C(r,d0+i,hrs(av),{t:1,b:1,bg:av>=dayH(w)?"FFFECACA":"FFFED7AA",c:av>=dayH(w)?"FF991B1B":"FF9A3412"});
-   if(showO&&ox)return C(r,d0+i,(lv?"مۆلەت +":"+")+fh(ox),{b:1,bg:"FFBBF7D0",c:"FF065F46"});
+   if(showO&&ox)return C(r,d0+i,(lv?"مۆلەت +":"+")+fh(ox),{b:1,bg:"FFBFDBFE",c:"FF1E40AF"});
    if(S.pr[k])return C(r,d0+i,"✓",{b:1,c:"FF16A34A",bg:bb});
    return C(r,d0+i,"",{bg:bb});
   }).join("");
   TT.a+=ta;TT.o+=to;const net=to-ta;
-  let x=C(r,0,a[0]?+a[0]||a[0]:"",{bg:bb,c:"FF6B7280"})+C(r,1,w.code?(/^\d+$/.test(w.code)?+w.code:w.code):"",{bg:bb})+C(r,2,w.name,{b:1,bg:bb,h:"right"})+C(r,3,roleOf(w),{bg:bb,c:({"کرێکار":"FF1D4ED8","هۆستا":"FFB45309","مراقب":"FF7E22CE","هۆستایێ بەشەکی":"FF0F766E"})[roleOf(w)]||"FF374151",b:1})+C(r,4,a[1]||"",{bg:bb})+C(r,5,a[2]||"",{bg:bb})+cells;
+  let x=C(r,0,a[0]?+a[0]||a[0]:"",{bg:bb,c:"FF6B7280"})+C(r,1,w.code?(/^\d+$/.test(w.code)?+w.code:w.code):"",{bg:bb})+C(r,2,w.name,{b:1,h:"right",bg:showA&&showO&&(to-ta)<0?"FFFECACA":showA&&showO&&(to-ta)>0?"FFBFDBFE":bb,c:showA&&showO&&(to-ta)<0?"FF991B1B":showA&&showO&&(to-ta)>0?"FF1E3A8A":"FF111827"})+C(r,3,roleOf(w),{bg:bb,c:({"کرێکار":"FF1D4ED8","هۆستا":"FFB45309","مراقب":"FF7E22CE","هۆستایێ بەشەکی":"FF0F766E"})[roleOf(w)]||"FF374151",b:1})+C(r,4,a[1]||"",{bg:bb})+C(r,5,a[2]||"",{bg:bb})+cells;
   let c=cA;
   if(showA)x+=C(r,c++,hrs(ta),{t:1,b:1,c:ta?"FFB91C1C":"FF9CA3AF",bg:ta?"FFFEF2F2":bb});
-  if(showO)x+=C(r,c++,hrs(to),{t:1,b:1,c:to?"FF047857":"FF9CA3AF",bg:to?"FFECFDF5":bb});
+  if(showO)x+=C(r,c++,hrs(to),{t:1,b:1,c:to?"FF1E40AF":"FF9CA3AF",bg:to?"FFDBEAFE":bb});
   x+=C(r,c++,tl,{b:1,c:tl?"FF92400E":"FF9CA3AF",bg:tl?"FFFFFBEB":bb});
-  if(showA&&showO)x+=C(r,c++,net?(net>0?"+":"−")+fh(Math.abs(net)):"0:00",{b:1,c:net>0?"FF047857":net<0?"FFB91C1C":"FF6B7280",bg:net>0?"FFDCFCE7":net<0?"FFFEE2E2":bb});
+  if(showA&&showO)x+=C(r,c++,net?(net>0?"+":"−")+fh(Math.abs(net)):"0:00",{b:1,c:net?"FFFFFFFF":"FF6B7280",bg:net>0?"FF2563EB":net<0?"FFDC2626":bb});
   x+=C(r,c++,notes.join(" · "),{bg:bb,h:"right",w:1,sz:9,c:"FF4B5563"});
   rows+=`<row r="${r}" ht="${notes.length>1?34:22}" customHeight="1">${x}</row>`;
  });
  const lastData=r;
  r++;{let x=C(r,0,"",{bg:"FFE5E7EB",br:2})+C(r,1,"",{bg:"FFE5E7EB",br:2})+C(r,2,"کۆما گشتی ("+L.length+" کرێکار)",{b:1,bg:"FFE5E7EB",h:"right",br:2})+[3,4,5].map(i=>C(r,i,"",{bg:"FFE5E7EB",br:2})).join("");
   x+=TD.map((t,i)=>C(r,d0+i,[showA&&t.a?fh(t.a)+(t.n?" ("+t.n+")":""):"",showO&&t.o?"+"+fh(t.o):""].filter(Boolean).join("  ")||"—",{b:1,bg:"FFE5E7EB",br:2,c:"FF111827"})).join("");
-  let c=cA;if(showA)x+=C(r,c++,hrs(TT.a),{t:1,b:1,bg:"FFFECACA",c:"FF991B1B",br:2});if(showO)x+=C(r,c++,hrs(TT.o),{t:1,b:1,bg:"FFBBF7D0",c:"FF065F46",br:2});x+=C(r,c++,TT.l,{b:1,bg:"FFFDE68A",c:"FF78350F",br:2});
-  if(showA&&showO){const n=TT.o-TT.a;x+=C(r,c++,(n>0?"+":n<0?"−":"")+fh(Math.abs(n)),{b:1,bg:"FFE5E7EB",br:2,c:n>0?"FF047857":n<0?"FFB91C1C":"FF374151"})}
+  let c=cA;if(showA)x+=C(r,c++,hrs(TT.a),{t:1,b:1,bg:"FFFECACA",c:"FF991B1B",br:2});if(showO)x+=C(r,c++,hrs(TT.o),{t:1,b:1,bg:"FFBFDBFE",c:"FF1E40AF",br:2});x+=C(r,c++,TT.l,{b:1,bg:"FFFDE68A",c:"FF78350F",br:2});
+  if(showA&&showO){const n=TT.o-TT.a;x+=C(r,c++,n?(n>0?"+":"−")+fh(Math.abs(n)):"0:00",{b:1,bg:n>0?"FF2563EB":n<0?"FFDC2626":"FFE5E7EB",br:2,c:n?"FFFFFFFF":"FF374151"})}
   x+=C(r,c++,"",{bg:"FFE5E7EB",br:2});rows+=`<row r="${r}" ht="26" customHeight="1">${x}</row>`}
  r++;rows+=`<row r="${r}" ht="10" customHeight="1"></row>`;
- r++;{const LG=[["FFFECACA","FF991B1B","نەهاتیە (ڕۆژا تەمام)"],["FFFED7AA","FF9A3412","کێمتر ژ ڕۆژەکێ"],["FFBBF7D0","FF065F46","زێدە (+)"],["FFFDE68A","FF78350F","مۆلەت"],["FF111111","FFFFFFFF","کار هێلای"],["FFE5E7EB","FF6B7280","هێشتا دەست پێ نەکری"]];
+ r++;{const LG=[["FFFECACA","FF991B1B","نەهاتیە (ڕۆژا تەمام)"],["FFFED7AA","FF9A3412","کێمتر ژ ڕۆژەکێ"],["FFBFDBFE","FF1E40AF","زێدە (+)"],["FFDC2626","FFFFFFFF","کێمی (غیاب پتر)"],["FF2563EB","FFFFFFFF","زێدە (زێدە پتر)"],["FFFDE68A","FF78350F","مۆلەت"],["FF111111","FFFFFFFF","کار هێلای"],["FFE5E7EB","FF6B7280","هێشتا دەست پێ نەکری"]];
   rows+=`<row r="${r}" ht="20" customHeight="1">${C(r,2,"ڕوونکرن:",{b:1,br:0,h:"right"})}${LG.map(([bg,c,t],i)=>C(r,3+i*2,t,{bg,c,b:1,sz:9})).join("")}</row>`}
  const merges=[`A1:${colL(last)}1`,`A2:${colL(last)}2`,...GR.map(g=>`A${g}:${colL(last)}${g}`)];
  // merge group rows
