@@ -2091,7 +2091,99 @@ const xwk=w=>{const e=new Date(w+"T00:00:00");e.setDate(e.getDate()+6);return"ه
 const xsel=id=>{const o=$(id).selectedOptions[0];return o&&o.value?o.textContent:""};
 $("xlM").onclick=()=>xl("mt","month-"+$("mo").value,"مانگانە","خشتەیێ غیابا مانگانە","مانگ: "+$("mo").value);
 $("xlS").onclick=()=>xl("stt","summary-"+$("sw").value,"کورتکرن","کورتکرنا هەفتیێ",xwk($("sw").value));
-$("xlX").onclick=()=>xl("xtb","absence-"+$("xw").value,"غیابا هەفتیێ",$("xm").value==="ot"?"کاتژمێرێن زێدە یێن هەفتیێ":"غیابا هەفتیێ",xwk($("xw").value)+(xsel("xf")?"   ·   جه: "+xsel("xf"):""));
+// ===== styled weekly absence workbook =====
+function xRows(w0){
+ const DS=wkIds(w0),f=$("xf").value;
+ let L=W().filter(w=>inWk(w,w0)).map(w=>({w,a:S.asg[w0+"_"+w.id]||["",""]}));{const mp=myPls();if(mp)L=L.filter(x=>DS.some(d=>mp.includes(asgOf(x.w,d)[1])))}
+ if(f==="*none")L=L.filter(x=>!x.a[1]);else if(f)L=L.filter(x=>x.a[1]===f);
+ const so=$("xso").value,sq=(x,y)=>(+x.a[0]||1e9)-(+y.a[0]||1e9),nmc=(x,y)=>COLL.compare(x.w.name,y.w.name);
+ L.sort(so==="name"?nmc:so==="code"?(x,y)=>COLL.compare(String(x.w.code||"~"),String(y.w.code||"~")):so==="pl"?(x,y)=>COLL.compare(x.a[1]||"~",y.a[1]||"~")||sq(x,y):so==="sh"&&isShiftSec()?(x,y)=>shI(x.a[2])-shI(y.a[2])||sq(x,y):sq);
+ return{DS,L,grp:so==="sh"&&isShiftSec()};
+}
+function weekXlsx(w0){
+ const {DS,L,grp}=xRows(w0),mode=$("xm").value,showA=mode!=="ot",showO=mode!=="abs";
+ const X=s=>String(s).replace(/[\x00-\x08\x0b\x0c\x0e-\x1f]/g,"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+ const SS=[],SI={},si=s=>{s=String(s);if(!(s in SI)){SI[s]=SS.length;SS.push(s)}return SI[s]};
+ const colL=i=>{let s="";i++;while(i){const m=(i-1)%26;s=String.fromCharCode(65+m)+s;i=(i-m-1)/26}return s};
+ const FN=[],FL=['<fill><patternFill patternType="none"/></fill>','<fill><patternFill patternType="gray125"/></fill>'],XF=[],K={};
+ const fid=(b,c,sz)=>{const k="f"+[b,c,sz];if(!(k in K)){K[k]=FN.length;FN.push(`<font>${b?"<b/>":""}<sz val="${sz||11}"/><color rgb="${c||"FF111827"}"/><name val="Tahoma"/><family val="2"/></font>`)}return K[k]};
+ const lid=c=>{if(!c)return 0;const k="l"+c;if(!(k in K)){K[k]=FL.length;FL.push(`<fill><patternFill patternType="solid"><fgColor rgb="${c}"/><bgColor indexed="64"/></patternFill></fill>`)}return K[k]};
+ fid(0);
+ // borders: 0 none, 1 thin black, 2 medium black
+ const BR=['<border><left/><right/><top/><bottom/><diagonal/></border>',...["thin","medium"].map(t=>`<border>${["left","right","top","bottom"].map(sd=>`<${sd} style="${t}"><color rgb="FF000000"/></${sd}>`).join("")}<diagonal/></border>`)];
+ const st=o=>{const f=fid(o.b,o.c,o.sz),l=lid(o.bg),n=o.t?164:0,br=o.br==null?1:o.br,h=o.h||"center";const k="x"+[f,l,n,br,h,o.w?1:0];if(!(k in K)){K[k]=XF.length;XF.push(`<xf numFmtId="${n}" fontId="${f}" fillId="${l}" borderId="${br}" xfId="0" applyNumberFormat="1" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="${h}" vertical="center" readingOrder="2"${o.w?' wrapText="1"':""}/></xf>`)}return K[k]};
+ st({br:0});
+ const hrs=h=>(h||0)/24;
+ const C=(r,c,v,o)=>{const ref=colL(c)+r;if(v===""||v==null)return`<c r="${ref}" s="${st(o||{})}"/>`;if(typeof v==="number")return`<c r="${ref}" s="${st(o||{})}"><v>${v}</v></c>`;return`<c r="${ref}" t="s" s="${st(o||{})}"><v>${si(v)}</v></c>`};
+ const DNK=["یەکشەمب","دووشەمب","سێشەمب","چارشەمب","پێنجشەمب","ئەینی","شەمبی"];
+ const head=["ڕێز","کۆد","ناڤ","جۆر","جهێ کاری","دەوام",...DS.map(d=>DNK[new Date(d+"T00:00:00").getDay()]+"\n"+d.slice(8)+"/"+d.slice(5,7)),...(showA?["کۆما غیابێ"]:[]),...(showO?["کۆما زێدە"]:[]),"ڕۆژێن مۆلەتێ",...(showA&&showO?["زێدە − غیاب"]:[]),"تێبینی"];
+ const nc=head.length,d0=6,cA=d0+7,last=nc-1;
+ const PUR="FF4C1D95",HDR="FF1E3A8A";
+ let rows="",r=0;
+ const sec=CS().name,e=DS[6];
+ r++;rows+=`<row r="${r}" ht="34" customHeight="1">${C(r,0,"ALKO Company — غیابا هەفتیێ"+(SECS().length>1?" · "+sec:""),{b:1,c:"FFFFFFFF",bg:PUR,sz:16,br:0})}${head.slice(1).map((_,i)=>C(r,i+1,"",{bg:PUR,br:0})).join("")}</row>`;
+ r++;rows+=`<row r="${r}" ht="22" customHeight="1">${C(r,0,"هەفتی: "+DS[0]+"  ←  "+e+"   ·   "+(xsel("xf")?"جه: "+xsel("xf")+"   ·   ":"")+"هاتیە دەرئێخستن: "+iso(new Date())+" · "+(ME?ME.u:""),{c:"FF374151",bg:"FFEDE9FE",sz:10,br:0})}${head.slice(1).map((_,i)=>C(r,i+1,"",{bg:"FFEDE9FE",br:0})).join("")}</row>`;
+ r++;rows+=`<row r="${r}" ht="8" customHeight="1"></row>`;
+ const HR=++r;
+ rows+=`<row r="${r}" ht="40" customHeight="1">${head.map((h,i)=>{const fri=i>=d0&&i<cA&&new Date(DS[i-d0]+"T00:00:00").getDay()===5,td=i>=d0&&i<cA&&DS[i-d0]===wtoday();return C(r,i,h,{b:1,c:"FFFFFFFF",bg:fri?"FF5B21B6":td?"FF2563EB":HDR,w:1,br:2})}).join("")}</row>`;
+ const TD=DS.map(()=>({a:0,o:0,n:0})),TT={a:0,o:0,l:0},GR=[];let lastSh=null,band=0;
+ L.forEach(({w,a})=>{
+  const sh=a[2]||"";
+  if(grp&&sh!==lastSh){lastSh=sh;r++;GR.push(r);const t=(sh?"دەوامێ "+sh:"بێ دەوام")+"  ("+L.filter(z=>(z.a[2]||"")===sh).length+")";rows+=`<row r="${r}" ht="22" customHeight="1">${C(r,0,t,{b:1,c:"FF1E3A8A",bg:"FFDBEAFE",h:"right",br:1})}${head.slice(1).map((_,i)=>C(r,i+1,"",{bg:"FFDBEAFE",br:1})).join("")}</row>`;band=0}
+  r++;band++;const bb=band%2===0?"FFF8FAFC":"";
+  let ta=0,to=0,tl=0;const notes=[];
+  const cells=DS.map((d,i)=>{
+   const k=w.id+"_"+d;
+   if(outside(w,d)){const q=w.end&&d>w.end,h=absOf(w,d);if(showA)ta+=h;if(showA)TD[i].a+=h;return C(r,d0+i,showA&&h?hrs(h):"",{t:1,bg:q?"FF111111":"FFE5E7EB",c:q?"FFFFFFFF":"FF6B7280",b:1})}
+   const av=S.abs[k]||0,ox=otOf(w,d),lv=!!S.lv[k];
+   if(S.nt[k]&&av)notes.push(DNK[new Date(d+"T00:00:00").getDay()]+": "+S.nt[k]);
+   if(lv){tl++;TT.l++;}
+   if(showA){ta+=av;TD[i].a+=av;if(av)TD[i].n++}
+   if(showO){to+=ox;TD[i].o+=ox}
+   if(lv&&!(showO&&ox))return C(r,d0+i,"مۆلەت",{b:1,bg:"FFFDE68A",c:"FF78350F"});
+   if(showA&&av&&showO&&ox)return C(r,d0+i,fh(av)+"  +"+fh(ox),{b:1,bg:"FFFECACA",c:"FF991B1B"});
+   if(showA&&av)return C(r,d0+i,hrs(av),{t:1,b:1,bg:av>=dayH(w)?"FFFECACA":"FFFED7AA",c:av>=dayH(w)?"FF991B1B":"FF9A3412"});
+   if(showO&&ox)return C(r,d0+i,(lv?"مۆلەت +":"+")+fh(ox),{b:1,bg:"FFBBF7D0",c:"FF065F46"});
+   if(S.pr[k])return C(r,d0+i,"✓",{b:1,c:"FF16A34A",bg:bb});
+   return C(r,d0+i,"",{bg:bb});
+  }).join("");
+  TT.a+=ta;TT.o+=to;const net=to-ta;
+  let x=C(r,0,a[0]?+a[0]||a[0]:"",{bg:bb,c:"FF6B7280"})+C(r,1,w.code?(/^\d+$/.test(w.code)?+w.code:w.code):"",{bg:bb})+C(r,2,w.name,{b:1,bg:bb,h:"right"})+C(r,3,roleOf(w),{bg:bb,c:({"کرێکار":"FF1D4ED8","هۆستا":"FFB45309","مراقب":"FF7E22CE","هۆستایێ بەشەکی":"FF0F766E"})[roleOf(w)]||"FF374151",b:1})+C(r,4,a[1]||"",{bg:bb})+C(r,5,a[2]||"",{bg:bb})+cells;
+  let c=cA;
+  if(showA)x+=C(r,c++,hrs(ta),{t:1,b:1,c:ta?"FFB91C1C":"FF9CA3AF",bg:ta?"FFFEF2F2":bb});
+  if(showO)x+=C(r,c++,hrs(to),{t:1,b:1,c:to?"FF047857":"FF9CA3AF",bg:to?"FFECFDF5":bb});
+  x+=C(r,c++,tl,{b:1,c:tl?"FF92400E":"FF9CA3AF",bg:tl?"FFFFFBEB":bb});
+  if(showA&&showO)x+=C(r,c++,net?(net>0?"+":"−")+fh(Math.abs(net)):"0:00",{b:1,c:net>0?"FF047857":net<0?"FFB91C1C":"FF6B7280",bg:net>0?"FFDCFCE7":net<0?"FFFEE2E2":bb});
+  x+=C(r,c++,notes.join(" · "),{bg:bb,h:"right",w:1,sz:9,c:"FF4B5563"});
+  rows+=`<row r="${r}" ht="${notes.length>1?34:22}" customHeight="1">${x}</row>`;
+ });
+ const lastData=r;
+ r++;{let x=C(r,0,"",{bg:"FFE5E7EB",br:2})+C(r,1,"",{bg:"FFE5E7EB",br:2})+C(r,2,"کۆما گشتی ("+L.length+" کرێکار)",{b:1,bg:"FFE5E7EB",h:"right",br:2})+[3,4,5].map(i=>C(r,i,"",{bg:"FFE5E7EB",br:2})).join("");
+  x+=TD.map((t,i)=>C(r,d0+i,[showA&&t.a?fh(t.a)+(t.n?" ("+t.n+")":""):"",showO&&t.o?"+"+fh(t.o):""].filter(Boolean).join("  ")||"—",{b:1,bg:"FFE5E7EB",br:2,c:"FF111827"})).join("");
+  let c=cA;if(showA)x+=C(r,c++,hrs(TT.a),{t:1,b:1,bg:"FFFECACA",c:"FF991B1B",br:2});if(showO)x+=C(r,c++,hrs(TT.o),{t:1,b:1,bg:"FFBBF7D0",c:"FF065F46",br:2});x+=C(r,c++,TT.l,{b:1,bg:"FFFDE68A",c:"FF78350F",br:2});
+  if(showA&&showO){const n=TT.o-TT.a;x+=C(r,c++,(n>0?"+":n<0?"−":"")+fh(Math.abs(n)),{b:1,bg:"FFE5E7EB",br:2,c:n>0?"FF047857":n<0?"FFB91C1C":"FF374151"})}
+  x+=C(r,c++,"",{bg:"FFE5E7EB",br:2});rows+=`<row r="${r}" ht="26" customHeight="1">${x}</row>`}
+ r++;rows+=`<row r="${r}" ht="10" customHeight="1"></row>`;
+ r++;{const LG=[["FFFECACA","FF991B1B","نەهاتیە (ڕۆژا تەمام)"],["FFFED7AA","FF9A3412","کێمتر ژ ڕۆژەکێ"],["FFBBF7D0","FF065F46","زێدە (+)"],["FFFDE68A","FF78350F","مۆلەت"],["FF111111","FFFFFFFF","کار هێلای"],["FFE5E7EB","FF6B7280","هێشتا دەست پێ نەکری"]];
+  rows+=`<row r="${r}" ht="20" customHeight="1">${C(r,2,"ڕوونکرن:",{b:1,br:0,h:"right"})}${LG.map(([bg,c,t],i)=>C(r,3+i*2,t,{bg,c,b:1,sz:9})).join("")}</row>`}
+ const merges=[`A1:${colL(last)}1`,`A2:${colL(last)}2`,...GR.map(g=>`A${g}:${colL(last)}${g}`)];
+ // merge group rows
+ const W0=[6,8,24,13,13,10,...DS.map(()=>12),...(showA?[12]:[]),...(showO?[12]:[]),10,...(showA&&showO?[12]:[]),34];
+ const cols=W0.map((w,i)=>`<col min="${i+1}" max="${i+1}" width="${w}" customWidth="1"/>`).join("");
+ const pane=`<pane xSplit="3" ySplit="${HR}" topLeftCell="D${HR+1}" activePane="bottomRight" state="frozen"/><selection pane="bottomRight"/>`;
+ const sheetXml=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheetPr><pageSetUpPr fitToPage="1"/></sheetPr><dimension ref="A1:${colL(last)}${r}"/><sheetViews><sheetView rightToLeft="1" showGridLines="0" zoomScale="100" workbookViewId="0">${pane}</sheetView></sheetViews><sheetFormatPr defaultRowHeight="20"/><cols>${cols}</cols><sheetData>${rows}</sheetData><autoFilter ref="A${HR}:${colL(last)}${lastData}"/><mergeCells count="${merges.length}">${merges.map(m=>`<mergeCell ref="${m}"/>`).join("")}</mergeCells><pageMargins left="0.3" right="0.3" top="0.4" bottom="0.4" header="0.2" footer="0.2"/><pageSetup paperSize="9" orientation="landscape" fitToWidth="1" fitToHeight="0"/><headerFooter><oddFooter>&amp;C&amp;P / &amp;N</oddFooter></headerFooter></worksheet>`;
+ const sst=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><sst xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" count="${SS.length}" uniqueCount="${SS.length}">${SS.map(s=>`<si><t xml:space="preserve">${X(s)}</t></si>`).join("")}</sst>`;
+ const styles=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><numFmts count="1"><numFmt numFmtId="164" formatCode="[h]:mm"/></numFmts><fonts count="${FN.length}">${FN.join("")}</fonts><fills count="${FL.length}">${FL.join("")}</fills><borders count="${BR.length}">${BR.join("")}</borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="${XF.length}">${XF.join("")}</cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`;
+ const sn="غیابا هەفتیێ";
+ const F={
+  "[Content_Types].xml":`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/><Override PartName="/xl/sharedStrings.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml"/></Types>`,
+  "_rels/.rels":`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`,
+  "xl/workbook.xml":`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><bookViews><workbookView/></bookViews><sheets><sheet name="${X(sn)}" sheetId="1" r:id="rId1"/></sheets><definedNames><definedName name="_xlnm._FilterDatabase" localSheetId="0" hidden="1">'${X(sn)}'!$A$${HR}:$${colL(last)}$${lastData}</definedName><definedName name="_xlnm.Print_Titles" localSheetId="0">'${X(sn)}'!$${HR}:$${HR}</definedName></definedNames></workbook>`,
+  "xl/_rels/workbook.xml.rels":`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings" Target="sharedStrings.xml"/></Relationships>`,
+  "xl/worksheets/sheet1.xml":sheetXml,"xl/styles.xml":styles,"xl/sharedStrings.xml":sst};
+ return zipStore(F);
+}
+$("xlX").onclick=async()=>{try{msg("ئێکسل دهێتە دروستکرن...");const w0=$("xw").value;await saveFile("absence-"+w0+".xlsx",new Blob([weekXlsx(w0)],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}));msg("")}catch(e){console.error(e);msg("ئێکسل نەهاتە دروستکرن")}};
 $("xlA").onclick=()=>xl("atb","assign-"+$("ws").value,"ڕێکخستن","ڕێکخستنا هەفتیێ",xwk($("ws").value)+(xsel("pf")?"   ·   جه: "+xsel("pf"):"")+(xsel("sf")?"   ·   دەوام: "+xsel("sf"):""));
 // ===== PDF: drawn natively on canvas (correct Kurdish shaping), packed into a PDF without libraries =====
 function plKey(p){
