@@ -2121,7 +2121,7 @@ function weekXlsx(w0){
  const PUR="FF4C1D95",HDR="FF1E3A8A";
  let rows="",r=0;
  const sec=CS().name,e=DS[6];
- r++;rows+=`<row r="${r}" ht="34" customHeight="1">${C(r,0,"ALKO Company — غیابا هەفتیێ"+(SECS().length>1?" · "+sec:""),{b:1,c:"FFFFFFFF",bg:PUR,sz:16,br:0})}${head.slice(1).map((_,i)=>C(r,i+1,"",{bg:PUR,br:0})).join("")}</row>`;
+ r++;rows+=`<row r="${r}" ht="34" customHeight="1">${C(r,0,"ALKO Company — کورتیا هەفتیێ · "+sec,{b:1,c:"FFFFFFFF",bg:PUR,sz:16,br:0})}${head.slice(1).map((_,i)=>C(r,i+1,"",{bg:PUR,br:0})).join("")}</row>`;
  r++;rows+=`<row r="${r}" ht="22" customHeight="1">${C(r,0,"هەفتی: "+DS[0]+"  ←  "+e+"   ·   "+(xsel("xf")?"جه: "+xsel("xf")+"   ·   ":"")+"هاتیە دەرئێخستن: "+iso(new Date())+" · "+(ME?ME.u:""),{c:"FF374151",bg:"FFEDE9FE",sz:10,br:0})}${head.slice(1).map((_,i)=>C(r,i+1,"",{bg:"FFEDE9FE",br:0})).join("")}</row>`;
  r++;rows+=`<row r="${r}" ht="8" customHeight="1"></row>`;
  const HR=++r;
