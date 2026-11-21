@@ -775,6 +775,34 @@ body.sadm .gonly{display:none!important}
 #xtb td.xoo{box-shadow:inset 0 -3px 0 #10b981}#xtb .tto{color:#047857;font-weight:800}.xdo{display:block;color:#047857}
 #xtb tr.xshg td{background:var(--thbg);font-weight:800;text-align:start;padding:6px 10px}
 #xtb tbody tr.xshg{display:table-row!important}#xtb tbody tr.xshg>td{display:table-cell!important;position:static!important}
+/* ===== weekly absence polish ===== */
+.xbar{padding:10px 12px;display:flex;flex-direction:column;gap:10px;margin-bottom:10px}
+.xnav{display:grid;grid-template-columns:auto minmax(0,260px) auto 1fr;gap:8px;align-items:center}.xnav .xlx{justify-self:end}
+.xnav #xw{width:100%;text-align:center;font-weight:700}
+.xnav .sec{min-width:44px;font-size:18px;padding:6px 10px}
+.xsel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.xsel label{display:flex;flex-direction:column;gap:3px;font-size:11px;color:var(--mu);font-weight:700;margin:0}
+.xsel select{width:100%;min-width:0;font-size:12.5px;padding:7px 8px}
+@media (max-width:560px){.xsel{grid-template-columns:1fr 1fr}.xsel label:last-child{grid-column:1/-1}.xnav .xlx{grid-column:1/-1;justify-self:stretch}.xnav{grid-template-columns:auto 1fr auto}}
+.xleg{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:11.5px;color:var(--mu);margin:0 4px 10px;font-weight:600}
+.xleg span{display:inline-flex;align-items:center;gap:5px}.xleg i{width:14px;height:14px;border-radius:4px;display:inline-block;border:1px solid var(--bd)}
+.lg-a{background:color-mix(in srgb,#ef4444 30%,var(--card))}.lg-p{background:color-mix(in srgb,#f97316 25%,var(--card))}.lg-pr{background:color-mix(in srgb,#16a34a 22%,var(--card))}.lg-l{background:#fde68a}.lg-o{background:color-mix(in srgb,#10b981 30%,var(--card))}.lg-q{background:#111}
+#xtb{border-collapse:separate;border-spacing:0}
+#xtb thead th{position:sticky;top:0;z-index:4;background:var(--thbg);backdrop-filter:blur(6px)}
+#xtb th.tdh{background:color-mix(in srgb,var(--ac) 16%,var(--thbg))!important;color:var(--ac);box-shadow:inset 0 -3px 0 var(--ac)}
+#xtb td[data-d]{vertical-align:middle;text-align:center;border-bottom:1px solid var(--bd)}
+#xtb input.xc{border:1.5px solid transparent;background:color-mix(in srgb,var(--mu) 7%,transparent);border-radius:9px;transition:border-color .15s,background .15s}
+#xtb input.xc:hover{border-color:var(--bd)}
+#xtb input.xc:focus{border-color:var(--ac);background:var(--card);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 18%,transparent);outline:none}
+#xtb td .xot{margin:4px auto 0!important;width:100%!important;border-radius:999px!important;font-size:10.5px!important;padding:2px 0!important;border:1px dashed color-mix(in srgb,#10b981 45%,transparent)!important;background:transparent!important;color:#047857!important}
+#xtb td .xot:not(:placeholder-shown){border-style:solid!important;background:color-mix(in srgb,#10b981 14%,transparent)!important;font-weight:800}
+#xtb td.xoo{box-shadow:none}
+#xtb tr.xshg td{font-size:13px;padding:8px 12px!important;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--ac) 10%,var(--thbg)))!important;border-inline-start:4px solid var(--ac);color:var(--tx)}
+#xtb td.tt,#xtb td.tto,#xtb th.tto{font-size:13px}
+#xtb td.tt b{color:#b91c1c}#xtb td.tto b{color:#047857}
+#xtb tfoot th{background:var(--thbg);border-top:2px solid var(--bd);font-size:12.5px;padding:8px 4px}
+#xtb td.nm{font-weight:700}
+@media (max-width:700px){#xtb td .xot{font-size:9.5px!important}#xtb td .xot::placeholder{color:transparent!important}#xtb td .xot{min-height:14px}}
 .abl{display:flex;flex-direction:column;gap:6px;margin-top:8px}.abr{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 10px;border:1px solid var(--bd);border-radius:12px;background:var(--bg2);font-size:13px}
 .mut{color:var(--mu);font-size:13px;padding:6px 2px}
 .lgL{display:flex;flex-direction:column;gap:8px;margin-top:8px;max-height:60vh;overflow:auto}.lgI{border:1px solid var(--bd);border-radius:12px;padding:8px 10px;background:var(--bg2);font-size:13px;line-height:1.9}.lgH{color:var(--mu);border-bottom:1px dashed var(--bd);margin-bottom:4px}
@@ -897,16 +925,13 @@ body.sadm .gonly{display:none!important}
 </section>
 
 <section id="p6" class="hide"><details class="help"><summary>💡 ڕێنمایی</summary><div>غیابا هەمی ٧ ڕۆژان ب جارەکێ ل ڤێرێ بنڤیسە. جهەکی هەلبژێرە دا تەنێ کرێکارێن وی جهی ببینی؛ ئەو وەک خشتەیێ چاپکرنێ ل دویڤ ژمارا ڕێزێ دهێنە ڕێزکرن. ڕۆژێن مۆلەتێ ب زەر و ڕۆژێن کرێکار تێدا ل کار نەبووی ب خۆلەمێشی دیار دبن. Enter = خانا پاشی. بۆ غیابا ڕۆژەکا تەمام بنڤیسە «غ». بۆ دانانا مۆلەتێ ل خانەکێ بنڤیسە «م»، و بۆ لابرنا مۆلەتێ کلیکێ ل خانا زەرد بکە.</div></details>
- <div class="bar">
-  <button class="sec" id="xp">هەفتیا بەری</button>
-  <input type="date" id="xw">
-  <button class="sec" id="xn">هەفتیا پاشی</button>
-  <select id="xf"></select>
-  <select id="xm"><option value="both">❌➕ غیاب و زێدە (ئێک خشتە)</option><option value="abs">❌ تنێ غیاب</option><option value="ot">➕ تنێ کاتژمێرێن زێدە</option></select><select id="xso"><option value="sh">↕ ل دیف دەوامێ (وەک ڕێکخستنێ)</option><option value="seq">↕ ل دیف ڕێزێ</option><option value="pl">↕ ل دیف جهێ کاری</option><option value="name">↕ ل دیف ناڤی</option><option value="code">↕ ل دیف کۆدی</option></select>
-  <button id="xlX">📥 ئێکسل</button>
+ <div class="card xbar">
+  <div class="xnav"><button class="sec" id="xp" title="هەفتیا بەری">→</button><input type="date" id="xw"><button class="sec" id="xn" title="هەفتیا پاشی">←</button><button id="xlX" class="xlx">📥 ئێکسل</button></div>
+  <div class="xsel"><label><span>📍 جه</span><select id="xf"></select></label><label><span>👁 نیشاندان</span><select id="xm"><option value="both">غیاب + زێدە</option><option value="abs">تنێ غیاب</option><option value="ot">تنێ زێدە</option></select></label><label><span>↕ ڕێزکرن</span><select id="xso"><option value="sh">دەوام (وەک ڕێکخستنێ)</option><option value="seq">ژمارا ڕێزێ</option><option value="pl">جهێ کاری</option><option value="name">ناڤ</option><option value="code">کۆد</option></select></label></div>
  </div>
  <div id="xwk" class="xwk"></div>
  <div id="xtool" class="xtool"><span class="xtl">ئامراز:</span><button type="button" data-t="" class="on">✎ نڤیسین</button><button type="button" data-t="a">❌ نەهاتیە</button><button type="button" data-t="l">🌴 مۆلەت</button><button type="button" data-t="p">✓ هاتیە</button><button type="button" data-t="c">🧹 پاقژکرن</button><small class="xth">ئامرازەکی هەلبژێرە، پاشی ل سەر خانان بدە یان بکێشە دا ب لەز داخل ببن.</small></div>
+ <div class="xleg"><span><i class="lg-a"></i>نەهاتیە</span><span><i class="lg-p"></i>کێمتر ژ ڕۆژەکێ</span><span><i class="lg-pr"></i>هاتیە</span><span><i class="lg-l"></i>مۆلەت</span><span><i class="lg-o"></i>زێدە</span><span><i class="lg-q"></i>کار هێلای</span></div>
  <div id="xact" class="card xact"></div>
  <div class="card scroll"><table id="xtb"><thead id="xh"></thead><tbody id="xb"></tbody><tfoot id="xt"></tfoot></table></div>
 </section>
