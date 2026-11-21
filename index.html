@@ -809,6 +809,11 @@ body.sadm .gonly{display:none!important}
 #ul tr.ownrow td{background:color-mix(in srgb,#f59e0b 14%,var(--card))!important;font-weight:700}
 .nvb{position:fixed;left:50%;transform:translateX(-50%);bottom:16px;z-index:90;background:#111827;color:#fff;padding:10px 14px;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.35);font-weight:700;font-size:13px;display:flex;gap:10px;align-items:center;white-space:nowrap}.nvb button{background:#22c55e!important;color:#fff!important;border:none!important;padding:6px 12px!important;border-radius:10px!important;font-weight:800}
 .appv{text-align:center;color:var(--mu);font-size:11px;opacity:.7;margin:18px 0 8px}
+.cmpbtn{border-color:#7c3aed!important;color:#6d28d9!important;font-weight:800}
+.cmpbox{margin:10px 0}.cmpmap{display:flex;flex-wrap:wrap;gap:6px 12px;margin:8px 0;font-size:12px;color:var(--mu)}.cmpmap label{display:flex;align-items:center;gap:6px}.cmpmap select{font-size:12px;padding:4px 6px}
+.cmpk{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0;font-size:12.5px;font-weight:700}.cmpk span{padding:3px 10px;border-radius:999px;background:var(--bg2);border:1px solid var(--bd)}
+.cmpt{width:100%;border-collapse:collapse;font-size:13px}.cmpt th,.cmpt td{border:1px solid color-mix(in srgb,var(--tx) 35%,transparent);padding:6px;text-align:center}.cmpt td b[dir]{unicode-bidi:isolate}.cmpt td small{display:block;color:var(--mu);font-size:10.5px}
+.cmpt tr.cs-ok td{background:color-mix(in srgb,#16a34a 10%,var(--card))}.cmpt tr.cs-d td{background:color-mix(in srgb,#ef4444 12%,var(--card))}.cmpt tr.cs-m td{background:color-mix(in srgb,#f59e0b 14%,var(--card))}.cmpt tr.cs-x td{background:color-mix(in srgb,#6366f1 12%,var(--card))}.cmpt tr.cs-s td{background:var(--bg2)}
 .abl{display:flex;flex-direction:column;gap:6px;margin-top:8px}.abr{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:8px 10px;border:1px solid var(--bd);border-radius:12px;background:var(--bg2);font-size:13px}
 .mut{color:var(--mu);font-size:13px;padding:6px 2px}
 .lgL{display:flex;flex-direction:column;gap:8px;margin-top:8px;max-height:60vh;overflow:auto}.lgI{border:1px solid var(--bd);border-radius:12px;padding:8px 10px;background:var(--bg2);font-size:13px;line-height:1.9}.lgH{color:var(--mu);border-bottom:1px dashed var(--bd);margin-bottom:4px}
@@ -833,7 +838,7 @@ body.sadm .gonly{display:none!important}
  <label class="lrm"><input type="checkbox" id="lrm" checked> ل سەر ڤی ئامێری بمینە (هەتا دەرکەتنێ)</label>
  <button id="lb" type="submit"><span>چوونەژوور</span><b>←</b></button>
  <div id="le" class="bad"></div>
- <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr">v2026.11.21-4</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
+ <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr">v2026.11.21-5</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
 </form></div>
 <main>
 <header class="top"><div class="brand"><div class="logo bml"><span>A</span></div><div><h1>غیابا کرێکاران</h1><span class="ownb" title="ئەدمینێ سەرەکی">👑 ئەدمین: <b dir="ltr">Zewar</b></span><p class="sub"><b class="alkot">ALKO</b> Company · <span id="secn">غیاب، زێدە و ڕێکخستنا هەفتیێ</span></p></div></div>
@@ -874,7 +879,8 @@ body.sadm .gonly{display:none!important}
 </section>
 
 <section id="p2" class="hide"><details class="help"><summary>💡 ڕێنمایی</summary><div>خشتەیێ هەمی ڕۆژێن مانگێ. خانێن سۆر ئەو ڕۆژن یێن کرێکار تێدا نەهاتی، و ل دووماهیێ کۆما غیابێ و یا زێدە دیار دبن.</div></details>
- <div class="bar"><label>مانگ<input type="month" id="mo"></label><label>نیشاندان<select id="mfl"><option value="">هەمی کرێکار</option><option value="a">❌ تنێ یێن غیاب هەین</option><option value="o">➕ تنێ یێن زێدە (ئیزافە) هەین</option><option value="l">🌴 تنێ یێن مۆلەت هەین</option></select></label><label>ڕێزکرن<select id="mso"><option value="">وەک لیستا کرێکاران</option><option value="name">ناڤ (أ-ي)</option><option value="code">کۆد</option><option value="a">❌ غیابا پتر</option><option value="o">➕ زێدەیا پتر</option></select></label><button id="xlM">📥 ئێکسل</button><button id="mpdf">📄 PDF</button></div>
+ <div class="bar"><label>مانگ<input type="month" id="mo"></label><label>نیشاندان<select id="mfl"><option value="">هەمی کرێکار</option><option value="a">❌ تنێ یێن غیاب هەین</option><option value="o">➕ تنێ یێن زێدە (ئیزافە) هەین</option><option value="l">🌴 تنێ یێن مۆلەت هەین</option></select></label><label>ڕێزکرن<select id="mso"><option value="">وەک لیستا کرێکاران</option><option value="name">ناڤ (أ-ي)</option><option value="code">کۆد</option><option value="a">❌ غیابا پتر</option><option value="o">➕ زێدەیا پتر</option></select></label><button id="xlM">📥 ئێکسل</button><button id="mpdf">📄 PDF</button><label class="sec fbtn cmpbtn">🔍 بەراوردکرن ب فایلێ ئیدارێ<input type="file" id="mcmpf" accept=".xlsx,.xls,.csv" hidden></label></div>
+ <div id="mcmp"></div>
  <div id="mw"></div>
  <div class="card scroll"><table id="mt"></table></div>
 </section>
@@ -924,7 +930,9 @@ body.sadm .gonly{display:none!important}
   <button class="sec" id="sn">هەفتیا پاشی</button>
   <label>ڕێزکرن<select id="sso"><option value="">وەک لیستا کرێکاران</option><option value="name">ناڤ (أ-ي)</option><option value="code">کۆد</option><option value="pl">جهێ کاری</option><option value="a">❌ غیابا پتر</option><option value="o">➕ زێدەیا پتر</option><option value="l">🌴 مۆلەتا پتر</option><option value="nl">🟧 بێ مۆلەت (×1.5) ل سەری</option></select></label>
   <button id="xlS">📥 ئێکسل</button><button id="spdf">📄 PDF</button>
+  <label class="sec fbtn cmpbtn">🔍 بەراوردکرن ب فایلێ ئیدارێ<input type="file" id="scmpf" accept=".xlsx,.xls,.csv" hidden></label>
  </div>
+ <div id="scmp"></div>
  <div id="kp" class="kpis"></div>
  <div id="sr" style="margin-bottom:8px;color:var(--mu)"></div>
  <div class="card scroll"><table id="stt"></table></div>
@@ -998,7 +1006,7 @@ body.sadm .gonly{display:none!important}
  <div class="bar" style="margin:0"><button type="submit" id="dws" class="danger" style="background:#dc2626;color:#fff">ژێبرن</button><button type="button" class="off" id="dwx2">بەتالکرن</button></div>
 </form></div>
 <div id="pr"></div>
-<div class="appv" dir="ltr">ALKO · v2026.11.21-4</div>
+<div class="appv" dir="ltr">ALKO · v2026.11.21-5</div>
 </main>
 <script>
 const $=id=>document.getElementById(id);
@@ -1466,6 +1474,104 @@ function secUI(){
  document.documentElement.dataset.sec=c.type==="day"?"day":"shift";document.documentElement.dataset.sh2=sh2()?"1":"0";
 }
 $("secsel").onchange=()=>{CURSEC=$("secsel").value;try{localStorage.setItem("absSec",CURSEC)}catch(e){}DPL="";DSH="";DST="";try{keepDF()}catch(x){}enter();msg("🏭 "+CS().name)};
+// ===== compare with the management (fingerprint) report =====
+let XLSXP=null;
+const loadXLSX=()=>XLSXP||(XLSXP=new Promise((res,rej)=>{if(window.XLSX)return res(window.XLSX);const s=document.createElement("script");s.src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js";s.onload=()=>res(window.XLSX);s.onerror=()=>{XLSXP=null;rej(new Error("xlsx"))};document.head.appendChild(s)}));
+const CMP={};// per page: {rows, hdr, map, period}
+const cnum=v=>{if(v===""||v==null)return 0;if(typeof v==="number")return v;const t=String(v).replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(/[−–]/g,"-").replace(/,/g,".").trim();const m=t.match(/^(-?)(\d+):(\d{1,2})$/);if(m)return(m[1]?-1:1)*(+m[2]+ +m[3]/60);const n=parseFloat(t);return isNaN(n)?0:n};
+const ccode=v=>nq(String(v??"").replace(/[٠-٩]/g,d=>"٠١٢٣٤٥٦٧٨٩".indexOf(d)).replace(/\.0+$/,"").trim());
+function cmpPeriod(pg){
+ if(pg==="m"){const m=$("mo").value,[y,mm]=m.split("-").map(Number),n=new Date(y,mm,0).getDate();return{key:m,days:[...Array(n)].map((_,i)=>m+"-"+p2(i+1)),label:MKN[mm-1]+" "+y,lab2:"شهر "+mm+"/"+y}}
+ const w0=$("sw").value,D=wkIds(w0);return{key:w0,days:D,label:D[0]+" ← "+D[6],lab2:"من "+D[0]+" إلى "+D[6]};
+}
+async function cmpLoad(pg,file){
+ const box=$(pg==="m"?"mcmp":"scmp");box.innerHTML='<div class="mut">⏳ فایل دهێتە خواندن...</div>';
+ try{
+  const X=await loadXLSX(),wb=X.read(new Uint8Array(await file.arrayBuffer()),{type:"array"}),ws=wb.Sheets[wb.SheetNames[0]];
+  const A=X.utils.sheet_to_json(ws,{header:1,raw:true,defval:""});
+  let hr=A.findIndex(r=>r.some(c=>/emp_?id|رقم|الرمز|code|کۆد/i.test(String(c))));if(hr<0)hr=0;
+  const hdr=A[hr].map(c=>String(c).trim()),f=re=>hdr.findIndex(h=>re.test(h));
+  const lastNum=(()=>{for(let i=hdr.length-1;i>=0;i--)if(hdr[i])return i;return-1})();
+  const map={code:f(/emp_?id|رقم|الرمز|^code$|کۆد/i),name:f(/full_?name|name|الاسم|ناڤ/i),net:f(/^Text172$/i),abs:f(/^Text166$/i),ot:f(/^notes$/i)};
+  if(map.net<0)map.net=lastNum;
+  CMP[pg]={rows:A.slice(hr+1).filter(r=>String(r[map.code]??"").trim()),hdr,map,file:file.name};
+  cmpRender(pg);
+ }catch(e){console.error(e);box.innerHTML='<div class="warnbox">فایل نەهاتە خواندن. پشتڕاست بە کو فایلێ Excel (xlsx/xls/csv) یە و ئینتەرنێت هەیە.</div>'}
+}
+function cmpCalc(pg){
+ const C=CMP[pg],P=cmpPeriod(pg),{map}=C,byCode=new Map(S.workers.map(w=>[ccode(w.code),w]));
+ const ours=w=>{let a=0,o=0;P.days.forEach(d=>{a+=absOf(w,d);if(!outside(w,d))o+=otOf(w,d)});return{a,o,n:o-a}};
+ const seen=new Set(),R=[];
+ C.rows.forEach(r=>{
+  const code=ccode(r[map.code]),w=byCode.get(code);seen.add(code);
+  const tn=cnum(r[map.net]),ta=map.abs>=0?Math.abs(cnum(r[map.abs])):null,to=map.ot>=0?cnum(r[map.ot]):null,nm=String(r[map.name]??"");
+  if(!w){R.push({st:"x",code,name:nm,tn,ta,to});return}
+  const inS=secOf(w)===mySec()&&inR(w,P.days[0],P.days[P.days.length-1]);
+  const O=ours(w),diff=O.n-tn;
+  R.push({st:!inS?"s":Math.abs(diff)<0.01?"ok":"d",w,code,name:w.name,O,tn,ta,to,diff});
+ });
+ SW().filter(w=>inR(w,P.days[0],P.days[P.days.length-1])&&!seen.has(ccode(w.code))).forEach(w=>{const O=ours(w);R.push({st:"m",w,code:ccode(w.code),name:w.name,O,tn:null,diff:O.n})});
+ const ord={d:0,m:1,x:2,s:3,ok:4};R.sort((a,b)=>ord[a.st]-ord[b.st]||Math.abs(b.diff||0)-Math.abs(a.diff||0)||COLL.compare(String(a.code),String(b.code)));
+ return{R,P};
+}
+const CST={ok:["✅","وەک ئێکن","ok"],d:["❌","جیاوازن","bad"],m:["⚠","ل نک ئیدارێ نینە",""],x:["❓","د سیستەمێ مە دا نینە",""],s:["↪","د بەشەکێ دی دایە",""]};
+const sgn=h=>h==null?"—":(h>0?"+":h<0?"−":"")+fh(Math.abs(h)).replace(/^$/,"0:00");
+function cmpRender(pg){
+ const box=$(pg==="m"?"mcmp":"scmp"),C=CMP[pg];if(!C){box.innerHTML="";return}
+ const {R,P}=cmpCalc(pg),only=box.dataset.only!=="0",cnt=k=>R.filter(x=>x.st===k).length;
+ const opt=(k)=>`<select data-cm="${k}"><option value="-1">—</option>${C.hdr.map((h,i)=>`<option value="${i}"${C.map[k]===i?" selected":""}>${esc(h||"ستوین "+(i+1))}</option>`).join("")}</select>`;
+ const L=only?R.filter(x=>x.st!=="ok"):R;
+ box.innerHTML=`<div class="card cmpbox">
+  <div class="cph"><b>🔍 بەراوردکرن ب ڕاپۆرتا ئیدارێ — <span dir="ltr">${esc(P.label)}</span></b><button type="button" class="off" data-cx="1">✕</button></div>
+  <div class="mut">فایل: ${esc(C.file)} · ${C.rows.length} ڕێز</div>
+  <div class="cmpmap"><label>کۆد ${opt("code")}</label><label>کۆما گشتی (+/−) ${opt("net")}</label><label>غیاب ${opt("abs")}</label><label>ئیزافە ${opt("ot")}</label></div>
+  <div class="cmpk"><span class="ok">✅ ${cnt("ok")} وەک ئێکن</span><span class="bad">❌ ${cnt("d")} جیاوازن</span><span>⚠ ${cnt("m")} ل نک ئیدارێ نینن</span><span>❓ ${cnt("x")} د سیستەمێ مە دا نینن</span>${cnt("s")?`<span>↪ ${cnt("s")} د بەشەکێ دی دانە</span>`:""}</div>
+  <div class="bar" style="margin:6px 0"><label class="pm"><input type="checkbox" data-co="1"${only?" checked":""}> تنێ جیاوازی</label><button type="button" data-cp="1">📄 PDF</button></div>
+  <div class="scroll"><table class="cmpt"><thead><tr><th>کۆد</th><th>ناڤ</th><th>غیابا مە</th><th>ئیزافا مە</th><th>کۆما مە</th><th>کۆما ئیدارێ</th><th>جیاوازی</th><th>ڕەوش</th></tr></thead><tbody>
+  ${L.map(x=>`<tr class="cs-${x.st}"><td>${esc(x.code)}</td><td class="nm"${x.w?` data-wp="${x.w.id}"`:""}>${esc(x.name)}</td><td>${x.O?fh(x.O.a)||"0:00":"—"}</td><td>${x.O?fh(x.O.o)||"0:00":"—"}</td><td><b dir="ltr">${x.O?sgn(x.O.n):"—"}</b></td><td><b dir="ltr">${x.tn==null?"—":sgn(x.tn)}</b>${x.ta!=null&&x.tn!=null?`<small>غ ${fh(x.ta)||0} · ز ${fh(x.to)||0}</small>`:""}</td><td class="${x.st==="d"?"bad":""}"><b dir="ltr">${x.st==="d"?sgn(x.diff):x.st==="ok"?"0":"—"}</b></td><td>${CST[x.st][0]} ${CST[x.st][1]}</td></tr>`).join("")||'<tr><td colspan="8">✅ هەمی کرێکار وەک ئێکن</td></tr>'}
+  </tbody></table></div></div>`;
+}
+["scmp","mcmp"].forEach(id=>{const pg=id==="mcmp"?"m":"s",box=$(id);
+ box.addEventListener("change",e=>{const t=e.target;if(t.dataset.cm){CMP[pg].map[t.dataset.cm]=+t.value;cmpRender(pg)}if(t.dataset.co){box.dataset.only=t.checked?"1":"0";cmpRender(pg)}});
+ box.addEventListener("click",e=>{if(e.target.closest("[data-cx]")){delete CMP[pg];cmpRender(pg)}if(e.target.closest("[data-cp]"))cmpPdf(pg)});
+});
+$("scmpf").onchange=e=>{const f=e.target.files[0];e.target.value="";if(f)cmpLoad("s",f)};
+$("mcmpf").onchange=e=>{const f=e.target.files[0];e.target.value="";if(f)cmpLoad("m",f)};
+async function cmpPdf(pg){
+ try{
+  msg("PDF دهێتە دروستکرن...");try{await document.fonts.load(pf(700,20))}catch(e){}
+  const {R,P}=cmpCalc(pg),box=$(pg==="m"?"mcmp":"scmp"),only=box.dataset.only!=="0",L=only?R.filter(x=>x.st!=="ok"):R;
+  const SAR={ok:["متطابق","#dcfce7","#166534"],d:["مختلف","#fee2e2","#991b1b"],m:["غير موجود لدى الإدارة","#fef3c7","#92400e"],x:["غير موجود في نظامنا","#e0e7ff","#3730a3"],s:["في قسم آخر","#f3f4f6","#374151"]};
+  const RH=38,HH=52,top=PM+150,bottom=PH-PM-58,per=Math.max(1,Math.floor((bottom-top-HH)/RH)),PG=[];
+  for(let i=0;i<Math.max(1,L.length);i+=per)PG.push(L.slice(i,i+per));
+  const cnt=k=>R.filter(x=>x.st===k).length;
+  const pages=PG.map((rows,pi)=>{
+   const SC=2,c=document.createElement("canvas");c.width=PW*SC;c.height=PH*SC;const x=c.getContext("2d");x.scale(SC,SC);x.fillStyle="#fff";x.fillRect(0,0,PW,PH);x.textBaseline="middle";
+   const T_=(t,X0,Y,w,sz,col,al,mw)=>{x.save();x.direction=/[؀-ۿ]/.test(t)?"rtl":"ltr";x.textAlign=al||"center";x.fillStyle=col||"#000";let z=sz;x.font=pf(w,z);if(mw)while(z>9&&x.measureText(t).width>mw){z--;x.font=pf(w,z)}x.fillText(t,X0,Y);x.restore()};
+   const g=x.createLinearGradient(PM,0,PW-PM,0);g.addColorStop(0,"#3b82f6");g.addColorStop(.5,"#6366f1");g.addColorStop(1,"#7c3aed");rr(x,PM,PM,PW-2*PM,72,16);x.fillStyle=g;x.fill();
+   T_("مقارنة مع تقرير الإدارة — "+CS().name,PW-PM-28,PM+37,800,32,"#fff","right");T_(P.lab2,PW/2,PM+37,600,22,"rgba(255,255,255,.92)");
+   x.save();x.direction="ltr";x.textAlign="left";x.fillStyle="#fff";x.font="900 30px system-ui,Arial,sans-serif";x.fillText("ALKO",PM+28,PM+30);x.font="600 12px system-ui,Arial,sans-serif";x.fillText("C O M P A N Y",PM+28,PM+56);x.restore();
+   // summary chips
+   let cx0=PW-PM;[["متطابق",cnt("ok"),"#16a34a"],["مختلف",cnt("d"),"#dc2626"],["غير موجود لدى الإدارة",cnt("m"),"#d97706"],["غير موجود في نظامنا",cnt("x"),"#4f46e5"]].forEach(([t,n,col])=>{x.font=pf(700,18);const s0=t+": "+n,w=x.measureText(s0).width+40;rr(x,cx0-w,PM+88,w,40,12);x.fillStyle=col;x.fill();T_(s0,cx0-w/2,PM+109,700,18,"#fff");cx0-=w+12});
+   T_(only?"* تظهر الفروقات فقط":"* جميع العمال",PM,PM+109,500,15,"#666","left");
+   const cols=[{k:"code",h:"الرمز",w:110},{k:"name",h:"الاسم",w:430},{k:"a",h:"غيابنا",w:150},{k:"o",h:"إضافينا",w:150},{k:"n",h:"صافي نظامنا",w:190},{k:"t",h:"صافي الإدارة",w:190},{k:"df",h:"الفرق",w:170},{k:"st",h:"الحالة",w:0}];
+   const used=cols.reduce((s0,c0)=>s0+c0.w,0);cols[cols.length-1].w=PW-2*PM-used;let X1=PW-PM;cols.forEach(c0=>{c0.x=X1-c0.w;X1-=c0.w});
+   const ty=top,nR=rows.length,TH=HH+RH*nR;x.fillStyle="#1f2937";x.fillRect(PM,ty,PW-2*PM,HH);cols.forEach(c0=>T_(c0.h,c0.x+c0.w/2,ty+HH/2+1,700,17,"#fff","center",c0.w-8));
+   rows.forEach((r,ri)=>{const ry=ty+HH+ri*RH,cy=ry+RH/2+1,[stt,bg,fg]=SAR[r.st];x.fillStyle=bg;x.fillRect(PM,ry,PW-2*PM,RH);
+    cols.forEach(c0=>{const mx=c0.x+c0.w/2;let t="";
+     if(c0.k==="code")t=String(r.code);else if(c0.k==="name"){T_(r.name,c0.x+c0.w-12,cy,700,17,"#000","right",c0.w-24);return}
+     else if(c0.k==="a")t=r.O?(fh(r.O.a)||"0:00"):"—";else if(c0.k==="o")t=r.O?(fh(r.O.o)||"0:00"):"—";else if(c0.k==="n")t=r.O?sgn(r.O.n):"—";else if(c0.k==="t")t=r.tn==null?"—":sgn(r.tn);
+     else if(c0.k==="df")t=r.st==="d"?sgn(r.diff):r.st==="ok"?"0":"—";else if(c0.k==="st"){T_(stt,mx,cy,800,16,fg,"center",c0.w-10);return}
+     T_(t,mx,cy,c0.k==="df"||c0.k==="n"||c0.k==="t"?800:500,17,c0.k==="df"&&r.st==="d"?"#b91c1c":"#111")})});
+   x.strokeStyle="#000";x.lineWidth=1;for(let i=0;i<=nR;i++){const yy=ty+HH+i*RH;x.beginPath();x.moveTo(PM,yy);x.lineTo(PW-PM,yy);x.stroke()}
+   cols.forEach(c0=>{x.beginPath();x.moveTo(c0.x,ty);x.lineTo(c0.x,ty+TH);x.stroke()});x.lineWidth=2.5;x.strokeRect(PM,ty,PW-2*PM,TH);
+   if(!rows.length)T_("✓ جميع العمال متطابقون",PW/2,ty+HH+60,700,26,"#16a34a");
+   const now=new Date();T_("ALKO · "+iso(now)+" "+p2(now.getHours())+":"+p2(now.getMinutes())+(PG.length>1?"  ·  صفحة "+(pi+1)+" من "+PG.length:""),PM,PH-PM-20,500,15,"#666","left");
+   T_("الملف: "+CMP[pg].file,PW-PM,PH-PM-20,500,15,"#666","right");
+   return c});
+  await saveFile("compare-"+P.key+".pdf",await jpegPdf(pages));msg("");
+ }catch(e){console.error(e);msg("PDF نەهاتە دروستکرن")}
+}
 function openAcc(){if(!ME)return;$("acu").value=ME.u;$("acuw").classList.toggle("hide",!!ME.admin);["acc","acn","acn2"].forEach(i=>$(i).value="");$("ace").textContent="";$("acp").classList.remove("hide");setTimeout(()=>(ME.admin?$("acc"):$("acu")).focus(),50)}
 const closeAcc=()=>$("acp").classList.add("hide");
 $("who").addEventListener("click",openAcc);$("acx").onclick=closeAcc;$("acx2").onclick=closeAcc;
@@ -2613,7 +2719,7 @@ document.querySelectorAll("#login .eye").forEach(b=>b.onclick=()=>{const i=$(b.d
 showLogin();all();load();
 if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
 // ===== new-version check: tell open pages when a newer version is published =====
-const APPV="2026.11.21-4";
+const APPV="2026.11.21-5";
 async function chkVer(){
  if(location.protocol!=="https:")return;
  try{const t=await(await fetch("./index.html?v="+Date.now(),{cache:"no-store"})).text(),m=t.match(/const APPV="([^"]+)"/);
