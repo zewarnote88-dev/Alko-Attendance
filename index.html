@@ -833,7 +833,7 @@ body.sadm .gonly{display:none!important}
  <label class="lrm"><input type="checkbox" id="lrm" checked> ل سەر ڤی ئامێری بمینە (هەتا دەرکەتنێ)</label>
  <button id="lb" type="submit"><span>چوونەژوور</span><b>←</b></button>
  <div id="le" class="bad"></div>
- <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr">v2026.11.21-1</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
+ <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr">v2026.11.21-2</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
 </form></div>
 <main>
 <header class="top"><div class="brand"><div class="logo bml"><span>A</span></div><div><h1>غیابا کرێکاران</h1><span class="ownb" title="ئەدمینێ سەرەکی">👑 ئەدمین: <b dir="ltr">Zewar</b></span><p class="sub"><b class="alkot">ALKO</b> Company · <span id="secn">غیاب، زێدە و ڕێکخستنا هەفتیێ</span></p></div></div>
@@ -998,7 +998,7 @@ body.sadm .gonly{display:none!important}
  <div class="bar" style="margin:0"><button type="submit" id="dws" class="danger" style="background:#dc2626;color:#fff">ژێبرن</button><button type="button" class="off" id="dwx2">بەتالکرن</button></div>
 </form></div>
 <div id="pr"></div>
-<div class="appv" dir="ltr">ALKO · v2026.11.21-1</div>
+<div class="appv" dir="ltr">ALKO · v2026.11.21-2</div>
 </main>
 <script>
 const $=id=>document.getElementById(id);
@@ -2093,7 +2093,7 @@ async function xl(tblId,name,sheet,title,sub){
 const xwk=w=>{const e=new Date(w+"T00:00:00");e.setDate(e.getDate()+6);return"هەفتی ژ "+w+" هەتا "+iso(e)};
 const xsel=id=>{const o=$(id).selectedOptions[0];return o&&o.value?o.textContent:""};
 $("xlM").onclick=()=>xl("mt","month-"+$("mo").value,"مانگانە","خشتەیێ غیابا مانگانە","مانگ: "+$("mo").value);
-$("xlS").onclick=()=>xl("stt","summary-"+$("sw").value,"کورتکرن","کورتکرنا هەفتیێ",xwk($("sw").value));
+$("xlS").onclick=async()=>{try{msg("ئێکسل دهێتە دروستکرن...");const w0=$("sw").value;await saveFile("summary-"+w0+".xlsx",new Blob([weekXlsx(w0,"s")],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}));msg("")}catch(e){console.error(e);msg("ئێکسل نەهاتە دروستکرن")}};
 // ===== styled weekly absence workbook =====
 function xRows(w0){
  const DS=wkIds(w0),f=$("xf").value;
@@ -2103,8 +2103,9 @@ function xRows(w0){
  L.sort(so==="name"?nmc:so==="code"?(x,y)=>COLL.compare(String(x.w.code||"~"),String(y.w.code||"~")):so==="pl"?(x,y)=>COLL.compare(x.a[1]||"~",y.a[1]||"~")||sq(x,y):so==="sh"&&isShiftSec()?(x,y)=>shI(x.a[2])-shI(y.a[2])||sq(x,y):sq);
  return{DS,L,grp:so==="sh"&&isShiftSec()};
 }
-function weekXlsx(w0){
- const {DS,L}=xRows(w0),grp=false,mode=$("xm").value,showA=mode!=="ot",showO=mode!=="abs";
+function weekXlsx(w0,src){
+ const SUM=src==="s";let DS,L;if(SUM){DS=wkIds(w0);const ds=DS.map(d=>new Date(d+"T00:00:00"));L=sumList(w0,ds).map(w=>({w,a:S.asg[aKey(DS[0])+"_"+w.id]||S.asg[w0+"_"+w.id]||["",""]}))}else({DS,L}=xRows(w0));
+ const grp=false,mode=SUM?"both":$("xm").value,showA=mode!=="ot",showO=mode!=="abs";
  const X=s=>String(s).replace(/[\x00-\x08\x0b\x0c\x0e-\x1f]/g,"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
  const SS=[],SI={},si=s=>{s=String(s);if(!(s in SI)){SI[s]=SS.length;SS.push(s)}return SI[s]};
  const colL=i=>{let s="";i++;while(i){const m=(i-1)%26;s=String.fromCharCode(65+m)+s;i=(i-m-1)/26}return s};
@@ -2125,7 +2126,7 @@ function weekXlsx(w0){
  let rows="",r=0;
  const sec=CS().name,e=DS[6];
  r++;rows+=`<row r="${r}" ht="34" customHeight="1">${C(r,0,"ALKO Company — کورتیا هەفتیێ · "+sec,{b:1,c:"FFFFFFFF",bg:PUR,sz:16,br:0})}${head.slice(1).map((_,i)=>C(r,i+1,"",{bg:PUR,br:0})).join("")}</row>`;
- r++;rows+=`<row r="${r}" ht="22" customHeight="1">${C(r,0,"هەفتی: "+DS[0]+"  ←  "+e+"   ·   "+(xsel("xf")?"جه: "+xsel("xf")+"   ·   ":"")+"هاتیە دەرئێخستن: "+iso(new Date())+" · "+(ME?ME.u:""),{c:"FF374151",bg:"FFEDE9FE",sz:10,br:0})}${head.slice(1).map((_,i)=>C(r,i+1,"",{bg:"FFEDE9FE",br:0})).join("")}</row>`;
+ r++;{const sub="هەفتی: "+DS[0]+"  ←  "+e+"   ·   "+(!SUM&&xsel("xf")?"جه: "+xsel("xf")+"   ·   ":"")+"هاتیە دەرئێخستن: "+iso(new Date())+" · "+(ME?ME.u:"");rows+=`<row r="${r}" ht="22" customHeight="1">${C(r,0,sub,{c:"FF374151",bg:"FFEDE9FE",sz:10,br:0})}${head.slice(1).map((_,i)=>C(r,i+1,"",{bg:"FFEDE9FE",br:0})).join("")}</row>`}
  r++;rows+=`<row r="${r}" ht="8" customHeight="1"></row>`;
  const HR=++r;
  rows+=`<row r="${r}" ht="40" customHeight="1">${head.map((h,i)=>{const fri=i>=d0&&i<cA&&new Date(DS[i-d0]+"T00:00:00").getDay()===5,td=i>=d0&&i<cA&&DS[i-d0]===wtoday();return C(r,i,h,{b:1,c:"FFFFFFFF",bg:fri?"FF5B21B6":td?"FF2563EB":HDR,w:1,br:2})}).join("")}</row>`;
@@ -2155,7 +2156,7 @@ function weekXlsx(w0){
   let c=cA;
   if(showA)x+=C(r,c++,hrs(ta),{t:1,b:1,c:ta?"FFB91C1C":"FF9CA3AF",bg:ta?"FFFEF2F2":bb});
   if(showO)x+=C(r,c++,hrs(to),{t:1,b:1,c:to?"FF1E40AF":"FF9CA3AF",bg:to?"FFDBEAFE":bb});
-  x+=C(r,c++,tl,{b:1,c:tl?"FF92400E":"FF9CA3AF",bg:tl?"FFFFFBEB":bb});
+  x+=(SUM&&!tl&&isShiftSec())?C(r,c++,"0 · ×1.5",{b:1,c:"FF9A3412",bg:"FFFFEDD5"}):C(r,c++,tl,{b:1,c:tl?"FF92400E":"FF9CA3AF",bg:tl?"FFFFFBEB":bb});
   if(showA&&showO)x+=C(r,c++,net?(net>0?"+":"−")+fh(Math.abs(net)):"0:00",{b:1,c:net?"FFFFFFFF":"FF6B7280",bg:net>0?"FF2563EB":net<0?"FFDC2626":bb});
   x+=C(r,c++,notes.join(" · "),{bg:bb,h:"right",w:1,sz:9,c:"FF4B5563"});
   rows+=`<row r="${r}" ht="${notes.length>1?34:22}" customHeight="1">${x}</row>`;
@@ -2167,7 +2168,7 @@ function weekXlsx(w0){
   if(showA&&showO){const n=TT.o-TT.a;x+=C(r,c++,n?(n>0?"+":"−")+fh(Math.abs(n)):"0:00",{b:1,bg:n>0?"FF2563EB":n<0?"FFDC2626":"FFE5E7EB",br:2,c:n?"FFFFFFFF":"FF374151"})}
   x+=C(r,c++,"",{bg:"FFE5E7EB",br:2});rows+=`<row r="${r}" ht="26" customHeight="1">${x}</row>`}
  r++;rows+=`<row r="${r}" ht="10" customHeight="1"></row>`;
- r++;{const LG=[["FFFECACA","FF991B1B","نەهاتیە (ڕۆژا تەمام)"],["FFFED7AA","FF9A3412","کێمتر ژ ڕۆژەکێ"],["FFBFDBFE","FF1E40AF","زێدە (+)"],["FFDC2626","FFFFFFFF","کێمی (غیاب پتر)"],["FF2563EB","FFFFFFFF","زێدە (زێدە پتر)"],["FFFDE68A","FF78350F","مۆلەت"],["FF111111","FFFFFFFF","کار هێلای"],["FFE5E7EB","FF6B7280","هێشتا دەست پێ نەکری"]];
+ r++;{const LG=[["FFFECACA","FF991B1B","نەهاتیە (ڕۆژا تەمام)"],["FFFED7AA","FF9A3412","کێمتر ژ ڕۆژەکێ"],["FFBFDBFE","FF1E40AF","زێدە (+)"],["FFDC2626","FFFFFFFF","کێمی (غیاب پتر)"],["FF2563EB","FFFFFFFF","زێدە (زێدە پتر)"],...(SUM&&isShiftSec()?[["FFFFEDD5","FF9A3412","0 · ×1.5 = بێ مۆلەت"]]:[]),["FFFDE68A","FF78350F","مۆلەت"],["FF111111","FFFFFFFF","کار هێلای"],["FFE5E7EB","FF6B7280","هێشتا دەست پێ نەکری"]];
   rows+=`<row r="${r}" ht="20" customHeight="1">${C(r,2,"ڕوونکرن:",{b:1,br:0,h:"right"})}${LG.map(([bg,c,t],i)=>C(r,3+i*2,t,{bg,c,b:1,sz:9})).join("")}</row>`}
  const merges=[`A1:${colL(last)}1`,`A2:${colL(last)}2`,...GR.map(g=>`A${g}:${colL(last)}${g}`)];
  // merge group rows
@@ -2612,7 +2613,7 @@ document.querySelectorAll("#login .eye").forEach(b=>b.onclick=()=>{const i=$(b.d
 showLogin();all();load();
 if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
 // ===== new-version check: tell open pages when a newer version is published =====
-const APPV="2026.11.21-1";
+const APPV="2026.11.21-2";
 async function chkVer(){
  if(location.protocol!=="https:")return;
  try{const t=await(await fetch("./index.html?v="+Date.now(),{cache:"no-store"})).text(),m=t.match(/const APPV="([^"]+)"/);
