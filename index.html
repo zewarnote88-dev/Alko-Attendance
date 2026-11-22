@@ -452,6 +452,10 @@ th.tdh{color:var(--ac)!important;box-shadow:inset 0 -3px 0 var(--ac)}
 #mt td.oc{background:color-mix(in srgb,#10b981 16%,transparent)}
 #mt .mot{display:block;direction:ltr;unicode-bidi:isolate;color:#047857;font-weight:800;font-size:.85em;line-height:1.1}
 #mt td.a .mot,#mt td.lvc .mot{border-top:1px dashed currentColor;margin-top:1px}
+.mlg{font-size:12px;margin-top:8px;opacity:.85}.mlgs{background:#ede9fe;color:#5b21b6;border:2px solid #8b5cf6;border-radius:5px;padding:0 5px;font-weight:800}.mlga{color:#7c3aed;font-weight:800;border:2px solid #8b5cf6;border-radius:5px;padding:0 4px}
+#mt .mot.sub{color:#7c3aed}#mt td.lvc:has(.mot.sub){background:#ede9fe!important;color:#5b21b6!important;box-shadow:inset 0 0 0 2px #8b5cf6}
+#mt .msub{display:block;font-size:.72em;font-weight:800;color:#7c3aed;line-height:1}#mt td.a:has(.msub){box-shadow:inset 0 0 0 2px #8b5cf6}
+html[data-style="alko"] #mt td.lvc:has(.mot.sub){background:rgba(139,92,246,.22)!important;color:#ddd6fe!important}html[data-style="alko"] #mt .mot.sub,html[data-style="alko"] #mt .msub{color:#c4b5fd}
 #mt td.nm{white-space:nowrap}
 #mt .rb{display:none}
 #mt th:not(.md){padding:6px 4px;white-space:normal;line-height:1.25;max-width:58px}
@@ -911,7 +915,7 @@ body.sadm .gonly{display:none!important}
  <div class="bar"><label>مانگ<input type="month" id="mo"></label><label>نیشاندان<select id="mfl"><option value="">هەمی کرێکار</option><option value="a">❌ تنێ یێن غیاب هەین</option><option value="o">➕ تنێ یێن زێدە (ئیزافە) هەین</option><option value="l">🌴 تنێ یێن مۆلەت هەین</option></select></label><label>ڕێزکرن<select id="mso"><option value="">وەک لیستا کرێکاران</option><option value="name">ناڤ (أ-ي)</option><option value="code">کۆد</option><option value="a">❌ غیابا پتر</option><option value="o">➕ زێدەیا پتر</option></select></label><button id="xlM">📥 ئێکسل</button><button id="mpdf">📄 PDF</button><label class="sec fbtn cmpbtn">🔍 بەراوردکرن ب فایلێ ئیدارێ<input type="file" id="mcmpf" accept=".xlsx,.xls,.csv" hidden></label></div>
  <div id="mcmp"></div>
  <div id="mw"></div>
- <div class="card scroll"><table id="mt"></table></div>
+ <div class="card scroll"><table id="mt"></table><div class="mlg"><span class="mlgs">+8</span> مۆلەت ب کار بۆ بەدیلا غیابەکێ (×1) · <span class="mlga">⇄</span> ئەو غیابا هاتیە پڕکرن · <span style="color:#047857;font-weight:800">+12</span> مۆلەت ب کار بێ غیاب (×1.5)</div></div>
 </section>
 
 <section id="p3" class="hide"><details class="help"><summary>💡 ڕێنمایی</summary><div>کرێکاران ل ڤێرێ زێدە بکە (کۆد و ناڤ). پشتی وێ، هەمی پەرەیێن دی بەردەستن. بۆ گوهۆڕینا کۆد یان ناڤێ کرێکارەکی، ل لیستا خوارێ کلیکێ ل سەر بکە، بنڤیسە و Enter لێ بدە.</div></details>
@@ -1882,7 +1886,7 @@ function renderM(){try{renderMW()}catch(e){console.error(e)}
  const m1=y+"-"+p2(m)+"-01",mN=y+"-"+p2(m)+"-"+p2(n);
  mSort(W().filter(w=>inR(w,m1,mN)),m1,mN).forEach(w=>{
   let t=0,o=0,n2=0,r=`<tr><td>${esc(w.code||"")}</td><td class="nm" data-wp="${w.id}">${esc(w.name)}${rb(w)}</td>`;
-  for(let d=1;d<=n;d++){const ds2=y+"-"+p2(m)+"-"+p2(d),out=outside(w,ds2),v=out?dayH(w):S.abs[w.id+"_"+ds2];if(v)t+=v;o+=otOf(w,ds2);const l=S.lv[w.id+"_"+y+"-"+p2(m)+"-"+p2(d)];if(l)n2++;const nn=S.nt[w.id+"_"+ds2],ox=out?0:otOf(w,ds2),ot=ox?`<span class="mot"> +${fh(ox).replace(/:00$/,"")}</span>`:"";r+=`<td class="${out?oc(w,ds2):v?"a":l?"lvc":ox?"oc":""}${nn&&v&&!out?" hn":""}"${nn&&v&&!out?` title="${esc(nn).replace(/"/g,"&quot;")}"`:""}>${v?(fh(v).endsWith(":00")?`<span class="mvf">${fh(v)}</span><span class="mvs">${fh(v).slice(0,-3)}</span>`:fh(v)):l?"م":""}${ot}</td>`}
+  for(let d=1;d<=n;d++){const ds2=y+"-"+p2(m)+"-"+p2(d),out=outside(w,ds2),v=out?dayH(w):S.abs[w.id+"_"+ds2];if(v)t+=v;o+=otOf(w,ds2);const l=S.lv[w.id+"_"+y+"-"+p2(m)+"-"+p2(d)];if(l)n2++;const nn=S.nt[w.id+"_"+ds2],ox=out?0:otOf(w,ds2),lI=!out&&S.lw[w.id+"_"+ds2]?lwInfo(w,ds2):null,sb=lI&&lI.m===1,sa=!out&&v>=dayH(w)?lwSubOf(w,ds2):null,ot=ox?`<span class="mot${sb?" sub":""}"${sb?` title="بەدیل بۆ غیابا ${lI.a.slice(5)}"`:""}> +${fh(ox).replace(/:00$/,"")}</span>`:"";r+=`<td class="${out?oc(w,ds2):v?"a":l?"lvc":ox?"oc":""}${nn&&v&&!out?" hn":""}"${nn&&v&&!out?` title="${esc(nn).replace(/"/g,"&quot;")}"`:""}>${v?(fh(v).endsWith(":00")?`<span class="mvf">${fh(v)}</span><span class="mvs">${fh(v).slice(0,-3)}</span>`:fh(v)):l?"م":""}${ot}${sa?`<span class="msub" title="ئەڤ غیابە ب کارێ ڕۆژا مۆلەتێ ${sa.slice(5)} هاتە پڕکرن">⇄${+sa.slice(8)}</span>`:""}</td>`}
   const mf=$("mfl").value;if((mf==="a"&&!t)||(mf==="o"&&!o)||(mf==="l"&&!n2))return;
   h+=r+`<td class="${t?"bad":""}"><b>${fh(t)||"0:00"}</b></td><td class="ok"><b>${fh(o)||"0:00"}</b></td><td><b>${n2}</b></td></tr>`;
  });
@@ -2020,16 +2024,23 @@ const isK=w=>{const r=roleOf(w);return r==="کرێکار"||r==="هۆستایێ �
 const roleOf=w=>ROLES.includes(w&&w.role)?w.role:"کرێکار";
 const dayH=w=>{const s0=secById(secOf(w));if(s0.type==="day")return +s0.h||8;return isK(w)?8:12};
 const RC={"کرێکار":"r-k","هۆستا":"r-h","مراقب":"r-m","هۆستایێ بەشەکی":"r-p"};
-// Worked-on-leave day = ×1.5. If the worker is absent later (until the end of the following week),
-// that absence cancels one such day: it falls back to ×1 so the absence and the extra day net out.
-const lwEnd=d=>addD(weekOf(d),13);
-function lwInfo(w,d){
- const p=w.id+"_",L=Object.keys(S.lw).filter(k=>k.startsWith(p)&&S.lw[k]>0).map(k=>k.slice(p.length)).filter(x=>!outside(w,x)).sort();
- if(roleOf(w)!=="کرێکار"||!L.includes(d))return{m:1.5};
- const M=new Map();let x=addD(L[0],1);const last=lwEnd(L[L.length-1]);
- for(;x<=last;x=addD(x,1)){if(!(S.abs[p+x]>0)||outside(w,x))continue;const l=L.find(l=>l<x&&x<=lwEnd(l)&&!M.has(l));if(l)M.set(l,x)}
- return M.has(d)?{m:1,a:M.get(d)}:{m:1.5};
+// Worked-on-leave day = ×1.5. A full-day absence in the same month (before or after it) cancels one such day:
+// it counts ×1 (+8) as a substitute ("بەدیل") so the absence and the extra day net out. Each absence is used once.
+function lwPairs(w,mo){
+ const p=w.id+"_",K=p+mo,L=[],A=[];
+ Object.keys(S.lw).forEach(k=>{if(k.startsWith(K)&&S.lw[k]>0){const x=k.slice(p.length);if(!outside(w,x))L.push(x)}});
+ if(!L.length)return new Map();
+ Object.keys(S.abs).forEach(k=>{if(k.startsWith(K)&&S.abs[k]>=dayH(w)){const x=k.slice(p.length);if(!outside(w,x)&&!S.lw[k])A.push(x)}});
+ L.sort();A.sort();const M=new Map(),U=new Set();
+ L.forEach(l=>{const a=A.find(x=>x<l&&!U.has(x))||A.find(x=>x>l&&!U.has(x));if(a){U.add(a);M.set(l,a)}});
+ return M;
 }
+function lwInfo(w,d){
+ if(roleOf(w)!=="کرێکار"||!(S.lw[w.id+"_"+d]>0))return{m:1.5};
+ const a=lwPairs(w,d.slice(0,7)).get(d);
+ return a?{m:1,a,pre:a<d}:{m:1.5};
+}
+const lwSubOf=(w,d)=>{if(roleOf(w)!=="کرێکار")return null;for(const[l,a]of lwPairs(w,d.slice(0,7)))if(a===d)return l;return null};
 const lwMul=(w,d)=>lwInfo(w,d).m;
 const lwOf=(w,d)=>{const h=S.lw[w.id+"_"+d];return h?h*lwMul(w,d):0};
 // on a day worked during leave, the extra hours come only from "came on leave day" (×1.5); a separate overtime entry that day would count it twice
@@ -2398,6 +2409,7 @@ function weekXlsx(w0,src){
    if(lv&&!(showO&&ox))return C(r,d0+i,MON?"م":"مۆلەت",{b:1,bg:"FFFDE68A",c:"FF78350F"});
    if(showA&&av&&showO&&ox)return C(r,d0+i,hc(av)+(MON?" +":"  +")+hc(ox),{b:1,bg:"FFFECACA",c:"FF991B1B"});
    if(showA&&av)return C(r,d0+i,hrs(av),{t:1,b:1,bg:av>=dayH(w)?"FFFECACA":"FFFED7AA",c:av>=dayH(w)?"FF991B1B":"FF9A3412"});
+   if(showO&&ox&&S.lw[k]>0&&lwMul(w,d)===1)return C(r,d0+i,"+"+hc(ox),{b:1,bg:"FFDDD6FE",c:"FF5B21B6"});
    if(showO&&ox)return C(r,d0+i,"+"+hc(ox),{b:1,bg:"FFBFDBFE",c:"FF1E40AF"});
    if(S.pr[k])return C(r,d0+i,"✓",{b:1,c:"FF16A34A",bg:bb});
    return C(r,d0+i,"",{bg:bb});
@@ -2617,7 +2629,7 @@ function drawMonthPage(y,m,D,rows,pi,np,T,RH,HH,top,start){
    else if(col.k==="d"){const v=r.c[col.i],ot=v.out?0:otOf(r.w,col.d);
     if(v.out){cell(col,ry,v.q?"#111":"#e5e7eb")}
     else if(v.lv&&!ot){cell(col,ry,"#fde68a");T_("م",mx,cy,800,16,"#78350f")}
-    else if(v.lv){cell(col,ry,"#bbf7d0");T_("+"+hf(ot),mx,cy,800,14,"#065f46","center",col.w-4)}
+    else if(v.lv){const sb=lwMul(r.w,col.d)===1;cell(col,ry,sb?"#ddd6fe":"#bbf7d0");T_("+"+hf(ot),mx,cy,800,14,sb?"#5b21b6":"#065f46","center",col.w-4)}
     else if(v.v){cell(col,ry,"#fecaca");T_(hf(v.v),mx,ot?cy-8:cy,800,15,"#991b1b","center",col.w-4);if(ot)T_("+"+hf(ot),mx,cy+10,700,11,"#047857","center",col.w-4)}
     else if(ot){cell(col,ry,"#bbf7d0");T_("+"+hf(ot),mx,cy,800,14,"#065f46","center",col.w-4)}}
    else if(col.k==="t")T_(r2(r.t),mx,cy,800,17,r.t?"#b91c1c":"#777");
@@ -2683,7 +2695,7 @@ function weekPdfPages(w0){
     else if(col.k==="d"){const v=r.c[col.i];
      if(v.out){cell(col,ry,v.q?"#111":"#e5e7eb")}
      else if(v.lv&&!v.x){cell(col,ry,"#fde68a");T_("إجازة",mx,cy,800,15,"#78350f")}
-     else if(v.lv){cell(col,ry,"#bbf7d0");T_("+"+hf(v.x),mx,cy,800,16,"#065f46")}
+     else if(v.lv){const sb=lwMul(r.w,col.d)===1;cell(col,ry,sb?"#ddd6fe":"#bbf7d0");T_("+"+hf(v.x),mx,cy,800,16,sb?"#5b21b6":"#065f46")}
      else if(v.a&&v.x){cell(col,ry,"#fecaca");T_("−"+hf(v.a),mx-col.w/4,cy,800,15,"#991b1b");T_("+"+hf(v.x),mx+col.w/4,cy,800,15,"#047857")}
      else if(v.a){cell(col,ry,"#fecaca");T_("−"+hf(v.a),mx,cy,800,16,"#991b1b")}
      else if(v.x){cell(col,ry,"#bbf7d0");T_("+"+hf(v.x),mx,cy,800,16,"#065f46")}
@@ -2892,7 +2904,7 @@ document.querySelectorAll("#login .eye").forEach(b=>b.onclick=()=>{const i=$(b.d
 showLogin();all();load();
 if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
 // ===== new-version check: tell open pages when a newer version is published =====
-const APPV="2026.11.22-8";
+const APPV="2026.11.22-9";
 async function chkVer(){
  if(location.protocol!=="https:")return;
  try{const t=await(await fetch("./index.html?v="+Date.now(),{cache:"no-store"})).text(),m=t.match(/const APPV="([^"]+)"/);
