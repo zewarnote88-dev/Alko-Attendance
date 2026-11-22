@@ -768,7 +768,7 @@ html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!imp
 .pab-g button.full{grid-column:span 2;color:#b91c1c!important}
 #dl input.pk{cursor:pointer;caret-color:transparent}
 .pab-g button.on{border-color:#f97316!important;background:color-mix(in srgb,#f97316 14%,var(--card))!important;color:#c2410c!important}
-.pab-c{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end;margin-bottom:10px}.pab-c label{display:flex;flex-direction:column;font-size:12px;color:var(--mu);font-weight:700;margin:0}.pab-c input{text-align:center;font-size:16px;font-weight:800}
+.pab-c{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end;margin-bottom:10px}.pab-c label{display:flex;flex-direction:column;font-size:12px;color:var(--mu);font-weight:700;margin:0}.pab-c input{text-align:center;font-size:16px;font-weight:800}.pab-c input::placeholder{color:color-mix(in srgb,var(--mu) 55%,transparent);font-weight:600}
 .pab-clr{width:100%}
 .pab{padding:4px 10px!important;border-radius:999px!important;font-size:12px!important;font-weight:800;border:1.5px dashed #f97316!important;background:transparent!important;color:#c2410c!important;margin-inline-start:6px}
 .pab.on{border-style:solid!important;background:color-mix(in srgb,#f97316 14%,transparent)!important}
@@ -867,7 +867,7 @@ body.sadm .gonly{display:none!important}
  <label class="lrm"><input type="checkbox" id="lrm" checked> ل سەر ڤی ئامێری بمینە (هەتا دەرکەتنێ)</label>
  <button id="lb" type="submit"><span>چوونەژوور</span><b>←</b></button>
  <div id="le" class="bad"></div>
- <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr">v2026.11.22-5</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
+ <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr">v2026.11.22-6</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
 </form></div>
 <main>
 <header class="top"><div class="brand"><div class="logo bml"><span>A</span></div><div><h1>غیابا کرێکاران</h1><span class="ownb" title="ئەدمینێ سەرەکی">👑 ئەدمین: <b dir="ltr">Zewar</b></span><p class="sub"><b class="alkot">ALKO</b> Company · <span id="secn">غیاب، زێدە و ڕێکخستنا هەفتیێ</span></p></div></div>
@@ -1030,7 +1030,7 @@ body.sadm .gonly{display:none!important}
 <div id="pabq" class="hide"><div class="acbox pabbox"><div class="cph"><b id="pabt">⏱ کێم هات / زوو چوو</b><button type="button" class="off" data-pq="x">✕</button></div>
  <p class="pab-w" id="pabw"></p>
  <div class="pab-g"></div>
- <div class="pab-c"><label>دەمژمێر<input type="number" id="pabh" min="0" max="24" step="1" inputmode="numeric" value="0"></label><label>خولەک<input type="number" id="pabm" min="0" max="59" step="5" inputmode="numeric" value="0"></label><button type="button" id="pabok">✓ دانان</button></div>
+ <div class="pab-c"><label>دەمژمێر<input type="number" id="pabh" min="0" max="24" step="1" inputmode="numeric" placeholder="0"></label><label>خولەک<input type="number" id="pabm" min="0" max="59" step="5" inputmode="numeric" placeholder="0"></label><button type="button" id="pabok">✓ دانان</button></div>
  <button type="button" class="off pab-clr" data-pq="0">🗑 لابرن (هاتیە ب دەمێ خۆ)</button>
 </div></div>
 <div id="lvq" class="hide"><div class="acbox lvqbox" id="lvqb"></div></div>
@@ -1042,7 +1042,7 @@ body.sadm .gonly{display:none!important}
  <div class="bar" style="margin:0"><button type="submit" id="dws" class="danger" style="background:#dc2626;color:#fff">ژێبرن</button><button type="button" class="off" id="dwx2">بەتالکرن</button></div>
 </form></div>
 <div id="pr"></div>
-<div class="appv" dir="ltr">ALKO · v2026.11.22-5</div>
+<div class="appv" dir="ltr">ALKO · v2026.11.22-6</div>
 </main>
 <script>
 const $=id=>document.getElementById(id);
@@ -2084,7 +2084,7 @@ function openPab(id,mode){
  document.querySelector("#pabq .pab-clr").textContent=ot?"🗑 لابرن (چ ئیزافە نینە)":"🗑 لابرن (هاتیە ب دەمێ خۆ)";
  $("pabw").textContent=w.name+" · "+lvDn($("dt").value);
  document.querySelector("#pabq .pab-g").innerHTML=(ot?POTS:PABS).filter(([m])=>m/60<=mx&&(ot||m/60<mx)).map(([m,t])=>`<button type="button" data-pm="${m}" class="${Math.abs(cur*60-m)<1?"on":""}">${sg}${t.replace(" خولەک","").replace(" دەمژمێر","")}<small>${/خولەک/.test(t)?"خولەک":"دەمژمێر"}</small></button>`).join("")+(ot?"":`<button type="button" data-pm="${mx*60}" class="full${cur>=mx?" on":""}">❌ هەمی ڕۆژ<small>${mx} دەمژمێر</small></button>`);
- $("pabh").value=Math.floor(cur);$("pabm").value=Math.round((cur%1)*60);$("pabq").classList.remove("hide");
+ $("pabh").value=Math.floor(cur)||"";$("pabm").value=Math.round((cur%1)*60)||"";$("pabq").classList.remove("hide");
 }
 function setPab(h){
  const id=PABID;if(!id)return;const w=S.workers.find(x=>x.id===id),ot=PABM==="ot",v=Math.min(Math.max(0,h),ot?24:dayH(w));
@@ -2095,6 +2095,7 @@ function setPab(h){
 }
 $("dl").addEventListener("click",e=>{const b=e.target.closest(".pab");if(b){e.preventDefault();openPab(b.dataset.id,"abs");return}const i=e.target.closest("input.pk");if(i&&!i.disabled){e.preventDefault();i.blur();openPab(i.dataset.id,i.classList.contains("ot")?"ot":"abs")}});
 $("pabq").addEventListener("click",e=>{const pm=e.target.closest("[data-pm]");if(pm)return setPab(+pm.dataset.pm/60);const q=e.target.closest("[data-pq]");if(q){if(q.dataset.pq==="0")return setPab(0);$("pabq").classList.add("hide");PABID=null;return}if(e.target.id==="pabq"){$("pabq").classList.add("hide");PABID=null}});
+["pabh","pabm"].forEach(i=>$(i).addEventListener("focus",e=>{if(+e.target.value===0)e.target.value="";else setTimeout(()=>e.target.select(),0)}));
 $("pabok").onclick=()=>setPab((+$("pabh").value||0)+(+$("pabm").value||0)/60);
 function xApply(td){
  if(!XT||!td||!td.dataset.id||!td.dataset.d)return false;
@@ -2891,7 +2892,7 @@ document.querySelectorAll("#login .eye").forEach(b=>b.onclick=()=>{const i=$(b.d
 showLogin();all();load();
 if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
 // ===== new-version check: tell open pages when a newer version is published =====
-const APPV="2026.11.22-5";
+const APPV="2026.11.22-6";
 async function chkVer(){
  if(location.protocol!=="https:")return;
  try{const t=await(await fetch("./index.html?v="+Date.now(),{cache:"no-store"})).text(),m=t.match(/const APPV="([^"]+)"/);
