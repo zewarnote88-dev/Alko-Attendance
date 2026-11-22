@@ -867,7 +867,7 @@ body.sadm .gonly{display:none!important}
  <label class="lrm"><input type="checkbox" id="lrm" checked> ل سەر ڤی ئامێری بمینە (هەتا دەرکەتنێ)</label>
  <button id="lb" type="submit"><span>چوونەژوور</span><b>←</b></button>
  <div id="le" class="bad"></div>
- <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr">v2026.11.22-7</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
+ <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr">v2026.11.22-8</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
 </form></div>
 <main>
 <header class="top"><div class="brand"><div class="logo bml"><span>A</span></div><div><h1>غیابا کرێکاران</h1><span class="ownb" title="ئەدمینێ سەرەکی">👑 ئەدمین: <b dir="ltr">Zewar</b></span><p class="sub"><b class="alkot">ALKO</b> Company · <span id="secn">غیاب، زێدە و ڕێکخستنا هەفتیێ</span></p></div></div>
@@ -1042,7 +1042,7 @@ body.sadm .gonly{display:none!important}
  <div class="bar" style="margin:0"><button type="submit" id="dws" class="danger" style="background:#dc2626;color:#fff">ژێبرن</button><button type="button" class="off" id="dwx2">بەتالکرن</button></div>
 </form></div>
 <div id="pr"></div>
-<div class="appv" dir="ltr">ALKO · v2026.11.22-7</div>
+<div class="appv" dir="ltr">ALKO · v2026.11.22-8</div>
 </main>
 <script>
 const $=id=>document.getElementById(id);
@@ -2690,7 +2690,7 @@ function weekPdfPages(w0){
      else T_("✓",mx,cy,700,15,"#16a34a")}
     else if(col.k==="t")T_(r2(r.t),mx,cy,800,17,r.t?"#b91c1c":"#777");
     else if(col.k==="l")T_(String(r.l),mx,cy,800,17,r.l?"#92400e":"#777");
-    else if(col.k==="o")T_(r2(r.o)+(nl&&r.o?"  ×1.5":""),mx,cy,800,17,r.o?"#047857":"#777","center",col.w-8);
+    else if(col.k==="o")T_(r2(r.o),mx,cy,800,17,r.o?"#047857":"#777","center",col.w-8);
     else if(col.k==="net"){cell(col,ry,net>0?"#dcfce7":net<0?"#fee2e2":nl?"#ffedd5":"#f3f4f6");T_((net>0?"+":net<0?"−":"")+r2(Math.abs(net)),mx,cy,900,17,net>0?"#047857":net<0?"#b91c1c":"#555")}
    })});
   if(totalRow){const ry=ty+HH+R.length*RH,cy=ry+RH/2+1,net=T.o-T.a;x.fillStyle="#e5e7eb";x.fillRect(L,ry,Rr-L,RH);
@@ -2718,7 +2718,7 @@ $("spdf").onclick=async()=>{
 // ===== notes appended to the weekly/monthly PDF =====
 function notesPages(title,sub,workers,days){
  const DAR=["الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"],L=[];
- workers.forEach(w=>days.forEach(d=>{const k=w.id+"_"+d;if(S.nt[k]&&!outside(w,d))L.push({w,d,h:S.abs[k]||0,t:S.nt[k],by:S.by[k]||""})}));
+ workers.forEach(w=>days.forEach(d=>{const k=w.id+"_"+d;if(!outside(w,d)&&(S.abs[k]>0||S.nt[k]))L.push({w,d,h:S.abs[k]||0,t:S.nt[k]||"لم يذكر",by:S.by[k]||""})}));
  if(!L.length)return[];
  const RH=40,HH=52,top=PM+100,bottom=PH-PM-50,per=Math.max(1,Math.floor((bottom-top-HH)/RH)),P=[];
  for(let i=0;i<L.length;i+=per)P.push(L.slice(i,i+per));
@@ -2726,14 +2726,14 @@ function notesPages(title,sub,workers,days){
   const SC=2,c=document.createElement("canvas");c.width=PW*SC;c.height=PH*SC;const x=c.getContext("2d");x.scale(SC,SC);x.fillStyle="#fff";x.fillRect(0,0,PW,PH);x.textBaseline="middle";
   const T_=(t,X0,Y,w,sz,col,al,mw)=>{x.save();x.direction=/[\u0600-\u06FF]/.test(t)?"rtl":"ltr";x.textAlign=al||"center";x.fillStyle=col||"#000";let z=sz;x.font=pf(w,z);if(mw)while(z>9&&x.measureText(t).width>mw){z--;x.font=pf(w,z)}x.fillText(t,X0,Y);x.restore()};
   const g=x.createLinearGradient(PM,0,PW-PM,0);g.addColorStop(0,"#3b82f6");g.addColorStop(.5,"#6366f1");g.addColorStop(1,"#7c3aed");rr(x,PM,PM,PW-2*PM,72,16);x.fillStyle=g;x.fill();
-  T_("الملاحظات — "+title+" · "+CS().name,PW-PM-28,PM+37,800,30,"#fff","right",PW-2*PM-560);T_(sub,PW/2,PM+37,600,20,"rgba(255,255,255,.92)");
+  T_("الغيابات والأسباب — "+title+" · "+CS().name,PW-PM-28,PM+37,800,30,"#fff","right",PW-2*PM-560);T_(sub,PW/2,PM+37,600,20,"rgba(255,255,255,.92)");
   x.save();x.direction="ltr";x.textAlign="left";x.fillStyle="#fff";x.font="900 30px system-ui,Arial,sans-serif";x.fillText("ALKO",PM+28,PM+30);x.font="600 12px system-ui,Arial,sans-serif";x.fillText("C O M P A N Y",PM+28,PM+56);x.restore();
-  const cols=[{h:"ت",w:60},{h:"الرمز",w:110},{h:"الاسم",w:360},{h:"التاريخ",w:220},{h:"الغياب",w:130},{h:"الملاحظة",w:0},{h:"سجّلها",w:170}];
+  const cols=[{h:"ت",w:60},{h:"الرمز",w:110},{h:"الاسم",w:360},{h:"التاريخ",w:220},{h:"الغياب",w:130},{h:"السبب / الملاحظة",w:0},{h:"سجّلها",w:170}];
   cols[5].w=PW-2*PM-cols.reduce((a,c0)=>a+c0.w,0);let X1=PW-PM;cols.forEach(c0=>{c0.x=X1-c0.w;X1-=c0.w});
   const ty=top,TH=HH+RH*rows.length;x.fillStyle="#1f2937";x.fillRect(PM,ty,PW-2*PM,HH);cols.forEach(c0=>T_(c0.h,c0.x+c0.w/2,ty+HH/2+1,700,17,"#fff"));
   rows.forEach((r,i)=>{const ry=ty+HH+i*RH,cy=ry+RH/2+1;if(i%2){x.fillStyle="#f8fafc";x.fillRect(PM,ry,PW-2*PM,RH)}
    const dd=new Date(r.d+"T00:00:00"),v=[String(pi*per+i+1),r.w.code||"",r.w.name,DAR[dd.getDay()]+" "+r.d.slice(8)+"/"+r.d.slice(5,7),r.h?"−"+fh(r.h):"—",r.t,r.by];
-   v.forEach((t,j)=>{const c0=cols[j],nm=j===2||j===5;T_(t,nm?c0.x+c0.w-12:c0.x+c0.w/2,cy,j===2?700:500,j===5?16:16,j===4?"#b91c1c":"#111",nm?"right":"center",c0.w-20)})});
+   v.forEach((t,j)=>{const c0=cols[j],nm=j===2||j===5;T_(t,nm?c0.x+c0.w-12:c0.x+c0.w/2,cy,j===2?700:500,16,j===4?"#b91c1c":j===5&&t==="لم يذكر"?"#9ca3af":"#111",nm?"right":"center",c0.w-20)})});
   x.strokeStyle="#000";x.lineWidth=1;for(let i=0;i<=rows.length;i++){const yy=ty+HH+i*RH;x.beginPath();x.moveTo(PM,yy);x.lineTo(PW-PM,yy);x.stroke()}
   cols.forEach(c0=>{x.beginPath();x.moveTo(c0.x,ty);x.lineTo(c0.x,ty+TH);x.stroke()});x.lineWidth=2.5;x.strokeRect(PM,ty,PW-2*PM,TH);
   T_("ALKO · "+iso(new Date())+(P.length>1?"  ·  صفحة "+(pi+1)+" من "+P.length:""),PM,PH-PM-20,500,15,"#666","left");
@@ -2892,7 +2892,7 @@ document.querySelectorAll("#login .eye").forEach(b=>b.onclick=()=>{const i=$(b.d
 showLogin();all();load();
 if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
 // ===== new-version check: tell open pages when a newer version is published =====
-const APPV="2026.11.22-7";
+const APPV="2026.11.22-8";
 async function chkVer(){
  if(location.protocol!=="https:")return;
  try{const t=await(await fetch("./index.html?v="+Date.now(),{cache:"no-store"})).text(),m=t.match(/const APPV="([^"]+)"/);
