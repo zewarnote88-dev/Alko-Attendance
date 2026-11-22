@@ -2658,7 +2658,7 @@ function drawMonthPage(y,m,D,rows,pi,np,T,RH,HH,top,start){
 }
 function weekPdfPages(w0){
  const ds=[...Array(7)].map((_,i)=>{const d=new Date(w0+"T00:00:00");d.setDate(d.getDate()+i);return d}),days=ds.map(iso);
- const rows=sumList(w0,ds).map(w=>{let t=0,o=0,l=0;const c=days.map(d=>{const out=outside(w,d),a=absOf(w,d),x=out?0:otOf(w,d),lv=!out&&S.lv[w.id+"_"+d];t+=a;o+=x;if(lv)l++;return{out,q:out&&!!(w.end&&d>w.end),a,x,lv}});return{w,c,t,o,l,pl:plc(w.id,days[0])}});
+ const rows=sumList(w0,ds).map(w=>{let t=0,o=0,l=0;const c=days.map(d=>{const out=outside(w,d),a=absOf(w,d),x=out?0:otOf(w,d),lv=!out&&S.lv[w.id+"_"+d];t+=a;o+=x;if(lv)l++;return{out,q:out&&!!(w.end&&d>w.end),a,x,lv}});const DAR0=["الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"],nt=days.filter(d=>!outside(w,d)&&S.abs[w.id+"_"+d]>0).map(d=>DAR0[new Date(d+"T00:00:00").getDay()]+": "+(S.nt[w.id+"_"+d]||"لم يذكر"));return{w,c,t,o,l,pl:plc(w.id,days[0]),nt}});
  const T={a:rows.reduce((s,r)=>s+r.t,0),o:rows.reduce((s,r)=>s+r.o,0),l:rows.reduce((s,r)=>s+r.l,0),nl:rows.filter(r=>!r.l).length};
  const RH=38,HH=58,top=PM+96,bottom=PH-PM-58,per=Math.max(1,Math.floor((bottom-top-HH)/RH)),P=[];
  for(let i=0;i<Math.max(1,rows.length);i+=per)P.push(rows.slice(i,i+per));
@@ -2674,8 +2674,8 @@ function weekPdfPages(w0){
   T_("ملخص الدوام الأسبوعي · "+CS().name,PW-PM-28,PM+37,800,34,"#fff","right",PW-2*PM-760);
   T_("من "+days[0]+"  إلى  "+days[6],PW/2,PM+37,600,22,"rgba(255,255,255,.92)","center");
   x.save();x.direction="ltr";x.textAlign="left";x.fillStyle="#fff";x.font="900 30px system-ui,Arial,sans-serif";x.fillText("ALKO",PM+28,PM+30);x.font="600 12px system-ui,Arial,sans-serif";x.fillStyle="rgba(255,255,255,.85)";x.fillText("C O M P A N Y",PM+28,PM+56);x.restore();
-  const fixed=[{k:"n",h:"ت",w:46},{k:"code",h:"الرمز",w:80},{k:"name",h:"الاسم",w:300},{k:"pl",h:"مكان العمل",w:170}],
-   tail=[{k:"t",h:"مجموع\nالغياب",w:100},{k:"l",h:"أيام\nالإجازة",w:80},{k:"o",h:"مجموع\nالإضافي",w:130},{k:"net",h:"الإضافي\nناقص الغياب",w:124}];
+  const fixed=[{k:"n",h:"ت",w:46},{k:"code",h:"الرمز",w:80},{k:"name",h:"الاسم",w:270},{k:"pl",h:"مكان العمل",w:150}],
+   tail=[{k:"t",h:"مجموع\nالغياب",w:100},{k:"l",h:"أيام\nالإجازة",w:80},{k:"o",h:"مجموع\nالإضافي",w:130},{k:"net",h:"الإضافي\nناقص الغياب",w:124},{k:"nt",h:"الملاحظات",w:290}];
   const used=fixed.concat(tail).reduce((s,c)=>s+c.w,0),dw=(PW-2*PM-used)/7;
   const cols=fixed.concat(days.map((d,i)=>({k:"d",i,d,w:dw})),tail);let cx=PW-PM;cols.forEach(c0=>{c0.x=cx-c0.w;cx-=c0.w});
   const totalRow=pi===P.length-1,nR=R.length+(totalRow?1:0),ty=top,TH=HH+RH*nR,L=PM,Rr=PW-PM;
@@ -2703,6 +2703,8 @@ function weekPdfPages(w0){
     else if(col.k==="t")T_(r2(r.t),mx,cy,800,17,r.t?"#b91c1c":"#777");
     else if(col.k==="l")T_(String(r.l),mx,cy,800,17,r.l?"#92400e":"#777");
     else if(col.k==="o")T_(r2(r.o),mx,cy,800,17,r.o?"#047857":"#777","center",col.w-8);
+    else if(col.k==="nt"){if(r.nt.length){const mw=col.w-14;let z=14,lines;for(;z>=9;z--){x.font=pf(600,z);lines=[];let cur="";r.nt.forEach(t=>{const tt=cur?cur+" · "+t:t;if(x.measureText(tt).width<=mw||!cur)cur=tt;else{lines.push(cur);cur=t}});lines.push(cur);if(lines.length*(z+3)<=RH-4&&lines.every(l=>x.measureText(l).width<=mw))break}
+      const lh=z+3,y0=cy-(lines.length-1)*lh/2;lines.forEach((l,k)=>T_(l,col.x+col.w-7,y0+k*lh,600,z,l.includes("لم يذكر")&&!l.includes(" · ")?"#888":"#222","right",mw))}}
     else if(col.k==="net"){cell(col,ry,net>0?"#dcfce7":net<0?"#fee2e2":nl?"#ffedd5":"#f3f4f6");T_((net>0?"+":net<0?"−":"")+r2(Math.abs(net)),mx,cy,900,17,net>0?"#047857":net<0?"#b91c1c":"#555")}
    })});
   if(totalRow){const ry=ty+HH+R.length*RH,cy=ry+RH/2+1,net=T.o-T.a;x.fillStyle="#e5e7eb";x.fillRect(L,ry,Rr-L,RH);
@@ -2724,7 +2726,7 @@ function weekPdfPages(w0){
 $("spdf").onclick=async()=>{
  try{const w0=$("sw").value;if(!w0)return;msg("PDF دهێتە دروستکرن...");
   try{await Promise.all([document.fonts.load(pf(700,20)),document.fonts.load(pf(500,17))]);await document.fonts.ready}catch(e){}
-  const DD=wkIds(w0);await saveFile("week-"+w0+".pdf",await jpegPdf([...weekPdfPages(w0),...notesPages("الأسبوع","من "+DD[0]+" إلى "+DD[6],sumList(w0,DD.map(d=>new Date(d+"T00:00:00"))),DD)]));msg("");
+  const DD=wkIds(w0);await saveFile("week-"+w0+".pdf",await jpegPdf(weekPdfPages(w0)));msg("");
  }catch(e){console.error(e);msg(e&&e.code==="declined"?"":"PDF نەهاتە دروستکرن")}
 };
 // ===== notes appended to the weekly/monthly PDF =====
@@ -2757,7 +2759,7 @@ $("mpdf").onclick=async()=>{
   msg("PDF دهێتە دروستکرن...");
   try{await Promise.all([document.fonts.load(pf(800,40)),document.fonts.load(pf(700,24)),document.fonts.load(pf(400,20))]);await document.fonts.ready}catch(e){}
   const MAR=["كانون الثاني","شباط","آذار","نيسان","أيار","حزيران","تموز","آب","أيلول","تشرين الأول","تشرين الثاني","كانون الأول"],nd=new Date(y,m,0).getDate(),DD=[...Array(nd)].map((_,i)=>y+"-"+p2(m)+"-"+p2(i+1));
-  const canv=[...monthPdfPages(y,m),...notesPages("الشهر",MAR[m-1]+" "+y,monthRows(y,m).rows.map(r=>r.w),DD)];
+  const canv=monthPdfPages(y,m);
   await saveFile("month-"+v+".pdf",await jpegPdf(canv));
   msg("");
  }catch(e){console.error(e);msg(e&&e.code==="declined"?"":"PDF نەهاتە دروستکرن")}
@@ -2904,7 +2906,7 @@ document.querySelectorAll("#login .eye").forEach(b=>b.onclick=()=>{const i=$(b.d
 showLogin();all();load();
 if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
 // ===== new-version check: tell open pages when a newer version is published =====
-const APPV="2026.11.22-9";
+const APPV="2026.11.22-10";
 async function chkVer(){
  if(location.protocol!=="https:")return;
  try{const t=await(await fetch("./index.html?v="+Date.now(),{cache:"no-store"})).text(),m=t.match(/const APPV="([^"]+)"/);
