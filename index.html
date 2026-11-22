@@ -2890,7 +2890,7 @@ function renderS(){
   const bad=!L&&!a;if(bad)BAD++;const qt=!!(w.end&&w.end<iso(ds[6])),nL=!L&&!qt&&isShiftSec();if(nL)NL++;h+=`<tr${nL?' class="nolv"':""}><td>${esc(w.code||"")}</td><td class="nm" data-wp="${w.id}">${esc(w.name)}${rb(w)}${nL?'<span class="nlb">بێ مۆلەت</span>':""}${qt?`<span class="nlb" style="background:#111;color:#fff">🚪 کار هێلا ${esc(addD(w.end,1).slice(5))}</span>`:""}</td><td>${esc(plc(w.id,iso(ds[0])))}</td>`+c.join("")+`<td class="ok"><b>${r2(o)}</b>${nL&&o?'<span class="x15">×1.5</span>':""}</td><td class="bad"><b>${r2(a)}</b></td><td><b>${L}</b></td></tr>`;
  });
  h+=`<tr><th colspan="10">کۆما گشتی</th><th class="ok">${r2(TO)}</th><th class="bad">${r2(TA)}</th><th></th></tr>`;
- $("kp").innerHTML=`<div class="kpi"><span>کۆما غیابێ</span><b class="bad">${r2(TA)}</b></div><div class="kpi"><span>کۆما زێدە</span><b class="ok">${r2(TO)}</b></div>${isShiftSec()?`<div class="kpi nlk"><span>🟧 بێ مۆلەت (ئیزافە ×1.5)</span><b>${NL}</b></div>`:""}<div class="kpi"><span>بێ مۆلەت و غیاب</span><b class="${BAD?"bad":"ok"}">${BAD}</b></div><div class="kpi"><span>ژمارا کرێکاران</span><b>${W().length}</b></div>`;
+ $("kp").innerHTML=`<div class="kpi"><span>کۆما غیابێ</span><b class="bad">${r2(TA)}</b></div><div class="kpi"><span>کۆما زێدە</span><b class="ok">${r2(TO)}</b></div>${isShiftSec()?`<div class="kpi nlk"><span>🟧 بێ مۆلەت (ئیزافە ×1.5)</span><b>${NL}</b></div>`:""}<div class="kpi"><span>بێ مۆلەت و غیاب</span><b class="${BAD?"bad":"ok"}">${BAD}</b></div><div class="kpi"><span>ژمارا کرێکاران</span><b>${WL.filter(w=>!(w.end&&w.end<iso(ds[6]))).length}</b>${WL.some(w=>w.end&&w.end<iso(ds[6]))?`<small style="display:block;color:#64748b;font-size:11px">+ ${WL.filter(w=>w.end&&w.end<iso(ds[6])).length} 🚪 کار هێلاین</small>`:""}</div>`;
  {const d0=iso(ds[0]),d6=iso(ds[6]),Q=WL.filter(w=>w.end&&w.end<d6).sort((x,y)=>COLL.compare(x.end,y.end)),N=WL.filter(w=>w.start&&w.start>d0&&!(w.end&&w.end<d6)),act=WL.length-Q.length-N.length;
   const li=(w,t)=>`<span class="awn" data-q="${esc(w.code||w.name)}">${esc(w.code?w.code+" · ":"")}${esc(w.name)} — <b dir="ltr">${t.split("-").reverse().join("/")}</b></span>`;
   $("sdf").innerHTML=Q.length||N.length?`<details class="warnbox" style="background:#f1f5f9;border-color:#94a3b8;color:#1e293b"><summary style="cursor:pointer"><b>👥 ${WL.length} کرێکار د ڤێ هەفتیێ دا</b> = ${act} هەمی هەفتی کار دکەن${Q.length?` + <b>${Q.length}</b> 🚪 کار هێلاین`:""}${N.length?` + <b>${N.length}</b> 🆕 نوی`:""} <small>(کلیک بکە بۆ دیتنێ)</small></summary>${Q.length?`<div style="margin-top:8px"><b>🚪 کار هێلاین (ڕۆژا دەرکەتنێ):</b><br>${Q.map(w=>li(w,addD(w.end,1).slice(5))).join(" ")}</div>`:""}${N.length?`<div style="margin-top:8px"><b>🆕 دەست ب کاری کرین:</b><br>${N.map(w=>li(w,w.start.slice(5))).join(" ")}</div>`:""}<div style="margin-top:6px;font-size:12px">ئەگەر کرێکارەک ب خەلەتی وەک «کار هێلای» هاتبیتە دانان: پەرەیا «👷 کرێکار» ← ڕۆژا دەرکەتنێ ڤالا بکە.</div></details>`:"";}
@@ -2912,7 +2912,7 @@ document.querySelectorAll("#login .eye").forEach(b=>b.onclick=()=>{const i=$(b.d
 showLogin();all();load();
 if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
 // ===== new-version check: tell open pages when a newer version is published =====
-const APPV="2026.11.22-12";
+const APPV="2026.11.22-13";
 async function chkVer(){
  if(location.protocol!=="https:")return;
  try{const t=await(await fetch("./index.html?v="+Date.now(),{cache:"no-store"})).text(),m=t.match(/const APPV="([^"]+)"/);
