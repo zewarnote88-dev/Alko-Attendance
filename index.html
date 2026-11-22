@@ -838,7 +838,7 @@ body.sadm .gonly{display:none!important}
  <label class="lrm"><input type="checkbox" id="lrm" checked> ل سەر ڤی ئامێری بمینە (هەتا دەرکەتنێ)</label>
  <button id="lb" type="submit"><span>چوونەژوور</span><b>←</b></button>
  <div id="le" class="bad"></div>
- <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr">v2026.11.21-8</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
+ <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr">v2026.11.22-1</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
 </form></div>
 <main>
 <header class="top"><div class="brand"><div class="logo bml"><span>A</span></div><div><h1>غیابا کرێکاران</h1><span class="ownb" title="ئەدمینێ سەرەکی">👑 ئەدمین: <b dir="ltr">Zewar</b></span><p class="sub"><b class="alkot">ALKO</b> Company · <span id="secn">غیاب، زێدە و ڕێکخستنا هەفتیێ</span></p></div></div>
@@ -1006,7 +1006,7 @@ body.sadm .gonly{display:none!important}
  <div class="bar" style="margin:0"><button type="submit" id="dws" class="danger" style="background:#dc2626;color:#fff">ژێبرن</button><button type="button" class="off" id="dwx2">بەتالکرن</button></div>
 </form></div>
 <div id="pr"></div>
-<div class="appv" dir="ltr">ALKO · v2026.11.21-8</div>
+<div class="appv" dir="ltr">ALKO · v2026.11.22-1</div>
 </main>
 <script>
 const $=id=>document.getElementById(id);
@@ -1858,7 +1858,7 @@ function setAbs(id,v){
  save();renderM();
 }
 let NTT=null;$("dl").addEventListener("input",e=>{const t=e.target;if(!t.classList.contains("nt")||lockD($("dt").value))return;clearTimeout(NTT);NTT=setTimeout(()=>{const k=t.dataset.id+"_"+$("dt").value,v=t.value.trim();if((S.nt[k]||"")===v)return;if(v)S.nt[k]=v;else delete S.nt[k];save()},900)});
-$("dl").addEventListener("change",e=>{const t=e.target,c=t.classList;if(lockD($("dt").value)){renderD();return}if(t.closest("tr.outr"))return;if(c.contains("nt")){const k=t.dataset.id+"_"+$("dt").value,v=t.value.trim();if(v)S.nt[k]=v;else delete S.nt[k];save();renderM();renderS();renderX();return}if(c.contains("lw")||c.contains("lwh")){const w=S.workers.find(x=>x.id===t.dataset.id),k=t.dataset.id+"_"+$("dt").value;if(c.contains("lw")){if(t.checked){S.lw[k]=dayH(w);S.lv[k]=1;delete S.abs[k]}else delete S.lw[k]}else{const v=Math.min(ph(t.value),24);if(v>0)S.lw[k]=v;else delete S.lw[k]}save();updRow(t.dataset.id);renderM();renderS();return}if(c.contains("lv")&&!c.contains("lw")){const k=t.dataset.id+"_"+$("dt").value;if(t.checked){S.lv[k]=1;delete S.pr[k]}else delete S.lv[k];save();updRow(t.dataset.id);renderM();renderS();renderX();return}const w=S.workers.find(x=>x.id===t.dataset.id);if(c.contains("ab")){const on=t.checked;if(on)delete S.pr[t.dataset.id+"_"+$("dt").value];setAbs(t.dataset.id,on&&w?dayH(w):0);updRow(t.dataset.id);if(on){const n=$("dl").querySelector(`.nt[data-id="${t.dataset.id}"]`);if(n)n.focus({preventScroll:true})}renderX();return}if(!c.contains("h"))return;const v=Math.min(ph(t.value),24);if(c.contains("ot"))setOt(t.dataset.id,v);else{setAbs(t.dataset.id,v);const tr=t.closest("tr");tr.querySelector(".ab").checked=!!w&&v>=dayH(w);tr.classList.toggle("absr",v>0);const pb=tr.querySelector(".prb");if(pb)pb.classList.toggle("on",!!S.pr[t.dataset.id+"_"+$("dt").value]);tr.classList.toggle("prr",!!S.pr[t.dataset.id+"_"+$("dt").value])}t.value=fh(v)});
+$("dl").addEventListener("change",e=>{const t=e.target,c=t.classList;if(lockD($("dt").value)){renderD();return}if(t.closest("tr.outr"))return;if(c.contains("nt")){const k=t.dataset.id+"_"+$("dt").value,v=t.value.trim();if(v)S.nt[k]=v;else delete S.nt[k];save();renderM();renderS();renderX();return}if(c.contains("lw")||c.contains("lwh")){const w=S.workers.find(x=>x.id===t.dataset.id),k=t.dataset.id+"_"+$("dt").value;if(c.contains("lw")){if(t.checked){if(!S.lv[k]&&!lvOk(w,$("dt").value)){t.checked=false;updRow(t.dataset.id);return}S.lw[k]=dayH(w);S.lv[k]=1;delete S.abs[k]}else delete S.lw[k]}else{const v=Math.min(ph(t.value),24);if(v>0)S.lw[k]=v;else delete S.lw[k]}save();updRow(t.dataset.id);renderM();renderS();return}if(c.contains("lv")&&!c.contains("lw")){const k=t.dataset.id+"_"+$("dt").value;if(t.checked){if(!lvOk(S.workers.find(x=>x.id===t.dataset.id),$("dt").value)){t.checked=false;updRow(t.dataset.id);return}S.lv[k]=1;delete S.pr[k]}else delete S.lv[k];save();updRow(t.dataset.id);renderM();renderS();renderX();return}const w=S.workers.find(x=>x.id===t.dataset.id);if(c.contains("ab")){const on=t.checked;if(on)delete S.pr[t.dataset.id+"_"+$("dt").value];setAbs(t.dataset.id,on&&w?dayH(w):0);updRow(t.dataset.id);if(on){const n=$("dl").querySelector(`.nt[data-id="${t.dataset.id}"]`);if(n)n.focus({preventScroll:true})}renderX();return}if(!c.contains("h"))return;const v=Math.min(ph(t.value),24);if(c.contains("ot"))setOt(t.dataset.id,v);else{setAbs(t.dataset.id,v);const tr=t.closest("tr");tr.querySelector(".ab").checked=!!w&&v>=dayH(w);tr.classList.toggle("absr",v>0);const pb=tr.querySelector(".prb");if(pb)pb.classList.toggle("on",!!S.pr[t.dataset.id+"_"+$("dt").value]);tr.classList.toggle("prr",!!S.pr[t.dataset.id+"_"+$("dt").value])}t.value=fh(v)});
 $("add").onclick=()=>{
  const n=$("nm").value.trim();if(!n){msg("ناڤێ کرێکاری بنڤیسە");return}
  S.workers.push({id:Date.now().toString(36),code:$("cd").value.trim(),name:n,role:$("rl").value,start:$("sd").value,end:$("ed").value,sec:mySec()});
@@ -1939,7 +1939,7 @@ function renderA(){
  fillPl();$("wr").textContent+=" — ژمارا کرێکاران: "+L.length;
 }
 $("al").addEventListener("change",e=>{
- const t=e.target,id=t.dataset.id;if(!id)return;{const w0=wsK();if(wkLocked(w0)&&(t.classList.contains("alv")||!(ADMQ()&&UNLA===w0))){msg("🔒 ئەڤ هەفتیە دەست پێ کریە، ڕێکخستن ناهێتە گوهۆڕین");renderA();return}}if(t.classList.contains("alv")){if(mLock(t.dataset.d)){msg("🔒 ئەڤ مانگە یا قفلکری یە");renderA();return}if(lockD(t.dataset.d)||t.dataset.d===aDays8(wsK())[0]){msg("🔒 ئیجازا ئەینیا ئێکێ د جەدوەلا هەفتیا بەری دا هاتیە دانان، ل ڤێرە ناهێتە گوهۆڕین");renderA();return}const kk=id+"_"+t.dataset.d;if(t.checked)S.lv[kk]=1;else delete S.lv[kk];save();renderA();renderM();renderS();renderD();return}
+ const t=e.target,id=t.dataset.id;if(!id)return;{const w0=wsK();if(wkLocked(w0)&&(t.classList.contains("alv")||!(ADMQ()&&UNLA===w0))){msg("🔒 ئەڤ هەفتیە دەست پێ کریە، ڕێکخستن ناهێتە گوهۆڕین");renderA();return}}if(t.classList.contains("alv")){if(mLock(t.dataset.d)){msg("🔒 ئەڤ مانگە یا قفلکری یە");renderA();return}if(lockD(t.dataset.d)||t.dataset.d===aDays8(wsK())[0]){msg("🔒 ئیجازا ئەینیا ئێکێ د جەدوەلا هەفتیا بەری دا هاتیە دانان، ل ڤێرە ناهێتە گوهۆڕین");renderA();return}const kk=id+"_"+t.dataset.d;if(t.checked&&!lvOk(S.workers.find(x=>x.id===id),t.dataset.d)){renderA();return}if(t.checked)S.lv[kk]=1;else delete S.lv[kk];save();renderA();renderM();renderS();renderD();return}
  const k=wsK()+"_"+id,a=(S.asg[k]||["","",""]).slice();
  if(a.length<3)a[2]="";
  if(t.classList.contains("sq"))a[0]=t.value;else if(t.classList.contains("sh"))a[2]=t.value;else a[1]=t.value.trim();
@@ -2010,12 +2010,23 @@ function renderXW(w0){
  $("xwk").innerHTML=`<span class="xtl">هەفتیێن ${MK[mo-1]}:</span>`+W.map((k,i)=>{const e=addD(k,6),cnt=SW().reduce((z,w)=>z+wkIds(k).filter(d=>(S.abs[w.id+"_"+d]||0)>0||S.lv[w.id+"_"+d]||S.pr[w.id+"_"+d]).length,0);
   return`<button type="button" class="sg${k===w0?" on":""}" data-w="${k}">هەفتی ${i+1} <small>${+k.slice(8)}/${+k.slice(5,7)} – ${+e.slice(8)}/${+e.slice(5,7)}</small>${cnt?`<i>${cnt}</i>`:""}</button>`}).join("");
 }
+// ===== one leave per worker per week (Sat→Fri); only admins may give a second one =====
+function lvOk(w,d){
+ if(!w)return true;
+ const other=wkIds(weekOf(d)).filter(x=>x!==d&&S.lv[w.id+"_"+x]);if(!other.length)return true;
+ const dn=x=>DN[new Date(x+"T00:00:00").getDay()]+" "+x.slice(8)+"/"+x.slice(5,7),o=other.map(dn).join("، ");
+ if(confirm(`«${w.name}» ل ڤێ هەفتیێ مۆلەت هەیە: ${o}.\n\nهەر کرێکارەک تنێ ١ مۆلەت د هەفتیێ دا هەیە.\nئەرێ مۆلەتێ ژ ${o} ببەینە ${dn(d)}؟`)){
+  other.forEach(x=>{const k=w.id+"_"+x;delete S.lv[k];delete S.bl[k];delete S.lw[k]});msg("🔄 مۆلەت هاتە گوهۆڕین: "+o+" ← "+dn(d));return true}
+ if(ADMQ()&&confirm(`(تنێ ئەدمین) ئەرێ مۆلەتا دووێ بۆ «${w.name}» ل ڤێ هەفتیێ بدەی؟`))return true;
+ if(!ADMQ())msg("❌ هەر کرێکارەک تنێ ١ مۆلەت د هەفتیێ دا هەیە. تنێ ئەدمین دشێت مۆلەتا دووێ بدەت");
+ return false;
+}
 function xApply(td){
  if(!XT||!td||!td.dataset.id||!td.dataset.d)return false;
  const id=td.dataset.id,d=td.dataset.d,w=S.workers.find(x=>x.id===id);if(!w||outside(w,d)||lockD(d))return true;
  const k=id+"_"+d;
  if(XT==="a"){S.abs[k]=dayH(w);delete S.lv[k];delete S.pr[k]}
- else if(XT==="l"){S.lv[k]=1;delete S.abs[k];delete S.nt[k];delete S.pr[k]}
+ else if(XT==="l"){if(S.lv[k]||!lvOk(w,d))return true;S.lv[k]=1;delete S.abs[k];delete S.nt[k];delete S.pr[k]}
  else if(XT==="p"){S.pr[k]=1;delete S.abs[k];delete S.nt[k];delete S.lv[k]}
  else if(XT==="c"){delete S.abs[k];delete S.nt[k];delete S.lv[k];delete S.pr[k]}
  return true;
@@ -2068,7 +2079,7 @@ function renderX(){
 $("xb").addEventListener("change",e=>{
  const t=e.target;if(!t.classList.contains("xc"))return;if(lockD(t.dataset.d)){renderX();return}
  const XM=$("xm").value,mode=t.dataset.m||(XM==="ot"?"ot":"abs"),M=mode==="ot"?S.ot:S.abs,k=t.dataset.id+"_"+t.dataset.d,v=Math.min(ph(t.value),24);
- if(mode==="abs"&&/^(م|مۆلەت|m)$/i.test(t.value.trim())){S.lv[k]=1;delete S.abs[k];delete S.by[k];save();renderM();renderS();renderD();renderWarn();renderX();return}
+ if(mode==="abs"&&/^(م|مۆلەت|m)$/i.test(t.value.trim())){if(!S.lv[k]&&!lvOk(S.workers.find(x=>x.id===t.dataset.id),t.dataset.d)){renderX();return}S.lv[k]=1;delete S.abs[k];delete S.by[k];save();renderM();renderS();renderD();renderWarn();renderX();return}
  const ww=S.workers.find(x=>x.id===t.dataset.id);if(mode==="abs"&&ww&&/^(غ|x|غیاب)$/i.test(t.value.trim())){M[k]=dayH(ww);t.value=fh(M[k])}else{if(v>0)M[k]=v;else delete M[k];
  t.value=fh(v)}
  if(mode==="abs"){if(S.abs[k]>0&&ME)S.by[k]=ME.u;else if(!S.abs[k]){delete S.by[k];delete S.nt[k]}}
@@ -2778,7 +2789,7 @@ document.querySelectorAll("#login .eye").forEach(b=>b.onclick=()=>{const i=$(b.d
 showLogin();all();load();
 if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
 // ===== new-version check: tell open pages when a newer version is published =====
-const APPV="2026.11.21-8";
+const APPV="2026.11.22-1";
 async function chkVer(){
  if(location.protocol!=="https:")return;
  try{const t=await(await fetch("./index.html?v="+Date.now(),{cache:"no-store"})).text(),m=t.match(/const APPV="([^"]+)"/);
