@@ -966,7 +966,7 @@ body.sadm .gonly{display:none!important}
   <label class="sec fbtn cmpbtn">🔍 بەراوردکرن ب فایلێ ئیدارێ<input type="file" id="scmpf" accept=".xlsx,.xls,.csv" hidden></label>
  </div>
  <div id="scmp"></div>
- <div id="kp" class="kpis"></div>
+ <div id="kp" class="kpis"></div><div id="sdf"></div>
  <div id="sr" style="margin-bottom:8px;color:var(--mu)"></div>
  <div class="card scroll"><table id="stt"></table></div>
 </section>
@@ -2867,6 +2867,7 @@ function renderAW(){
  const L=absList(DS,2);
  el.innerHTML=L.length?`<div class="warnbox">🚨 <b>تەنێ بۆ ئەدمینی:</b> ئەڤ کرێکارە د هەفتیا ${w0} هەتا ${DS[6]} دا 2 ڕۆژ یان پتر نەهاتینە:<br>${L.map(x=>`<span class="awn" data-q="${esc(x.w.code||x.w.name)}" title="کلیک = دیتنا داتایێن وی">${esc(x.w.name)}${x.w.code?" ("+esc(x.w.code)+")":""} — ${x.n} ڕۆژ</span>`).join("")}<div style="margin-top:8px"><button type="button" class="sec" id="awpdf">📄 PDF: ڕۆژ و تێبینی</button></div></div>`:"";
 }
+$("sdf").addEventListener("click",e=>{const b=e.target.closest(".awn");if(!b)return;$("q").value=b.dataset.q;all()});
 $("aw").addEventListener("click",e=>{if(e.target.closest("#awpdf")){const w0=weekOf($("dt").value),DS=wkIds(w0);absPdf("absence-week-"+w0+".pdf","Absence Report — Week "+DS[0]+" to "+DS[6],"Workers absent 2 or more full days this week",absList(DS,2),w0);return}const b=e.target.closest(".awn");if(!b)return;$("q").value=b.dataset.q;all()});
 function renderDF(){renderAW();const d=$("dt").value;let a=0,o=0,n=0;const L=dList(d,1);L.forEach(w=>{const x=absOf(w,d);a+=x;if(x&&!outside(w,d))n++;o+=otOf(w,d)});const act=L.filter(w=>!outside(w,d)).length;$("df").innerHTML=L.length?`<tr><th colspan="4" class="f-t">کۆما ڕۆژێ — ئامادە: <span class="ok">${act-n}</span> ، نەهاتی: <span class="bad">${n}</span></th><th class="bad f-n">${n}</th><th class="bad f-a" data-l="غیاب">${r2(a)}</th><th class="ok f-o" data-l="زێدە">${r2(o)}</th><th class="f-e"></th><th class="f-e"></th></tr>`:""}
 function setOt(id,v){const k=id+"_"+$("dt").value;if(!(v>0))delete S.ot[k];else S.ot[k]=Math.min(v,24);renderDF();save();renderM();renderS()}
@@ -2890,6 +2891,9 @@ function renderS(){
  });
  h+=`<tr><th colspan="10">کۆما گشتی</th><th class="ok">${r2(TO)}</th><th class="bad">${r2(TA)}</th><th></th></tr>`;
  $("kp").innerHTML=`<div class="kpi"><span>کۆما غیابێ</span><b class="bad">${r2(TA)}</b></div><div class="kpi"><span>کۆما زێدە</span><b class="ok">${r2(TO)}</b></div>${isShiftSec()?`<div class="kpi nlk"><span>🟧 بێ مۆلەت (ئیزافە ×1.5)</span><b>${NL}</b></div>`:""}<div class="kpi"><span>بێ مۆلەت و غیاب</span><b class="${BAD?"bad":"ok"}">${BAD}</b></div><div class="kpi"><span>ژمارا کرێکاران</span><b>${W().length}</b></div>`;
+ {const d0=iso(ds[0]),d6=iso(ds[6]),Q=WL.filter(w=>w.end&&w.end<d6).sort((x,y)=>COLL.compare(x.end,y.end)),N=WL.filter(w=>w.start&&w.start>d0&&!(w.end&&w.end<d6)),act=WL.length-Q.length-N.length;
+  const li=(w,t)=>`<span class="awn" data-q="${esc(w.code||w.name)}">${esc(w.code?w.code+" · ":"")}${esc(w.name)} — <b dir="ltr">${t.split("-").reverse().join("/")}</b></span>`;
+  $("sdf").innerHTML=Q.length||N.length?`<details class="warnbox" style="background:#f1f5f9;border-color:#94a3b8;color:#1e293b"><summary style="cursor:pointer"><b>👥 ${WL.length} کرێکار د ڤێ هەفتیێ دا</b> = ${act} هەمی هەفتی کار دکەن${Q.length?` + <b>${Q.length}</b> 🚪 کار هێلاین`:""}${N.length?` + <b>${N.length}</b> 🆕 نوی`:""} <small>(کلیک بکە بۆ دیتنێ)</small></summary>${Q.length?`<div style="margin-top:8px"><b>🚪 کار هێلاین (ڕۆژا دەرکەتنێ):</b><br>${Q.map(w=>li(w,addD(w.end,1).slice(5))).join(" ")}</div>`:""}${N.length?`<div style="margin-top:8px"><b>🆕 دەست ب کاری کرین:</b><br>${N.map(w=>li(w,w.start.slice(5))).join(" ")}</div>`:""}<div style="margin-top:6px;font-size:12px">ئەگەر کرێکارەک ب خەلەتی وەک «کار هێلای» هاتبیتە دانان: پەرەیا «👷 کرێکار» ← ڕۆژا دەرکەتنێ ڤالا بکە.</div></details>`:"";}
  $("stt").innerHTML=h;
 }
 const ms=n=>{const d=new Date($("sw").value+"T00:00:00");d.setDate(d.getDate()+n);$("sw").value=iso(d);renderS()};
@@ -2908,7 +2912,7 @@ document.querySelectorAll("#login .eye").forEach(b=>b.onclick=()=>{const i=$(b.d
 showLogin();all();load();
 if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
 // ===== new-version check: tell open pages when a newer version is published =====
-const APPV="2026.11.22-11";
+const APPV="2026.11.22-12";
 async function chkVer(){
  if(location.protocol!=="https:")return;
  try{const t=await(await fetch("./index.html?v="+Date.now(),{cache:"no-store"})).text(),m=t.match(/const APPV="([^"]+)"/);
