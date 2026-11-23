@@ -28,7 +28,8 @@ const DN = ["یەکشەمب", "دووشەمب", "سێشەمب", "چارشەمب"
 const sb = createClient(SB_URL, SB_KEY, { auth: { persistSession: false } });
 const { error: ae } = await sb.auth.signInAnonymously();
 if (ae) throw ae;
-const day = wtoday(), d = addD(day, -1);
+const MODE = process.env.MODE || "daily";
+const day = wtoday(), d = MODE === "shift" ? day : addD(day, -1);
 const rows = async q => { const { data, error } = await q; if (error) throw error; return data || []; };
 const cfg = (await rows(sb.from("docs").select("data").eq("path", "app/config")))[0]?.data || {};
 const D = (await rows(sb.from("docs").select("data").eq("path", "days/" + d)))[0]?.data || {};
@@ -72,6 +73,7 @@ function scopeOf(u) {
 }
 
 const test = String(process.env.TEST) === "true";
+if (MODE === "shift" && !test) { await shiftMode(); process.exit(0); }
 let sent = 0, gone = 0;
 for (const r of subs) {
   const s = r.data || {}; if (!s.sub || !s.u) continue;
@@ -96,3 +98,41 @@ for (const r of subs) {
   }
 }
 console.log("groups", groups.length, "incomplete", groups.filter(g => g.miss).length, "sent", sent, "removed", gone);
+
+// ===== Shift mode: ~1 hour before a shift ends, remind the users the admin marked (⏰) about workers still without data =====
+async function shiftMode() {
+  const hrs = (Date.now() + 3 * 3600e3 - Date.parse(d + "T00:00:00Z")) / 36e5;
+  const ROLES = ["کرێکار", "هۆستا", "مراقب", "هۆستایێ بەشەکی"];
+  const roleOf = w => ROLES.includes(w.role) ? w.role : "کرێکار";
+  const isK = w => ["کرێکار", "هۆستایێ بەشەکی"].includes(roleOf(w));
+  const dayH = (w, c) => c.type === "day" ? (+c.h || 8) : (isK(w) ? 8 : 12);
+  const endOf = (w, c, sh) => c.type === "day" ? 8 + dayH(w, c)
+    : sh === "سپێدە" ? 8 + dayH(w, c) : sh === "ئێڤار" ? 16 + dayH(w, c) : sh === "شەڤ" ? 32
+    : sh === "شفتی 1" ? 20 : sh === "شفتی 2" ? 32 : null;
+  const pend = [];   // workers whose shift ends within the next ~2 hours and still have no data
+  for (const w of (cfg.workers || [])) {
+    if (outside(w) || dayOff(w) || hasData(w)) continue;
+    const c = secById(secOf(w)), a = A[w.id] || ["", "", ""], end = endOf(w, c, a[2]);
+    if (end == null || end <= hrs || end > hrs + 2) continue;
+    pend.push({ w, c, pl: a[1] || "", sh: a[2] || "", end });
+  }
+  console.log("shift mode", d, "hrs", hrs.toFixed(2), "pending", pend.length);
+  if (!pend.length) return;
+  let sent = 0;
+  for (const r of subs) {
+    const s = r.data || {}; if (!s.sub || !s.u) continue;
+    const x = users.find(v => v.u === s.u); if (!x || !x.shn) continue;
+    const L = pend.filter(p => (x.sec === "*" || p.c.id === (x.sec || "sabgh")) && (x.sadm || x.sec === "*" || !(x.pls || []).length || x.pls.includes(p.pl)));
+    if (!L.length) continue;
+    const shs = [...new Set(L.map(p => p.sh || p.c.name))].join("، ");
+    const mins = Math.max(0, Math.round((Math.min(...L.map(p => p.end)) - hrs) * 60));
+    const payload = {
+      title: `⏰ دەوامێ ${shs} د ناڤ ${mins >= 50 && mins <= 75 ? "1 دەمژمێرێ" : mins + " خولەکان"} دا ب دووماهی دهێت`,
+      body: `${L.length} کرێکار هێشتا داتا (هاتیە / نەهاتیە / مۆلەت) بۆ نەهاتیە داخلکرن:\n` + L.slice(0, 10).map(p => p.w.name + (p.w.code ? " (" + p.w.code + ")" : "")).join("، ") + (L.length > 10 ? ` +${L.length - 10}` : ""),
+      tag: "alko-shift-" + d + "-" + shs, url: APP
+    };
+    try { await webpush.sendNotification(s.sub, JSON.stringify(payload), { TTL: 3600 }); sent++; }
+    catch (e) { console.log("fail", s.u, e.statusCode); if (e.statusCode === 404 || e.statusCode === 410) await sb.from("docs").delete().eq("path", r.path); }
+  }
+  console.log("sent", sent);
+}

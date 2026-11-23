@@ -1,9 +1,15 @@
 name: Daily entry reminder
 on:
   schedule:
-    - cron: "17 6 * * *"   # 09:17 Baghdad — previous work day (8→8) is complete
+    - cron: "17 6 * * *"          # 09:17 Baghdad — yesterday's data (work day 8→8) is complete
+    - cron: "45 3,11,15,19 * * *" # 06:45 / 14:45 / 18:45 / 22:45 Baghdad — ~1h before shifts end (08/16/20/24)
   workflow_dispatch:
     inputs:
+      mode:
+        description: "daily or shift"
+        type: choice
+        options: [daily, shift]
+        default: daily
       test:
         description: "Send a test notification to every device"
         type: boolean
@@ -20,3 +26,4 @@ jobs:
         env:
           VAPID_PRIVATE: ${{ secrets.VAPID_PRIVATE }}
           TEST: ${{ inputs.test }}
+          MODE: ${{ github.event_name == 'schedule' && (github.event.schedule == '17 6 * * *' && 'daily' || 'shift') || inputs.mode }}
