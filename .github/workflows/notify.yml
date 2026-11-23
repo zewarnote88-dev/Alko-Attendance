@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with: { node-version: 20 }
+        with: { node-version: 22 }
       - run: npm i --no-save --prefix .github/notify @supabase/supabase-js@2 web-push@3
       - run: node .github/notify/notify.mjs
         env:
