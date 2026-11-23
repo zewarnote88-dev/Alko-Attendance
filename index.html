@@ -734,6 +734,17 @@ tr.prr{background:color-mix(in srgb,#16a34a 7%,var(--card))}
 html[data-style="dash"] #dtb .prb{background:#fff!important;color:#64748b!important;border:1px solid var(--bd)!important}
 html[data-style="dash"] #dtb .prb.on{background:#16a34a!important;color:#fff!important;border-color:#16a34a!important}
 .sabox{border-radius:14px;padding:10px 14px;margin:0 0 10px;background:color-mix(in srgb,#f59e0b 14%,var(--card));border:1px solid color-mix(in srgb,#f59e0b 50%,var(--bd));font-size:13px;line-height:1.7}
+.ent{border-radius:16px;padding:12px 14px;margin:0 0 12px;background:var(--card);border:1px solid var(--bd);font-size:13px}
+.ent .eh{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px}.ent .eh b{font-size:15px}
+.ent .etb{display:flex;gap:4px}.ent .etb button{padding:4px 12px;border-radius:999px;font-size:12px}
+.ent .es{font-weight:800;margin:10px 0 4px;opacity:.8}
+.ent .er{border:1px solid var(--bd);border-radius:12px;padding:8px 10px;margin:6px 0;background:color-mix(in srgb,var(--card) 92%,#fff)}
+.ent .er.ok{border-color:color-mix(in srgb,#10b981 45%,var(--bd))}.ent .er.pt{border-color:color-mix(in srgb,#f59e0b 60%,var(--bd));background:color-mix(in srgb,#f59e0b 8%,var(--card))}.ent .er.no{border-color:color-mix(in srgb,#ef4444 60%,var(--bd));background:color-mix(in srgb,#ef4444 8%,var(--card))}
+.ent .et{display:flex;justify-content:space-between;gap:8px;align-items:center}.ent .et b{font-size:14px}
+.ent .ebar{height:6px;border-radius:9px;background:color-mix(in srgb,var(--mu) 20%,transparent);margin:6px 0 4px;overflow:hidden}.ent .ebar i{display:block;height:100%;border-radius:9px}
+.ent .eu{font-size:12px;opacity:.85}.ent details{margin-top:4px;font-size:12px}.ent summary{cursor:pointer;font-weight:700}
+#bell{position:relative}#bell .bn{position:absolute;top:-6px;inset-inline-end:-6px;background:#ef4444;color:#fff;border-radius:999px;font-size:10px;font-weight:800;min-width:17px;height:17px;line-height:17px;text-align:center;padding:0 3px}
+#entq{position:fixed;inset:0;z-index:90;background:rgba(15,23,42,.45);display:flex;align-items:center;justify-content:center;padding:16px}#entq.hide{display:none}#entq .acbox{max-width:520px;width:100%;max-height:85vh;overflow:auto}
 .sabox.late{background:color-mix(in srgb,#ef4444 12%,var(--card));border-color:color-mix(in srgb,#ef4444 50%,var(--bd))}
 .san{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 8px}
 .sac{background:var(--card);border:1px solid var(--bd);border-radius:999px;padding:1px 10px;font-size:12px;font-weight:600}
@@ -875,7 +886,7 @@ body.sadm .gonly{display:none!important}
 </form></div>
 <main>
 <header class="top"><div class="brand"><div class="logo bml"><span>A</span></div><div><h1>غیابا کرێکاران</h1><span class="ownb" title="ئەدمینێ سەرەکی">👑 ئەدمین: <b dir="ltr">Zewar</b></span><p class="sub"><b class="alkot">ALKO</b> Company · <span id="secn">غیاب، زێدە و ڕێکخستنا هەفتیێ</span></p></div></div>
-<div class="ub"><select id="secsel" class="secsel hide" title="بەش"></select><span id="net"></span><span id="who"></span><button id="cbt" class="ghost" type="button" title="ڕەنگ و دیزاین"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.8-.8 1.8-1.8 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-1 .8-1.8 1.8-1.8H17a4 4 0 0 0 4-4C21 6.6 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.2"/><circle cx="10" cy="7" r="1.2"/><circle cx="15" cy="7" r="1.2"/></svg></button><button id="th" class="ghost thb" type="button">🌙</button><button id="lo" class="ghost"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="M10 17l-5-5 5-5M5 12h11"/></svg><span class="dl"> دەرکەتن</span></button></div></header>
+<div class="ub"><select id="secsel" class="secsel hide" title="بەش"></select><span id="net"></span><span id="who"></span><button id="bell" class="ghost hide" type="button" title="ئاگەهداری: کێ داتا نەداخل کریە">🔔<span class="bn hide" id="belln"></span></button><button id="cbt" class="ghost" type="button" title="ڕەنگ و دیزاین"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.8-.8 1.8-1.8 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-1 .8-1.8 1.8-1.8H17a4 4 0 0 0 4-4C21 6.6 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.2"/><circle cx="10" cy="7" r="1.2"/><circle cx="15" cy="7" r="1.2"/></svg></button><button id="th" class="ghost thb" type="button">🌙</button><button id="lo" class="ghost"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="M10 17l-5-5 5-5M5 12h11"/></svg><span class="dl"> دەرکەتن</span></button></div></header>
 <div class="tabs"><button id="t0" class="off" title="سەرەکی"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></i></button><button id="t1" title="ڕۆژانە"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2.5"/><path d="M9 4V2.8h6V4"/><path d="m9 13 2 2 4-4.5"/></svg></i><span> ڕۆژانە</span></button><button id="t2" class="off" title="مانگانە"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M16 3v4M8 3v4M3 10h18"/><path d="M7.5 14h.01M12 14h.01M16.5 14h.01M7.5 17.5h.01M12 17.5h.01"/></svg></i><span> مانگانە</span></button><button id="t3" class="off" title="کرێکار"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-6 6.5-6s5.9 2.4 6.5 6"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.3c1.9.8 3.2 2.9 3.5 5.7"/></svg></i><span> کرێکار</span></button><button id="t4" class="off" title="ڕێکخستنا هەفتیێ"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M3 9h18M9 21V9"/><path d="M13 13h4M13 17h2.5"/></svg></i><span> ڕێکخستنا هەفتیێ</span></button><button id="t5" class="off" title="کورتکرنا هەفتیێ"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6" rx="1"/><rect x="12" y="8" width="3" height="10" rx="1"/><rect x="17" y="5" width="3" height="13" rx="1"/></svg></i><span> کورتکرنا هەفتیێ</span></button><button id="t6" class="off" title="غیابا هەفتیێ"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2.5"/><path d="M3 9h18M8 2v4M16 2v4"/><path d="m10 12.5 4 4m0-4-4 4"/></svg></i><span> غیابا هەفتیێ</span></button><button id="t7" class="off hide" title="بەکارهێنەر"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4.5 6v6c0 4.8 3.3 7.8 7.5 9 4.2-1.2 7.5-4.2 7.5-9V6z"/><path d="m9 12 2 2 4-4"/></svg></i><span> بەکارهێنەر</span></button></div>
 <div class="srch hide"><span>🔍</span><input id="q" type="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" inputmode="search" placeholder="گەڕیان ب ناڤ یان کۆد ..."><button id="qx" class="off hide" title="پاقژکرن">✕</button><small id="qn"></small></div>
 <div id="msg"></div>
@@ -1037,6 +1048,7 @@ body.sadm .gonly{display:none!important}
  <div class="pab-c"><label>دەمژمێر<input type="number" id="pabh" min="0" max="24" step="1" inputmode="numeric" placeholder="0"></label><label>خولەک<input type="number" id="pabm" min="0" max="59" step="5" inputmode="numeric" placeholder="0"></label><button type="button" id="pabok">✓ دانان</button></div>
  <button type="button" class="off pab-clr" data-pq="0">🗑 لابرن (هاتیە ب دەمێ خۆ)</button>
 </div></div>
+<div id="entq" class="hide"><div class="acbox"><div class="cph"><b>🔔 ئاگەهداریا داخلکرنێ</b><button type="button" class="off" id="entx">✕</button></div><div id="entb"></div></div></div>
 <div id="lvq" class="hide"><div class="acbox lvqbox" id="lvqb"></div></div>
 <div id="dwp" class="hide"><form class="acbox" onsubmit="return false">
  <div class="cph"><b id="dwt">🗑 ژێبرنا کرێکاری</b><button type="button" class="off" id="dwx">✕</button></div>
@@ -1081,9 +1093,9 @@ function sbDB(sb){
  const init=()=>ready||(ready=(async()=>{
   sb.channel("docs-live").on("postgres_changes",{event:"*",schema:"public",table:"docs"},pl=>{
    if(pl.eventType==="DELETE"){const p=pl.old&&pl.old.path;if(p&&cache.has(p)){cache.delete(p);notify(p)}return}
-   const r=pl.new;if(!r||!r.path||/^(log|bak)\//.test(r.path))return;if(pend[r.path]){stale[r.path]=1;return}cache.set(r.path,r.data);notify(r.path);
+   const r=pl.new;if(!r||!r.path||/^(log|bak|push)\//.test(r.path))return;if(pend[r.path]){stale[r.path]=1;return}cache.set(r.path,r.data);notify(r.path);
   }).subscribe();
-  const {data,error}=await sb.from("docs").select("path,data").not("path","like","log/%").not("path","like","bak/%");
+  const {data,error}=await sb.from("docs").select("path,data").not("path","like","log/%").not("path","like","bak/%").not("path","like","push/%");
   if(error)throw error;
   data.forEach(r=>cache.set(r.path,r.data));
  })());
@@ -1292,6 +1304,7 @@ function enter(){
  if(first){show(first);msg("")}else{["0","1","2","3","4","5","6","7"].forEach(k=>$("p"+k).classList.add("hide"));document.querySelector(".srch").classList.add("hide");msg(FRU()?"🔒 تو تنێ دشێی ژ پێنجشەمب ١٢ێ شەڤێ هەتا شەمبی ٨ێ سپێدێ پرۆگرامی بکاربینی.":"هێشتا چ دەستهەلات بۆ تە نەهاتینە دان. پەیوەندیێ ب ئەدمینی بکە.")}
  if(ADMQ())renderU();
  renderAW();
+ try{renderEnt()}catch(e){}if(!enter.ep){enter.ep=1;setTimeout(()=>{try{entPop(false)}catch(e){console.error(e)}},2500)}
 }
 function renderU(){
  if(!ADMQ())return;
@@ -1711,7 +1724,7 @@ const inR=(w,a,b)=>!(w.end&&w.end<a)&&!(w.start&&w.start>b);
 // summaries/exports: also keep a worker who quit on the very first day of the period, so the whole period shows black (ترك العمل)
 const inRq=(w,a,b)=>inR(w,addD(a,-1),b);
 const inWk=(w,w0)=>{const D=wkIds(w0);return inR(w,D[0],D[6])};
-const all=()=>{renderHome();qInfo();renderW();renderD();renderM();renderA();renderS();renderX()};
+const all=()=>{renderHome();try{renderEnt()}catch(e){console.error(e)}qInfo();renderW();renderD();renderM();renderA();renderS();renderX()};
 
 const ICO={"0": "<path d=\"M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z\"/>", "1": "<rect x=\"5\" y=\"4\" width=\"14\" height=\"17\" rx=\"2.5\"/><path d=\"M9 4V2.8h6V4\"/><path d=\"m9 13 2 2 4-4.5\"/>", "2": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2.5\"/><path d=\"M16 3v4M8 3v4M3 10h18\"/><path d=\"M7.5 14h.01M12 14h.01M16.5 14h.01M7.5 17.5h.01M12 17.5h.01\"/>", "3": "<circle cx=\"9\" cy=\"8\" r=\"3.5\"/><path d=\"M2.5 20c.6-3.6 3.2-6 6.5-6s5.9 2.4 6.5 6\"/><path d=\"M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.3c1.9.8 3.2 2.9 3.5 5.7\"/>", "4": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2.5\"/><path d=\"M3 9h18M9 21V9\"/><path d=\"M13 13h4M13 17h2.5\"/>", "5": "<path d=\"M3 3v18h18\"/><rect x=\"7\" y=\"12\" width=\"3\" height=\"6\" rx=\"1\"/><rect x=\"12\" y=\"8\" width=\"3\" height=\"10\" rx=\"1\"/><rect x=\"17\" y=\"5\" width=\"3\" height=\"13\" rx=\"1\"/>", "6": "<rect x=\"3\" y=\"4\" width=\"18\" height=\"17\" rx=\"2.5\"/><path d=\"M3 9h18M8 2v4M16 2v4\"/><path d=\"m10 12.5 4 4m0-4-4 4\"/>", "7": "<path d=\"M12 3 4.5 6v6c0 4.8 3.3 7.8 7.5 9 4.2-1.2 7.5-4.2 7.5-9V6z\"/><path d=\"m9 12 2 2 4-4\"/>"},ico=k=>`<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${ICO[k]}</svg>`;
 const HO=["1","6","5","4","2","3","7"],HT={"1":["📝","ڕۆژانە","غیاب و زێدەیێ ئەڤرۆ"],"6":["📋","غیابا هەفتیێ","هەمی ٧ ڕۆژان ب جارەکێ"],"5":["📊","کورتکرنا هەفتیێ","کۆما غیاب و زێدەیێ"],"4":["🧭","ڕێکخستنا هەفتیێ","جه، دەوام و مۆلەت"],"2":["📅","مانگانە","خشتەیێ مانگێ"],"3":["👷","کرێکار","زێدەکرن و گوهۆڕین"],"7":["🔐","بەکارهێنەر","دەستهەلات و پاشکەفت"]};
@@ -1732,11 +1745,86 @@ function renderHome(){
  const d=wtoday(),act=SW().filter(w=>!outside(w,d)),ab=act.filter(w=>(S.abs[w.id+"_"+d]||0)>0).length,lv=act.filter(w=>S.lv[w.id+"_"+d]).length;
  el.innerHTML=`<div class="hhi">سڵاڤ <b dir="ltr">${esc(ME.u)}</b> 👋 <small>${DN[new Date(d+"T00:00:00").getDay()]} ${d}</small></div>
  <div id="hsa">${saHTML()}</div>
+ <div id="hent">${entHTML()}</div>
  <div class="dkp">${kpiHTML(d)}</div>
  <div class="kpis hk"><div class="kpi"><span>کرێکار</span><b>${act.length}</b></div><div class="kpi"><span>نەهاتی ئەڤرۆ</span><b class="${ab?"bad":"ok"}">${ab}</b></div><div class="kpi"><span>مۆلەت ئەڤرۆ</span><b>${lv}</b></div></div>
  <div class="tiles">${HO.filter(can).map(k=>`<button class="tile" data-k="${k}"><span class="ti tc${k}">${ico(k)}</span><b>${HT[k][1]}</b><small>${HT[k][2]}</small></button>`).join("")}</div>`;
 }
 document.addEventListener("click",e=>{const t=e.target.closest(".tile");if(t)$("t"+t.dataset.k).click()});
+// ===== Daily entry monitor: which section / machine / shift has not entered today's data, and who is responsible =====
+const ENTV=()=>!!ME&&!FRU()&&(ADMQ()||ME.sec==="*");
+let ENTD=0;
+function entGroups(d){
+ const allS=ME.admin||ME.sec==="*",secs=allS?SECS():SECS().filter(c=>c.id===(ME.sec||"sabgh")),out=[];
+ secs.forEach(c=>{
+  const WS=S.workers.filter(w=>secOf(w)===c.id&&!outside(w,d)&&!dayOff(w,d));if(!WS.length)return;
+  const U=S.users.filter(u=>(u.sec||"sabgh")===c.id&&(u.sadm||(u.perms||[]).includes("1"))),byPl=U.some(u=>(u.pls||[]).length),sh=c.type!=="day",G=new Map();
+  WS.forEach(w=>{const a=asgOf(w,d),g=byPl?(a[1]||"بێ جه"):sh?(a[2]||"بێ شفت"):"";if(!G.has(g))G.set(g,[]);G.get(g).push(w)});
+  [...G.keys()].sort((a,b)=>sh&&!byPl?SH3.indexOf(a)-SH3.indexOf(b):COLL.compare(a,b)).forEach(g=>{const L=G.get(g),miss=L.filter(w=>!hasData(w,d)),who=new Set();
+   L.forEach(w=>{const k=w.id+"_"+d;[S.bp,S.by,S.bl].forEach(o=>{if(o&&o[k]&&o[k]!=="Excel")who.add(o[k])})});
+   out.push({sec:c,g,n:L.length,miss,who:[...who],resp:U.filter(u=>!byPl||!(u.pls||[]).length||u.pls.includes(g)).map(u=>u.u)})});
+ });
+ return out;
+}
+const entDay=i=>addD(wtoday(),-i);
+function entHTML(){
+ if(!ENTV())return"";
+ const d=entDay(ENTD),G=entGroups(d);if(!G.length)return"";
+ const bad=G.filter(x=>x.miss.length).length;let lastS="";
+ return`<div class="ent"><div class="eh"><b>📋 چاڤدێریا داخلکرنێ</b><span class="etb"><button type="button" class="entt${ENTD===0?"":" off"}" data-i="0">ئەڤرۆ</button><button type="button" class="entt${ENTD===1?"":" off"}" data-i="1">دوهی</button><button type="button" class="entt${ENTD===2?"":" off"}" data-i="2">پێردێ</button></span></div>
+ <div class="eu">${DN[new Date(d+"T00:00:00").getDay()]} <b dir="ltr">${d.slice(5).split("-").reverse().join("/")}</b> · ${bad?`<b class="bad">${bad}</b> ژ ${G.length} کۆمان داتا نەتەمامە`:`✅ هەمی کۆم ب تەمامی هاتینە داخلکرن`}</div>
+ ${G.map(x=>{const dn=x.n-x.miss.length,pc=Math.round(dn/x.n*100),st=!x.miss.length?"ok":dn?"pt":"no",col=st==="ok"?"#10b981":st==="pt"?"#f59e0b":"#ef4444";
+  const hd=x.sec.id!==lastS?(lastS=x.sec.id,`<div class="es">🏭 ${esc(x.sec.name)}</div>`):"";
+  return hd+`<div class="er ${st}"><div class="et"><b>${st==="ok"?"✅":st==="pt"?"🟠":"🔴"} ${esc(x.g||x.sec.name)}</b><span><b>${dn}</b> / ${x.n}</span></div><div class="ebar"><i style="width:${pc}%;background:${col}"></i></div>
+  <div class="eu">👤 بەرپرسیار: ${x.resp.length?x.resp.map(u=>`<b dir="ltr">${esc(u)}</b>`).join("، "):"<i>چ بەکارهێنەر نینن</i>"}${x.who.length?` · ✍ داخل کری: ${x.who.map(u=>`<b dir="ltr">${esc(u)}</b>`).join("، ")}`:x.miss.length===x.n?` · <b class="bad">چ کەسی چ تشت داخل نەکریە</b>`:""}</div>
+  ${x.miss.length?`<details><summary>${x.miss.length} کرێکار بێ داتا</summary><div class="san">${x.miss.slice(0,40).map(w=>`<span class="sac">${esc(w.name)}${w.code?" <small>("+esc(w.code)+")</small>":""}</span>`).join("")}${x.miss.length>40?`<span class="sac">+${x.miss.length-40}</span>`:""}</div></details>`:""}</div>`}).join("")}</div>`;
+}
+function renderEnt(){
+ $("bell").classList.toggle("hide",!ME||FRU());const v=ENTV();if(!v){$("belln").classList.add("hide");return}
+ const n=entGroups(entDay(1)).filter(x=>x.miss.length).length;$("belln").textContent=n;$("belln").classList.toggle("hide",!n);
+ const el=$("hent");if(el){const h=entHTML();if(el.innerHTML!==h)el.innerHTML=h}
+}
+function entPop(force){
+ if(!ME)return;if(!ENTV()){if(force){$("entb").innerHTML=`<p>تە دێ ئاگەهداری ل سەر مۆبایلێ بۆ هێت ئەگەر داتایا دوهی یا کۆما تە نەتەمام بیت.</p><div id="pushc"></div>`;$("entq").classList.remove("hide");pushUI()}return}
+ const d=entDay(1),G=entGroups(d).filter(x=>x.miss.length),key="entPop_"+ME.u;
+ if(!force){if(!G.length)return;try{if(localStorage.getItem(key)===wtoday())return;localStorage.setItem(key,wtoday())}catch(e){}}
+ const sv=ENTD;ENTD=1;$("entb").innerHTML=G.length?`<p style="margin:4px 0 8px">دوهی (<b dir="ltr">${d.slice(5).split("-").reverse().join("/")}</b>) ئەڤ کۆمە داتایا وان نەتەمامە:</p>`+entHTML().replace(/<div class="eh">[\s\S]*?<\/div>/,""):`<p>✅ دوهی هەمی کۆمان داتا ب تەمامی داخل کریە.</p>`;$("entb").insertAdjacentHTML("afterbegin",'<div id="pushc"></div>');ENTD=sv;pushUI();
+ $("entq").classList.remove("hide");
+}
+// ===== Phone notifications (Web Push). Subscriptions are stored at docs "push/<user>_<device>"; a daily GitHub Action sends them. =====
+const VAPID_PUB="BDfsd6KRd4wqVAzJ5D6-FDB4CLIZCTt9N3L-LNoOA2GFz_i_-YhoHjs3_MPu5_t4gUaqvrnisOuL7O0yzhh2JGg";
+const pushOK=()=>"serviceWorker" in navigator&&"PushManager" in window&&"Notification" in window&&location.protocol==="https:";
+const isIOS=()=>/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+const isPWA=()=>matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+const b64u=s=>{const p="=".repeat((4-s.length%4)%4),r=atob((s+p).replace(/-/g,"+").replace(/_/g,"/"));return Uint8Array.from(r,c=>c.charCodeAt(0))};
+const pushPath=s=>{let h=5381;for(const c of s.endpoint)h=(h*33^c.charCodeAt(0))>>>0;return"push/"+ME.u+"_"+h.toString(36)};
+async function pushSub(){if(!pushOK())return null;const r=await navigator.serviceWorker.ready;return r.pushManager.getSubscription()}
+async function pushUI(){
+ const el=$("pushc");if(!el)return;
+ const box=h=>`<div class="sabox" style="background:color-mix(in srgb,#6366f1 10%,var(--card));border-color:color-mix(in srgb,#6366f1 45%,var(--bd))">${h}</div>`;
+ if(isIOS()&&!isPWA()){el.innerHTML=box(`📱 <b>ئاگەهداری ل سەر iPhone:</b> ئێکەم جار ئەپی بکە ل سەر شاشا سەرەکی: <b>Share ⬆</b> ← <b>Add to Home Screen</b>، پاشی ئەپی ژ وێ ئایکۆنێ ڤەکە و ڤێرێ ڤەگەڕە.`);return}
+ if(!pushOK()){el.innerHTML=box("📵 ئەڤ براوسەرە ئاگەهداریان پشتگیری ناکەت. Chrome بکاربینە.");return}
+ if(Notification.permission==="denied"){el.innerHTML=box("🚫 ئاگەهداری بۆ ڤی ئەپی هاتینە ڕاگرتن. ژ ڕێکخستنێن مۆبایلێ (Settings ← Notifications) ڕێ بدە، پاشی دووبارە هەول بدە.");return}
+ let s=null;try{s=await pushSub()}catch(e){}
+ el.innerHTML=box(s?`✅ <b>ئاگەهداری ل سەر ڤی مۆبایلی چالاکە.</b><br><small>هەر ڕۆژ نێزیکی دەمژمێر 9ێ سپێدێ، ئەگەر داتایا دوهی نەتەمام بیت، ئاگەهداری دێ هێت.</small><div class="bar" style="margin:8px 0 0"><button type="button" id="pusht" class="sec">🧪 تاقیکرن</button><button type="button" id="pushoff" class="off">ڕاگرتن</button></div>`
+  :`📱 <b>ئاگەهداریا ڕۆژانە ل سەر مۆبایلێ</b><br><small>هەر ڕۆژ نێزیکی دەمژمێر 9ێ سپێدێ، ئەگەر کەسەکی داتایا دوهی داخل نەکربیت، دێ ئاگەهداری بۆ تە هێت.</small><div class="bar" style="margin:8px 0 0"><button type="button" id="pushon">🔔 چالاک بکە</button></div>`);
+}
+async function pushOn(){
+ try{
+  if(!DB||!DB.put){msg("ئینتەرنێت پێتڤی یە");return}
+  const p=await Notification.requestPermission();if(p!=="granted"){pushUI();return}
+  const r=await navigator.serviceWorker.ready;let s=await r.pushManager.getSubscription();
+  if(!s)s=await r.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64u(VAPID_PUB)});
+  await DB.put(pushPath(s),{u:ME.u,sub:s.toJSON(),ua:navigator.userAgent.slice(0,140),at:new Date().toISOString()});
+  msg("✅ ئاگەهداری ل سەر ڤی مۆبایلی چالاک بوو");pushUI();
+ }catch(e){console.error(e);msg("چالاککرنا ئاگەهداریێ سەرنەکەفت: "+(e&&e.message||e))}
+}
+async function pushOff(){try{const s=await pushSub();if(s){await DB.put(pushPath(s),{u:ME.u,off:1,at:new Date().toISOString()});await s.unsubscribe()}msg("ئاگەهداری هاتنە ڕاگرتن");pushUI()}catch(e){console.error(e)}}
+async function pushTest(){try{const r=await navigator.serviceWorker.ready;await r.showNotification("🔔 تاقیکرن · ALKO",{body:"ئاگەهداری ب ڤی ڕەنگی دێ دیار بن ✅",icon:"icon-192.png",dir:"rtl",lang:"ckb",tag:"alko-test"})}catch(e){msg("تاقیکرن سەرنەکەفت: "+(e&&e.message||e))}}
+document.addEventListener("click",e=>{if(e.target.closest("#pushon"))pushOn();else if(e.target.closest("#pushoff"))pushOff();else if(e.target.closest("#pusht"))pushTest()});
+document.addEventListener("click",e=>{const b=e.target.closest(".entt");if(b){ENTD=+b.dataset.i;renderEnt();return}
+ if(e.target.closest("#bell")){entPop(true);return}
+ if(e.target.id==="entq"||e.target.closest("#entx"))$("entq").classList.add("hide")});
 function qInfo(){const q=$("q").value.trim();$("qx").classList.toggle("hide",!q);$("qn").textContent=q?W().length+" ژ "+SW().length+" کرێکاران":""}
 function renderW(){
  $("wl").innerHTML=S.workers.map((w,i)=>!qm(w)?"":`<tr><td>${i+1}</td><td><input class="ed edc" data-i="${i}" data-f="code" value="${esc(w.code||"").replace(/"/g,"&quot;")}" title="کلیک بکە بۆ گوهۆڕینێ"></td><td class="nm"><input class="ed edn" data-i="${i}" data-f="name" value="${esc(w.name).replace(/"/g,"&quot;")}" title="کلیک بکە بۆ گوهۆڕینێ"></td><td><select class="rl2" data-i="${i}">${ROLES.map(r=>`<option${r===roleOf(w)?" selected":""}>${r}</option>`).join("")}</select></td><td><input type="date" class="dd" data-i="${i}" data-f="start" value="${w.start||""}"></td><td><input type="date" class="dd" data-i="${i}" data-f="end" value="${w.end||""}"></td><td><button class="sec" data-wp="${w.id}" title="دیرۆکا کرێکاری">📄</button> <button class="off" data-d="${i}">ژێبرن</button></td></tr>`).join("")||(S.workers.length?'<tr><td colspan="7">چ ئەنجام بۆ گەڕیانێ نینن</td></tr>':'')||'<tr><td colspan="7">هێشتا چ کرێکار نەهاتینە زێدەکرن</td></tr>';
@@ -2905,12 +2993,12 @@ setInterval(()=>{try{renderSA()}catch(e){}if(ME&&FRU()){const fw=fwin();if(FWS!=
  if($("ws").value===addD(aKey(old),-1)&&aKey(t)!==aKey(old)){$("ws").value=addD(aKey(t),-1);if(!typing())renderA()}
  [["sw",renderS],["xw",renderX]].forEach(([id,f])=>{if($(id).value===weekOf(old)&&weekOf(t)!==weekOf(old)){$(id).value=weekOf(t);if(!typing())f()}});
  if($("mo").value===old.slice(0,7)&&t.slice(0,7)!==old.slice(0,7)){$("mo").value=t.slice(0,7);renderM()}
- renderHome()},30000);
+ renderHome();try{renderEnt()}catch(e){}},30000);
 document.querySelectorAll("#login .eye").forEach(b=>b.onclick=()=>{const i=$(b.dataset.for),v=i.type==="password";i.type=v?"text":"password";b.classList.toggle("on",v);i.focus()});
 showLogin();all();load();
 if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
 // ===== new-version check: tell open pages when a newer version is published =====
-const APPV="2026.11.23-1";
+const APPV="2026.11.23-3";
 async function chkVer(){
  if(location.protocol!=="https:")return;
  try{const t=await(await fetch("./index.html?v="+Date.now(),{cache:"no-store"})).text(),m=t.match(/const APPV="([^"]+)"/);

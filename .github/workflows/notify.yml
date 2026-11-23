@@ -1,0 +1,22 @@
+name: Daily entry reminder
+on:
+  schedule:
+    - cron: "17 6 * * *"   # 09:17 Baghdad — previous work day (8→8) is complete
+  workflow_dispatch:
+    inputs:
+      test:
+        description: "Send a test notification to every device"
+        type: boolean
+        default: false
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      - run: npm i --no-save --prefix .github/notify @supabase/supabase-js@2 web-push@3
+      - run: node .github/notify/notify.mjs
+        env:
+          VAPID_PRIVATE: ${{ secrets.VAPID_PRIVATE }}
+          TEST: ${{ inputs.test }}
