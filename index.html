@@ -1047,7 +1047,7 @@ html[data-style="taste"][data-font="vazir"]{--ff:"Vazirmatn","Noto Sans Arabic",
 html[data-style="taste"][data-font="kufi"]{--ff:"Noto Kufi Arabic","Noto Sans Arabic",Tahoma,sans-serif}
 html[data-style="taste"] .kpi b,html[data-style="taste"] .wn,html[data-style="taste"] h1,html[data-style="taste"] h2{letter-spacing:0}
 html[data-style="taste"] .kpi:nth-child(1) b{color:var(--ac)}
-#secbar{padding:0 0 10px}#secbar.hide{display:none}#secbar select{max-width:none!important;width:100%;min-height:42px;background:var(--card)!important;color:var(--tx)!important;border:1px solid var(--bd)!important;border-radius:12px!important;font-weight:700}
+#secbar{padding:0 0 10px}#secbar.hide,#secbar:not(:has(select:not(.hide))){display:none}#secbar select{max-width:none!important;width:100%;min-height:42px;background:var(--card)!important;color:var(--tx)!important;border:1px solid var(--bd)!important;border-radius:12px!important;font-weight:700}
 </style>
 <style id="fsz">html[data-fs="s"] body{zoom:.9}html[data-fs="l"] body{zoom:1.1}#cpop .fpk button.on{outline:2px solid var(--ac);outline-offset:-2px}</style>
 <style id="logo">
@@ -1508,7 +1508,7 @@ $("lo").onclick=()=>{ses("");remSet(null);ME=null;renderAW();$("lu").value="";sh
 // ===== phone bottom bar for the "نوی" style: up to 5 slots, the rest in a sheet =====
 const TSHORT={0:"سەرەکی",1:"ڕۆژانە",2:"مانگانە",3:"کرێکار",4:"ڕێکخستن",5:"کورتی",6:"غیابا هەفتیێ",7:"ئەدمین"},TPRI=["0","1","6","5","2","4","3","7"];
 function secRow(){const sel=$("secsel"),top=document.querySelector("header.top");if(!sel||!top)return;const ph=innerWidth<=700;let bar=$("secbar");
- if(ph){if(!bar){bar=document.createElement("div");bar.id="secbar";top.after(bar)}if(sel.parentNode!==bar)bar.appendChild(sel);bar.classList.toggle("hide",sel.classList.contains("hide"))}
+ if(ph){if(!bar){bar=document.createElement("div");bar.id="secbar";top.after(bar)}if(sel.parentNode!==bar)bar.appendChild(sel);bar.classList.remove("hide")}
  else if(bar&&sel.parentNode===bar){document.querySelector(".ub").prepend(sel);bar.classList.add("hide")}}
 addEventListener("resize",()=>{try{secRow()}catch(e){}});
 function tasteNav(){try{secRow()}catch(e){}
