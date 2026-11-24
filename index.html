@@ -5,7 +5,7 @@
 <meta name="color-scheme" content="only light">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png">
-<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 
@@ -265,7 +265,7 @@ details.help>div{line-height:1.9}
  #dnx button{width:100%}
 }
 </style>
-<script>try{if(localStorage.getItem("absMig")!=="4"){Object.keys(localStorage).forEach(function(k){if(k==="absTheme"||k.indexOf("absStyle")===0)localStorage.removeItem(k)});localStorage.setItem("absMig","4")}document.documentElement.dataset.theme=localStorage.getItem("absTheme")||"light";var _s=localStorage.getItem("absStyle")||"taste";if(_s==="dash")_s="flat";document.documentElement.dataset.style=_s;if(_s==="alko")document.documentElement.dataset.theme="dark";if(_s==="taste"){var _t=localStorage.getItem("absTColor")||"sand";document.documentElement.dataset.theme=(_t==="night"||_t==="coal")?"dark":"light"}if(_s==="dash")document.documentElement.dataset.theme="light"}catch(e){document.documentElement.dataset.theme="light"}</script>
+<script>try{if(localStorage.getItem("absMig")!=="4"){Object.keys(localStorage).forEach(function(k){if(k==="absTheme"||k.indexOf("absStyle")===0)localStorage.removeItem(k)});localStorage.setItem("absMig","4")}document.documentElement.dataset.theme=localStorage.getItem("absTheme")||"light";var _s=localStorage.getItem("absStyle")||"taste";if(_s==="dash")_s="flat";document.documentElement.dataset.style=_s;if(_s==="alko")document.documentElement.dataset.theme="dark";if(_s==="taste"){var _t=localStorage.getItem("absTColor")||"blue";document.documentElement.dataset.theme=(_t==="night"||_t==="navy")?"dark":"light";document.documentElement.dataset.font=localStorage.getItem("absFont")||"nsans";document.documentElement.dataset.fs=localStorage.getItem("absFs")||"m"}if(_s==="dash")document.documentElement.dataset.theme="light"}catch(e){document.documentElement.dataset.theme="light"}</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style id="mobile-compact">
 @media (max-width:700px){
@@ -878,14 +878,14 @@ body.sadm .gonly{display:none!important}
 html[data-style="taste"]{--r-sm:8px;--r-md:12px;--r-lg:20px;--okc:var(--t-ok);--bad:var(--t-no);--lvc:var(--t-lv);--subc:var(--t-sub);--hl:var(--t-no-t);--sh:none;--rowalt:transparent;
  --t-ok:#17804a;--t-no:#c42b1c;--t-lv:#9a5b00;--t-sub:#0d7377;--t-ok-t:#d8e6cf;--t-no-t:#f1d2c6;--t-lv-t:#efdcb6;--t-sub-t:#cfe2d9;--t-ot-t:color-mix(in srgb,var(--ac) 16%,var(--card));background:var(--bg)!important}
 html[data-style="taste"][data-theme="dark"]{--t-ok:#4cc38a;--t-no:#ff7a66;--t-lv:#f0b44c;--t-sub:#3cc3b7;--t-ok-t:rgba(76,195,138,.18);--t-no-t:rgba(255,122,102,.18);--t-lv-t:rgba(240,180,76,.18);--t-sub-t:rgba(60,195,183,.2)}
-html[data-style="taste"] body{background:var(--bg)!important;background-image:none!important;color:var(--tx);font-size:15px}
+html[data-style="taste"] body{background:var(--bg)!important;background-image:none!important;color:var(--tx);font-size:14px;line-height:1.6}
 html[data-style="taste"] body::before,html[data-style="taste"] .top::after{display:none!important}
-html[data-style="taste"] :where(body,h1,h2,h3,button,input,select,textarea,th,td,.kpi b,.tabs button){font-family:"Vazirmatn","Noto Kufi Arabic",Tahoma,sans-serif!important}
+html[data-style="taste"] :where(body,h1,h2,h3,button,input,select,textarea,th,td,.kpi b,.tabs button){font-family:var(--ff)!important}
 html[data-style="taste"] body #dtb :where(tbody tr,tfoot tr),html[data-style="taste"] :where(.card,.tabs,.srch,.kpi,.tile,details.help,.dfl,#cpop,.warnbox,.amok,.xact,.xtool,.ent,.sabox,.lkbar,.ntbox,.lgc){background:var(--card)!important;border:1px solid var(--bd)!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
 html[data-style="taste"] .card,html[data-style="taste"] .ent,html[data-style="taste"] .lgc{border-radius:var(--r-lg)!important}
 /* header: flat, ground colour, one hairline */
-html[data-style="taste"] .top{background:var(--bg)!important;color:var(--tx)!important;border:0!important;border-bottom:1px solid var(--bd)!important;border-radius:0!important;box-shadow:none!important;margin:0 -16px 14px;padding:10px 16px}
-html[data-style="taste"] main .top h1{color:var(--tx)!important;font-size:18px;font-weight:700}
+html[data-style="taste"] .top{background:var(--card)!important;box-shadow:inset 0 -3px 0 var(--ac)!important;color:var(--tx)!important;border:0!important;border-bottom:1px solid var(--bd)!important;border-radius:0!important;box-shadow:none!important;margin:0 -16px 14px;padding:10px 16px}
+html[data-style="taste"] main .top h1{color:var(--tx)!important;font-size:16px;font-weight:700}
 html[data-style="taste"] .top .sub,html[data-style="taste"] .ownb{color:var(--mu)!important;background:transparent!important;border-color:var(--bd)!important}
 html[data-style="taste"] .logo{background:var(--ac)!important;color:var(--aci)!important;border-radius:var(--r-sm)!important;width:40px;height:40px;font-size:20px;font-weight:800;box-shadow:none!important;backdrop-filter:none}
 html[data-style="taste"] .logo *{color:var(--aci)!important;background:none!important;-webkit-text-fill-color:var(--aci)!important}
@@ -902,7 +902,7 @@ html[data-style="taste"] body :where(button.sec,button.off,button.ghost,.mxb,.ch
 html[data-style="taste"] body :where(button.sec,button.off,.sg):hover{background:var(--bg2)!important;color:var(--tx)!important}
 html[data-style="taste"] :focus-visible{outline:2px solid var(--ac)!important;outline-offset:2px}
 /* fields */
-html[data-style="taste"] :where(input,select,textarea):not([type=checkbox]):not([type=radio]){background:var(--card)!important;border:1px solid var(--bd)!important;border-radius:var(--r-md)!important;color:var(--tx)!important;min-height:44px;font-size:16px;box-shadow:none!important}
+html[data-style="taste"] :where(input,select,textarea):not([type=checkbox]):not([type=radio]){background:var(--card)!important;border:1px solid var(--bd)!important;border-radius:var(--r-md)!important;color:var(--tx)!important;min-height:42px;font-size:15px;box-shadow:none!important}
 html[data-style="taste"] :where(input,select,textarea):focus{border-color:var(--ac)!important;outline:none}
 html[data-style="taste"] input[type=checkbox]{accent-color:var(--ac)}
 html[data-style="taste"] .srch{border-radius:var(--r-md)!important;padding:2px 12px!important}
@@ -910,8 +910,9 @@ html[data-style="taste"] .srch input{border:0!important;background:transparent!i
 /* tabs (desktop): flat segmented bar */
 html[data-style="taste"] .tabs{border-radius:var(--r-md)!important;padding:4px!important;background:var(--bg2)!important;border:0!important}
 html[data-style="taste"] body .tabs>button{background:transparent!important;color:var(--mu)!important;border:0!important;min-height:44px}
-html[data-style="taste"] body .sg i{background:var(--bg2)!important;color:var(--tx)!important}html[data-style="taste"] body .sg.on i{background:color-mix(in srgb,var(--bg) 25%,transparent)!important;color:var(--bg)!important}
-html[data-style="taste"] body .tabs>button:not(.off){background:var(--card)!important;color:var(--tx)!important;box-shadow:0 0 0 1px var(--bd)!important}
+html[data-style="taste"] body .sg.on,html[data-style="taste"] body .xtool button.on,html[data-style="taste"] body .chip.on,html[data-style="taste"] body .ent .etb button:not(.off){background:var(--ac)!important;color:var(--aci)!important;border-color:var(--ac)!important}
+html[data-style="taste"] body .sg i{background:var(--bg2)!important;color:var(--tx)!important}html[data-style="taste"] body .sg.on i{background:color-mix(in srgb,var(--aci) 25%,transparent)!important;color:var(--aci)!important}
+html[data-style="taste"] body .tabs>button:not(.off){background:var(--ac)!important;color:var(--aci)!important;box-shadow:none!important}
 /* tables */
 html[data-style="taste"] th{background:var(--bg2)!important;color:var(--mu)!important;font-weight:700}
 html[data-style="taste"] :where(th,td){border-color:var(--bd)!important}
@@ -930,12 +931,12 @@ html[data-style="taste"] .kpi{border:0!important;border-radius:0!important;backg
 html[data-style="taste"] .kpi+.kpi{border-inline-start:1px solid var(--bd)!important}
 html[data-style="taste"] .kpi::before{display:none}
 html[data-style="taste"] .kpi span{color:var(--mu);font-size:13px;font-weight:600}
-html[data-style="taste"] .kpi b{font-size:28px;font-weight:800}
+html[data-style="taste"] .kpi b{font-size:24px;font-weight:800}
 /* home tiles become list rows */
 html[data-style="taste"] .tiles{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))!important;gap:8px!important}
 html[data-style="taste"] .tile{flex-direction:row!important;align-items:center!important;gap:12px!important;padding:12px 14px!important;border-radius:var(--r-md)!important;background:var(--card)!important;color:var(--tx)!important;min-height:64px}
-html[data-style="taste"] .tile .ti{background:var(--bg2)!important;color:var(--tx)!important;box-shadow:none!important;border-radius:var(--r-sm)!important;width:42px!important;height:42px!important;margin:0!important}
-html[data-style="taste"] .tile b{font-size:16px!important}html[data-style="taste"] .tile small{color:var(--mu)!important;font-size:13px!important}
+html[data-style="taste"] .tile .ti{background:color-mix(in srgb,var(--ac) 13%,var(--card))!important;color:var(--ac)!important;box-shadow:none!important;border-radius:var(--r-sm)!important;width:42px!important;height:42px!important;margin:0!important}
+html[data-style="taste"] .tile b{font-size:14.5px!important}html[data-style="taste"] .tile small{color:var(--mu)!important;font-size:13px!important}
 html[data-style="taste"] .tile:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--tx) 30%,transparent)!important}
 html[data-style="taste"] .tile[data-k="1"],html[data-style="taste"] .tile[data-k="6"]{background:var(--card)!important;color:var(--tx)!important;border:1px solid var(--bd)!important}
 html[data-style="taste"] .tile[data-k="1"] small,html[data-style="taste"] .tile[data-k="6"] small{color:var(--mu)!important}
@@ -954,7 +955,7 @@ html[data-style="taste"] #login{background:var(--bg)!important}
 html[data-style="taste"] .lgi{background:var(--ac)!important;box-shadow:none!important;border-radius:var(--r-md)!important}
 /* ---------- phone ---------- */
 @media (max-width:700px){
- html[data-style="taste"] body{font-size:15px}
+ html[data-style="taste"] body{font-size:14px}
  html[data-style="taste"] main{padding:0 12px 96px!important}
  html[data-style="taste"] .top{margin:0 -12px 12px!important;padding:10px 12px!important;flex-wrap:nowrap}
  html[data-style="taste"] .top .ownb,html[data-style="taste"] #who em,html[data-style="taste"] #net,html[data-style="taste"] .dl{display:none!important}
@@ -963,13 +964,13 @@ html[data-style="taste"] .lgi{background:var(--ac)!important;box-shadow:none!imp
  html[data-style="taste"] #who b{display:none}
  /* bottom tab bar */
  html[data-style="taste"] .tabs{position:fixed!important;inset:auto 0 0 0!important;z-index:40;display:flex!important;margin:0!important;border-radius:0!important;padding:6px 4px calc(8px + env(safe-area-inset-bottom)) !important;background:var(--bg)!important;border:0!important;border-top:1px solid var(--bd)!important;overflow:visible!important;gap:0!important}
- html[data-style="taste"] body .tabs>button{flex:1 1 0!important;min-width:0!important;display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:4px 2px!important;min-height:56px;background:transparent!important;box-shadow:none!important;color:var(--mu)!important;font-size:12.5px!important;font-weight:600}
+ html[data-style="taste"] body .tabs>button{flex:1 1 0!important;min-width:0!important;display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:4px 2px!important;min-height:56px;background:transparent!important;box-shadow:none!important;color:var(--mu)!important;font-size:12px!important;font-weight:600}
  html[data-style="taste"] .tabs button.hide,html[data-style="taste"] .tabs button.tx{display:none!important}
  html[data-style="taste"] .tabs button>span{display:none}
  html[data-style="taste"] .tabs button::after{content:attr(data-short);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;font-size:12.5px}
  html[data-style="taste"] .tabs button i{display:grid;place-items:center;width:56px;height:30px;border-radius:999px}
- html[data-style="taste"] body .tabs>button:not(.off){color:var(--tx)!important;background:transparent!important;box-shadow:none!important}
- html[data-style="taste"] .tabs button:not(.off) i{background:var(--bg2)}
+ html[data-style="taste"] body .tabs>button:not(.off){color:var(--ac)!important;background:transparent!important;box-shadow:none!important}
+ html[data-style="taste"] .tabs button:not(.off) i{background:color-mix(in srgb,var(--ac) 16%,transparent)}
  html[data-style="taste"] .tabs svg.ic{width:23px;height:23px}
  html[data-style="taste"] body #dtb tfoot{bottom:84px!important}
  html[data-style="taste"] #tmsh{position:fixed;inset:0;z-index:45;background:rgba(0,0,0,.35);display:flex;align-items:flex-end}
@@ -983,12 +984,12 @@ html[data-style="taste"] .lgi{background:var(--ac)!important;box-shadow:none!imp
  html[data-style="taste"] body #dtb tbody tr.lvr{border-color:color-mix(in srgb,var(--t-lv) 45%,var(--bd))!important}
  html[data-style="taste"] body #dtb td.c-nm{grid-column:1/-1!important;grid-row:1!important;display:grid!important;grid-template-columns:auto 1fr auto;align-items:center;column-gap:10px}
  html[data-style="taste"] body #dtb .av{display:grid!important;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--bg2);color:var(--tx);font-weight:700;grid-row:1/3}
- html[data-style="taste"] body #dtb .wn{font-size:17px!important;font-weight:700;grid-column:2}
- html[data-style="taste"] body #dtb .mo{font-size:14px!important;color:var(--mu);grid-column:2;grid-row:2}
+ html[data-style="taste"] body #dtb .wn{font-size:15px!important;font-weight:700;grid-column:2}
+ html[data-style="taste"] body #dtb .mo{font-size:12.5px!important;color:var(--mu);grid-column:2;grid-row:2}
  html[data-style="taste"] body #dtb .mxb,html[data-style="taste"] body #dtb .lvw{grid-column:3;font-size:13px!important;min-height:32px!important;padding:2px 10px!important;margin:2px 0!important;border-radius:999px!important}
  html[data-style="taste"] body #dtb .mxb{grid-row:1}html[data-style="taste"] body #dtb .lvw{grid-row:2}
  html[data-style="taste"] body #dtb td.c-ab{display:contents!important}
- html[data-style="taste"] body #dtb .prb,html[data-style="taste"] body #dtb .abt,html[data-style="taste"] body #dtb .lvt{grid-row:2!important;min-height:50px!important;height:auto!important;width:100%!important;margin:0!important;padding:6px 4px!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:6px!important;border-radius:var(--r-md)!important;border:1.5px solid var(--bd)!important;background:transparent!important;color:var(--tx)!important;font-size:16px!important;font-weight:700!important;box-sizing:border-box}
+ html[data-style="taste"] body #dtb .prb,html[data-style="taste"] body #dtb .abt,html[data-style="taste"] body #dtb .lvt{grid-row:2!important;min-height:46px!important;height:auto!important;width:100%!important;margin:0!important;padding:6px 4px!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:6px!important;border-radius:var(--r-md)!important;border:1.5px solid var(--bd)!important;background:transparent!important;color:var(--tx)!important;font-size:14.5px!important;font-weight:700!important;box-sizing:border-box}
  html[data-style="taste"] body #dtb .prb{grid-column:1!important}
  html[data-style="taste"] body #dtb .abt{grid-column:2!important}
  html[data-style="taste"] body #dtb td.c-lv{display:block!important;grid-column:3!important;grid-row:2!important}
@@ -1002,7 +1003,7 @@ html[data-style="taste"] .lgi{background:var(--ac)!important;box-shadow:none!imp
  html[data-style="taste"][data-theme="dark"] body #dtb .prb.on,html[data-style="taste"][data-theme="dark"] body #dtb .abt:has(input:checked),html[data-style="taste"][data-theme="dark"] body #dtb .lvt:has(input:checked){color:#111!important}
  html[data-style="taste"] body #dtb .abt.dis{opacity:.4}
  html[data-style="taste"] body #dtb .abt:has(input:focus-visible),html[data-style="taste"] body #dtb .lvt:has(input:focus-visible){outline:2px solid var(--ac);outline-offset:2px}
- html[data-style="taste"] body #dtb .lvt span{font-size:16px!important}
+ html[data-style="taste"] body #dtb .lvt span{font-size:14.5px!important}
  html[data-style="taste"] body #dtb tfoot th{background:transparent!important}
  html[data-style="taste"] body #dtb .byl{grid-column:1/-1!important;font-size:13px}
  html[data-style="taste"] body #dtb .pbyl{display:none!important}
@@ -1040,7 +1041,15 @@ html[data-style="taste"] body #login #lb{background:var(--ac)!important;color:va
 html[data-style="taste"] body #login #le{color:var(--t-no)}
 html[data-style="taste"] body #login .lrm input{accent-color:var(--ac)}
 html[data-style="taste"] body .lglogo{box-shadow:0 0 0 1px var(--bd)}
+
+html[data-style="taste"]{--ff:"Noto Sans Arabic","Vazirmatn",Tahoma,sans-serif}
+html[data-style="taste"][data-font="vazir"]{--ff:"Vazirmatn","Noto Sans Arabic",Tahoma,sans-serif}
+html[data-style="taste"][data-font="kufi"]{--ff:"Noto Kufi Arabic","Noto Sans Arabic",Tahoma,sans-serif}
+html[data-style="taste"] .kpi b,html[data-style="taste"] .wn,html[data-style="taste"] h1,html[data-style="taste"] h2{letter-spacing:0}
+html[data-style="taste"] .kpi:nth-child(1) b{color:var(--ac)}
+#secbar{padding:0 0 10px}#secbar.hide{display:none}#secbar select{max-width:none!important;width:100%;min-height:42px;background:var(--card)!important;color:var(--tx)!important;border:1px solid var(--bd)!important;border-radius:12px!important;font-weight:700}
 </style>
+<style id="fsz">html[data-fs="s"] body{zoom:.9}html[data-fs="l"] body{zoom:1.1}#cpop .fpk button.on{outline:2px solid var(--ac);outline-offset:-2px}</style>
 <style id="logo">
 .clogo{display:inline-grid;place-items:center;background:#fff;border-radius:10px;padding:4px 8px;height:44px;box-sizing:border-box;flex:none;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
 .clogo img{height:36px;width:auto;display:block;max-width:none}
@@ -1059,7 +1068,7 @@ html[data-style="taste"] body .lglogo{box-shadow:0 0 0 1px var(--bd)}
  <label class="lrm"><input type="checkbox" id="lrm" checked> ل سەر ڤی ئامێری بمینە (هەتا دەرکەتنێ)</label>
  <button id="lb" type="submit"><span>چوونەژوور</span><b>←</b></button>
  <div id="le" class="bad"></div>
- <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr" class="appvl">v2026.11.24-1</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
+ <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr" class="appvl">v2026.11.24-2</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
 </form></div>
 <main>
 <header class="top"><div class="brand"><span class="clogo"><img src="logo.png" alt="ALKO Aluminum"></span><div><h1>غیابا کرێکاران</h1><span class="ownb" title="ئەدمینێ سەرەکی">👑 ئەدمین: <b dir="ltr">Zewar</b></span><p class="sub"><b class="alkot">ALKO</b> Company · <span id="secn">غیاب، زێدە و ڕێکخستنا هەفتیێ</span></p></div></div>
@@ -1204,7 +1213,7 @@ html[data-style="taste"] body .lglogo{box-shadow:0 0 0 1px var(--bd)}
  <div class="card gonly"><b>گوهۆڕینا پەیڤا نهێنی یا ئەدمینی (zewar)</b>
   <div class="bar" style="margin-top:8px"><input id="ap" type="password" placeholder="پەیڤا نهێنی یا نوی" autocomplete="new-password" dir="ltr"><input id="ap2" type="password" placeholder="دووبارە بنڤیسە" autocomplete="new-password" dir="ltr"><button id="apb">گوهۆڕین</button></div></div>
 </section>
-<div id="cpop" class="hide"><div class="cph"><b>🎨 ڕەنگێ پرۆگرامی</b><button id="cpx" class="off" type="button">✕</button></div><div id="csw" class="csw"></div><div class="cph cmdm" style="margin-top:12px"><b>ڕەنگێ پاشبنەمێ</b></div><div class="cmd cmdm"><button type="button" class="sec" data-m="light">☀️ ڕۆناهی</button><button type="button" class="sec" data-m="dark">🌙 تاری</button></div><div class="cph" style="margin-top:12px"><b>شێوە</b></div><div class="cmd c3" style="grid-template-columns:1fr 1fr"><button type="button" class="sec" data-s="taste">▣ نوی</button><button type="button" class="sec" data-s="alko">✦ ALKO</button><button type="button" class="sec" data-s="glass">🔮 شووشە</button><button type="button" class="sec" data-s="flat">▢ ئاسایی</button></div><small>ئەڤ هەلبژارتنە تنێ بۆ تە یە و ل سەر ڤی ئامێری دمینیت.</small></div>
+<div id="cpop" class="hide"><div class="cph"><b>🎨 ڕەنگێ پرۆگرامی</b><button id="cpx" class="off" type="button">✕</button></div><div id="csw" class="csw"></div><div class="cph cmdm" style="margin-top:12px"><b>ڕەنگێ پاشبنەمێ</b></div><div class="cmd cmdm"><button type="button" class="sec" data-m="light">☀️ ڕۆناهی</button><button type="button" class="sec" data-m="dark">🌙 تاری</button></div><div class="cph" style="margin-top:12px"><b>شێوە</b></div><div class="cmd c3" style="grid-template-columns:1fr 1fr"><button type="button" class="sec" data-s="taste">▣ نوی</button><button type="button" class="sec" data-s="alko">✦ ALKO</button><button type="button" class="sec" data-s="glass">🔮 شووشە</button><button type="button" class="sec" data-s="flat">▢ ئاسایی</button></div><div class="cph" style="margin-top:12px"><b>فۆنت</b></div><div class="cmd c3 fpk"><button type="button" class="sec" data-f="nsans" style="font-family:'Noto Sans Arabic'">نۆتۆ</button><button type="button" class="sec" data-f="vazir" style="font-family:Vazirmatn">ڤەزیر</button><button type="button" class="sec" data-f="kufi" style="font-family:'Noto Kufi Arabic'">کووفی</button></div><div class="cph" style="margin-top:12px"><b>قەبارێ نڤیسینێ</b></div><div class="cmd c3 fpk"><button type="button" class="sec" data-z="s" style="font-size:12px">بچووک</button><button type="button" class="sec" data-z="m" style="font-size:14px">ناڤین</button><button type="button" class="sec" data-z="l" style="font-size:16px">مەزن</button></div><small>ئەڤ هەلبژارتنە تنێ بۆ تە یە و ل سەر ڤی ئامێری دمینیت.</small></div>
 <div id="ntp" class="hide"><div class="ntbox"><b>💬 بۆچی نەهاتیە؟</b><small id="ntt"></small><input id="nti" maxlength="200" autocomplete="off" placeholder="وەک: نەخۆش بوو"><div class="bar" style="margin:0"><button id="nts" type="button">پاشەکەفتکرن</button><button id="ntc" type="button" class="off">بەتالکرن</button></div></div></div>
 <div id="acp" class="hide"><form class="acbox" onsubmit="return false">
  <div class="cph"><b>👤 ئەکاونتێ من</b><button type="button" class="off" id="acx">✕</button></div>
@@ -1235,7 +1244,7 @@ html[data-style="taste"] body .lglogo{box-shadow:0 0 0 1px var(--bd)}
  <div class="bar" style="margin:0"><button type="submit" id="dws" class="danger" style="background:#dc2626;color:#fff">ژێبرن</button><button type="button" class="off" id="dwx2">بەتالکرن</button></div>
 </form></div>
 <div id="pr"></div>
-<div class="appv" dir="ltr">ALKO · <span class="appvl">v2026.11.24-1</span></div>
+<div class="appv" dir="ltr">ALKO · <span class="appvl">v2026.11.24-2</span></div>
 </main>
 <script>
 const $=id=>document.getElementById(id);
@@ -1401,17 +1410,17 @@ function setStyle(v){try{localStorage.setItem(skey(),v);localStorage.setItem("ab
 function getStyle(){let v="taste";try{v=localStorage.getItem(skey())||localStorage.getItem("absStyle")||"taste"}catch(e){}return["taste","flat","glass","alko"].includes(v)?v:"taste"}
 // "نوی" style palettes, from tasteskill's library: [name, ground, surface, ink, muted, accent, accent-ink, dark, card]
 const TPAL={
- sand:["خیزی","#e6dbc7","#ddd0b9","#062b8a","#3a5aa8","#062b8a","#ffffff",0,"#efe7d9"],
- stone:["بەری","#dfdedb","#d3d2ce","#26251e","#5f5d55","#2456d6","#ffffff",0,"#ecebe8"],
- white:["سپی","#f4f4f4","#e8e8e8","#111111","#5f5f5f","#1a4be0","#ffffff",0,"#ffffff"],
- teal:["دەریایی","#eef3f2","#e0e9e7","#06525c","#2f737d","#06525c","#ffffff",0,"#f8fbfa"],
- olive:["زەیتونی","#ecebe7","#e1dfd9","#38450f","#5d683a","#38450f","#ffffff",0,"#f6f5f2"],
- moss:["کەسکێ خیزی","#ddd6c6","#d2cab8","#2a2a26","#59574e","#4f6238","#ffffff",0,"#ebe6da"],
- night:["شەڤ","#18191b","#222427","#eff0f1","#a3a5aa","#ff5a2e","#18191b",1,"#1f2023"],
- coal:["ڕەژی","#1c1c1c","#262626","#f1f1ef","#a2a39e","#9bb39a","#1c1c1c",1,"#232323"]
+ blue:["شین","#eef2f8","#e1e8f3","#0f1b33","#55627a","#1d5bd8","#ffffff",0,"#ffffff"],
+ alko:["ALKO","#f3f3f4","#e6e6e9","#141416","#5c5c63","#d71920","#ffffff",0,"#ffffff"],
+ sand:["خیزی","#ece3d2","#e0d4bf","#14213d","#56607a","#1d4ed8","#ffffff",0,"#f7f1e7"],
+ teal:["دەریایی","#e9f3f2","#d8e9e6","#0c2a2e","#4a6a6d","#0f8b8d","#ffffff",0,"#ffffff"],
+ green:["کەسک","#edf4ee","#dcebdf","#0f2416","#506656","#16803c","#ffffff",0,"#ffffff"],
+ orange:["پرتەقالی","#f8f1ea","#efe2d4","#2a1a0e","#6d5a4b","#e4570f","#ffffff",0,"#fffaf5"],
+ night:["شەڤ","#141518","#1f2125","#f1f2f4","#a3a6ad","#ff6a2b","#141518",1,"#1b1d21"],
+ navy:["شەڤا شین","#0e1626","#18243c","#eef2fa","#9aa8c2","#4f8cff","#0e1626",1,"#141e33"]
 };
 const tkey=()=>"absTColor"+(ME&&ME.u?":"+ME.u:"");
-function getTColor(){let c="sand";try{c=localStorage.getItem(tkey())||localStorage.getItem("absTColor")||"sand"}catch(e){}return TPAL[c]?c:"sand"}
+function getTColor(){let c="blue";try{c=localStorage.getItem(tkey())||localStorage.getItem("absTColor")||"blue"}catch(e){}return TPAL[c]?c:"blue"}
 function setTColor(c){try{localStorage.setItem(tkey(),c);localStorage.setItem("absTColor",c)}catch(e){}}
 const TVARS=["--bg","--bg2","--card","--tx","--mu","--bd","--thbg","--aci","--gin","--gsolid"];
 function getColor(){let c="alko";try{c=localStorage.getItem(ckey())||localStorage.getItem("absColor")||"alko"}catch(e){}return PAL[c]?c:"alko"}
@@ -1437,14 +1446,15 @@ function applyColor(c){
  document.querySelectorAll("#cpop [data-s]").forEach(b=>b.classList.toggle("on",b.dataset.s===sy));
 }
 function setTheme(t,keep){document.documentElement.dataset.theme=t;try{applyColor()}catch(e){}if(!keep)try{localStorage.setItem("absTheme",t)}catch(e){}document.querySelectorAll(".thb").forEach(b=>{b.textContent=t==="dark"?"☀️ ڕۆناهی":"🌙 تاری";b.title=t==="dark"?"گوهۆڕین بۆ ڕەنگێ ڕۆناهی":"گوهۆڕین بۆ ڕەنگێ تاری"})}
-$("cbt").onclick=e=>{e.stopPropagation();$("cpop").classList.toggle("hide");applyColor()};
+$("cbt").onclick=e=>{e.stopPropagation();$("cpop").classList.toggle("hide");applyColor();applyFont()};
 $("cpx").onclick=()=>$("cpop").classList.add("hide");
-$("cpop").addEventListener("click",e=>{e.stopPropagation();const tc=e.target.closest("[data-tc]");if(tc){setTColor(tc.dataset.tc);applyColor();return}const c=e.target.closest("[data-c]"),m=e.target.closest("[data-m]");
+function applyFont(){const R=document.documentElement;let f="nsans",z="m";try{f=localStorage.getItem("absFont")||"nsans";z=localStorage.getItem("absFs")||"m"}catch(e){}R.dataset.font=f;R.dataset.fs=z;document.querySelectorAll("#cpop [data-f]").forEach(b=>b.classList.toggle("on",b.dataset.f===f));document.querySelectorAll("#cpop [data-z]").forEach(b=>b.classList.toggle("on",b.dataset.z===z))}
+$("cpop").addEventListener("click",e=>{e.stopPropagation();const fb=e.target.closest("[data-f]"),zb=e.target.closest("[data-z]");if(fb||zb){try{if(fb)localStorage.setItem("absFont",fb.dataset.f);if(zb)localStorage.setItem("absFs",zb.dataset.z)}catch(x){}applyFont();return}const tc=e.target.closest("[data-tc]");if(tc){setTColor(tc.dataset.tc);applyColor();return}const c=e.target.closest("[data-c]"),m=e.target.closest("[data-m]");
  if(c){try{localStorage.setItem(ckey(),c.dataset.c);localStorage.setItem("absColor",c.dataset.c)}catch(x){}applyColor(c.dataset.c)}
  if(m){if(getStyle()==="alko"||getStyle()==="dash")setStyle("flat");setTheme(m.dataset.m)}
  const sb=e.target.closest("[data-s]");if(sb){const was=getStyle();setStyle(sb.dataset.s);if((was==="alko"||was==="dash"||was==="taste")&&sb.dataset.s!=="alko"&&sb.dataset.s!=="dash"){let t="light";try{t=localStorage.getItem("absTheme")||"light"}catch(x){}setTheme(t)}else applyColor()}});
 document.addEventListener("click",()=>$("cpop").classList.add("hide"));
-document.querySelectorAll(".thb").forEach(b=>b.onclick=()=>{if(getStyle()==="taste"){setTColor(TPAL[getTColor()][7]?"sand":"night");applyColor();return}if(getStyle()==="alko"||getStyle()==="dash"){setStyle("flat");setTheme(getStyle()==="alko"?"light":"dark");return}setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark")});
+document.querySelectorAll(".thb").forEach(b=>b.onclick=()=>{if(getStyle()==="taste"){setTColor(TPAL[getTColor()][7]?"blue":"night");applyColor();return}if(getStyle()==="alko"||getStyle()==="dash"){setStyle("flat");setTheme(getStyle()==="alko"?"light":"dark");return}setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark")});
 setTheme(document.documentElement.dataset.theme||"light",true);
 if(innerWidth>700)document.querySelectorAll("details.help").forEach(x=>x.open=true);
 const PERMS=[["1","📝 ڕۆژانە"],["2","📅 مانگانە"],["3","👷 کرێکار"],["4","🧭 ڕێکخستنا هەفتیێ"],["5","📊 کورتکرنا هەفتیێ"],["6","📋 غیابا هەفتیێ"]];
@@ -1497,7 +1507,11 @@ $("lb").onclick=async()=>{
 $("lo").onclick=()=>{ses("");remSet(null);ME=null;renderAW();$("lu").value="";showLogin()};
 // ===== phone bottom bar for the "نوی" style: up to 5 slots, the rest in a sheet =====
 const TSHORT={0:"سەرەکی",1:"ڕۆژانە",2:"مانگانە",3:"کرێکار",4:"ڕێکخستن",5:"کورتی",6:"غیابا هەفتیێ",7:"ئەدمین"},TPRI=["0","1","6","5","2","4","3","7"];
-function tasteNav(){
+function secRow(){const sel=$("secsel"),top=document.querySelector("header.top");if(!sel||!top)return;const ph=innerWidth<=700;let bar=$("secbar");
+ if(ph){if(!bar){bar=document.createElement("div");bar.id="secbar";top.after(bar)}if(sel.parentNode!==bar)bar.appendChild(sel);bar.classList.toggle("hide",sel.classList.contains("hide"))}
+ else if(bar&&sel.parentNode===bar){document.querySelector(".ub").prepend(sel);bar.classList.add("hide")}}
+addEventListener("resize",()=>{try{secRow()}catch(e){}});
+function tasteNav(){try{secRow()}catch(e){}
  const bar=document.querySelector(".tabs");if(!bar)return;
  Object.entries(TSHORT).forEach(([k,v])=>{const b=$("t"+k);if(b)b.dataset.short=v});
  let mb=$("tmore");if(!mb){mb=document.createElement("button");mb.id="tmore";mb.type="button";mb.className="off";mb.title="زێدەتر";mb.dataset.short="زێدەتر";mb.innerHTML='<i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></i>';bar.appendChild(mb);
@@ -3238,7 +3252,7 @@ document.querySelectorAll("#login .eye").forEach(b=>b.onclick=()=>{const i=$(b.d
 showLogin();all();load();
 if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
 // ===== new-version check: tell open pages when a newer version is published =====
-const APPV="2026.11.24-1";document.querySelectorAll(".appvl").forEach(x=>x.textContent="v"+APPV);
+const APPV="2026.11.24-2";document.querySelectorAll(".appvl").forEach(x=>x.textContent="v"+APPV);
 async function chkVer(){
  if(location.protocol!=="https:")return;
  try{const t=await(await fetch("./index.html?v="+Date.now(),{cache:"no-store"})).text(),m=t.match(/const APPV="([^"]+)"/);
