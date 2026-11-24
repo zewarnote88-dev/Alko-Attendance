@@ -265,7 +265,7 @@ details.help>div{line-height:1.9}
  #dnx button{width:100%}
 }
 </style>
-<script>try{if(localStorage.getItem("absMig")!=="3"){Object.keys(localStorage).forEach(function(k){if(k==="absTheme"||k.indexOf("absStyle")===0)localStorage.removeItem(k)});localStorage.setItem("absMig","3")}document.documentElement.dataset.theme=localStorage.getItem("absTheme")||"light";var _s=localStorage.getItem("absStyle")||"flat";if(_s==="dash")_s="flat";document.documentElement.dataset.style=_s;if(_s==="alko")document.documentElement.dataset.theme="dark";if(_s==="dash")document.documentElement.dataset.theme="light"}catch(e){document.documentElement.dataset.theme="light"}</script>
+<script>try{if(localStorage.getItem("absMig")!=="4"){Object.keys(localStorage).forEach(function(k){if(k==="absTheme"||k.indexOf("absStyle")===0)localStorage.removeItem(k)});localStorage.setItem("absMig","4")}document.documentElement.dataset.theme=localStorage.getItem("absTheme")||"light";var _s=localStorage.getItem("absStyle")||"taste";if(_s==="dash")_s="flat";document.documentElement.dataset.style=_s;if(_s==="alko")document.documentElement.dataset.theme="dark";if(_s==="taste"){var _t=localStorage.getItem("absTColor")||"sand";document.documentElement.dataset.theme=(_t==="night"||_t==="coal")?"dark":"light"}if(_s==="dash")document.documentElement.dataset.theme="light"}catch(e){document.documentElement.dataset.theme="light"}</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style id="mobile-compact">
 @media (max-width:700px){
@@ -870,10 +870,186 @@ body.sadm .gonly{display:none!important}
 .imsum{background:var(--card);border-radius:10px;padding:8px 10px;line-height:1.8}
 .immiss summary{cursor:pointer;font-weight:700;color:#b45309}.immiss div{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
 </style>
+<style id="taste">
+/* ===== "نوی" style — built with tasteskill rules: one flat system, neutral grounds, one accent,
+   one button shape, one radius family (8/12/20), 44–48px tap targets, 16px reading text, no gradients/glass/shadows/violet.
+   Palettes come from tasteskill's library (cobalt-on-sand dealt for a workshop, plus its siblings). ===== */
+@font-face{font-family:"Vazirmatn";src:url("fonts/vazirmatn.woff2") format("woff2");font-weight:100 900;font-display:swap}
+html[data-style="taste"]{--r-sm:8px;--r-md:12px;--r-lg:20px;--okc:var(--t-ok);--bad:var(--t-no);--lvc:var(--t-lv);--subc:var(--t-sub);--hl:var(--t-no-t);--sh:none;--rowalt:transparent;
+ --t-ok:#17804a;--t-no:#c42b1c;--t-lv:#9a5b00;--t-sub:#0d7377;--t-ok-t:#d8e6cf;--t-no-t:#f1d2c6;--t-lv-t:#efdcb6;--t-sub-t:#cfe2d9;--t-ot-t:color-mix(in srgb,var(--ac) 16%,var(--card));background:var(--bg)!important}
+html[data-style="taste"][data-theme="dark"]{--t-ok:#4cc38a;--t-no:#ff7a66;--t-lv:#f0b44c;--t-sub:#3cc3b7;--t-ok-t:rgba(76,195,138,.18);--t-no-t:rgba(255,122,102,.18);--t-lv-t:rgba(240,180,76,.18);--t-sub-t:rgba(60,195,183,.2)}
+html[data-style="taste"] body{background:var(--bg)!important;background-image:none!important;color:var(--tx);font-size:15px}
+html[data-style="taste"] body::before,html[data-style="taste"] .top::after{display:none!important}
+html[data-style="taste"] :where(body,h1,h2,h3,button,input,select,textarea,th,td,.kpi b,.tabs button){font-family:"Vazirmatn","Noto Kufi Arabic",Tahoma,sans-serif!important}
+html[data-style="taste"] body #dtb :where(tbody tr,tfoot tr),html[data-style="taste"] :where(.card,.tabs,.srch,.kpi,.tile,details.help,.dfl,#cpop,.warnbox,.amok,.xact,.xtool,.ent,.sabox,.lkbar,.ntbox,.lgc){background:var(--card)!important;border:1px solid var(--bd)!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+html[data-style="taste"] .card,html[data-style="taste"] .ent,html[data-style="taste"] .lgc{border-radius:var(--r-lg)!important}
+/* header: flat, ground colour, one hairline */
+html[data-style="taste"] .top{background:var(--bg)!important;color:var(--tx)!important;border:0!important;border-bottom:1px solid var(--bd)!important;border-radius:0!important;box-shadow:none!important;margin:0 -16px 14px;padding:10px 16px}
+html[data-style="taste"] main .top h1{color:var(--tx)!important;font-size:18px;font-weight:700}
+html[data-style="taste"] .top .sub,html[data-style="taste"] .ownb{color:var(--mu)!important;background:transparent!important;border-color:var(--bd)!important}
+html[data-style="taste"] .logo{background:var(--ac)!important;color:var(--aci)!important;border-radius:var(--r-sm)!important;width:40px;height:40px;font-size:20px;font-weight:800;box-shadow:none!important;backdrop-filter:none}
+html[data-style="taste"] .logo *{color:var(--aci)!important;background:none!important;-webkit-text-fill-color:var(--aci)!important}
+html[data-style="taste"] .ub{color:var(--tx)}
+html[data-style="taste"] :where(.ghost,#who,#net){background:transparent!important;color:var(--tx)!important;border:1px solid var(--bd)!important;border-radius:var(--r-sm)!important;box-shadow:none!important;min-height:40px}
+html[data-style="taste"] .ghost:hover{background:var(--bg2)!important}
+html[data-style="taste"] .alkot{color:var(--tx)!important;-webkit-text-fill-color:currentColor!important;background:none!important}
+/* buttons: one solid primary, one outline secondary */
+html[data-style="taste"] button{background:var(--bg2)!important;color:var(--tx)!important;border:1px solid transparent!important;border-radius:var(--r-md)!important;box-shadow:none!important;min-height:44px;font-weight:600;transition:background .15s,transform .08s}
+html[data-style="taste"] button:hover{filter:none;background:color-mix(in srgb,var(--bg2) 80%,var(--tx))!important}
+html[data-style="taste"] button:active{transform:scale(.98)}
+html[data-style="taste"] body :where(#lb,#dws,#pushon,#lvqok,.btnp){background:var(--ac)!important;color:var(--aci)!important;border-color:var(--ac)!important}
+html[data-style="taste"] body :where(button.sec,button.off,button.ghost,.mxb,.chip,.sg,.xtool button,.ent .etb button.off,.lvw){background:transparent!important;color:var(--tx)!important;border:1px solid var(--bd)!important}
+html[data-style="taste"] body :where(button.sec,button.off,.sg):hover{background:var(--bg2)!important;color:var(--tx)!important}
+html[data-style="taste"] :focus-visible{outline:2px solid var(--ac)!important;outline-offset:2px}
+/* fields */
+html[data-style="taste"] :where(input,select,textarea):not([type=checkbox]):not([type=radio]){background:var(--card)!important;border:1px solid var(--bd)!important;border-radius:var(--r-md)!important;color:var(--tx)!important;min-height:44px;font-size:16px;box-shadow:none!important}
+html[data-style="taste"] :where(input,select,textarea):focus{border-color:var(--ac)!important;outline:none}
+html[data-style="taste"] input[type=checkbox]{accent-color:var(--ac)}
+html[data-style="taste"] .srch{border-radius:var(--r-md)!important;padding:2px 12px!important}
+html[data-style="taste"] .srch input{border:0!important;background:transparent!important}
+/* tabs (desktop): flat segmented bar */
+html[data-style="taste"] .tabs{border-radius:var(--r-md)!important;padding:4px!important;background:var(--bg2)!important;border:0!important}
+html[data-style="taste"] body .tabs>button{background:transparent!important;color:var(--mu)!important;border:0!important;min-height:44px}
+html[data-style="taste"] body .sg i{background:var(--bg2)!important;color:var(--tx)!important}html[data-style="taste"] body .sg.on i{background:color-mix(in srgb,var(--bg) 25%,transparent)!important;color:var(--bg)!important}
+html[data-style="taste"] body .tabs>button:not(.off){background:var(--card)!important;color:var(--tx)!important;box-shadow:0 0 0 1px var(--bd)!important}
+/* tables */
+html[data-style="taste"] th{background:var(--bg2)!important;color:var(--mu)!important;font-weight:700}
+html[data-style="taste"] :where(th,td){border-color:var(--bd)!important}
+html[data-style="taste"] tbody tr:hover td{background:color-mix(in srgb,var(--ac) 5%,var(--card))}
+html[data-style="taste"] td.a{background:var(--t-no-t)!important;color:var(--t-no)!important}
+html[data-style="taste"] :where(td.lvc,.lvc){background:var(--t-lv-t)!important;color:var(--t-lv)!important}
+html[data-style="taste"] tr.absr td{background:color-mix(in srgb,var(--t-no) 7%,var(--card))!important}
+html[data-style="taste"] .ok{color:var(--t-ok)!important}html[data-style="taste"] .bad{color:var(--t-no)!important}
+html[data-style="taste"] #mt .mot.sub,html[data-style="taste"] #mt .msub{color:var(--t-sub)!important}
+html[data-style="taste"] #mt td.lvc:has(.mot.sub){background:var(--t-sub-t)!important;color:var(--t-sub)!important;box-shadow:inset 0 0 0 2px var(--t-sub)!important}
+html[data-style="taste"] #mt td.a:has(.msub){box-shadow:inset 0 0 0 2px var(--t-sub)!important}
+html[data-style="taste"] .mlgs{background:var(--t-sub-t)!important;color:var(--t-sub)!important;border-color:var(--t-sub)!important}html[data-style="taste"] .mlga{color:var(--t-sub)!important;border-color:var(--t-sub)!important}
+/* kpis: one joined card with hairlines */
+html[data-style="taste"] .kpis{gap:0!important;border:1px solid var(--bd);border-radius:var(--r-lg);overflow:hidden;background:var(--card)}
+html[data-style="taste"] .kpi{border:0!important;border-radius:0!important;background:transparent!important;text-align:center;padding:14px 10px}
+html[data-style="taste"] .kpi+.kpi{border-inline-start:1px solid var(--bd)!important}
+html[data-style="taste"] .kpi::before{display:none}
+html[data-style="taste"] .kpi span{color:var(--mu);font-size:13px;font-weight:600}
+html[data-style="taste"] .kpi b{font-size:28px;font-weight:800}
+/* home tiles become list rows */
+html[data-style="taste"] .tiles{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))!important;gap:8px!important}
+html[data-style="taste"] .tile{flex-direction:row!important;align-items:center!important;gap:12px!important;padding:12px 14px!important;border-radius:var(--r-md)!important;background:var(--card)!important;color:var(--tx)!important;min-height:64px}
+html[data-style="taste"] .tile .ti{background:var(--bg2)!important;color:var(--tx)!important;box-shadow:none!important;border-radius:var(--r-sm)!important;width:42px!important;height:42px!important;margin:0!important}
+html[data-style="taste"] .tile b{font-size:16px!important}html[data-style="taste"] .tile small{color:var(--mu)!important;font-size:13px!important}
+html[data-style="taste"] .tile:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--tx) 30%,transparent)!important}
+html[data-style="taste"] .tile[data-k="1"],html[data-style="taste"] .tile[data-k="6"]{background:var(--card)!important;color:var(--tx)!important;border:1px solid var(--bd)!important}
+html[data-style="taste"] .tile[data-k="1"] small,html[data-style="taste"] .tile[data-k="6"] small{color:var(--mu)!important}
+/* notices */
+html[data-style="taste"] body .warnbox,html[data-style="taste"] body .sabox.late{background:var(--t-no-t)!important;border-color:transparent!important;color:var(--tx)!important;border-radius:var(--r-md)!important}
+html[data-style="taste"] body .sabox:not(.late),html[data-style="taste"] body .lkbar{background:var(--t-lv-t)!important;border-color:transparent!important;border-radius:var(--r-md)!important}
+html[data-style="taste"] body .help{background:var(--bg2)!important;border:0!important}
+html[data-style="taste"] body .ent .er{background:var(--bg)!important}
+html[data-style="taste"] .ent .er.ok{border-color:color-mix(in srgb,var(--t-ok) 40%,var(--bd))!important}
+html[data-style="taste"] body .ent .er.pt{background:var(--t-lv-t)!important;border-color:transparent!important}
+html[data-style="taste"] body .ent .er.no{background:var(--t-no-t)!important;border-color:transparent!important}
+html[data-style="taste"] .prb.on{background:var(--t-ok)!important;border-color:var(--t-ok)!important;color:#fff!important}
+html[data-style="taste"] tr.prr{background:transparent}
+/* login */
+html[data-style="taste"] #login{background:var(--bg)!important}
+html[data-style="taste"] .lgi{background:var(--ac)!important;box-shadow:none!important;border-radius:var(--r-md)!important}
+/* ---------- phone ---------- */
+@media (max-width:700px){
+ html[data-style="taste"] body{font-size:15px}
+ html[data-style="taste"] main{padding:0 12px 96px!important}
+ html[data-style="taste"] .top{margin:0 -12px 12px!important;padding:10px 12px!important;flex-wrap:nowrap}
+ html[data-style="taste"] .top .ownb,html[data-style="taste"] #who em,html[data-style="taste"] #net,html[data-style="taste"] .dl{display:none!important}
+ html[data-style="taste"] .ub{gap:6px!important;flex-wrap:nowrap}
+ html[data-style="taste"] :where(.ghost,#who){min-height:40px;min-width:40px;padding:4px 8px!important;display:inline-grid;place-items:center}
+ html[data-style="taste"] #who b{display:none}
+ /* bottom tab bar */
+ html[data-style="taste"] .tabs{position:fixed!important;inset:auto 0 0 0!important;z-index:40;display:flex!important;margin:0!important;border-radius:0!important;padding:6px 4px calc(8px + env(safe-area-inset-bottom)) !important;background:var(--bg)!important;border:0!important;border-top:1px solid var(--bd)!important;overflow:visible!important;gap:0!important}
+ html[data-style="taste"] body .tabs>button{flex:1 1 0!important;min-width:0!important;display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:4px 2px!important;min-height:56px;background:transparent!important;box-shadow:none!important;color:var(--mu)!important;font-size:12.5px!important;font-weight:600}
+ html[data-style="taste"] .tabs button.hide,html[data-style="taste"] .tabs button.tx{display:none!important}
+ html[data-style="taste"] .tabs button>span{display:none}
+ html[data-style="taste"] .tabs button::after{content:attr(data-short);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;font-size:12.5px}
+ html[data-style="taste"] .tabs button i{display:grid;place-items:center;width:56px;height:30px;border-radius:999px}
+ html[data-style="taste"] body .tabs>button:not(.off){color:var(--tx)!important;background:transparent!important;box-shadow:none!important}
+ html[data-style="taste"] .tabs button:not(.off) i{background:var(--bg2)}
+ html[data-style="taste"] .tabs svg.ic{width:23px;height:23px}
+ html[data-style="taste"] body #dtb tfoot{bottom:84px!important}
+ html[data-style="taste"] #tmsh{position:fixed;inset:0;z-index:45;background:rgba(0,0,0,.35);display:flex;align-items:flex-end}
+ html[data-style="taste"] #tmsh.hide{display:none}
+ html[data-style="taste"] #tmsh>div{width:100%;background:var(--bg);border-radius:var(--r-lg) var(--r-lg) 0 0;padding:12px 12px calc(92px + env(safe-area-inset-bottom))}
+ html[data-style="taste"] #tmsh button{width:100%;display:flex;align-items:center;gap:12px;justify-content:flex-start;min-height:56px;margin-top:6px;background:var(--card)!important;color:var(--tx)!important;border:1px solid var(--bd)!important;font-size:16px}
+ /* daily rows: three big status buttons */
+ html[data-style="taste"] body #dtb tbody tr{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important;padding:14px!important;border-radius:var(--r-lg)!important;margin-bottom:10px!important;align-items:stretch!important}
+ html[data-style="taste"] body #dtb tbody tr.absr{background:var(--card)!important;border-color:color-mix(in srgb,var(--t-no) 45%,var(--bd))!important}
+ html[data-style="taste"] body #dtb tbody tr.prr{border-color:color-mix(in srgb,var(--t-ok) 40%,var(--bd))!important}
+ html[data-style="taste"] body #dtb tbody tr.lvr{border-color:color-mix(in srgb,var(--t-lv) 45%,var(--bd))!important}
+ html[data-style="taste"] body #dtb td.c-nm{grid-column:1/-1!important;grid-row:1!important;display:grid!important;grid-template-columns:auto 1fr auto;align-items:center;column-gap:10px}
+ html[data-style="taste"] body #dtb .av{display:grid!important;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--bg2);color:var(--tx);font-weight:700;grid-row:1/3}
+ html[data-style="taste"] body #dtb .wn{font-size:17px!important;font-weight:700;grid-column:2}
+ html[data-style="taste"] body #dtb .mo{font-size:14px!important;color:var(--mu);grid-column:2;grid-row:2}
+ html[data-style="taste"] body #dtb .mxb,html[data-style="taste"] body #dtb .lvw{grid-column:3;font-size:13px!important;min-height:32px!important;padding:2px 10px!important;margin:2px 0!important;border-radius:999px!important}
+ html[data-style="taste"] body #dtb .mxb{grid-row:1}html[data-style="taste"] body #dtb .lvw{grid-row:2}
+ html[data-style="taste"] body #dtb td.c-ab{display:contents!important}
+ html[data-style="taste"] body #dtb .prb,html[data-style="taste"] body #dtb .abt,html[data-style="taste"] body #dtb .lvt{grid-row:2!important;min-height:50px!important;height:auto!important;width:100%!important;margin:0!important;padding:6px 4px!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:6px!important;border-radius:var(--r-md)!important;border:1.5px solid var(--bd)!important;background:transparent!important;color:var(--tx)!important;font-size:16px!important;font-weight:700!important;box-sizing:border-box}
+ html[data-style="taste"] body #dtb .prb{grid-column:1!important}
+ html[data-style="taste"] body #dtb .abt{grid-column:2!important}
+ html[data-style="taste"] body #dtb td.c-lv{display:block!important;grid-column:3!important;grid-row:2!important}
+ html[data-style="taste"] body #dtb .lvt{height:100%!important}
+ html[data-style="taste"] body #dtb .abt input,html[data-style="taste"] body #dtb .lvt input{position:absolute;opacity:0;width:1px!important;height:1px!important;pointer-events:none}
+ html[data-style="taste"] body #dtb .abt span,html[data-style="taste"] body #dtb .lvt span{display:inline!important}html[data-style="taste"] body #dtb .abt small{display:none!important}
+ html[data-style="taste"] body #dtb .abt,html[data-style="taste"] body #dtb .lvt{position:relative}
+ html[data-style="taste"] body #dtb .prb.on{background:var(--t-ok)!important;border-color:var(--t-ok)!important;color:#fff!important}
+ html[data-style="taste"] body #dtb .abt:has(input:checked){background:var(--t-no)!important;border-color:var(--t-no)!important;color:#fff!important}
+ html[data-style="taste"] body #dtb .lvt:has(input:checked){background:var(--t-lv)!important;border-color:var(--t-lv)!important;color:#fff!important}
+ html[data-style="taste"][data-theme="dark"] body #dtb .prb.on,html[data-style="taste"][data-theme="dark"] body #dtb .abt:has(input:checked),html[data-style="taste"][data-theme="dark"] body #dtb .lvt:has(input:checked){color:#111!important}
+ html[data-style="taste"] body #dtb .abt.dis{opacity:.4}
+ html[data-style="taste"] body #dtb .abt:has(input:focus-visible),html[data-style="taste"] body #dtb .lvt:has(input:focus-visible){outline:2px solid var(--ac);outline-offset:2px}
+ html[data-style="taste"] body #dtb .lvt span{font-size:16px!important}
+ html[data-style="taste"] body #dtb tfoot th{background:transparent!important}
+ html[data-style="taste"] body #dtb .byl{grid-column:1/-1!important;font-size:13px}
+ html[data-style="taste"] body #dtb .pbyl{display:none!important}
+ html[data-style="taste"] body #dtb input.nt{grid-column:1/-1!important;margin:0!important;font-size:16px!important;min-height:48px}
+ html[data-style="taste"] body #dtb td.c-h,html[data-style="taste"] body #dtb td.c-ot,html[data-style="taste"] body #dtb td.c-lw{grid-column:span 3!important}
+ html[data-style="taste"] body #dtb tr.open td.c-h,html[data-style="taste"] body #dtb tr.open td.c-ot{grid-column:span 3!important}
+ html[data-style="taste"] body #dtb td[data-l]::before{font-size:13px!important}
+ html[data-style="taste"] body #dtb input.h{font-size:17px!important;min-height:48px}
+ html[data-style="taste"] .tiles{grid-template-columns:1fr!important}
+ html[data-style="taste"] .kpi b{font-size:24px}
+ html[data-style="taste"] #cpop{top:auto!important;bottom:88px!important}
+}
+/* palette chooser */
+#cpop .tsw{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+#cpop .tsw button{min-height:64px!important;border-radius:12px!important;padding:6px 4px!important;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12.5px!important;font-weight:700;border:2px solid transparent!important}
+#cpop .tsw button i{display:flex;width:30px;height:20px;border-radius:6px;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.15)}
+#cpop .tsw button i b{flex:1}
+#cpop .tsw button.on{border-color:var(--tx)!important}
+
+/* login */
+html[data-style="taste"] body #login{background:var(--bg)!important;color:var(--tx)}
+html[data-style="taste"] body #login .lgbg{display:none}
+html[data-style="taste"] body #login .lgc{background:var(--card)!important;border:1px solid var(--bd)!important;box-shadow:none!important;color:var(--tx);-webkit-backdrop-filter:none;backdrop-filter:none;border-radius:var(--r-lg)!important}
+html[data-style="taste"] body #login h2.lgh{background:none;color:var(--tx);-webkit-text-fill-color:currentColor}
+html[data-style="taste"] body #login h2.lgh::after{background:var(--ac);box-shadow:none}
+html[data-style="taste"] body #login :is(#lgt,.lf,.lrm,.lgf){color:var(--mu)!important}
+html[data-style="taste"] body #login .lf{color:var(--tx)!important;font-size:14px}
+html[data-style="taste"] body #login .fld input{background:var(--bg)!important;color:var(--tx)!important;border:1px solid var(--bd)!important;font-size:16px!important;min-height:48px}
+html[data-style="taste"] body #login .fld input::placeholder{color:var(--mu)}
+html[data-style="taste"] body #login .fld input:focus{border-color:var(--ac)!important;box-shadow:none!important}
+html[data-style="taste"] body #login :is(.fld .fi,.eye svg){stroke:var(--mu)}
+html[data-style="taste"] body #login .eye{background:transparent!important;min-height:0}
+html[data-style="taste"] body #login #lb{background:var(--ac)!important;color:var(--aci)!important;box-shadow:none!important;min-height:52px}
+html[data-style="taste"] body #login #le{color:var(--t-no)}
+html[data-style="taste"] body #login .lrm input{accent-color:var(--ac)}
+html[data-style="taste"] body .lglogo{box-shadow:0 0 0 1px var(--bd)}
+</style>
+<style id="logo">
+.clogo{display:inline-grid;place-items:center;background:#fff;border-radius:10px;padding:4px 8px;height:44px;box-sizing:border-box;flex:none;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+.clogo img{height:36px;width:auto;display:block;max-width:none}
+@media (max-width:700px){.clogo{height:38px;padding:3px 6px;border-radius:8px}.clogo img{height:31px}}
+.lglogo{display:block;margin:0 auto 10px;height:64px;width:auto;background:#fff;border-radius:12px;padding:6px 10px}
+</style>
 </head>
 <body class="locked">
 <div id="login"><div class="lgbg"><i></i><i></i><i></i></div><form class="lgc" onsubmit="return false">
- <div class="brandmark"><div class="bm"><span>A</span></div><div class="bw"><b>ALKO</b><small>COMPANY</small></div></div>
+ <img class="lglogo" src="logo.png" alt="ALKO Aluminum">
  <h2 class="lgh">بخێرهاتی</h2>
  <p id="lgt">بۆ چوونەژوورێ ناڤ و پەیڤا نهێنی بنڤیسە</p>
  <label class="lf"><span class="lft">ناڤێ بەکارهێنەری</span><span class="fld"><svg viewBox="0 0 24 24" class="fi"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><input id="lu" name="ghiyab-user" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="ناڤێ خۆ بنڤیسە" dir="ltr"></span></label>
@@ -882,10 +1058,10 @@ body.sadm .gonly{display:none!important}
  <label class="lrm"><input type="checkbox" id="lrm" checked> ل سەر ڤی ئامێری بمینە (هەتا دەرکەتنێ)</label>
  <button id="lb" type="submit"><span>چوونەژوور</span><b>←</b></button>
  <div id="le" class="bad"></div>
- <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr">v2026.11.22-8</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
+ <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr" class="appvl">v2026.11.24-1</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
 </form></div>
 <main>
-<header class="top"><div class="brand"><div class="logo bml"><span>A</span></div><div><h1>غیابا کرێکاران</h1><span class="ownb" title="ئەدمینێ سەرەکی">👑 ئەدمین: <b dir="ltr">Zewar</b></span><p class="sub"><b class="alkot">ALKO</b> Company · <span id="secn">غیاب، زێدە و ڕێکخستنا هەفتیێ</span></p></div></div>
+<header class="top"><div class="brand"><span class="clogo"><img src="logo.png" alt="ALKO Aluminum"></span><div><h1>غیابا کرێکاران</h1><span class="ownb" title="ئەدمینێ سەرەکی">👑 ئەدمین: <b dir="ltr">Zewar</b></span><p class="sub"><b class="alkot">ALKO</b> Company · <span id="secn">غیاب، زێدە و ڕێکخستنا هەفتیێ</span></p></div></div>
 <div class="ub"><select id="secsel" class="secsel hide" title="بەش"></select><span id="net"></span><span id="who"></span><button id="bell" class="ghost hide" type="button" title="ئاگەهداری: کێ داتا نەداخل کریە">🔔<span class="bn hide" id="belln"></span></button><button id="cbt" class="ghost" type="button" title="ڕەنگ و دیزاین"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.8-.8 1.8-1.8 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-1 .8-1.8 1.8-1.8H17a4 4 0 0 0 4-4C21 6.6 17 3 12 3z"/><circle cx="7.5" cy="11" r="1.2"/><circle cx="10" cy="7" r="1.2"/><circle cx="15" cy="7" r="1.2"/></svg></button><button id="th" class="ghost thb" type="button">🌙</button><button id="lo" class="ghost"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3"/><path d="M10 17l-5-5 5-5M5 12h11"/></svg><span class="dl"> دەرکەتن</span></button></div></header>
 <div class="tabs"><button id="t0" class="off" title="سەرەکی"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></i></button><button id="t1" title="ڕۆژانە"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2.5"/><path d="M9 4V2.8h6V4"/><path d="m9 13 2 2 4-4.5"/></svg></i><span> ڕۆژانە</span></button><button id="t2" class="off" title="مانگانە"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M16 3v4M8 3v4M3 10h18"/><path d="M7.5 14h.01M12 14h.01M16.5 14h.01M7.5 17.5h.01M12 17.5h.01"/></svg></i><span> مانگانە</span></button><button id="t3" class="off" title="کرێکار"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-6 6.5-6s5.9 2.4 6.5 6"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.3c1.9.8 3.2 2.9 3.5 5.7"/></svg></i><span> کرێکار</span></button><button id="t4" class="off" title="ڕێکخستنا هەفتیێ"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M3 9h18M9 21V9"/><path d="M13 13h4M13 17h2.5"/></svg></i><span> ڕێکخستنا هەفتیێ</span></button><button id="t5" class="off" title="کورتکرنا هەفتیێ"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6" rx="1"/><rect x="12" y="8" width="3" height="10" rx="1"/><rect x="17" y="5" width="3" height="13" rx="1"/></svg></i><span> کورتکرنا هەفتیێ</span></button><button id="t6" class="off" title="غیابا هەفتیێ"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2.5"/><path d="M3 9h18M8 2v4M16 2v4"/><path d="m10 12.5 4 4m0-4-4 4"/></svg></i><span> غیابا هەفتیێ</span></button><button id="t7" class="off hide" title="بەکارهێنەر"><i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4.5 6v6c0 4.8 3.3 7.8 7.5 9 4.2-1.2 7.5-4.2 7.5-9V6z"/><path d="m9 12 2 2 4-4"/></svg></i><span> بەکارهێنەر</span></button></div>
 <div class="srch hide"><span>🔍</span><input id="q" type="search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" inputmode="search" placeholder="گەڕیان ب ناڤ یان کۆد ..."><button id="qx" class="off hide" title="پاقژکرن">✕</button><small id="qn"></small></div>
@@ -1027,7 +1203,7 @@ body.sadm .gonly{display:none!important}
  <div class="card gonly"><b>گوهۆڕینا پەیڤا نهێنی یا ئەدمینی (zewar)</b>
   <div class="bar" style="margin-top:8px"><input id="ap" type="password" placeholder="پەیڤا نهێنی یا نوی" autocomplete="new-password" dir="ltr"><input id="ap2" type="password" placeholder="دووبارە بنڤیسە" autocomplete="new-password" dir="ltr"><button id="apb">گوهۆڕین</button></div></div>
 </section>
-<div id="cpop" class="hide"><div class="cph"><b>🎨 ڕەنگێ پرۆگرامی</b><button id="cpx" class="off" type="button">✕</button></div><div id="csw" class="csw"></div><div class="cph" style="margin-top:12px"><b>ڕەنگێ پاشبنەمێ</b></div><div class="cmd"><button type="button" class="sec" data-m="light">☀️ ڕۆناهی</button><button type="button" class="sec" data-m="dark">🌙 تاری</button></div><div class="cph" style="margin-top:12px"><b>شێوە</b></div><div class="cmd c3"><button type="button" class="sec" data-s="alko">✦ ALKO</button><button type="button" class="sec" data-s="glass">🔮 شووشە</button><button type="button" class="sec" data-s="flat">▢ ئاسایی</button></div><small>ئەڤ هەلبژارتنە تنێ بۆ تە یە و ل سەر ڤی ئامێری دمینیت.</small></div>
+<div id="cpop" class="hide"><div class="cph"><b>🎨 ڕەنگێ پرۆگرامی</b><button id="cpx" class="off" type="button">✕</button></div><div id="csw" class="csw"></div><div class="cph cmdm" style="margin-top:12px"><b>ڕەنگێ پاشبنەمێ</b></div><div class="cmd cmdm"><button type="button" class="sec" data-m="light">☀️ ڕۆناهی</button><button type="button" class="sec" data-m="dark">🌙 تاری</button></div><div class="cph" style="margin-top:12px"><b>شێوە</b></div><div class="cmd c3" style="grid-template-columns:1fr 1fr"><button type="button" class="sec" data-s="taste">▣ نوی</button><button type="button" class="sec" data-s="alko">✦ ALKO</button><button type="button" class="sec" data-s="glass">🔮 شووشە</button><button type="button" class="sec" data-s="flat">▢ ئاسایی</button></div><small>ئەڤ هەلبژارتنە تنێ بۆ تە یە و ل سەر ڤی ئامێری دمینیت.</small></div>
 <div id="ntp" class="hide"><div class="ntbox"><b>💬 بۆچی نەهاتیە؟</b><small id="ntt"></small><input id="nti" maxlength="200" autocomplete="off" placeholder="وەک: نەخۆش بوو"><div class="bar" style="margin:0"><button id="nts" type="button">پاشەکەفتکرن</button><button id="ntc" type="button" class="off">بەتالکرن</button></div></div></div>
 <div id="acp" class="hide"><form class="acbox" onsubmit="return false">
  <div class="cph"><b>👤 ئەکاونتێ من</b><button type="button" class="off" id="acx">✕</button></div>
@@ -1058,7 +1234,7 @@ body.sadm .gonly{display:none!important}
  <div class="bar" style="margin:0"><button type="submit" id="dws" class="danger" style="background:#dc2626;color:#fff">ژێبرن</button><button type="button" class="off" id="dwx2">بەتالکرن</button></div>
 </form></div>
 <div id="pr"></div>
-<div class="appv" dir="ltr">ALKO · v2026.11.22-8</div>
+<div class="appv" dir="ltr">ALKO · <span class="appvl">v2026.11.24-1</span></div>
 </main>
 <script>
 const $=id=>document.getElementById(id);
@@ -1221,11 +1397,38 @@ const PAL={
 const ckey=()=>"absColor"+(ME&&ME.u?":"+ME.u:"");
 const skey=()=>"absStyle"+(ME&&ME.u?":"+ME.u:"");
 function setStyle(v){try{localStorage.setItem(skey(),v);localStorage.setItem("absStyle",v)}catch(x){}}
-function getStyle(){let v="flat";try{v=localStorage.getItem(skey())||localStorage.getItem("absStyle")||"flat"}catch(e){}return["flat","glass","alko"].includes(v)?v:"flat"}
+function getStyle(){let v="taste";try{v=localStorage.getItem(skey())||localStorage.getItem("absStyle")||"taste"}catch(e){}return["taste","flat","glass","alko"].includes(v)?v:"taste"}
+// "نوی" style palettes, from tasteskill's library: [name, ground, surface, ink, muted, accent, accent-ink, dark, card]
+const TPAL={
+ sand:["خیزی","#e6dbc7","#ddd0b9","#062b8a","#3a5aa8","#062b8a","#ffffff",0,"#efe7d9"],
+ stone:["بەری","#dfdedb","#d3d2ce","#26251e","#5f5d55","#2456d6","#ffffff",0,"#ecebe8"],
+ white:["سپی","#f4f4f4","#e8e8e8","#111111","#5f5f5f","#1a4be0","#ffffff",0,"#ffffff"],
+ teal:["دەریایی","#eef3f2","#e0e9e7","#06525c","#2f737d","#06525c","#ffffff",0,"#f8fbfa"],
+ olive:["زەیتونی","#ecebe7","#e1dfd9","#38450f","#5d683a","#38450f","#ffffff",0,"#f6f5f2"],
+ moss:["کەسکێ خیزی","#ddd6c6","#d2cab8","#2a2a26","#59574e","#4f6238","#ffffff",0,"#ebe6da"],
+ night:["شەڤ","#18191b","#222427","#eff0f1","#a3a5aa","#ff5a2e","#18191b",1,"#1f2023"],
+ coal:["ڕەژی","#1c1c1c","#262626","#f1f1ef","#a2a39e","#9bb39a","#1c1c1c",1,"#232323"]
+};
+const tkey=()=>"absTColor"+(ME&&ME.u?":"+ME.u:"");
+function getTColor(){let c="sand";try{c=localStorage.getItem(tkey())||localStorage.getItem("absTColor")||"sand"}catch(e){}return TPAL[c]?c:"sand"}
+function setTColor(c){try{localStorage.setItem(tkey(),c);localStorage.setItem("absTColor",c)}catch(e){}}
+const TVARS=["--bg","--bg2","--card","--tx","--mu","--bd","--thbg","--aci","--gin","--gsolid"];
 function getColor(){let c="alko";try{c=localStorage.getItem(ckey())||localStorage.getItem("absColor")||"alko"}catch(e){}return PAL[c]?c:"alko"}
 function applyColor(c){
  const sy=getStyle();document.documentElement.dataset.style=sy;if(sy==="alko")document.documentElement.dataset.theme="dark";if(sy==="dash")document.documentElement.dataset.theme="light";
- c=PAL[c]?c:getColor();const P=PAL[c]||PAL.alko,dk=document.documentElement.dataset.theme==="dark",a=dk?P[2]:P[1],st=document.documentElement.style;
+ const st=document.documentElement.style;
+ if(sy==="taste"){
+  const k=getTColor(),T=TPAL[k];document.documentElement.dataset.theme=T[7]?"dark":"light";
+  [["--bg",T[1]],["--bg2",T[2]],["--card",T[8]],["--tx",T[3]],["--mu",T[4]],["--bd",`color-mix(in srgb,${T[3]} 16%,transparent)`],["--thbg",T[2]],["--aci",T[6]],["--ac",T[5]],["--ac2",T[5]],["--g1",T[5]],["--g2",T[5]],["--g3",T[5]],["--gin",T[8]],["--gsolid",T[8]]].forEach(([n,v])=>st.setProperty(n,v));
+  const m=document.querySelector('meta[name="theme-color"]')||document.head.appendChild(Object.assign(document.createElement("meta"),{name:"theme-color"}));m.content=T[1];
+  const sw=$("csw");if(sw){sw.className="csw tsw";sw.innerHTML=Object.entries(TPAL).map(([q,v])=>`<button type="button" class="sec${q===k?" on":""}" data-tc="${q}" style="background:${v[8]}!important;color:${v[3]}!important"><i><b style="background:${v[1]}"></b><b style="background:${v[5]}"></b></i>${v[0]}</button>`).join("")}
+  document.querySelectorAll("#cpop .cmdm").forEach(x=>x.classList.add("hide"));
+  document.querySelectorAll("#cpop [data-s]").forEach(b=>b.classList.toggle("on",b.dataset.s===sy));
+  try{tasteNav()}catch(e){}
+  return;
+ }
+ TVARS.forEach(n=>st.removeProperty(n));document.querySelectorAll("#cpop .cmdm").forEach(x=>x.classList.remove("hide"));{const sw=$("csw");if(sw)sw.className="csw"}
+ c=PAL[c]?c:getColor();const P=PAL[c]||PAL.alko,dk=document.documentElement.dataset.theme==="dark",a=dk?P[2]:P[1];
  st.setProperty("--ac",a[0]);st.setProperty("--ac2",a[1]);st.setProperty("--g1",P[3][0]);st.setProperty("--g2",P[3][1]);st.setProperty("--g3",P[3][2]);
  const m=document.querySelector('meta[name="theme-color"]')||document.head.appendChild(Object.assign(document.createElement("meta"),{name:"theme-color"}));m.content=P[3][1];
  const sw=$("csw");if(sw)sw.innerHTML=Object.entries(PAL).map(([k,v])=>`<button type="button" class="cs${k===c?" on":""}" data-c="${k}" style="background:linear-gradient(135deg,${v[3][1]},${v[3][2]})" title="${v[0]}"><span>${v[0]}</span></button>`).join("");
@@ -1235,12 +1438,12 @@ function applyColor(c){
 function setTheme(t,keep){document.documentElement.dataset.theme=t;try{applyColor()}catch(e){}if(!keep)try{localStorage.setItem("absTheme",t)}catch(e){}document.querySelectorAll(".thb").forEach(b=>{b.textContent=t==="dark"?"☀️ ڕۆناهی":"🌙 تاری";b.title=t==="dark"?"گوهۆڕین بۆ ڕەنگێ ڕۆناهی":"گوهۆڕین بۆ ڕەنگێ تاری"})}
 $("cbt").onclick=e=>{e.stopPropagation();$("cpop").classList.toggle("hide");applyColor()};
 $("cpx").onclick=()=>$("cpop").classList.add("hide");
-$("cpop").addEventListener("click",e=>{e.stopPropagation();const c=e.target.closest("[data-c]"),m=e.target.closest("[data-m]");
+$("cpop").addEventListener("click",e=>{e.stopPropagation();const tc=e.target.closest("[data-tc]");if(tc){setTColor(tc.dataset.tc);applyColor();return}const c=e.target.closest("[data-c]"),m=e.target.closest("[data-m]");
  if(c){try{localStorage.setItem(ckey(),c.dataset.c);localStorage.setItem("absColor",c.dataset.c)}catch(x){}applyColor(c.dataset.c)}
  if(m){if(getStyle()==="alko"||getStyle()==="dash")setStyle("flat");setTheme(m.dataset.m)}
- const sb=e.target.closest("[data-s]");if(sb){const was=getStyle();setStyle(sb.dataset.s);if((was==="alko"||was==="dash")&&sb.dataset.s!=="alko"&&sb.dataset.s!=="dash"){let t="light";try{t=localStorage.getItem("absTheme")||"light"}catch(x){}setTheme(t)}else applyColor()}});
+ const sb=e.target.closest("[data-s]");if(sb){const was=getStyle();setStyle(sb.dataset.s);if((was==="alko"||was==="dash"||was==="taste")&&sb.dataset.s!=="alko"&&sb.dataset.s!=="dash"){let t="light";try{t=localStorage.getItem("absTheme")||"light"}catch(x){}setTheme(t)}else applyColor()}});
 document.addEventListener("click",()=>$("cpop").classList.add("hide"));
-document.querySelectorAll(".thb").forEach(b=>b.onclick=()=>{if(getStyle()==="alko"||getStyle()==="dash"){setStyle("flat");setTheme(getStyle()==="alko"?"light":"dark");return}setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark")});
+document.querySelectorAll(".thb").forEach(b=>b.onclick=()=>{if(getStyle()==="taste"){setTColor(TPAL[getTColor()][7]?"sand":"night");applyColor();return}if(getStyle()==="alko"||getStyle()==="dash"){setStyle("flat");setTheme(getStyle()==="alko"?"light":"dark");return}setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark")});
 setTheme(document.documentElement.dataset.theme||"light",true);
 if(innerWidth>700)document.querySelectorAll("details.help").forEach(x=>x.open=true);
 const PERMS=[["1","📝 ڕۆژانە"],["2","📅 مانگانە"],["3","👷 کرێکار"],["4","🧭 ڕێکخستنا هەفتیێ"],["5","📊 کورتکرنا هەفتیێ"],["6","📋 غیابا هەفتیێ"]];
@@ -1291,6 +1494,22 @@ $("lb").onclick=async()=>{
  ses(ME.u);remSet($("lrm").checked?{u:ME.u,h:hOf(ME.u)}:null);$("lp").value="";$("lp2").value="";enter();
 };
 $("lo").onclick=()=>{ses("");remSet(null);ME=null;renderAW();$("lu").value="";showLogin()};
+// ===== phone bottom bar for the "نوی" style: up to 5 slots, the rest in a sheet =====
+const TSHORT={0:"سەرەکی",1:"ڕۆژانە",2:"مانگانە",3:"کرێکار",4:"ڕێکخستن",5:"کورتی",6:"غیابا هەفتیێ",7:"ئەدمین"},TPRI=["0","1","6","5","2","4","3","7"];
+function tasteNav(){
+ const bar=document.querySelector(".tabs");if(!bar)return;
+ Object.entries(TSHORT).forEach(([k,v])=>{const b=$("t"+k);if(b)b.dataset.short=v});
+ let mb=$("tmore");if(!mb){mb=document.createElement("button");mb.id="tmore";mb.type="button";mb.className="off";mb.title="زێدەتر";mb.dataset.short="زێدەتر";mb.innerHTML='<i><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></i>';bar.appendChild(mb);
+  const sh=document.createElement("div");sh.id="tmsh";sh.className="hide";sh.innerHTML="<div></div>";document.body.appendChild(sh);
+  mb.onclick=()=>{const L=[...bar.querySelectorAll("button.tx")];sh.firstChild.innerHTML=L.map(b=>`<button type="button" data-go="${b.id}">${b.querySelector("i")?b.querySelector("i").outerHTML:""}${esc(b.title)}</button>`).join("");sh.classList.remove("hide")};
+  sh.onclick=e=>{const g=e.target.closest("[data-go]");sh.classList.add("hide");if(g)$(g.dataset.go).click()}}
+ const on=getStyle()==="taste"&&innerWidth<=700,V=TPRI.map(k=>$("t"+k)).filter(b=>b&&!b.classList.contains("hide"));
+ bar.querySelectorAll("button").forEach(b=>b.classList.remove("tx"));
+ V.forEach((b,i)=>{b.style.order=on?i:""});mb.style.order=99;
+ const many=on&&V.length>5;mb.classList.toggle("hide",!many);
+ if(many){V.slice(4).forEach(b=>b.classList.add("tx"));const cur=V.slice(4).find(b=>!b.classList.contains("off"));mb.classList.toggle("off",!cur)}
+}
+addEventListener("resize",()=>{try{tasteNav()}catch(e){}});
 function enter(){
  applyColor();try{all()}catch(e){console.error(e)}
  document.body.classList.remove("locked");
@@ -1301,6 +1520,7 @@ function enter(){
  const nP=["1","2","3","4","5","6","7"].filter(can).length,first=innerWidth<=700&&nP>=2?"0":["1","2","3","4","5","6","7"].find(can);
  document.querySelector(".tabs").classList.toggle("hide",["1","2","3","4","5","6","7"].filter(can).length<2);
  $("t0").classList.toggle("hide",FRU());document.body.classList.toggle("fru",FRU());
+ try{tasteNav()}catch(e){}
  if(first){show(first);msg("")}else{["0","1","2","3","4","5","6","7"].forEach(k=>$("p"+k).classList.add("hide"));document.querySelector(".srch").classList.add("hide");msg(FRU()?"🔒 تو تنێ دشێی ژ پێنجشەمب ١٢ێ شەڤێ هەتا شەمبی ٨ێ سپێدێ پرۆگرامی بکاربینی.":"هێشتا چ دەستهەلات بۆ تە نەهاتینە دان. پەیوەندیێ ب ئەدمینی بکە.")}
  if(ADMQ())renderU();
  renderAW();
@@ -1604,7 +1824,7 @@ async function cmpPdf(pg,ALL){
    const T_=(t,X0,Y,w,sz,col,al,mw)=>{x.save();x.direction=/[؀-ۿ]/.test(t)?"rtl":"ltr";x.textAlign=al||"center";x.fillStyle=col||"#000";let z=sz;x.font=pf(w,z);if(mw)while(z>9&&x.measureText(t).width>mw){z--;x.font=pf(w,z)}x.fillText(t,X0,Y);x.restore()};
    const g=x.createLinearGradient(PM,0,PW-PM,0);g.addColorStop(0,"#3b82f6");g.addColorStop(.5,"#6366f1");g.addColorStop(1,"#7c3aed");rr(x,PM,PM,PW-2*PM,72,16);x.fillStyle=g;x.fill();
    T_("مقارنة مع تقرير الإدارة — "+CS().name,PW-PM-28,PM+37,800,32,"#fff","right");T_(P.lab2,PW/2,PM+37,600,22,"rgba(255,255,255,.92)");
-   x.save();x.direction="ltr";x.textAlign="left";x.fillStyle="#fff";x.font="900 30px system-ui,Arial,sans-serif";x.fillText("ALKO",PM+28,PM+30);x.font="600 12px system-ui,Arial,sans-serif";x.fillText("C O M P A N Y",PM+28,PM+56);x.restore();
+   if(!pdfLogo(x,PM+22,PM+6,44)){x.save();x.direction="ltr";x.textAlign="left";x.fillStyle="#fff";x.font="900 30px system-ui,Arial,sans-serif";x.fillText("ALKO",PM+28,PM+30);x.font="600 12px system-ui,Arial,sans-serif";x.fillText("C O M P A N Y",PM+28,PM+56);x.restore();}
    // summary chips
    let cx0=PW-PM;[["متطابق",cnt("ok"),"#16a34a"],["مختلف",cnt("d"),"#dc2626"],["غير موجود لدى الإدارة",cnt("m"),"#d97706"],["غير موجود في نظامنا",cnt("x"),"#4f46e5"]].forEach(([t,n,col])=>{x.font=pf(700,18);const s0=t+": "+n,w=x.measureText(s0).width+40;rr(x,cx0-w,PM+88,w,40,12);x.fillStyle=col;x.fill();T_(s0,cx0-w/2,PM+109,700,18,"#fff");cx0-=w+12});
    T_(only?"* تظهر الفروقات فقط":"* جميع العمال (مرتبة حسب الرمز)",PM,PM+109,500,15,"#666","left");
@@ -1639,7 +1859,7 @@ function noticePages(L,y,m){
   // header
   const gr=g.createLinearGradient(M,0,W-M,0);gr.addColorStop(0,"#3b82f6");gr.addColorStop(.5,"#6366f1");gr.addColorStop(1,"#7c3aed");rr(g,M,M,W-2*M,120,20);g.fillStyle=gr;g.fill();
   T("ئاگەهداری — تبليغ غياب",W-M-36,M+48,800,40,"#fff");T(CS().name+" · "+MKN[m-1]+" "+y+" — "+MAR[m-1]+" "+y,W-M-36,M+92,500,22,"rgba(255,255,255,.9)");
-  g.save();g.direction="ltr";g.textAlign="left";g.fillStyle="#fff";g.font="900 44px system-ui,Arial,sans-serif";g.fillText("ALKO",M+36,M+56);g.font="600 15px system-ui,Arial,sans-serif";g.fillText("C O M P A N Y",M+38,M+92);g.restore();
+  if(!pdfLogo(g,M+30,M+14,64)){g.save();g.direction="ltr";g.textAlign="left";g.fillStyle="#fff";g.font="900 44px system-ui,Arial,sans-serif";g.fillText("ALKO",M+36,M+56);g.font="600 15px system-ui,Arial,sans-serif";g.fillText("C O M P A N Y",M+38,M+92);g.restore();}
   // worker info box
   let yy=M+170;const bx=M,bw=W-2*M;
   const info=[["ناڤ / الاسم",x.w.name],["کۆد / الرمز",x.w.code||"—"],["جۆر / العنوان",roleOf(x.w)],["جهێ کاری / مكان العمل",(asgOf(x.w,iso(new Date(y,m-1,15)))||[])[1]||"—"]];
@@ -2020,7 +2240,7 @@ $("dws").onclick=async()=>{
  const okA=S.admin&&S.admin.h&&await hsh(S.admin.salt,pw)===S.admin.h,okS=(SADM()||ASKSELF)&&!!ME.h&&await hsh(ME.salt,pw)===ME.h;if(!okA&&!okS){$("dwe").textContent=ASKSELF?"پەیڤا نهێنی خەلەتە":"پەیڤا نهێنی یا ئەدمینی خەلەتە";$("dwpw").select();return}
  dwClose(true);
 };
-const show=n=>{["0","1","2","3","4","5","6","7"].forEach(k=>{$("p"+k).classList.toggle("hide",k!==n);$("t"+k).classList.toggle("off",k!==n)});placeQ(n);if(n==="0")renderHome();if(n==="7")try{renderAdminX()}catch(e){console.error(e)}};
+const show=n=>{["0","1","2","3","4","5","6","7"].forEach(k=>{$("p"+k).classList.toggle("hide",k!==n);$("t"+k).classList.toggle("off",k!==n)});try{const mb=$("tmore");if(mb)mb.classList.toggle("off",!$("t"+n).classList.contains("tx"))}catch(e){}placeQ(n);if(n==="0")renderHome();if(n==="7")try{renderAdminX()}catch(e){console.error(e)}};
 function placeQ(n){const sr=document.querySelector(".srch"),card=n==="7"?null:$("p"+n).querySelector(".card.scroll");if(card){card.before(sr);sr.classList.remove("hide")}else sr.classList.add("hide")}
 ["0","1","2","3","4","5","6","7"].forEach(k=>$("t"+k).onclick=()=>{if(!can(k))return;show(k);renderS();renderX();if(k==="7")renderU();if(k==="0")renderHome();scrollTo(0,0)});
 const mv=n=>{const d=new Date($("dt").value+"T00:00:00");d.setDate(d.getDate()+n);$("dt").value=iso(d);renderD()};
@@ -2387,7 +2607,7 @@ function buildXlsx(H,D,T,sheet,meta){
  };
  let rows="";
  if(meta.title){
-  rows+=`<row r="1" ht="30" customHeight="1"><c r="A1" t="s" s="${st({b:1,sz:16,c:"FF1E3A8A",nb:1,h:"right"})}"><v>${si(meta.title)}</v></c></row>`;
+  rows+=`<row r="1" ht="34" customHeight="1"><c r="A1" t="s" s="${st({b:1,sz:16,c:"FF1E3A8A",nb:1,h:"center"})}"><v>${si(meta.title)}</v></c></row>`;
   rows+=`<row r="2" ht="20" customHeight="1"><c r="A2" t="s" s="${st({sz:10,c:"FF64748B",nb:1,h:"right"})}"><v>${si(meta.sub||"")}</v></c></row>`;
  }
  rows+=`<row r="${HR}" ht="36" customHeight="1">${H.map((h,i)=>cell(h,HR,i,"h")).join("")}</row>`;
@@ -2418,7 +2638,26 @@ function buildXlsx(H,D,T,sheet,meta){
   F["xl/worksheets/_rels/sheet1.xml.rels"]=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/table" Target="../tables/table1.xml"/></Relationships>`;
   F["xl/tables/table1.xml"]=tableXml;
  }
- return zipStore(F);
+ return zipStore(xlLogo(F));
+}
+// company logo for Excel and PDF exports (loaded once)
+let LOGOB=null,LOGOI=null;
+fetch("logo.png").then(r=>r.ok?r.arrayBuffer():Promise.reject()).then(b=>{LOGOB=new Uint8Array(b);const im=new Image();im.onload=()=>{LOGOI=im};im.src=URL.createObjectURL(new Blob([b],{type:"image/png"}))}).catch(()=>{});
+function xlLogo(F){
+ if(!LOGOB)return F;
+ const sx=F["xl/worksheets/sheet1.xml"],nc=(sx.match(/<col /g)||[]).length||1,cy=Math.round(0.42*914400),cx=Math.round(cy*269/122),RL="http://schemas.openxmlformats.org/officeDocument/2006/relationships";
+ F["xl/media/logo.png"]=LOGOB;
+ F["xl/drawings/drawing1.xml"]=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><xdr:wsDr xmlns:xdr="http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="${RL}"><xdr:oneCellAnchor><xdr:from><xdr:col>0</xdr:col><xdr:colOff>30000</xdr:colOff><xdr:row>0</xdr:row><xdr:rowOff>20000</xdr:rowOff></xdr:from><xdr:ext cx="${cx}" cy="${cy}"/><xdr:pic><xdr:nvPicPr><xdr:cNvPr id="2" name="ALKO logo"/><xdr:cNvPicPr><a:picLocks noChangeAspect="1"/></xdr:cNvPicPr></xdr:nvPicPr><xdr:blipFill><a:blip r:embed="rId1"/><a:stretch><a:fillRect/></a:stretch></xdr:blipFill><xdr:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="${cx}" cy="${cy}"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></xdr:spPr></xdr:pic><xdr:clientData/></xdr:oneCellAnchor></xdr:wsDr>`;
+ F["xl/drawings/_rels/drawing1.xml.rels"]=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="${RL}/image" Target="../media/logo.png"/></Relationships>`;
+ const rk="xl/worksheets/_rels/sheet1.xml.rels",rel=`<Relationship Id="rIdLogo" Type="${RL}/drawing" Target="../drawings/drawing1.xml"/>`;
+ F[rk]=F[rk]?F[rk].replace("</Relationships>",rel+"</Relationships>"):`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${rel}</Relationships>`;
+ F["xl/worksheets/sheet1.xml"]=sx.includes("<tableParts")?sx.replace("<tableParts",'<drawing r:id="rIdLogo"/><tableParts'):sx.replace("</worksheet>",'<drawing r:id="rIdLogo"/></worksheet>');
+ F["[Content_Types].xml"]=F["[Content_Types].xml"].replace('<Default Extension="xml"','<Default Extension="png" ContentType="image/png"/><Default Extension="xml"').replace("</Types>",'<Override PartName="/xl/drawings/drawing1.xml" ContentType="application/vnd.openxmlformats-officedocument.drawing+xml"/></Types>');
+ return F;
+}
+function pdfLogo(x,X,Y,H,right){
+ if(!LOGOI)return false;const W=H*LOGOI.width/LOGOI.height,pd=Math.round(H*.14),x0=right?X-W-2*pd:X;
+ x.save();x.fillStyle="#fff";x.beginPath();if(x.roundRect)x.roundRect(x0,Y,W+2*pd,H+2*pd,Math.round(H*.2));else x.rect(x0,Y,W+2*pd,H+2*pd);x.fill();x.drawImage(LOGOI,x0+pd,Y+pd,W,H);x.restore();return true;
 }
 function zipStore(F){
  const enc=new TextEncoder(),CT=[];for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;CT[n]=c>>>0}
@@ -2426,7 +2665,7 @@ function zipStore(F){
  const parts=[],cen=[];let off=0;
  const u16=v=>[v&255,(v>>8)&255],u32=v=>[v&255,(v>>8)&255,(v>>16)&255,(v>>>24)&255];
  for(const [n,s] of Object.entries(F)){
-  const nb=enc.encode(n),db=enc.encode(s),cr=crc(db);
+  const nb=enc.encode(n),db=s instanceof Uint8Array?s:enc.encode(s),cr=crc(db);
   const lh=new Uint8Array([...u32(0x04034b50),...u16(20),...u16(0x0800),...u16(0),...u16(0),...u16(0x21),...u32(cr),...u32(db.length),...u32(db.length),...u16(nb.length),...u16(0)]);
   parts.push(lh,nb,db);
   cen.push(new Uint8Array([...u32(0x02014b50),...u16(20),...u16(20),...u16(0x0800),...u16(0),...u16(0),...u16(0x21),...u32(cr),...u32(db.length),...u32(db.length),...u16(nb.length),...u16(0),...u16(0),...u16(0),...u16(0),...u32(0),...u32(off)]),nb);
@@ -2536,7 +2775,7 @@ function weekXlsx(w0,src){
   "xl/workbook.xml":`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><bookViews><workbookView/></bookViews><sheets><sheet name="${X(sn)}" sheetId="1" r:id="rId1"/></sheets><definedNames><definedName name="_xlnm._FilterDatabase" localSheetId="0" hidden="1">'${X(sn)}'!$A$${HR}:$${colL(last)}$${lastData}</definedName><definedName name="_xlnm.Print_Titles" localSheetId="0">'${X(sn)}'!$${HR}:$${HR}</definedName></definedNames></workbook>`,
   "xl/_rels/workbook.xml.rels":`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings" Target="sharedStrings.xml"/></Relationships>`,
   "xl/worksheets/sheet1.xml":sheetXml,"xl/styles.xml":styles,"xl/sharedStrings.xml":sst};
- return zipStore(F);
+ return zipStore(xlLogo(F));
 }
 $("xlX").onclick=async()=>{try{msg("ئێکسل دهێتە دروستکرن...");const w0=$("xw").value;await saveFile("absence-"+w0+".xlsx",new Blob([weekXlsx(w0)],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"}));msg("")}catch(e){console.error(e);msg("ئێکسل نەهاتە دروستکرن")}};
 $("xlA").onclick=()=>xl("atb","assign-"+$("ws").value,"ڕێکخستن","ڕێکخستنا هەفتیێ",xwk($("ws").value)+(xsel("pf")?"   ·   جه: "+xsel("pf"):"")+(xsel("sf")?"   ·   دەوام: "+xsel("sf"):""));
@@ -2694,7 +2933,7 @@ function drawMonthPage(y,m,D,rows,pi,np,T,RH,HH,top,start){
  rr(x,PM,PM,PW-2*PM,72,16);x.fillStyle=g;x.fill();
  T_("تقرير الدوام الشهري — "+MAR[m-1]+" "+y+" · "+CS().name,PW-PM-28,PM+37,800,34,"#fff","right",PW-2*PM-560);
  
- x.save();x.direction="ltr";x.textAlign="left";x.fillStyle="#fff";x.font="900 30px system-ui,Arial,sans-serif";x.fillText("ALKO",PM+28,PM+30);x.font="600 12px system-ui,Arial,sans-serif";x.fillStyle="rgba(255,255,255,.85)";x.fillText("C O M P A N Y",PM+28,PM+56);x.restore();
+ if(!pdfLogo(x,PM+22,PM+6,44)){x.save();x.direction="ltr";x.textAlign="left";x.fillStyle="#fff";x.font="900 30px system-ui,Arial,sans-serif";x.fillText("ALKO",PM+28,PM+30);x.font="600 12px system-ui,Arial,sans-serif";x.fillText("C O M P A N Y",PM+28,PM+56);x.restore();}
  // columns, right to left
  const fixed=[{k:"n",h:"ت",w:46},{k:"code",h:"الرمز",w:78},{k:"name",h:"الاسم",w:290}],
   tail=[{k:"t",h:"مجموع\nالغياب",w:96},{k:"l",h:"أيام\nالإجازة",w:76},{k:"o",h:"مجموع\nالإضافي",w:96},{k:"net",h:"الإضافي\nناقص الغياب",w:118}];
@@ -2761,7 +3000,7 @@ function weekPdfPages(w0){
   rr(x,PM,PM,PW-2*PM,72,16);x.fillStyle=g;x.fill();
   T_("ملخص الدوام الأسبوعي · "+CS().name,PW-PM-28,PM+37,800,34,"#fff","right",PW-2*PM-760);
   T_("من "+days[0]+"  إلى  "+days[6],PW/2,PM+37,600,22,"rgba(255,255,255,.92)","center");
-  x.save();x.direction="ltr";x.textAlign="left";x.fillStyle="#fff";x.font="900 30px system-ui,Arial,sans-serif";x.fillText("ALKO",PM+28,PM+30);x.font="600 12px system-ui,Arial,sans-serif";x.fillStyle="rgba(255,255,255,.85)";x.fillText("C O M P A N Y",PM+28,PM+56);x.restore();
+  if(!pdfLogo(x,PM+22,PM+6,44)){x.save();x.direction="ltr";x.textAlign="left";x.fillStyle="#fff";x.font="900 30px system-ui,Arial,sans-serif";x.fillText("ALKO",PM+28,PM+30);x.font="600 12px system-ui,Arial,sans-serif";x.fillText("C O M P A N Y",PM+28,PM+56);x.restore();}
   const fixed=[{k:"n",h:"ت",w:46},{k:"code",h:"الرمز",w:80},{k:"name",h:"الاسم",w:270},{k:"pl",h:"مكان العمل",w:150}],
    tail=[{k:"t",h:"مجموع\nالغياب",w:100},{k:"l",h:"أيام\nالإجازة",w:80},{k:"o",h:"مجموع\nالإضافي",w:130},{k:"net",h:"الإضافي\nناقص الغياب",w:124},{k:"nt",h:"الملاحظات",w:290}];
   const used=fixed.concat(tail).reduce((s,c)=>s+c.w,0),dw=(PW-2*PM-used)/7;
@@ -2829,7 +3068,7 @@ function notesPages(title,sub,workers,days){
   const T_=(t,X0,Y,w,sz,col,al,mw)=>{x.save();x.direction=/[\u0600-\u06FF]/.test(t)?"rtl":"ltr";x.textAlign=al||"center";x.fillStyle=col||"#000";let z=sz;x.font=pf(w,z);if(mw)while(z>9&&x.measureText(t).width>mw){z--;x.font=pf(w,z)}x.fillText(t,X0,Y);x.restore()};
   const g=x.createLinearGradient(PM,0,PW-PM,0);g.addColorStop(0,"#3b82f6");g.addColorStop(.5,"#6366f1");g.addColorStop(1,"#7c3aed");rr(x,PM,PM,PW-2*PM,72,16);x.fillStyle=g;x.fill();
   T_("الغيابات والأسباب — "+title+" · "+CS().name,PW-PM-28,PM+37,800,30,"#fff","right",PW-2*PM-560);T_(sub,PW/2,PM+37,600,20,"rgba(255,255,255,.92)");
-  x.save();x.direction="ltr";x.textAlign="left";x.fillStyle="#fff";x.font="900 30px system-ui,Arial,sans-serif";x.fillText("ALKO",PM+28,PM+30);x.font="600 12px system-ui,Arial,sans-serif";x.fillText("C O M P A N Y",PM+28,PM+56);x.restore();
+  if(!pdfLogo(x,PM+22,PM+6,44)){x.save();x.direction="ltr";x.textAlign="left";x.fillStyle="#fff";x.font="900 30px system-ui,Arial,sans-serif";x.fillText("ALKO",PM+28,PM+30);x.font="600 12px system-ui,Arial,sans-serif";x.fillText("C O M P A N Y",PM+28,PM+56);x.restore();}
   const cols=[{h:"ت",w:60},{h:"الرمز",w:110},{h:"الاسم",w:360},{h:"التاريخ",w:220},{h:"الغياب",w:130},{h:"السبب / الملاحظة",w:0},{h:"سجّلها",w:170}];
   cols[5].w=PW-2*PM-cols.reduce((a,c0)=>a+c0.w,0);let X1=PW-PM;cols.forEach(c0=>{c0.x=X1-c0.w;X1-=c0.w});
   const ty=top,TH=HH+RH*rows.length;x.fillStyle="#1f2937";x.fillRect(PM,ty,PW-2*PM,HH);cols.forEach(c0=>T_(c0.h,c0.x+c0.w/2,ty+HH/2+1,700,17,"#fff"));
@@ -2872,7 +3111,7 @@ function absReportPages(title,sub,L,asgWeek){
   const lx=PM+95,ly=PM+75;x.save();x.translate(lx,ly);x.rotate(Math.PI/4);rr(x,-38,-38,76,76,18);x.fillStyle="rgba(255,255,255,.22)";x.fill();x.restore();
   x.fillStyle="#fff";x.textAlign="center";x.font=EF(900,44);x.fillText("A",lx,ly+2);
   x.textAlign="left";x.font=EF(800,44);x.fillText(title,PM+170,PM+58);x.font=EF(500,24);x.fillStyle="rgba(255,255,255,.9)";x.fillText(sub,PM+170,PM+108);
-  x.textAlign="right";x.font=EF(800,30);x.fillStyle="#fff";x.fillText("ALKO",PW-PM-40,PM+62);x.font=EF(600,15);x.fillStyle="rgba(255,255,255,.8)";x.fillText("C O M P A N Y",PW-PM-40,PM+92);
+  if(!pdfLogo(x,PW-PM-40,PM+38,52,true)){x.textAlign="right";x.font=EF(800,30);x.fillStyle="#fff";x.fillText("ALKO",PW-PM-40,PM+62);x.font=EF(600,15);x.fillStyle="rgba(255,255,255,.8)";x.fillText("C O M P A N Y",PW-PM-40,PM+92);}
   const K=[["Workers listed",String(T.w),"#7c3aed"],["Full days absent",String(T.d),"#dc2626"],["Total absent hours",r2(T.h),"#f59e0b"]],kw=(tw-2*20)/3;
   K.forEach((k,i)=>{const kx=PM+i*(kw+20),ky=PM+170;rr(x,kx,ky,kw,74,18);x.fillStyle="#fff";x.fill();x.strokeStyle="#e6e7ef";x.lineWidth=2;x.stroke();rr(x,kx+4,ky+14,6,46,3);x.fillStyle=k[2];x.fill();
    x.textAlign="left";x.fillStyle="#6b6f86";x.font=EF(600,20);x.fillText(k[0],kx+26,ky+24);x.fillStyle="#1d1b2f";x.font=EF(800,30);x.fillText(k[1],kx+26,ky+54)});
@@ -2998,7 +3237,7 @@ document.querySelectorAll("#login .eye").forEach(b=>b.onclick=()=>{const i=$(b.d
 showLogin();all();load();
 if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
 // ===== new-version check: tell open pages when a newer version is published =====
-const APPV="2026.11.23-4";
+const APPV="2026.11.24-1";document.querySelectorAll(".appvl").forEach(x=>x.textContent="v"+APPV);
 async function chkVer(){
  if(location.protocol!=="https:")return;
  try{const t=await(await fetch("./index.html?v="+Date.now(),{cache:"no-store"})).text(),m=t.match(/const APPV="([^"]+)"/);
