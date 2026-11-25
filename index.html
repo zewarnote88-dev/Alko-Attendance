@@ -1049,6 +1049,12 @@ html[data-style="taste"] .kpi b,html[data-style="taste"] .wn,html[data-style="ta
 html[data-style="taste"] .kpi:nth-child(1) b{color:var(--ac)}
 #secbar{padding:0 0 10px}#secbar.hide,#secbar:not(:has(select:not(.hide))){display:none}#secbar select{max-width:none!important;width:100%;min-height:42px;background:var(--card)!important;color:var(--tx)!important;border:1px solid var(--bd)!important;border-radius:12px!important;font-weight:700}
 </style>
+<style id="ustk">/* users table: keep the user name visible while scrolling sideways */
+#utb :is(thead th:first-child,tbody td:first-child){position:sticky;right:0;z-index:2;background:var(--card);box-shadow:-6px 0 8px -6px rgba(0,0,0,.25)}
+#utb thead th:first-child{z-index:3;background:var(--thbg,var(--card))}
+#utb tbody tr:nth-child(even) td:first-child{background:color-mix(in srgb,var(--card) 94%,var(--tx))}
+#utb tbody td[colspan]:first-child{position:static;box-shadow:none}
+#utb tbody td:first-child{font-weight:700}</style>
 <style id="fsz">html[data-fs="s"] body{zoom:.9}html[data-fs="l"] body{zoom:1.1}#cpop .fpk button.on{outline:2px solid var(--ac);outline-offset:-2px}</style>
 <style id="logo">
 .clogo{display:inline-grid;place-items:center;background:#fff;border-radius:10px;padding:4px 8px;height:44px;box-sizing:border-box;flex:none;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
@@ -1068,7 +1074,7 @@ html[data-style="taste"] .kpi:nth-child(1) b{color:var(--ac)}
  <label class="lrm"><input type="checkbox" id="lrm" checked> ل سەر ڤی ئامێری بمینە (هەتا دەرکەتنێ)</label>
  <button id="lb" type="submit"><span>چوونەژوور</span><b>←</b></button>
  <div id="le" class="bad"></div>
- <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr" class="appvl">v2026.11.24-2</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
+ <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr" class="appvl">v2026.11.25-1</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
 </form></div>
 <main>
 <header class="top"><div class="brand"><span class="clogo"><img src="logo.png" alt="ALKO Aluminum"></span><div><h1>غیابا کرێکاران</h1><span class="ownb" title="ئەدمینێ سەرەکی">👑 ئەدمین: <b dir="ltr">Zewar</b></span><p class="sub"><b class="alkot">ALKO</b> Company · <span id="secn">غیاب، زێدە و ڕێکخستنا هەفتیێ</span></p></div></div>
@@ -1186,7 +1192,7 @@ html[data-style="taste"] .kpi:nth-child(1) b{color:var(--ac)}
   <label class="pm" style="margin:2px 0 10px;width:fit-content"><input type="checkbox" id="nnf">🕌 بەکارهێنەرێ ئەینیێ: تنێ ژ پێنجشەمب ١٢ێ شەڤێ هەتا شەمبی ٨ێ سپێدێ دشێت پرۆگرامی ڤەکەت، و تنێ داتایێن ئەینیێ دبینیت و داخل دکەت</label>
   <label class="pm" id="nsadmw" style="margin:2px 0 10px;width:fit-content"><input type="checkbox" id="nsadm">👑 ئەدمینێ بەشی: هەمی پەرێن بەشێ خۆ دبینیت و بەکارهێنەرێن بەشێ خۆ ب ڕێڤە دبەت</label>
   <div class="bar"><button id="nadd">زێدەکرنا بەکارهێنەری</button></div></div>
- <div class="card scroll"><table><thead id="uh"></thead><tbody id="ul"></tbody></table></div>
+ <div class="card scroll"><table id="utb"><thead id="uh"></thead><tbody id="ul"></tbody></table></div>
  <div class="card gonly"><b>پاشکەفت (Backup) و ڤەگوهاستنا داتایێ</b>
   <p style="margin:6px 0 10px;color:var(--mu);font-size:13px">بۆ ڤەگوهاستنا داتایێن کەڤن بۆ ڤێ ڤەشانێ: ل ئامێرێ کەڤن «دانلۆدکرنا پاشکەفتێ» بکە، پاشی ل ڤێرێ «ئینانا پاشکەفتێ» بکە.</p>
   <div class="bar"><button id="bkx" class="sec">📤 دانلۆدکرنا پاشکەفتێ</button><label class="sec fbtn">📥 ئینانا پاشکەفتێ<input type="file" id="bkf" accept=".json,application/json" hidden></label></div></div>
@@ -1244,7 +1250,7 @@ html[data-style="taste"] .kpi:nth-child(1) b{color:var(--ac)}
  <div class="bar" style="margin:0"><button type="submit" id="dws" class="danger" style="background:#dc2626;color:#fff">ژێبرن</button><button type="button" class="off" id="dwx2">بەتالکرن</button></div>
 </form></div>
 <div id="pr"></div>
-<div class="appv" dir="ltr">ALKO · <span class="appvl">v2026.11.24-2</span></div>
+<div class="appv" dir="ltr">ALKO · <span class="appvl">v2026.11.25-1</span></div>
 </main>
 <script>
 const $=id=>document.getElementById(id);
@@ -3252,7 +3258,7 @@ document.querySelectorAll("#login .eye").forEach(b=>b.onclick=()=>{const i=$(b.d
 showLogin();all();load();
 if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
 // ===== new-version check: tell open pages when a newer version is published =====
-const APPV="2026.11.24-2";document.querySelectorAll(".appvl").forEach(x=>x.textContent="v"+APPV);
+const APPV="2026.11.25-1";document.querySelectorAll(".appvl").forEach(x=>x.textContent="v"+APPV);
 async function chkVer(){
  if(location.protocol!=="https:")return;
  try{const t=await(await fetch("./index.html?v="+Date.now(),{cache:"no-store"})).text(),m=t.match(/const APPV="([^"]+)"/);
