@@ -265,7 +265,7 @@ details.help>div{line-height:1.9}
  #dnx button{width:100%}
 }
 </style>
-<script>try{if(localStorage.getItem("absMig")!=="4"){Object.keys(localStorage).forEach(function(k){if(k==="absTheme"||k.indexOf("absStyle")===0)localStorage.removeItem(k)});localStorage.setItem("absMig","4")}document.documentElement.dataset.theme=localStorage.getItem("absTheme")||"light";var _s=localStorage.getItem("absStyle")||"taste";if(_s==="dash")_s="flat";document.documentElement.dataset.style=_s;if(_s==="alko")document.documentElement.dataset.theme="dark";if(_s==="taste"){var _t=localStorage.getItem("absTColor")||"blue";document.documentElement.dataset.theme=(_t==="night"||_t==="navy")?"dark":"light";document.documentElement.dataset.font=localStorage.getItem("absFont")||"nsans";document.documentElement.dataset.fs=localStorage.getItem("absFs")||"m"}if(_s==="dash")document.documentElement.dataset.theme="light"}catch(e){document.documentElement.dataset.theme="light"}</script>
+<script>try{if(localStorage.getItem("absMig")!=="5"){Object.keys(localStorage).forEach(function(k){if(k==="absTheme"||k.indexOf("absStyle")===0)localStorage.removeItem(k)});localStorage.setItem("absMig","5")}document.documentElement.dataset.theme=localStorage.getItem("absTheme")||"light";var _s=localStorage.getItem("absStyle")||"flat";if(_s!=="glass")_s="flat";document.documentElement.dataset.style=_s;if(_s==="alko")document.documentElement.dataset.theme="dark";if(_s==="taste"){var _t=localStorage.getItem("absTColor")||"blue";document.documentElement.dataset.theme=(_t==="night"||_t==="navy")?"dark":"light";document.documentElement.dataset.font=localStorage.getItem("absFont")||"nsans";document.documentElement.dataset.fs=localStorage.getItem("absFs")||"m"}if(_s==="dash")document.documentElement.dataset.theme="light"}catch(e){document.documentElement.dataset.theme="light"}</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style id="mobile-compact">
 @media (max-width:700px){
@@ -1122,6 +1122,9 @@ html[data-theme="dark"] #xtb td.xa input.xc{color:#fca5a5}html[data-theme="dark"
 </style>
 <style id="nox">html,body{max-width:100%;overflow-x:clip}main{max-width:100%}@supports not (overflow:clip){html,body{overflow-x:hidden}}</style>
 <style id="mrgs">.mrgt{display:flex;align-items:center;gap:6px;min-height:42px;font-weight:600}.mrgt input{width:20px;height:20px}.mrgx.hide{display:none!important}#mrgi{font-weight:700;color:var(--ac)}</style>
+<style id="gfont">html:not([data-style="taste"]){--ff:"Noto Sans Arabic","Vazirmatn",Tahoma,sans-serif}html[data-font="vazir"]:not([data-style="taste"]){--ff:"Vazirmatn","Noto Sans Arabic",Tahoma,sans-serif}html[data-font="kufi"]:not([data-style="taste"]){--ff:"Noto Kufi Arabic","Noto Sans Arabic",Tahoma,sans-serif}
+html:not([data-style="taste"]) :where(body,h1,h2,h3,button,input,select,textarea,th,td){font-family:var(--ff)!important}
+@font-face{font-family:"Vazirmatn";src:url("fonts/vazirmatn.woff2") format("woff2");font-weight:100 900;font-display:swap}</style>
 <style id="fsz">html[data-fs="s"] body{zoom:.9}html[data-fs="l"] body{zoom:1.1}
 @media (min-width:701px){html body{zoom:.88}html[data-fs="s"] body{zoom:.8}html[data-fs="l"] body{zoom:1}
  html[data-style="taste"] .ent .er{padding:6px 10px!important;margin:4px 0!important}html[data-style="taste"] .ent .ebar{margin:4px 0 2px}html[data-style="taste"] .tile{min-height:54px!important;padding:8px 12px!important}html[data-style="taste"] .kpi{padding:10px 8px!important}html[data-style="taste"] .top{padding:8px 16px!important}}#cpop .fpk button.on{outline:2px solid var(--ac);outline-offset:-2px}</style>
@@ -1143,7 +1146,7 @@ html[data-theme="dark"] #xtb td.xa input.xc{color:#fca5a5}html[data-theme="dark"
  <label class="lrm"><input type="checkbox" id="lrm" checked> ل سەر ڤی ئامێری بمینە (هەتا دەرکەتنێ)</label>
  <button id="lb" type="submit"><span>چوونەژوور</span><b>←</b></button>
  <div id="le" class="bad"></div>
- <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr" class="appvl">v2026.11.25-8</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
+ <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr" class="appvl">v2026.11.25-9</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
 </form></div>
 <main>
 <header class="top"><div class="brand"><span class="clogo"><img src="logo.png" alt="ALKO Aluminum"></span><div><h1>غیابا کرێکاران</h1><span class="ownb" title="ئەدمینێ سەرەکی">👑 ئەدمین: <b dir="ltr">Zewar</b></span><p class="sub"><b class="alkot">ALKO</b> Company · <span id="secn">غیاب، زێدە و ڕێکخستنا هەفتیێ</span></p></div></div>
@@ -1288,7 +1291,7 @@ html[data-theme="dark"] #xtb td.xa input.xc{color:#fca5a5}html[data-theme="dark"
  <div class="card gonly"><b>گوهۆڕینا پەیڤا نهێنی یا ئەدمینی (zewar)</b>
   <div class="bar" style="margin-top:8px"><input id="ap" type="password" placeholder="پەیڤا نهێنی یا نوی" autocomplete="new-password" dir="ltr"><input id="ap2" type="password" placeholder="دووبارە بنڤیسە" autocomplete="new-password" dir="ltr"><button id="apb">گوهۆڕین</button></div></div>
 </section>
-<div id="cpop" class="hide"><div class="cph"><b>🎨 ڕەنگێ پرۆگرامی</b><button id="cpx" class="off" type="button">✕</button></div><div id="csw" class="csw"></div><div class="cph cmdm" style="margin-top:12px"><b>ڕەنگێ پاشبنەمێ</b></div><div class="cmd cmdm"><button type="button" class="sec" data-m="light">☀️ ڕۆناهی</button><button type="button" class="sec" data-m="dark">🌙 تاری</button></div><div class="cph" style="margin-top:12px"><b>شێوە</b></div><div class="cmd c3" style="grid-template-columns:1fr 1fr"><button type="button" class="sec" data-s="taste">▣ نوی</button><button type="button" class="sec" data-s="alko">✦ ALKO</button><button type="button" class="sec" data-s="glass">🔮 شووشە</button><button type="button" class="sec" data-s="flat">▢ ئاسایی</button></div><div class="cph" style="margin-top:12px"><b>فۆنت</b></div><div class="cmd c3 fpk"><button type="button" class="sec" data-f="nsans" style="font-family:'Noto Sans Arabic'">نۆتۆ</button><button type="button" class="sec" data-f="vazir" style="font-family:Vazirmatn">ڤەزیر</button><button type="button" class="sec" data-f="kufi" style="font-family:'Noto Kufi Arabic'">کووفی</button></div><div class="cph" style="margin-top:12px"><b>قەبارێ نڤیسینێ</b></div><div class="cmd c3 fpk"><button type="button" class="sec" data-z="s" style="font-size:12px">بچووک</button><button type="button" class="sec" data-z="m" style="font-size:14px">ناڤین</button><button type="button" class="sec" data-z="l" style="font-size:16px">مەزن</button></div><small>ئەڤ هەلبژارتنە تنێ بۆ تە یە و ل سەر ڤی ئامێری دمینیت.</small></div>
+<div id="cpop" class="hide"><div class="cph"><b>🎨 ڕەنگێ پرۆگرامی</b><button id="cpx" class="off" type="button">✕</button></div><div id="csw" class="csw"></div><div class="cph cmdm" style="margin-top:12px"><b>ڕەنگێ پاشبنەمێ</b></div><div class="cmd cmdm"><button type="button" class="sec" data-m="light">☀️ ڕۆناهی</button><button type="button" class="sec" data-m="dark">🌙 تاری</button></div><div class="cph" style="margin-top:12px"><b>شێوە</b></div><div class="cmd c3" style="grid-template-columns:1fr 1fr"><button type="button" class="sec" data-s="flat">▢ ئاسایی</button><button type="button" class="sec" data-s="glass">🔮 شووشە</button></div><div class="cph" style="margin-top:12px"><b>فۆنت</b></div><div class="cmd c3 fpk"><button type="button" class="sec" data-f="nsans" style="font-family:'Noto Sans Arabic'">نۆتۆ</button><button type="button" class="sec" data-f="vazir" style="font-family:Vazirmatn">ڤەزیر</button><button type="button" class="sec" data-f="kufi" style="font-family:'Noto Kufi Arabic'">کووفی</button></div><div class="cph" style="margin-top:12px"><b>قەبارێ نڤیسینێ</b></div><div class="cmd c3 fpk"><button type="button" class="sec" data-z="s" style="font-size:12px">بچووک</button><button type="button" class="sec" data-z="m" style="font-size:14px">ناڤین</button><button type="button" class="sec" data-z="l" style="font-size:16px">مەزن</button></div><small>ئەڤ هەلبژارتنە تنێ بۆ تە یە و ل سەر ڤی ئامێری دمینیت.</small></div>
 <div id="ntp" class="hide"><div class="ntbox"><b>💬 بۆچی نەهاتیە؟</b><small id="ntt"></small><input id="nti" maxlength="200" autocomplete="off" placeholder="وەک: نەخۆش بوو"><div class="bar" style="margin:0"><button id="nts" type="button">پاشەکەفتکرن</button><button id="ntc" type="button" class="off">بەتالکرن</button></div></div></div>
 <div id="acp" class="hide"><form class="acbox" onsubmit="return false">
  <div class="cph"><b>👤 ئەکاونتێ من</b><button type="button" class="off" id="acx">✕</button></div>
@@ -1319,7 +1322,7 @@ html[data-theme="dark"] #xtb td.xa input.xc{color:#fca5a5}html[data-theme="dark"
  <div class="bar" style="margin:0"><button type="submit" id="dws" class="danger" style="background:#dc2626;color:#fff">ژێبرن</button><button type="button" class="off" id="dwx2">بەتالکرن</button></div>
 </form></div>
 <div id="pr"></div>
-<div class="appv" dir="ltr">ALKO · <span class="appvl">v2026.11.25-8</span></div>
+<div class="appv" dir="ltr">ALKO · <span class="appvl">v2026.11.25-9</span></div>
 </main>
 <script>
 const $=id=>document.getElementById(id);
@@ -1482,7 +1485,7 @@ const PAL={
 const ckey=()=>"absColor"+(ME&&ME.u?":"+ME.u:"");
 const skey=()=>"absStyle"+(ME&&ME.u?":"+ME.u:"");
 function setStyle(v){try{localStorage.setItem(skey(),v);localStorage.setItem("absStyle",v)}catch(x){}}
-function getStyle(){let v="taste";try{v=localStorage.getItem(skey())||localStorage.getItem("absStyle")||"taste"}catch(e){}return["taste","flat","glass","alko"].includes(v)?v:"taste"}
+function getStyle(){let v="flat";try{v=localStorage.getItem(skey())||localStorage.getItem("absStyle")||"flat"}catch(e){}return["flat","glass"].includes(v)?v:"flat"}
 // "نوی" style palettes, from tasteskill's library: [name, ground, surface, ink, muted, accent, accent-ink, dark, card]
 const TPAL={
  blue:["شین","#eef2f8","#e1e8f3","#0f1b33","#55627a","#1d5bd8","#ffffff",0,"#ffffff"],
@@ -3344,7 +3347,7 @@ document.querySelectorAll("#login .eye").forEach(b=>b.onclick=()=>{const i=$(b.d
 showLogin();all();load();
 if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
 // ===== new-version check: tell open pages when a newer version is published =====
-const APPV="2026.11.25-8";document.querySelectorAll(".appvl").forEach(x=>x.textContent="v"+APPV);
+const APPV="2026.11.25-9";document.querySelectorAll(".appvl").forEach(x=>x.textContent="v"+APPV);
 async function chkVer(){
  if(location.protocol!=="https:")return;
  try{const t=await(await fetch("./index.html?v="+Date.now(),{cache:"no-store"})).text(),m=t.match(/const APPV="([^"]+)"/);
