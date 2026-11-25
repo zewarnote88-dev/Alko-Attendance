@@ -1099,6 +1099,27 @@ html[data-theme="dark"] #xtb td.xa input.xc{color:#fca5a5}html[data-theme="dark"
 .xleg .lg-nd{background:repeating-linear-gradient(135deg,transparent 0 3px,rgba(245,158,11,.55) 3px 6px)!important;border:1px dashed #f59e0b}
 @media (max-width:700px){#xtb td[data-d]{min-width:72px}#xtb td[data-d] input.xc{max-width:64px;font-size:13px}#xtb td.xpl,#xtb th.xpl{display:none}#xtb th.xnm,#xtb td.xnm{min-width:118px;max-width:140px;font-size:13px}}
 </style>
+<style id="umob">
+@media (max-width:700px){
+ #utb{min-width:0!important;width:100%}
+ #utb thead{display:none}
+ #utb,#utb tbody{display:block}
+ #utb tbody tr{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;padding:12px;margin:0 0 12px;border:1px solid var(--bd);border-radius:16px;background:var(--card)}
+ #utb tbody tr.ownrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+ #utb tbody td{display:flex;align-items:center;justify-content:space-between;gap:8px;border:0!important;padding:6px 8px!important;background:color-mix(in srgb,var(--tx) 4%,transparent)!important;border-radius:10px;text-align:start;min-height:40px;position:static!important;box-shadow:none!important;font-size:13px}
+ #utb tbody td::before{content:attr(data-l);font-size:12px;font-weight:600;color:var(--mu);flex:1}
+ #utb tbody td.nm{grid-column:1/-1;background:transparent!important;font-size:17px;font-weight:800;justify-content:flex-start;padding:0 2px 4px!important;min-height:0;border-bottom:1px solid var(--bd)!important;border-radius:0}
+ #utb tbody td.nm::before{content:"👤";flex:none;font-size:15px}
+ #utb tbody td.upls,#utb tbody td:has(.upw),#utb tbody td:has(.usec),#utb tbody td:has([data-du]){grid-column:1/-1}
+ #utb tbody td.upls{flex-wrap:wrap;justify-content:flex-start}#utb tbody td.upls::before{flex:1 0 100%}
+ #utb tbody td:has(.upw) .upw{flex:1;width:auto!important;min-width:0}
+ #utb tbody td:has(.usec) select{max-width:60%}
+ #utb tbody td:has([data-du])::before{display:none}#utb tbody td:has([data-du]){background:transparent!important;justify-content:flex-end;padding:0!important}
+ #utb tbody td input[type=checkbox]{width:22px;height:22px;flex:none}
+ #utb tbody tr.ownrow td{background:transparent!important}#utb tbody tr.ownrow td::before{display:none}
+ #utb tbody tr:nth-child(even) td:first-child{background:transparent!important}
+}
+</style>
 <style id="fsz">html[data-fs="s"] body{zoom:.9}html[data-fs="l"] body{zoom:1.1}#cpop .fpk button.on{outline:2px solid var(--ac);outline-offset:-2px}</style>
 <style id="logo">
 .clogo{display:inline-grid;place-items:center;background:#fff;border-radius:10px;padding:4px 8px;height:44px;box-sizing:border-box;flex:none;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
@@ -1118,7 +1139,7 @@ html[data-theme="dark"] #xtb td.xa input.xc{color:#fca5a5}html[data-theme="dark"
  <label class="lrm"><input type="checkbox" id="lrm" checked> ل سەر ڤی ئامێری بمینە (هەتا دەرکەتنێ)</label>
  <button id="lb" type="submit"><span>چوونەژوور</span><b>←</b></button>
  <div id="le" class="bad"></div>
- <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr" class="appvl">v2026.11.25-4</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
+ <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr" class="appvl">v2026.11.25-5</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
 </form></div>
 <main>
 <header class="top"><div class="brand"><span class="clogo"><img src="logo.png" alt="ALKO Aluminum"></span><div><h1>غیابا کرێکاران</h1><span class="ownb" title="ئەدمینێ سەرەکی">👑 ئەدمین: <b dir="ltr">Zewar</b></span><p class="sub"><b class="alkot">ALKO</b> Company · <span id="secn">غیاب، زێدە و ڕێکخستنا هەفتیێ</span></p></div></div>
@@ -1294,7 +1315,7 @@ html[data-theme="dark"] #xtb td.xa input.xc{color:#fca5a5}html[data-theme="dark"
  <div class="bar" style="margin:0"><button type="submit" id="dws" class="danger" style="background:#dc2626;color:#fff">ژێبرن</button><button type="button" class="off" id="dwx2">بەتالکرن</button></div>
 </form></div>
 <div id="pr"></div>
-<div class="appv" dir="ltr">ALKO · <span class="appvl">v2026.11.25-4</span></div>
+<div class="appv" dir="ltr">ALKO · <span class="appvl">v2026.11.25-5</span></div>
 </main>
 <script>
 const $=id=>document.getElementById(id);
@@ -1602,6 +1623,8 @@ function renderU(){
  const secOpt=x=>SA?`<option>${esc(secById(ME.sec).name)}</option>`:SECS().map(c=>`<option value="${c.id}"${(x.sec||"sabgh")===c.id?" selected":""}>${esc(c.name)}</option>`).join("")+(SECS().length>1||x.sec==="*"?`<option value="*"${x.sec==="*"?" selected":""}>👁 هەمی بەش</option>`:"");
  const ownRow=`<tr class="ownrow"><td class="nm" dir="ltr">👑 <b>Zewar</b></td><td colspan="${PERMS.length+7}">ئەدمینێ سەرەکی — هەمی بەش و هەمی دەستهەلات</td></tr>`;
  $("ul").innerHTML=ownRow+S.users.map((x,i)=>SA&&((x.sec||"sabgh")!==ME.sec||x.u===ME.u)?"":`<tr><td class="nm" dir="ltr">${esc(x.u)}</td>`+PERMS.map(([k])=>`<td><input type="checkbox" class="upk lv" data-i="${i}" value="${k}"${(x.perms||[]).includes(k)?" checked":""}></td>`).join("")+`<td><select class="usec" data-i="${i}"${SA?" disabled":""}>${secOpt(x)}</select></td><td><input type="checkbox" class="usadm lv" data-i="${i}"${x.sadm?" checked":""}${SA||x.sec==="*"?" disabled":""}></td><td class="upls">${x.sec==="*"||x.sadm?"—":placesOf(x.sec||"sabgh").map(pl=>`<label class="pm"><input type="checkbox" class="upl" data-i="${i}" value="${esc(pl)}"${(x.pls||[]).includes(pl)?" checked":""}>${esc(pl)}</label>`).join("")||"<small>جهاز نینن</small>"}</td><td><input type="checkbox" class="unf lv" data-i="${i}"${x.noFri?" checked":""}></td><td><input type="checkbox" class="ushn lv" data-i="${i}"${x.shn?" checked":""} title="⏰ ئاگەهداری ل سەر مۆبایلێ 1 دەمژمێر بەری دووماهیا دەوامی"></td><td><input class="upw" data-i="${i}" placeholder="••••" style="width:110px" dir="ltr"> <button class="sec" data-pw="${i}">گوهۆڕین</button></td><td><button class="off" data-du="${i}">ژێبرن</button></td></tr>`).join("")||`<tr><td colspan="${PERMS.length+8}">هێشتا چ بەکارهێنەر نەهاتینە زێدەکرن</td></tr>`;
+ {const H=[...$("uh").querySelectorAll("th")].map(th=>{const c=th.cloneNode(true);c.querySelectorAll("small").forEach(x=>x.remove());return c.textContent.replace(/\s+/g," ").trim()});
+  $("ul").querySelectorAll("tr:not(.ownrow)").forEach(tr=>[...tr.children].forEach((td,i)=>{if(H[i]&&!td.hasAttribute("colspan"))td.dataset.l=H[i]}))}
 }
 $("nadd").onclick=async()=>{
  const u=$("nu").value.trim().toLowerCase(),p=$("np").value;
@@ -3308,7 +3331,7 @@ document.querySelectorAll("#login .eye").forEach(b=>b.onclick=()=>{const i=$(b.d
 showLogin();all();load();
 if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
 // ===== new-version check: tell open pages when a newer version is published =====
-const APPV="2026.11.25-4";document.querySelectorAll(".appvl").forEach(x=>x.textContent="v"+APPV);
+const APPV="2026.11.25-5";document.querySelectorAll(".appvl").forEach(x=>x.textContent="v"+APPV);
 async function chkVer(){
  if(location.protocol!=="https:")return;
  try{const t=await(await fetch("./index.html?v="+Date.now(),{cache:"no-store"})).text(),m=t.match(/const APPV="([^"]+)"/);
