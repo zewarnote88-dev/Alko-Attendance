@@ -66,7 +66,7 @@ th{font-weight:700;color:var(--mu);font-size:12.5px}
 .kpi{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px;text-align:center}
 .kpi span{display:block;font-size:12.5px;color:var(--mu)}
 .kpi b{font-size:24px}
-#pr{position:absolute;left:-10000px;top:0;width:1000px;background:#fff;color:#111}
+#pr{position:fixed;left:-10000px;top:0;width:1000px;background:#fff;color:#111;pointer-events:none}
 #pr .pg{padding:18px;background:#fff;color:#111}
 #pr h2{margin:0 0 4px;font-size:20px}
 #pr p{margin:0 0 10px;color:#555}
@@ -1120,6 +1120,7 @@ html[data-theme="dark"] #xtb td.xa input.xc{color:#fca5a5}html[data-theme="dark"
  #utb tbody tr:nth-child(even) td:first-child{background:transparent!important}
 }
 </style>
+<style id="nox">html,body{max-width:100%;overflow-x:clip}main{max-width:100%}@supports not (overflow:clip){html,body{overflow-x:hidden}}</style>
 <style id="fsz">html[data-fs="s"] body{zoom:.9}html[data-fs="l"] body{zoom:1.1}#cpop .fpk button.on{outline:2px solid var(--ac);outline-offset:-2px}</style>
 <style id="logo">
 .clogo{display:inline-grid;place-items:center;background:#fff;border-radius:10px;padding:4px 8px;height:44px;box-sizing:border-box;flex:none;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
@@ -1139,7 +1140,7 @@ html[data-theme="dark"] #xtb td.xa input.xc{color:#fca5a5}html[data-theme="dark"
  <label class="lrm"><input type="checkbox" id="lrm" checked> ل سەر ڤی ئامێری بمینە (هەتا دەرکەتنێ)</label>
  <button id="lb" type="submit"><span>چوونەژوور</span><b>←</b></button>
  <div id="le" class="bad"></div>
- <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr" class="appvl">v2026.11.25-5</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
+ <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr" class="appvl">v2026.11.25-6</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
 </form></div>
 <main>
 <header class="top"><div class="brand"><span class="clogo"><img src="logo.png" alt="ALKO Aluminum"></span><div><h1>غیابا کرێکاران</h1><span class="ownb" title="ئەدمینێ سەرەکی">👑 ئەدمین: <b dir="ltr">Zewar</b></span><p class="sub"><b class="alkot">ALKO</b> Company · <span id="secn">غیاب، زێدە و ڕێکخستنا هەفتیێ</span></p></div></div>
@@ -1315,7 +1316,7 @@ html[data-theme="dark"] #xtb td.xa input.xc{color:#fca5a5}html[data-theme="dark"
  <div class="bar" style="margin:0"><button type="submit" id="dws" class="danger" style="background:#dc2626;color:#fff">ژێبرن</button><button type="button" class="off" id="dwx2">بەتالکرن</button></div>
 </form></div>
 <div id="pr"></div>
-<div class="appv" dir="ltr">ALKO · <span class="appvl">v2026.11.25-5</span></div>
+<div class="appv" dir="ltr">ALKO · <span class="appvl">v2026.11.25-6</span></div>
 </main>
 <script>
 const $=id=>document.getElementById(id);
@@ -3331,7 +3332,7 @@ document.querySelectorAll("#login .eye").forEach(b=>b.onclick=()=>{const i=$(b.d
 showLogin();all();load();
 if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
 // ===== new-version check: tell open pages when a newer version is published =====
-const APPV="2026.11.25-5";document.querySelectorAll(".appvl").forEach(x=>x.textContent="v"+APPV);
+const APPV="2026.11.25-6";document.querySelectorAll(".appvl").forEach(x=>x.textContent="v"+APPV);
 async function chkVer(){
  if(location.protocol!=="https:")return;
  try{const t=await(await fetch("./index.html?v="+Date.now(),{cache:"no-store"})).text(),m=t.match(/const APPV="([^"]+)"/);
