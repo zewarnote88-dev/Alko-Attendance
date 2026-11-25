@@ -1125,8 +1125,7 @@ html[data-theme="dark"] #xtb td.xa input.xc{color:#fca5a5}html[data-theme="dark"
 <style id="gfont">html:not([data-style="taste"]){--ff:"Noto Sans Arabic","Vazirmatn",Tahoma,sans-serif}html[data-font="vazir"]:not([data-style="taste"]){--ff:"Vazirmatn","Noto Sans Arabic",Tahoma,sans-serif}html[data-font="kufi"]:not([data-style="taste"]){--ff:"Noto Kufi Arabic","Noto Sans Arabic",Tahoma,sans-serif}
 html:not([data-style="taste"]) :where(body,h1,h2,h3,button,input,select,textarea,th,td){font-family:var(--ff)!important}
 @font-face{font-family:"Vazirmatn";src:url("fonts/vazirmatn.woff2") format("woff2");font-weight:100 900;font-display:swap}</style>
-<style id="nodcss">body.nodu :is(#dl,#xb,#mt,#ab,#sb) :is(input,button,label,select){pointer-events:none}
-body.nodu :is(#bell,#hent,#mw,#xwho,.prog,.ndl,#dwa,#qa,#xtool,.xtool,#sw2,.ndc){display:none!important}</style>
+<style id="nodcss">body.nodu :is(#bell,#hent,#mw,#xwho,.prog,.ndl,#dwa,#qa,#xtool,.xtool,#sw2,.ndc){display:none!important}</style>
 <style id="fsz">html[data-fs="s"] body{zoom:.9}html[data-fs="l"] body{zoom:1.1}
 @media (min-width:701px){html body{zoom:.88}html[data-fs="s"] body{zoom:.8}html[data-fs="l"] body{zoom:1}
  html[data-style="taste"] .ent .er{padding:6px 10px!important;margin:4px 0!important}html[data-style="taste"] .ent .ebar{margin:4px 0 2px}html[data-style="taste"] .tile{min-height:54px!important;padding:8px 12px!important}html[data-style="taste"] .kpi{padding:10px 8px!important}html[data-style="taste"] .top{padding:8px 16px!important}}#cpop .fpk button.on{outline:2px solid var(--ac);outline-offset:-2px}</style>
@@ -1148,7 +1147,7 @@ body.nodu :is(#bell,#hent,#mw,#xwho,.prog,.ndl,#dwa,#qa,#xtool,.xtool,#sw2,.ndc)
  <label class="lrm"><input type="checkbox" id="lrm" checked> ل سەر ڤی ئامێری بمینە (هەتا دەرکەتنێ)</label>
  <button id="lb" type="submit"><span>چوونەژوور</span><b>←</b></button>
  <div id="le" class="bad"></div>
- <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr" class="appvl">v2026.11.25-10</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
+ <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr" class="appvl">v2026.11.25-11</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
 </form></div>
 <main>
 <header class="top"><div class="brand"><span class="clogo"><img src="logo.png" alt="ALKO Aluminum"></span><div><h1>غیابا کرێکاران</h1><span class="ownb" title="ئەدمینێ سەرەکی">👑 ئەدمین: <b dir="ltr">Zewar</b></span><p class="sub"><b class="alkot">ALKO</b> Company · <span id="secn">غیاب، زێدە و ڕێکخستنا هەفتیێ</span></p></div></div>
@@ -1324,7 +1323,7 @@ body.nodu :is(#bell,#hent,#mw,#xwho,.prog,.ndl,#dwa,#qa,#xtool,.xtool,#sw2,.ndc)
  <div class="bar" style="margin:0"><button type="submit" id="dws" class="danger" style="background:#dc2626;color:#fff">ژێبرن</button><button type="button" class="off" id="dwx2">بەتالکرن</button></div>
 </form></div>
 <div id="pr"></div>
-<div class="appv" dir="ltr">ALKO · <span class="appvl">v2026.11.25-10</span></div>
+<div class="appv" dir="ltr">ALKO · <span class="appvl">v2026.11.25-11</span></div>
 </main>
 <script>
 const $=id=>document.getElementById(id);
@@ -1439,7 +1438,7 @@ async function upsert(path,data){await DB.doc(path).set(data,{merge:true})}
 const NODU=()=>!!(ME&&!ME.admin&&ME.nod);
 function nodScrub(){if(!NODU())return;KEYS.forEach(k=>S[k]={});if(BASE)KEYS.forEach(k=>BASE[k]={})}
 function save(){
- if(NODU()){msg("👁 ئەڤ هەژمارە تنێ بۆ دیتنێ یە");return Promise.resolve()}
+ if(NODU()){msg("⚠️ ئەڤ سیستەمە نوکە هاتیە ڕاستاندن");nodScrub();setTimeout(()=>{try{all()}catch(e){}},30);return Promise.resolve()}
  if(!DB){try{localStorage.setItem("absApp",JSON.stringify(S))}catch(e){msg("پاشکەفتکرن سەرنەکەفت")}return Promise.resolve()}
  if(!BASE)return Promise.resolve();
  for(const k in S.pr)if(S.abs[k]>0||S.lv[k])delete S.pr[k];
@@ -3355,7 +3354,7 @@ document.querySelectorAll("#login .eye").forEach(b=>b.onclick=()=>{const i=$(b.d
 showLogin();all();load();
 if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
 // ===== new-version check: tell open pages when a newer version is published =====
-const APPV="2026.11.25-10";document.querySelectorAll(".appvl").forEach(x=>x.textContent="v"+APPV);
+const APPV="2026.11.25-11";document.querySelectorAll(".appvl").forEach(x=>x.textContent="v"+APPV);
 async function chkVer(){
  if(location.protocol!=="https:")return;
  try{const t=await(await fetch("./index.html?v="+Date.now(),{cache:"no-store"})).text(),m=t.match(/const APPV="([^"]+)"/);
