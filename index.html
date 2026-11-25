@@ -1125,6 +1125,8 @@ html[data-theme="dark"] #xtb td.xa input.xc{color:#fca5a5}html[data-theme="dark"
 <style id="gfont">html:not([data-style="taste"]){--ff:"Noto Sans Arabic","Vazirmatn",Tahoma,sans-serif}html[data-font="vazir"]:not([data-style="taste"]){--ff:"Vazirmatn","Noto Sans Arabic",Tahoma,sans-serif}html[data-font="kufi"]:not([data-style="taste"]){--ff:"Noto Kufi Arabic","Noto Sans Arabic",Tahoma,sans-serif}
 html:not([data-style="taste"]) :where(body,h1,h2,h3,button,input,select,textarea,th,td){font-family:var(--ff)!important}
 @font-face{font-family:"Vazirmatn";src:url("fonts/vazirmatn.woff2") format("woff2");font-weight:100 900;font-display:swap}</style>
+<style id="nodcss">body.nodu :is(#dl,#xb,#mt,#ab,#sb) :is(input,button,label,select){pointer-events:none}
+body.nodu :is(#bell,#hent,#mw,#xwho,.prog,.ndl,#dwa,#qa,#xtool,.xtool,#sw2,.ndc){display:none!important}</style>
 <style id="fsz">html[data-fs="s"] body{zoom:.9}html[data-fs="l"] body{zoom:1.1}
 @media (min-width:701px){html body{zoom:.88}html[data-fs="s"] body{zoom:.8}html[data-fs="l"] body{zoom:1}
  html[data-style="taste"] .ent .er{padding:6px 10px!important;margin:4px 0!important}html[data-style="taste"] .ent .ebar{margin:4px 0 2px}html[data-style="taste"] .tile{min-height:54px!important;padding:8px 12px!important}html[data-style="taste"] .kpi{padding:10px 8px!important}html[data-style="taste"] .top{padding:8px 16px!important}}#cpop .fpk button.on{outline:2px solid var(--ac);outline-offset:-2px}</style>
@@ -1146,7 +1148,7 @@ html:not([data-style="taste"]) :where(body,h1,h2,h3,button,input,select,textarea
  <label class="lrm"><input type="checkbox" id="lrm" checked> ل سەر ڤی ئامێری بمینە (هەتا دەرکەتنێ)</label>
  <button id="lb" type="submit"><span>چوونەژوور</span><b>←</b></button>
  <div id="le" class="bad"></div>
- <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr" class="appvl">v2026.11.25-9</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
+ <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr" class="appvl">v2026.11.25-10</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
 </form></div>
 <main>
 <header class="top"><div class="brand"><span class="clogo"><img src="logo.png" alt="ALKO Aluminum"></span><div><h1>غیابا کرێکاران</h1><span class="ownb" title="ئەدمینێ سەرەکی">👑 ئەدمین: <b dir="ltr">Zewar</b></span><p class="sub"><b class="alkot">ALKO</b> Company · <span id="secn">غیاب، زێدە و ڕێکخستنا هەفتیێ</span></p></div></div>
@@ -1322,7 +1324,7 @@ html:not([data-style="taste"]) :where(body,h1,h2,h3,button,input,select,textarea
  <div class="bar" style="margin:0"><button type="submit" id="dws" class="danger" style="background:#dc2626;color:#fff">ژێبرن</button><button type="button" class="off" id="dwx2">بەتالکرن</button></div>
 </form></div>
 <div id="pr"></div>
-<div class="appv" dir="ltr">ALKO · <span class="appvl">v2026.11.25-9</span></div>
+<div class="appv" dir="ltr">ALKO · <span class="appvl">v2026.11.25-10</span></div>
 </main>
 <script>
 const $=id=>document.getElementById(id);
@@ -1411,7 +1413,7 @@ function startLive(){
  DB.collection("days").onSnapshot(q=>{
   KEYS.forEach(k=>S[k]={});
   q.docs.forEach(doc=>{const d=doc.data()||{},dt=doc.id;KEYS.forEach(k=>{const m=d[k]||{};for(const wid in m)if(m[wid]!=null&&m[wid]!==0)S[k][wid+"_"+dt]=m[wid]})});
-  if(BASE)KEYS.forEach(k=>BASE[k]=clone(S[k]));got.d=1;after();
+  if(BASE)KEYS.forEach(k=>BASE[k]=clone(S[k]));nodScrub();got.d=1;after();
  },fail);
  DB.collection("weeks").onSnapshot(q=>{
   S.asg={};
@@ -1425,7 +1427,7 @@ function refreshMe(){
  if(ME.admin){if(!S.admin){ses("");ME=null;showLogin()}return}
  const x=S.users.find(v=>v.u===ME.u);
  if(!x){ses("");remSet(null);ME=null;showLogin();return}
- const ch=JSON.stringify(x.perms)!==JSON.stringify(ME.perms)||!!x.noFri!==!!ME.noFri||(x.sec||"")!==(ME.sec||"")||!!x.sadm!==!!ME.sadm||JSON.stringify(x.pls||[])!==JSON.stringify(ME.pls||[]);ME=x;if(ch)enter();
+ if(!!x.nod!==!!ME.nod){location.reload();return}const ch=JSON.stringify(x.perms)!==JSON.stringify(ME.perms)||!!x.noFri!==!!ME.noFri||(x.sec||"")!==(ME.sec||"")||!!x.sadm!==!!ME.sadm||JSON.stringify(x.pls||[])!==JSON.stringify(ME.pls||[]);ME=x;if(ch)enter();
 }
 let LASTF=0;document.addEventListener("focusin",e=>{if(/^(INPUT|TEXTAREA)$/.test(e.target.tagName)&&e.target.type!=="checkbox")LASTF=Date.now()});
 const typing=()=>{const a=document.activeElement;return(a&&a.closest&&a.closest("main")&&/^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName)&&a.type!=="checkbox"&&a.id!=="q")||Date.now()-LASTF<1500};
@@ -1433,7 +1435,11 @@ function rerender(){if(typing()){PEND=true;return}PEND=false;all();if(ADMQ())ren
 document.addEventListener("focusout",()=>setTimeout(()=>{if(PEND&&!typing())rerender()},50));
 const wq=fn=>(WQ=WQ.then(fn).catch(e=>{console.error(e);msg(e&&e.code==="quota_exceeded"?"جهێ داتایێ تژی بوویە، پەیوەندیێ ب ئەدمینی بکە":"پاشکەفتکرن سەرنەکەفت، دووبارە هەول بدە")}));
 async function upsert(path,data){await DB.doc(path).set(data,{merge:true})}
+// "names only" users: they see the workers' names but none of the attendance data, and can change nothing
+const NODU=()=>!!(ME&&!ME.admin&&ME.nod);
+function nodScrub(){if(!NODU())return;KEYS.forEach(k=>S[k]={});if(BASE)KEYS.forEach(k=>BASE[k]={})}
 function save(){
+ if(NODU()){msg("👁 ئەڤ هەژمارە تنێ بۆ دیتنێ یە");return Promise.resolve()}
  if(!DB){try{localStorage.setItem("absApp",JSON.stringify(S))}catch(e){msg("پاشکەفتکرن سەرنەکەفت")}return Promise.resolve()}
  if(!BASE)return Promise.resolve();
  for(const k in S.pr)if(S.abs[k]>0||S.lv[k])delete S.pr[k];
@@ -1582,7 +1588,7 @@ $("lb").onclick=async()=>{
  }
  ses(ME.u);remSet($("lrm").checked?{u:ME.u,h:hOf(ME.u)}:null);$("lp").value="";$("lp2").value="";enter();
 };
-$("lo").onclick=()=>{ses("");remSet(null);ME=null;renderAW();$("lu").value="";showLogin()};
+$("lo").onclick=()=>{const wasN=NODU();ses("");remSet(null);ME=null;if(wasN){location.reload();return}renderAW();$("lu").value="";showLogin()};
 // ===== phone bottom bar for the "نوی" style: up to 5 slots, the rest in a sheet =====
 const TSHORT={0:"سەرەکی",1:"ڕۆژانە",2:"مانگانە",3:"کرێکار",4:"ڕێکخستن",5:"کورتی",6:"غیابا هەفتیێ",7:"ئەدمین"},TPRI=["0","1","6","5","2","4","3","7"];
 function secRow(){const sel=$("secsel"),top=document.querySelector("header.top");if(!sel||!top)return;const ph=innerWidth<=700;let bar=$("secbar");
@@ -1604,6 +1610,7 @@ function tasteNav(){try{secRow()}catch(e){}
 }
 addEventListener("resize",()=>{try{tasteNav()}catch(e){}});
 function enter(){
+ try{nodScrub();document.body.classList.toggle("nodu",NODU())}catch(e){}
  applyColor();try{all()}catch(e){console.error(e)}
  document.body.classList.remove("locked");
  if(!enter.bk){enter.bk=1;setTimeout(()=>makeBak(false).catch(e=>console.error("bak",e)),8000)}
@@ -1626,10 +1633,10 @@ function renderU(){
  $("nsec").disabled=SA;$("nsadmw").classList.toggle("hide",SA);
  renderSecs();
  if(!$("npm").childElementCount)$("npm").innerHTML=PERMS.map(([k,t])=>`<label class="pm"><input type="checkbox" class="npk" value="${k}"${k==="1"?" checked":""}>${t}</label>`).join("");
- $("uh").innerHTML="<tr><th>ناڤێ بەکارهێنەری</th>"+PERMS.map(([k,t])=>`<th>${t}</th>`).join("")+"<th>بەش</th><th>👑 ئەدمینێ بەشی</th><th>🏭 جهاز<br><small>تنێ کرێکارێن ڤان جهازان دبینیت</small></th><th>🕌 تنێ ئەینی<br><small>پێنجشەمب ١٢ شەڤ ← شەمبی ٨ سپێدە</small></th><th>⏰ ئاگەهداریا شفتی<br><small>1 دەمژمێر بەری دووماهیا دەوامی، ئەگەر داتا نەتەمام بیت</small></th><th>پەیڤا نهێنی یا نوی</th><th></th></tr>";
+ $("uh").innerHTML="<tr><th>ناڤێ بەکارهێنەری</th>"+PERMS.map(([k,t])=>`<th>${t}</th>`).join("")+"<th>بەش</th><th>👑 ئەدمینێ بەشی</th><th>🏭 جهاز<br><small>تنێ کرێکارێن ڤان جهازان دبینیت</small></th><th>🕌 تنێ ئەینی<br><small>پێنجشەمب ١٢ شەڤ ← شەمبی ٨ سپێدە</small></th><th>⏰ ئاگەهداریا شفتی<br><small>1 دەمژمێر بەری دووماهیا دەوامی، ئەگەر داتا نەتەمام بیت</small></th><th>👁 تنێ ناڤ<br><small>چ داتا نابینیت و نەشێت بگوهۆڕیت</small></th><th>پەیڤا نهێنی یا نوی</th><th></th></tr>";
  const secOpt=x=>SA?`<option>${esc(secById(ME.sec).name)}</option>`:SECS().map(c=>`<option value="${c.id}"${(x.sec||"sabgh")===c.id?" selected":""}>${esc(c.name)}</option>`).join("")+(SECS().length>1||x.sec==="*"?`<option value="*"${x.sec==="*"?" selected":""}>👁 هەمی بەش</option>`:"");
- const ownRow=`<tr class="ownrow"><td class="nm" dir="ltr">👑 <b>Zewar</b></td><td colspan="${PERMS.length+7}">ئەدمینێ سەرەکی — هەمی بەش و هەمی دەستهەلات</td></tr>`;
- $("ul").innerHTML=ownRow+S.users.map((x,i)=>SA&&((x.sec||"sabgh")!==ME.sec||x.u===ME.u)?"":`<tr><td class="nm" dir="ltr">${esc(x.u)}</td>`+PERMS.map(([k])=>`<td><input type="checkbox" class="upk lv" data-i="${i}" value="${k}"${(x.perms||[]).includes(k)?" checked":""}></td>`).join("")+`<td><select class="usec" data-i="${i}"${SA?" disabled":""}>${secOpt(x)}</select></td><td><input type="checkbox" class="usadm lv" data-i="${i}"${x.sadm?" checked":""}${SA||x.sec==="*"?" disabled":""}></td><td class="upls">${x.sec==="*"||x.sadm?"—":placesOf(x.sec||"sabgh").map(pl=>`<label class="pm"><input type="checkbox" class="upl" data-i="${i}" value="${esc(pl)}"${(x.pls||[]).includes(pl)?" checked":""}>${esc(pl)}</label>`).join("")||"<small>جهاز نینن</small>"}</td><td><input type="checkbox" class="unf lv" data-i="${i}"${x.noFri?" checked":""}></td><td><input type="checkbox" class="ushn lv" data-i="${i}"${x.shn?" checked":""} title="⏰ ئاگەهداری ل سەر مۆبایلێ 1 دەمژمێر بەری دووماهیا دەوامی"></td><td><input class="upw" data-i="${i}" placeholder="••••" style="width:110px" dir="ltr"> <button class="sec" data-pw="${i}">گوهۆڕین</button></td><td><button class="off" data-du="${i}">ژێبرن</button></td></tr>`).join("")||`<tr><td colspan="${PERMS.length+8}">هێشتا چ بەکارهێنەر نەهاتینە زێدەکرن</td></tr>`;
+ const ownRow=`<tr class="ownrow"><td class="nm" dir="ltr">👑 <b>Zewar</b></td><td colspan="${PERMS.length+8}">ئەدمینێ سەرەکی — هەمی بەش و هەمی دەستهەلات</td></tr>`;
+ $("ul").innerHTML=ownRow+S.users.map((x,i)=>SA&&((x.sec||"sabgh")!==ME.sec||x.u===ME.u)?"":`<tr><td class="nm" dir="ltr">${esc(x.u)}</td>`+PERMS.map(([k])=>`<td><input type="checkbox" class="upk lv" data-i="${i}" value="${k}"${(x.perms||[]).includes(k)?" checked":""}></td>`).join("")+`<td><select class="usec" data-i="${i}"${SA?" disabled":""}>${secOpt(x)}</select></td><td><input type="checkbox" class="usadm lv" data-i="${i}"${x.sadm?" checked":""}${SA||x.sec==="*"?" disabled":""}></td><td class="upls">${x.sec==="*"||x.sadm?"—":placesOf(x.sec||"sabgh").map(pl=>`<label class="pm"><input type="checkbox" class="upl" data-i="${i}" value="${esc(pl)}"${(x.pls||[]).includes(pl)?" checked":""}>${esc(pl)}</label>`).join("")||"<small>جهاز نینن</small>"}</td><td><input type="checkbox" class="unf lv" data-i="${i}"${x.noFri?" checked":""}></td><td><input type="checkbox" class="ushn lv" data-i="${i}"${x.shn?" checked":""} title="⏰ ئاگەهداری ل سەر مۆبایلێ 1 دەمژمێر بەری دووماهیا دەوامی"></td><td><input type="checkbox" class="unod lv" data-i="${i}"${x.nod?" checked":""} title="👁 تنێ ناڤێن کرێکاران دبینیت، چ داتا (هاتن، غیاب، مۆلەت، کێ داخل کریە) نابینیت و نەشێت چ بگوهۆڕیت"></td><td><input class="upw" data-i="${i}" placeholder="••••" style="width:110px" dir="ltr"> <button class="sec" data-pw="${i}">گوهۆڕین</button></td><td><button class="off" data-du="${i}">ژێبرن</button></td></tr>`).join("")||`<tr><td colspan="${PERMS.length+9}">هێشتا چ بەکارهێنەر نەهاتینە زێدەکرن</td></tr>`;
  {const H=[...$("uh").querySelectorAll("th")].map(th=>{const c=th.cloneNode(true);c.querySelectorAll("small").forEach(x=>x.remove());return c.textContent.replace(/\s+/g," ").trim()});
   $("ul").querySelectorAll("tr:not(.ownrow)").forEach(tr=>[...tr.children].forEach((td,i)=>{if(H[i]&&!td.hasAttribute("colspan"))td.dataset.l=H[i]}))}
 }
@@ -1645,7 +1652,7 @@ $("nadd").onclick=async()=>{
 };
 $("ul").addEventListener("change",e=>{const t=e.target;if(t.classList.contains("usec")){if(SADM())return;const x=S.users[+t.dataset.i];x.sec=t.value;if(x.sec==="*")x.sadm=false;save();renderU();msg("«"+x.u+"» ← "+(t.value==="*"?"هەمی بەش":secById(t.value).name));return}
  if(t.classList.contains("upl")){const x=S.users[+t.dataset.i],P=new Set(x.pls||[]);t.checked?P.add(t.value):P.delete(t.value);x.pls=[...P];save();msg("«"+x.u+"»: "+(x.pls.length?"🏭 "+x.pls.join("، "):"هەمی کرێکارێن بەشی"));return}
- if(t.classList.contains("usadm")){if(SADM())return;const x=S.users[+t.dataset.i];x.sadm=t.checked;save();msg("«"+x.u+"»: "+(t.checked?"👑 ئەدمینێ "+secById(x.sec||"sabgh").name:"ئەدمین نینە"));return}if(t.classList.contains("ushn")){const x=S.users[+t.dataset.i];x.shn=t.checked;save();msg("«"+x.u+"»: "+(t.checked?"⏰ ئاگەهداریا شفتی چالاکە (پێتڤیە ل مۆبایلا خۆ 🔔 چالاک بکەت)":"ئاگەهداریا شفتی ڕاگرت"));return}if(t.classList.contains("unf")){S.users[+t.dataset.i].noFri=t.checked;save();msg("«"+S.users[+t.dataset.i].u+"»: "+(t.checked?"تنێ ژ پێنجشەمب ١٢ێ شەڤێ هەتا شەمبی ٨ێ سپێدێ، و تنێ ڕۆژا ئەینیێ":"ئاسایی، هەمی دەمان دشێت داخل بکەت"));return}if(!t.classList.contains("upk"))return;const x=S.users[+t.dataset.i],P=new Set(x.perms||[]);t.checked?P.add(t.value):P.delete(t.value);x.perms=PERMS.map(p=>p[0]).filter(k=>P.has(k));save()});
+ if(t.classList.contains("usadm")){if(SADM())return;const x=S.users[+t.dataset.i];x.sadm=t.checked;save();msg("«"+x.u+"»: "+(t.checked?"👑 ئەدمینێ "+secById(x.sec||"sabgh").name:"ئەدمین نینە"));return}if(t.classList.contains("unod")){const x=S.users[+t.dataset.i];x.nod=t.checked;save();msg("«"+x.u+"»: "+(t.checked?"👁 نوکە تنێ ناڤێن کرێکاران دبینیت، بێ چ داتا":"هەمی داتا دبینیت"));return}if(t.classList.contains("ushn")){const x=S.users[+t.dataset.i];x.shn=t.checked;save();msg("«"+x.u+"»: "+(t.checked?"⏰ ئاگەهداریا شفتی چالاکە (پێتڤیە ل مۆبایلا خۆ 🔔 چالاک بکەت)":"ئاگەهداریا شفتی ڕاگرت"));return}if(t.classList.contains("unf")){S.users[+t.dataset.i].noFri=t.checked;save();msg("«"+S.users[+t.dataset.i].u+"»: "+(t.checked?"تنێ ژ پێنجشەمب ١٢ێ شەڤێ هەتا شەمبی ٨ێ سپێدێ، و تنێ ڕۆژا ئەینیێ":"ئاسایی، هەمی دەمان دشێت داخل بکەت"));return}if(!t.classList.contains("upk"))return;const x=S.users[+t.dataset.i],P=new Set(x.perms||[]);t.checked?P.add(t.value):P.delete(t.value);x.perms=PERMS.map(p=>p[0]).filter(k=>P.has(k));save()});
 $("ul").addEventListener("click",async e=>{
  const pw=e.target.closest("[data-pw]"),du=e.target.closest("[data-du]");
  if(pw){const i=+pw.dataset.pw,inp=$("ul").querySelector(`.upw[data-i="${i}"]`),p=inp.value;if(p.length<4)return msg("پەیڤا نهێنی دڤێت 4 پیت یان پتر بن");const x=S.users[i];x.salt=rnd();x.h=await hsh(x.salt,p);inp.value="";save();msg("پەیڤا نهێنی یا «"+x.u+"» هاتە گوهۆڕین")}
@@ -2051,7 +2058,7 @@ function kpiHTML(d){
  const cg=E.length?E.map(([n,c],i)=>{const a=acc;acc+=c/tot*100;return`${CL[i]} ${a}% ${acc}%`}).join(","):"#e0e7ff 0 100%";
  return`<div class="k dark"><h4>جهێ کاری</h4><div class="dn"><div class="donut" style="background:conic-gradient(${cg})"></div><div class="lgd">${E.map(([n,c],i)=>`<div><s style="background:${CL[i]}"></s><span>${esc(n)}</span><b>${c}</b></div>`).join("")||"<small>هێشتا چ جه نینن</small>"}</div></div></div>
  <div class="k lite" data-go="3"><div class="ic">👥</div><div class="n">${act.length}</div><div class="l">هەمی کرێکار</div><span class="ar">‹</span></div>
- <div class="k blu"><div><div class="ic">✅</div><div class="n">${pr}</div><div class="l">ئامادە</div></div><div class="sep"></div><div><div class="ic">❌</div><div class="n">${ab}</div><div class="l">نەهاتی</div></div>${lv?`<div class="lvn">🌴 مۆلەت: ${lv}</div>`:""}${nd?`<div class="lvn">⏳ بێ داتا: ${nd}</div>`:""}</div>
+ <div class="k blu"><div><div class="ic">✅</div><div class="n">${pr}</div><div class="l">ئامادە</div></div><div class="sep"></div><div><div class="ic">❌</div><div class="n">${ab}</div><div class="l">نەهاتی</div></div>${lv?`<div class="lvn">🌴 مۆلەت: ${lv}</div>`:""}${nd&&!NODU()?`<div class="lvn">⏳ بێ داتا: ${nd}</div>`:""}</div>
  <div class="k pur"><h4>ڕێژا ئامادەبوونێ</h4><div class="ring" style="background:conic-gradient(#fff 0 ${rate}%,rgba(255,255,255,.25) ${rate}% 100%)"><span>${rate}%</span></div></div>`;
 }
 document.addEventListener("click",e=>{const k=e.target.closest(".k[data-go]");if(k&&can(k.dataset.go))$("t"+k.dataset.go).click()});
@@ -2067,7 +2074,7 @@ function renderHome(){
 }
 document.addEventListener("click",e=>{const t=e.target.closest(".tile");if(t)$("t"+t.dataset.k).click()});
 // ===== Daily entry monitor: which section / machine / shift has not entered today's data, and who is responsible =====
-const ENTV=()=>!!ME&&!FRU()&&(ADMQ()||ME.sec==="*");
+const ENTV=()=>!!ME&&!FRU()&&!NODU()&&(ADMQ()||ME.sec==="*");
 let ENTD=0;
 function entGroups(d){
  const allS=ME.admin||ME.sec==="*",secs=allS?SECS():SECS().filter(c=>c.id===(ME.sec||"sabgh")),out=[];
@@ -2181,11 +2188,12 @@ const hasData=(w,d)=>{const k=w.id+"_"+d;return!!(S.pr[k]||(S.abs[k]||0)>0||S.lv
 const SHT=[["سپێدە",16,"☀️"],["ئێڤار",24,"🌇"],["شەڤ",32,"🌙"]];
 // "not entered" is only flagged from 1 hour before the worker's shift ends (past days always)
 function ndue(w,d){
+ if(NODU())return false;
  if(hasData(w,d)||outside(w,d)||dayOff(w,d))return false;const T=wtoday();if(d<T)return true;if(d>T)return false;
  const sh=asgOf(w,d)[2]||"",c=secById(secOf(w)),end=c.type==="day"?8+dayH(w):sh==="شەڤ"||sh==="شفتی 2"?32:sh==="شفتی 1"?20:sh==="ئێڤار"?16+dayH(w):8+dayH(w);
  return (Date.now()-new Date(d+"T00:00:00").getTime())/36e5>=end-1;
 }
-function shiftAlerts(){
+function shiftAlerts(){if(NODU())return[];
  const D=wtoday(),hrs=(Date.now()-new Date(D+"T00:00:00").getTime())/36e5;
  const shEnd=(w,sh)=>sh==="شەڤ"?32:(sh==="سپێدە"?8:16)+dayH(w),G={};
  const mp=myPls();if(isShiftSec())SW().forEach(w=>{if(outside(w,D)||gone(w,D))return;if(mp&&!mp.includes(asgOf(w,D)[1]))return;const sh=asgOf(w,D)[2];if(!SH3.includes(sh))return;if(!sh)return;const end=shEnd(w,sh);if(hrs<end-1||hasData(w,D))return;(G[sh+"|"+end]=G[sh+"|"+end]||{sh,end,L:[]}).L.push(w)});
@@ -3304,7 +3312,7 @@ function renderAW(){
 }
 $("sdf").addEventListener("click",e=>{const b=e.target.closest(".awn");if(!b)return;$("q").value=b.dataset.q;all()});
 $("aw").addEventListener("click",e=>{if(e.target.closest("#awpdf")){const w0=weekOf($("dt").value),DS=wkIds(w0);absPdf("absence-week-"+w0+".pdf","Absence Report — Week "+DS[0]+" to "+DS[6],"Workers absent 2 or more full days this week",absList(DS,2),w0);return}const b=e.target.closest(".awn");if(!b)return;$("q").value=b.dataset.q;all()});
-function renderDF(){renderAW();const d=$("dt").value;let a=0,o=0,n=0;const L=dList(d,1);L.forEach(w=>{const x=absOf(w,d);a+=x;if(x&&!outside(w,d))n++;o+=otOf(w,d)});const AL=L.filter(w=>!outside(w,d)),act=AL.length,np=AL.filter(w=>S.pr[w.id+"_"+d]&&!(absOf(w,d)>0)).length,nd=AL.filter(w=>!hasData(w,d)&&!dayOff(w,d)).length;$("df").innerHTML=L.length?`<tr><th colspan="4" class="f-t">کۆما ڕۆژێ — ئامادە: <span class="ok">${np}</span> ، نەهاتی: <span class="bad">${n}</span>${nd?` ، <span style="color:#d97706">⏳ بێ داتا: ${nd}</span>`:""}</th><th class="bad f-n">${n}</th><th class="bad f-a" data-l="غیاب">${r2(a)}</th><th class="ok f-o" data-l="زێدە">${r2(o)}</th><th class="f-e"></th><th class="f-e"></th></tr>`:""}
+function renderDF(){renderAW();const d=$("dt").value;let a=0,o=0,n=0;const L=dList(d,1);L.forEach(w=>{const x=absOf(w,d);a+=x;if(x&&!outside(w,d))n++;o+=otOf(w,d)});const AL=L.filter(w=>!outside(w,d)),act=AL.length,np=AL.filter(w=>S.pr[w.id+"_"+d]&&!(absOf(w,d)>0)).length,nd=AL.filter(w=>!hasData(w,d)&&!dayOff(w,d)).length;$("df").innerHTML=L.length?`<tr><th colspan="4" class="f-t">کۆما ڕۆژێ — ئامادە: <span class="ok">${np}</span> ، نەهاتی: <span class="bad">${n}</span>${nd&&!NODU()?` ، <span style="color:#d97706">⏳ بێ داتا: ${nd}</span>`:""}</th><th class="bad f-n">${n}</th><th class="bad f-a" data-l="غیاب">${r2(a)}</th><th class="ok f-o" data-l="زێدە">${r2(o)}</th><th class="f-e"></th><th class="f-e"></th></tr>`:""}
 function setOt(id,v){const k=id+"_"+$("dt").value;if(!(v>0))delete S.ot[k];else S.ot[k]=Math.min(v,24);renderDF();save();renderM();renderS()}
 function sumList(w0,ds){
  const so=$("sso").value,d0=iso(ds[0]);let WL=W().filter(w=>inRq(w,d0,iso(ds[6])));
@@ -3347,7 +3355,7 @@ document.querySelectorAll("#login .eye").forEach(b=>b.onclick=()=>{const i=$(b.d
 showLogin();all();load();
 if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
 // ===== new-version check: tell open pages when a newer version is published =====
-const APPV="2026.11.25-9";document.querySelectorAll(".appvl").forEach(x=>x.textContent="v"+APPV);
+const APPV="2026.11.25-10";document.querySelectorAll(".appvl").forEach(x=>x.textContent="v"+APPV);
 async function chkVer(){
  if(location.protocol!=="https:")return;
  try{const t=await(await fetch("./index.html?v="+Date.now(),{cache:"no-store"})).text(),m=t.match(/const APPV="([^"]+)"/);
