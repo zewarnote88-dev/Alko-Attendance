@@ -1147,7 +1147,7 @@ html:not([data-style="taste"]) :where(body,h1,h2,h3,button,input,select,textarea
  <label class="lrm"><input type="checkbox" id="lrm" checked> ل سەر ڤی ئامێری بمینە (هەتا دەرکەتنێ)</label>
  <button id="lb" type="submit"><span>چوونەژوور</span><b>←</b></button>
  <div id="le" class="bad"></div>
- <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr" class="appvl">v2026.11.25-11</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
+ <div class="lgf">غیابا کرێکاران · © ALKO Company · <span dir="ltr" class="appvl">v2026.11.26-1</span><br><span class="ownr">👑 ئەدمینێ سەرەکی: <b dir="ltr">Zewar</b></span></div>
 </form></div>
 <main>
 <header class="top"><div class="brand"><span class="clogo"><img src="logo.png" alt="ALKO Aluminum"></span><div><h1>غیابا کرێکاران</h1><span class="ownb" title="ئەدمینێ سەرەکی">👑 ئەدمین: <b dir="ltr">Zewar</b></span><p class="sub"><b class="alkot">ALKO</b> Company · <span id="secn">غیاب، زێدە و ڕێکخستنا هەفتیێ</span></p></div></div>
@@ -1323,7 +1323,7 @@ html:not([data-style="taste"]) :where(body,h1,h2,h3,button,input,select,textarea
  <div class="bar" style="margin:0"><button type="submit" id="dws" class="danger" style="background:#dc2626;color:#fff">ژێبرن</button><button type="button" class="off" id="dwx2">بەتالکرن</button></div>
 </form></div>
 <div id="pr"></div>
-<div class="appv" dir="ltr">ALKO · <span class="appvl">v2026.11.25-11</span></div>
+<div class="appv" dir="ltr">ALKO · <span class="appvl">v2026.11.26-1</span></div>
 </main>
 <script>
 const $=id=>document.getElementById(id);
@@ -3354,13 +3354,22 @@ document.querySelectorAll("#login .eye").forEach(b=>b.onclick=()=>{const i=$(b.d
 showLogin();all();load();
 if("serviceWorker" in navigator&&location.protocol==="https:")navigator.serviceWorker.register("sw.js").catch(()=>{});
 // ===== new-version check: tell open pages when a newer version is published =====
-const APPV="2026.11.25-11";document.querySelectorAll(".appvl").forEach(x=>x.textContent="v"+APPV);
-async function chkVer(){
+const APPV="2026.11.26-1";document.querySelectorAll(".appvl").forEach(x=>x.textContent="v"+APPV);
+// new version check: the page URL can be served stale by GitHub's CDN for ~10 min after an update,
+// so updates load through a unique URL; at start-up / when the app comes back to the screen it updates by itself.
+try{if(/[?&]v=\d/.test(location.search))history.replaceState(null,"",location.pathname+location.hash)}catch(e){}
+const goNew=()=>location.replace(location.pathname+"?v="+Date.now()+location.hash);
+async function chkVer(auto){
  if(location.protocol!=="https:")return;
  try{const t=await(await fetch("./index.html?v="+Date.now(),{cache:"no-store"})).text(),m=t.match(/const APPV="([^"]+)"/);
-  if(m&&m[1]!==APPV&&!$("nvb")){document.body.insertAdjacentHTML("beforeend",`<div id="nvb" class="nvb">🆕 ڤەشانەکا نوی یا پرۆگرامی هەیە <button type="button" onclick="location.reload()">نوی بکە</button></div>`)}}catch(e){}
+  if(!m||m[1]===APPV){const b=$("nvb");if(b)b.remove();return}
+  let tried="";try{tried=sessionStorage.getItem("updTried")||""}catch(e){}
+  if(auto&&tried!==m[1]&&!typing()){try{sessionStorage.setItem("updTried",m[1])}catch(e){}goNew();return}
+  if(!$("nvb")&&tried!==m[1]+"!")document.body.insertAdjacentHTML("beforeend",`<div id="nvb" class="nvb">🆕 ڤەشانەکا نوی یا پرۆگرامی هەیە <button type="button" id="nvbb">نوی بکە</button></div>`);
+  const bb=$("nvbb");if(bb)bb.onclick=()=>{try{sessionStorage.setItem("updTried",m[1]+"!")}catch(e){}goNew()};
+ }catch(e){}
 }
-setInterval(chkVer,3*60*1000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)chkVer()});setTimeout(chkVer,15000);
+setInterval(()=>chkVer(false),3*60*1000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)chkVer(true)});setTimeout(()=>chkVer(true),4000);
 </script>
 </body>
 </html>
